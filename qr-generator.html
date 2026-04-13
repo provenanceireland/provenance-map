@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Provenance QR Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #41754d;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #504838;
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      background: #0E100D;
+      border: 1px solid #1a1f18;
+      border-radius: 12px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #504838;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      background: #060807;
+      border: 1px solid #1f2620;
+      border-radius: 6px;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="url"]:focus {
+      border-color: #4A8A55;
+    }
+
+    input::placeholder { color: #504838; }
+
+    button {
+      background: #ffffff;
+      color: #060807;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+      width: 100%;
+    }
+
+    button:hover { background: #e8e8e8; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    #preview-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    #qr-canvas-wrapper {
+      background: #060807;
+      border: 1px solid #1a1f18;
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #qr-canvas-wrapper canvas {
+      display: block;
+      width: 280px;
+      height: 280px;
+      image-rendering: pixelated;
+    }
+
+    .download-btn {
+      background: #ffffff;
+      color: #060807;
+    }
+
+    .download-btn:hover { background: #e8e8e8; }
+
+    #error-msg {
+      color: #c44a4a;
+      font-size: 0.875rem;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Provenance</h1>
+  <p class="subtitle">QR Code Generator</p>
+
+  <div class="card">
+    <div>
+      <label for="url-input">URL</label>
+      <input type="url" id="url-input" placeholder="https://provenance.ie/producer/gorse-farm" autocomplete="off" />
+    </div>
+
+    <p id="error-msg">Please enter a valid URL.</p>
+
+    <button id="generate-btn">Generate QR Code</button>
+
+    <div id="preview-section">
+      <div id="qr-canvas-wrapper">
+        <canvas id="qr-canvas"></canvas>
+      </div>
+      <button class="download-btn" id="download-btn">Download PNG (1000 × 1000)</button>
+    </div>
+  </div>
+
+  <script>
+    const SIZE = 1000;
+    const MARGIN = 60;
+
+    const urlInput = document.getElementById('url-input');
+    const generateBtn = document.getElementById('generate-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const previewSection = document.getElementById('preview-section');
+    const canvas = document.getElementById('qr-canvas');
+    const errorMsg = document.getElementById('error-msg');
+
+    let exportCanvas = null;
+
+    function isValidUrl(str) {
+      try { new URL(str); return true; } catch { return false; }
+    }
+
+    async function buildCanvas(targetSize) {
+      const c = document.createElement('canvas');
+      c.width = targetSize;
+      c.height = targetSize;
+      const ctx = c.getContext('2d');
+
+      ctx.fillStyle = '#060807';
+      ctx.fillRect(0, 0, c.width, c.height);
+
+      const qrDataUrl = await QRCode.toDataURL(urlInput.value.trim(), {
+        width: targetSize,
+        margin: Math.round(targetSize / SIZE * MARGIN / 10),
+        color: {
+          dark: '#f8f8f3',
+          light: '#060807',
+        },
+        errorCorrectionLevel: 'H',
+      });
+
+      await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, targetSize, targetSize);
+          resolve();
+        };
+        img.src = qrDataUrl;
+      });
+
+      const borderWidth = Math.max(2, Math.round(targetSize * 0.003));
+      ctx.strokeStyle = '#FFD700';
+      ctx.lineWidth = borderWidth;
+      ctx.strokeRect(borderWidth / 2, borderWidth / 2, targetSize - borderWidth, targetSize - borderWidth);
+
+      return c;
+    }
+
+    generateBtn.addEventListener('click', async () => {
+      errorMsg.style.display = 'none';
+
+      const url = urlInput.value.trim();
+      if (!url || !isValidUrl(url)) {
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Generating…';
+
+      try {
+        const previewC = await buildCanvas(280);
+        const ctx = canvas.getContext('2d');
+        canvas.width = 280;
+        canvas.height = 280;
+        ctx.drawImage(previewC, 0, 0);
+
+        exportCanvas = await buildCanvas(SIZE);
+
+        previewSection.style.display = 'flex';
+      } catch (e) {
+        console.error(e);
+        errorMsg.textContent = 'Something went wrong. Check the URL and try again.';
+        errorMsg.style.display = 'block';
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Generate QR Code';
+      }
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      if (!exportCanvas) return;
+      const link = document.createElement('a');
+      link.download = 'provenance-qr.png';
+      link.href = exportCanvas.toDataURL('image/png');
+      link.click();
+    });
+
+    urlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') generateBtn.click();
+    });
+  </script>
+</body>
+</html>
