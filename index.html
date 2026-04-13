@@ -390,7 +390,8 @@
          data-product="Raw Whole Milk"
          data-description="A family farm producing raw whole milk from pasture-raised cows on the Wexford coast. The first producer to receive a Provenance POV farm visit."
          data-instagram="saltrockdairy"
-         data-website="https://saltrockdairy.ie">
+         data-website="https://saltrockdairy.ie"
+         data-photo="saltrock.jpg">
       <div class="pin-pulse"></div>
       <div class="pin-dot"></div>
     </div>
@@ -519,6 +520,14 @@
       document.getElementById('card-name').textContent     = pin.dataset.name;
       document.getElementById('card-location').textContent = pin.dataset.location;
       document.getElementById('card-product').textContent  = pin.dataset.product;
+
+      // Photo
+      const photoWrap = document.getElementById('card-photo-wrap');
+      if (pin.dataset.photo) {
+        photoWrap.innerHTML = `<img src="${pin.dataset.photo}" alt="${pin.dataset.name}" />`;
+      } else {
+        photoWrap.innerHTML = `<div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#f8f8f3" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+      }
 
       const desc    = document.getElementById('card-description');
       const divider = document.getElementById('card-divider');
