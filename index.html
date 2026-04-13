@@ -382,7 +382,7 @@
 
     <!-- FOUNDING PRODUCER — Saltrock Dairy Farm — Tier 2: POV Verified (€99) -->
     <div class="pin paid"
-         style="left:59%;top:70%"
+         data-x="59" data-y="70"
          data-tier="2"
          data-category="dairy"
          data-name="Saltrock Dairy Farm"
@@ -398,7 +398,7 @@
 
     <!-- FREE LISTING — Gorse Farm -->
     <div class="pin"
-         style="left:56%;top:68%"
+         data-x="56" data-y="68"
          data-tier="0"
          data-category="vegetables"
          data-name="Gorse Farm"
@@ -410,7 +410,7 @@
 
     <!-- FREE LISTING — All About Nectar -->
     <div class="pin"
-         style="left:60.5%;top:72.5%"
+         data-x="60.5" data-y="72.5"
          data-tier="0"
          data-category="honey"
          data-name="All About Nectar"
@@ -497,6 +497,31 @@
   </div>
 
   <script>
+    const mapImg = document.getElementById('map-img');
+
+    function positionPins() {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const iw = mapImg.naturalWidth;
+      const ih = mapImg.naturalHeight;
+      if (!iw || !ih) return;
+      const scale = Math.min(vw / iw, vh / ih);
+      const rw = iw * scale;
+      const rh = ih * scale;
+      const ox = (vw - rw) / 2;
+      const oy = (vh - rh) / 2;
+      document.querySelectorAll('.pin').forEach(pin => {
+        const px = parseFloat(pin.dataset.x) / 100;
+        const py = parseFloat(pin.dataset.y) / 100;
+        pin.style.left = (ox + px * rw) + 'px';
+        pin.style.top  = (oy + py * rh) + 'px';
+      });
+    }
+
+    mapImg.addEventListener('load', positionPins);
+    if (mapImg.complete) positionPins();
+    window.addEventListener('resize', positionPins);
+
     const card    = document.getElementById('card');
     const overlay = document.getElementById('overlay');
     const applyBtn = document.getElementById('apply-btn');
