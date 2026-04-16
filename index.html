@@ -385,6 +385,7 @@
     <div class="pin"
          data-x="73" data-y="63"
          data-tier="0"
+         data-badge="Verification in Progress"
          data-category="dairy"
          data-name="Saltrock Dairy Farm"
          data-location="Co. Wexford"
@@ -530,7 +531,7 @@
     const applyBtn = document.getElementById('apply-btn');
 
     const TIER_LABELS = {
-      0: { text: 'Free Listing',      cls: 'badge badge-free' },
+      0: { text: 'Free Listing',       cls: 'badge badge-free' },
       1: { text: 'Provenance Verified', cls: 'badge badge-paid' },
       2: { text: 'POV Verified',       cls: 'badge badge-paid' },
       3: { text: 'Provenance Seal',    cls: 'badge badge-paid' },
@@ -542,8 +543,9 @@
 
       // Badge
       const t = TIER_LABELS[tier] || TIER_LABELS[0];
+      const badgeText = pin.dataset.badge || t.text;
       document.getElementById('card-badge').innerHTML =
-        `<span class="${t.cls}">${t.text}</span>`;
+        `<span class="${t.cls}">${badgeText}</span>`;
 
       document.getElementById('card-name').textContent     = pin.dataset.name;
       document.getElementById('card-location').textContent = pin.dataset.location;
