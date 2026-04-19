@@ -566,8 +566,8 @@
           parseFloat(pin.dataset.lat),
           parseFloat(pin.dataset.lng)
         );
-        pin.style.left = (ox + x * rw) + 'px';
-        pin.style.top  = (oy + y * rh) + 'px';
+        pin.style.left = (ox + x * rw - 20) + 'px';
+        pin.style.top  = (oy + y * rh - 20) + 'px';
       });
     }
 
