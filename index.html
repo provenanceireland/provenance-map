@@ -538,7 +538,10 @@
     };
 
     function latLngToPercent(lat, lng) {
-      const x = CAL.refX + (lng - CAL.refLng) * CAL.scaleX;
+      // Use slightly different horizontal anchor for landscape (PC) vs portrait (mobile)
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const refX = isLandscape ? 82 : 85;
+      const x = refX + (lng - CAL.refLng) * CAL.scaleX;
       const y = CAL.refY + (CAL.refLat - lat) * CAL.scaleY;
       return { x: x / 100, y: y / 100 };
     }
