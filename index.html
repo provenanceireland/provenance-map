@@ -112,19 +112,20 @@
     /* ── PINS ── */
     .pin {
       position: absolute;
-      transform: translate(-50%, -50%);
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       padding: 20px;
-      margin: -20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .pin-icon {
-      width: 28px; height: 28px;
+      width: 17px; height: 17px;
       border-radius: 50%;
       background: #0E100D;
       border: 1.5px solid rgba(74,138,85,0.7);
-      box-shadow: 0 0 8px 2px rgba(74,138,85,0.35);
+      box-shadow: 0 0 6px 2px rgba(74,138,85,0.35);
       display: flex; align-items: center; justify-content: center;
       position: relative;
       z-index: 1;
@@ -132,7 +133,7 @@
     }
 
     .pin-icon svg {
-      width: 14px; height: 14px;
+      width: 9px; height: 9px;
       fill: #4A8A55;
     }
 
@@ -140,7 +141,7 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 28px; height: 28px;
+      width: 17px; height: 17px;
       border-radius: 50%;
       background: rgba(74,138,85,0.2);
       animation: pulse-green 2.8s ease-out infinite;
@@ -552,8 +553,8 @@
       document.querySelectorAll('.pin').forEach(pin => {
         const px = parseFloat(pin.dataset.x) / 100;
         const py = parseFloat(pin.dataset.y) / 100;
-        pin.style.left = (ox + px * rw) + 'px';
-        pin.style.top  = (oy + py * rh) + 'px';
+        pin.style.left = (ox + px * rw - 20) + 'px';
+        pin.style.top  = (oy + py * rh - 20) + 'px';
       });
     }
 
