@@ -120,7 +120,7 @@
     }
 
     .pin-dot {
-      width: 5px; height: 5px;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: #4A8A55;
       border: 1px solid rgba(248,248,243,0.8);
@@ -134,7 +134,7 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 5px; height: 5px;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: rgba(74,138,85,0.28);
       animation: pulse-green 2.8s ease-out infinite;
@@ -653,7 +653,10 @@
     }
 
     document.querySelectorAll('.pin').forEach(pin => {
-      pin.addEventListener('click', e => { e.stopPropagation(); openCard(pin); });
+      pin.querySelector('.pin-dot').addEventListener('click', e => {
+        e.stopPropagation();
+        openCard(pin);
+      });
     });
 
     overlay.addEventListener('click', closeCard);
