@@ -385,7 +385,7 @@
 
     <!-- FOUNDING PRODUCER — Saltrock Dairy Farm — Tier 2: POV Verified (€99) -->
     <div class="pin"
-         data-x="73" data-y="63"
+         data-lat="52.699" data-lng="-6.218"
          data-tier="0"
          data-badge="Verification in Progress"
          data-category="dairy"
@@ -402,7 +402,7 @@
 
     <!-- FREE LISTING — Gorse Farm -->
     <div class="pin"
-         data-x="67" data-y="64"
+         data-lat="52.655" data-lng="-6.652"
          data-tier="0"
          data-category="vegetables"
          data-name="Gorse Farm"
@@ -415,7 +415,7 @@
 
     <!-- FREE LISTING — Regan Organic Farm -->
     <div class="pin"
-         data-x="66" data-y="66"
+         data-lat="52.512" data-lng="-6.678"
          data-tier="0"
          data-category="chicken"
          data-name="Regan Organic Farm"
@@ -428,7 +428,7 @@
 
     <!-- FREE LISTING — Rathgarogue Organic Farm -->
     <div class="pin"
-         data-x="64" data-y="68"
+         data-lat="52.430" data-lng="-6.866"
          data-tier="0"
          data-category="eggs"
          data-name="Rathgarogue Organic Farm"
@@ -519,6 +519,18 @@
   <script>
     const mapImg = document.getElementById('map-img');
 
+    // Geographic bounds of the map image
+    const MAP_NORTH =  55.80;
+    const MAP_SOUTH =  51.00;
+    const MAP_WEST  = -11.40;
+    const MAP_EAST  =  -4.70;
+
+    function latLngToXY(lat, lng) {
+      const x = (lng - MAP_WEST)  / (MAP_EAST  - MAP_WEST);
+      const y = (MAP_NORTH - lat) / (MAP_NORTH  - MAP_SOUTH);
+      return { x, y };
+    }
+
     function positionPins() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
@@ -531,10 +543,11 @@
       const ox = (vw - rw) / 2;
       const oy = (vh - rh) / 2;
       document.querySelectorAll('.pin').forEach(pin => {
-        const px = parseFloat(pin.dataset.x) / 100;
-        const py = parseFloat(pin.dataset.y) / 100;
-        pin.style.left = (ox + px * rw) + 'px';
-        pin.style.top  = (oy + py * rh) + 'px';
+        const lat = parseFloat(pin.dataset.lat);
+        const lng = parseFloat(pin.dataset.lng);
+        const { x, y } = latLngToXY(lat, lng);
+        pin.style.left = (ox + x * rw - 20) + 'px';
+        pin.style.top  = (oy + y * rh - 20) + 'px';
       });
     }
 
