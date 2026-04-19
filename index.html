@@ -112,7 +112,8 @@
     /* ── PINS — FREE ── */
     .pin {
       position: absolute;
-      transform: translate(-50%, -50%);
+      width: 0; height: 0;
+      overflow: visible;
       -webkit-tap-highlight-color: transparent;
       pointer-events: none;
     }
@@ -123,7 +124,8 @@
       background: #4A8A55;
       border: 1px solid rgba(248,248,243,0.8);
       box-shadow: 0 0 6px 2px rgba(74,138,85,0.45);
-      position: relative;
+      position: absolute;
+      transform: translate(-50%, -50%);
       z-index: 1;
       cursor: pointer;
       pointer-events: all;
@@ -132,7 +134,7 @@
 
     .pin-pulse {
       position: absolute;
-      top: 50%; left: 50%;
+      top: 0; left: 0;
       transform: translate(-50%, -50%);
       width: 7px; height: 7px;
       border-radius: 50%;
@@ -150,14 +152,14 @@
 
     /* ── PINS — PAID ── */
     .pin.paid .pin-dot {
-      width: 4px; height: 4px;
+      width: 7px; height: 7px;
       background: #C4A44A;
       border: 2px solid rgba(248,248,243,0.95);
       box-shadow: 0 0 16px 5px rgba(196,164,74,0.55), 0 0 6px 1px rgba(196,164,74,0.8);
     }
 
     .pin.paid .pin-pulse {
-      width: 4px; height: 4px;
+      width: 7px; height: 7px;
       background: rgba(196,164,74,0.28);
       animation: pulse-gold 2.4s ease-out infinite;
     }
