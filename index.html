@@ -109,7 +109,7 @@
       color: #4A8A55;
     }
 
-    /* ── PINS — FREE ── */
+    /* ── PINS ── */
     .pin {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -119,52 +119,55 @@
       margin: -20px;
     }
 
-    .pin-dot {
-      width: 5px; height: 5px;
+    .pin-icon {
+      width: 28px; height: 28px;
       border-radius: 50%;
-      background: #4A8A55;
-      border: 1px solid rgba(248,248,243,0.8);
-      box-shadow: 0 0 6px 2px rgba(74,138,85,0.45);
+      background: #0E100D;
+      border: 1.5px solid rgba(74,138,85,0.7);
+      box-shadow: 0 0 8px 2px rgba(74,138,85,0.35);
+      display: flex; align-items: center; justify-content: center;
       position: relative;
       z-index: 1;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pin-icon svg {
+      width: 14px; height: 14px;
+      fill: #4A8A55;
     }
 
     .pin-pulse {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 5px; height: 5px;
+      width: 28px; height: 28px;
       border-radius: 50%;
-      background: rgba(74,138,85,0.28);
+      background: rgba(74,138,85,0.2);
       animation: pulse-green 2.8s ease-out infinite;
       pointer-events: none;
     }
 
     @keyframes pulse-green {
       0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.75; }
-      100% { transform: translate(-50%,-50%) scale(3.8); opacity: 0; }
+      100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; }
     }
 
-    .pin:active .pin-dot { transform: scale(1.45); }
+    .pin:active .pin-icon { transform: scale(1.15); }
 
     /* ── PINS — PAID ── */
-    .pin.paid .pin-dot {
-      width: 7px; height: 7px;
-      background: #C4A44A;
-      border: 2px solid rgba(248,248,243,0.95);
-      box-shadow: 0 0 16px 5px rgba(196,164,74,0.55), 0 0 6px 1px rgba(196,164,74,0.8);
+    .pin.paid .pin-icon {
+      border-color: rgba(196,164,74,0.8);
+      box-shadow: 0 0 12px 3px rgba(196,164,74,0.45);
     }
-
+    .pin.paid .pin-icon svg { fill: #C4A44A; }
     .pin.paid .pin-pulse {
-      width: 7px; height: 7px;
-      background: rgba(196,164,74,0.28);
+      background: rgba(196,164,74,0.2);
       animation: pulse-gold 2.4s ease-out infinite;
     }
 
     @keyframes pulse-gold {
       0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.85; }
-      100% { transform: translate(-50%,-50%) scale(4.2); opacity: 0; }
+      100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; }
     }
 
     /* ── APPLY BUTTON ── */
@@ -397,7 +400,7 @@
          data-website="https://saltrockdairy.ie"
          data-photo="saltrock.jpg">
       <div class="pin-pulse"></div>
-      <div class="pin-dot"></div>
+      <div class="pin-icon"></div>
     </div>
 
     <!-- FREE LISTING — Gorse Farm -->
@@ -410,7 +413,7 @@
          data-product="Salad &amp; Vegetables"
          data-photo="Gorse Farm.png">
       <div class="pin-pulse"></div>
-      <div class="pin-dot"></div>
+      <div class="pin-icon"></div>
     </div>
 
     <!-- FREE LISTING — Regan Organic Farm -->
@@ -423,7 +426,7 @@
          data-product="Organic Chicken"
          data-photo="Regan Farm.webp">
       <div class="pin-pulse"></div>
-      <div class="pin-dot"></div>
+      <div class="pin-icon"></div>
     </div>
 
     <!-- FREE LISTING — Rathgarogue Organic Farm -->
@@ -436,7 +439,7 @@
          data-product="Organic Eggs"
          data-photo="Rathgarogue.jpg">
       <div class="pin-pulse"></div>
-      <div class="pin-dot"></div>
+      <div class="pin-icon"></div>
     </div>
 
   </div>
@@ -519,6 +522,22 @@
   <script>
     const mapImg = document.getElementById('map-img');
 
+    const ICONS = {
+      dairy:      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 2h8l1 5H7L8 2zm-2 5v13a2 2 0 002 2h8a2 2 0 002-2V7H6zm3 3h6v2H9v-2z"/></svg>`,
+      vegetables: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C9 2 6 5 6 9c0 2.4 1.1 4.5 2.8 5.9L8 22h8l-.8-7.1C16.9 13.5 18 11.4 18 9c0-4-3-7-6-7zm0 2c2.2 0 4 2.2 4 5 0 1.8-.9 3.4-2.2 4.4l-.8.6.7 6H11l.7-6-.8-.6C9.9 12.4 9 10.8 9 9c0-2.8 1.8-5 3-5z"/></svg>`,
+      eggs:       `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C9 3 6 7.5 6 12a6 6 0 0012 0c0-4.5-3-9-6-9zm0 2c1.5 0 4 3.5 4 7a4 4 0 01-8 0c0-3.5 2.5-7 4-7z"/></svg>`,
+      chicken:    `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2c-1.1 0-2 .9-2 2 0 .4.1.8.3 1.1C10.5 5.6 9 7.6 9 10c0 1.5.5 2.9 1.4 4H8l-2 6h12l-2-6h-2.4c.9-1.1 1.4-2.5 1.4-4 0-2.4-1.5-4.4-3.3-4.9.2-.3.3-.7.3-1.1 0-1.1-.9-2-2-2zm0 2a.5.5 0 110 1 .5.5 0 010-1z"/></svg>`,
+      honey:      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.5 6h-7L12 2zm3.5 6l3.5 6h-7l3.5-6zm-7 0L12 14H5L8.5 8zM5 14h7l-3.5 6L5 14zm7 0h7l-3.5 6L12 14z"/></svg>`,
+      default:    `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6"/></svg>`,
+    };
+
+    function setIcons() {
+      document.querySelectorAll('.pin').forEach(pin => {
+        const icon = pin.querySelector('.pin-icon');
+        if (icon) icon.innerHTML = ICONS[pin.dataset.category] || ICONS.default;
+      });
+    }
+
     function positionPins() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
@@ -538,6 +557,7 @@
       });
     }
 
+    setIcons();
     mapImg.addEventListener('load', positionPins);
     if (mapImg.complete) positionPins();
     window.addEventListener('resize', positionPins);
