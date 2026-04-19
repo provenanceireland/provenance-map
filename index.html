@@ -520,10 +520,13 @@
     const mapImg = document.getElementById('map-img');
 
     // Geographic bounds of the map image
-    const MAP_NORTH =  55.80;
-    const MAP_SOUTH =  51.00;
-    const MAP_WEST  = -11.40;
-    const MAP_EAST  =  -4.70;
+    // Geographic bounds calibrated to this map image
+    // North = Malin Head area, South = Mizen Head area
+    // West = Achill, East = SE Wexford coast
+    const MAP_NORTH =  56.00;
+    const MAP_SOUTH =  50.77;
+    const MAP_WEST  = -11.52;
+    const MAP_EAST  =  -4.44;
 
     function latLngToXY(lat, lng) {
       const x = (lng - MAP_WEST)  / (MAP_EAST  - MAP_WEST);
@@ -546,8 +549,9 @@
         const lat = parseFloat(pin.dataset.lat);
         const lng = parseFloat(pin.dataset.lng);
         const { x, y } = latLngToXY(lat, lng);
-        pin.style.left = (ox + x * rw - 20) + 'px';
-        pin.style.top  = (oy + y * rh - 20) + 'px';
+        // transform: translate(-50%,-50%) centres the pin on the coordinate
+        pin.style.left = (ox + x * rw) + 'px';
+        pin.style.top  = (oy + y * rh) + 'px';
       });
     }
 
