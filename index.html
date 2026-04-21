@@ -152,21 +152,24 @@
 
     .pin:active .pin-dot { transform: scale(1.45); }
 
-    /* ── PINS — PAID ── */
-    .pin.paid .pin-dot {
+    /* ── PINS — TIER 1+ (paid) ── */
+    .pin.tier-1 .pin-dot,
+    .pin.tier-2 .pin-dot,
+    .pin.tier-3 .pin-dot {
       width: 7px; height: 7px;
-      background: #C4A44A;
+      background: #D4621A;
       border: 2px solid rgba(248,248,243,0.95);
-      box-shadow: 0 0 16px 5px rgba(196,164,74,0.55), 0 0 6px 1px rgba(196,164,74,0.8);
+      box-shadow: 0 0 16px 5px rgba(212,98,26,0.55), 0 0 6px 1px rgba(212,98,26,0.8);
     }
-
-    .pin.paid .pin-pulse {
+    .pin.tier-1 .pin-pulse,
+    .pin.tier-2 .pin-pulse,
+    .pin.tier-3 .pin-pulse {
       width: 7px; height: 7px;
-      background: rgba(196,164,74,0.28);
-      animation: pulse-gold 2.4s ease-out infinite;
+      background: rgba(212,98,26,0.28);
+      animation: pulse-orange 2.4s ease-out infinite;
     }
 
-    @keyframes pulse-gold {
+    @keyframes pulse-orange {
       0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.85; }
       100% { transform: translate(-50%,-50%) scale(4.2); opacity: 0; }
     }
@@ -690,6 +693,12 @@
     mapImg.addEventListener('load', positionPins);
     if (mapImg.complete) positionPins();
     window.addEventListener('resize', positionPins);
+
+    // Apply tier class to each pin for colour styling
+    document.querySelectorAll('.pin').forEach(pin => {
+      const tier = parseInt(pin.dataset.tier || '0');
+      if (tier > 0) pin.classList.add('tier-' + tier);
+    });
 
     const card    = document.getElementById('card');
     const overlay = document.getElementById('overlay');
