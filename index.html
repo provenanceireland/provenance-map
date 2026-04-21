@@ -283,6 +283,34 @@
       opacity: 0.08;
     }
 
+    /* Photo strip */
+    .card-photo-strip {
+      display: flex;
+      gap: 6px;
+      padding: 8px 14px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .card-photo-strip::-webkit-scrollbar { display: none; }
+    .card-photo-strip.hidden { display: none; }
+    .strip-thumb {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      background: #080a09;
+    }
+    .strip-thumb.active { border-color: #4A8A55; }
+    .strip-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* Body */
     .card-body {
       padding: 18px 22px calc(env(safe-area-inset-bottom, 16px) + 30px);
@@ -574,6 +602,7 @@
         </svg>
       </div>
     </div>
+    <div class="card-photo-strip hidden" id="card-photo-strip"></div>
 
     <div class="card-body">
       <div id="card-badge"></div>
@@ -683,12 +712,40 @@
       document.getElementById('card-location').textContent = pin.dataset.location;
       document.getElementById('card-product').textContent  = pin.dataset.product;
 
-      // Photo
-      const photoWrap = document.getElementById('card-photo-wrap');
-      if (pin.dataset.photo) {
-        photoWrap.innerHTML = `<img src="${pin.dataset.photo}" alt="${pin.dataset.name}" />`;
+      // Photo + strip
+      const photoWrap  = document.getElementById('card-photo-wrap');
+      const photoStrip = document.getElementById('card-photo-strip');
+      const allPhotos  = [
+        pin.dataset.photo,
+        ...(pin.dataset.photos ? pin.dataset.photos.split(',').map(s => s.trim()) : [])
+      ].filter(Boolean);
+
+      function showPhoto(src) {
+        photoWrap.innerHTML = `<img src="${src}" alt="${pin.dataset.name}" />`;
+        photoStrip.querySelectorAll('.strip-thumb').forEach(t => {
+          t.classList.toggle('active', t.dataset.src === src);
+        });
+      }
+
+      if (allPhotos.length > 0) {
+        showPhoto(allPhotos[0]);
       } else {
         photoWrap.innerHTML = `<div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#f8f8f3" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+      }
+
+      if (allPhotos.length > 1) {
+        photoStrip.innerHTML = allPhotos.map((src, i) =>
+          `<div class="strip-thumb${i === 0 ? ' active' : ''}" data-src="${src}">
+            <img src="${src}" alt="" />
+          </div>`
+        ).join('');
+        photoStrip.querySelectorAll('.strip-thumb').forEach(thumb => {
+          thumb.addEventListener('click', () => showPhoto(thumb.dataset.src));
+        });
+        photoStrip.classList.remove('hidden');
+      } else {
+        photoStrip.innerHTML = '';
+        photoStrip.classList.add('hidden');
       }
 
       const desc    = document.getElementById('card-description');
