@@ -72,42 +72,6 @@
       margin-top: 5px;
     }
 
-    /* ── FILTER ── */
-    #filter {
-      position: fixed;
-      top: calc(env(safe-area-inset-top, 20px) + 90px);
-      left: 0; right: 0;
-      z-index: 11;
-      display: flex;
-      gap: 7px;
-      padding: 0 20px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    #filter::-webkit-scrollbar { display: none; }
-
-    .filter-pill {
-      flex-shrink: 0;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: 1px solid rgba(74,138,85,0.28);
-      color: #504838;
-      background: rgba(6,8,7,0.75);
-      transition: all 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .filter-pill.active {
-      background: rgba(74,138,85,0.15);
-      border-color: rgba(74,138,85,0.55);
-      color: #4A8A55;
-    }
 
     /* ── PINS — FREE ── */
     .pin {
@@ -486,18 +450,6 @@
     <p>Real food. Named source. Verified producer.</p>
   </div>
 
-  <!-- FILTER -->
-  <div id="filter">
-    <button class="filter-pill active" data-filter="all">All</button>
-    <button class="filter-pill" data-filter="dairy">Dairy</button>
-    <button class="filter-pill" data-filter="vegetables">Vegetables</button>
-    <button class="filter-pill" data-filter="eggs">Eggs</button>
-    <button class="filter-pill" data-filter="chicken">Chicken</button>
-    <button class="filter-pill" data-filter="honey">Honey</button>
-    <button class="filter-pill" data-filter="oats">Oats</button>
-    <button class="filter-pill" data-filter="beef">Beef</button>
-    <button class="filter-pill" data-filter="seasalt">Sea Salt</button>
-  </div>
 
   <!-- APPLY BUTTON -->
   <a id="apply-btn" href="https://provenancemap.fillout.com/t/uhxfxup3ukus" target="_blank" rel="noopener">
@@ -752,19 +704,6 @@
       if (e.changedTouches[0].clientY - touchStartY > 60) closeCard();
     }, { passive: true });
 
-    // Category filter
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        const filter = pill.dataset.filter;
-        document.querySelectorAll('.pin').forEach(pin => {
-          pin.style.display =
-            (filter === 'all' || pin.dataset.category === filter) ? '' : 'none';
-        });
-        closeCard();
-      });
-    });
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js');
