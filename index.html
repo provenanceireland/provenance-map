@@ -87,9 +87,9 @@
     .pin-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
-      background: #4A8A55;
+      background: #2E5438;
       border: 1px solid rgba(248,248,243,0.8);
-      box-shadow: 0 0 6px 2px rgba(74,138,85,0.45);
+      box-shadow: 0 0 6px 2px rgba(46,84,56,0.45);
       position: relative;
       z-index: 1;
       cursor: pointer;
@@ -104,9 +104,18 @@
       transform: translate(-50%, -50%);
       width: 7px; height: 7px;
       border-radius: 50%;
-      background: rgba(74,138,85,0.28);
+      background: rgba(46,84,56,0.28);
       animation: pulse-green 2.8s ease-out infinite;
       pointer-events: none;
+    }
+
+    /* ── PINS — PROVENANCE APPROVED ── */
+    .pin.approved .pin-dot {
+      background: #4A8A55;
+      box-shadow: 0 0 6px 2px rgba(74,138,85,0.45);
+    }
+    .pin.approved .pin-pulse {
+      background: rgba(74,138,85,0.28);
     }
 
     @keyframes pulse-green {
