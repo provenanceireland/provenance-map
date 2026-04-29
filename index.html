@@ -424,6 +424,7 @@
          data-badge2="Provenance Founder"
          data-category="dairy"
          data-name="Saltrock Dairy Farm"
+         data-video="https://youtube.com/shorts/-Vf7Hr-8HIs?feature=share"
          data-location="Co. Wexford"
          data-product="Dairy Farm"
          data-description="A family farm on the Wexford coastline producing whole milk from grass fed pasture raised cows."
@@ -606,6 +607,13 @@
           <span id="card-website-text"></span>
         </a>
       </div>
+      <a class="card-link hidden" id="card-video" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Producer Visit</span>
+      </a>
     </div>
   </div>
 
@@ -779,6 +787,14 @@
         }
       } else {
         links.classList.add('hidden');
+      }
+
+      const videoEl = document.getElementById('card-video');
+      if (pin.dataset.video) {
+        videoEl.href = pin.dataset.video;
+        videoEl.classList.remove('hidden');
+      } else {
+        videoEl.classList.add('hidden');
       }
 
       card.classList.add('open');
