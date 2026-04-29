@@ -322,14 +322,18 @@
     }
     .badge-paid::before { background: #C4A44A; }
     /* ── PINS — GOLD (Provenance Visited) ── */
-    .pin.gold .pin-dot {
-      background: #C48E28;
-      border: 1px solid rgba(248,248,243,0.7);
-      box-shadow: 0 0 22px 8px rgba(196,142,40,0.75), 0 0 8px 2px rgba(196,142,40,1);
+    .pin.gold .pin-dot,
+    .pin.approved.gold .pin-dot {
+      width: 8.5px !important;
+      height: 8.5px !important;
+      background: #C48E28 !important;
+      border: none !important;
+      box-shadow: 0 0 22px 8px rgba(196,142,40,0.75), 0 0 8px 2px rgba(196,142,40,1) !important;
     }
-    .pin.gold .pin-pulse {
-      background: rgba(196,142,40,0.28);
-      animation: pulse-gold 2.4s ease-out infinite;
+    .pin.gold .pin-pulse,
+    .pin.approved.gold .pin-pulse {
+      background: rgba(196,142,40,0.28) !important;
+      animation: pulse-gold 2.4s ease-out infinite !important;
     }
     @keyframes pulse-gold {
       0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.85; }
