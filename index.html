@@ -609,6 +609,7 @@
     <div class="card-photo-strip hidden" id="card-photo-strip"></div>
 
     <div class="card-body">
+      <div id="card-badge"></div>
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
       <p class="card-product" id="card-product"></p>
@@ -725,12 +726,11 @@
       const tier   = parseInt(pin.dataset.tier || '0');
       const isPaid = tier >= 1;
 
-      // Badge
-      const t = TIER_LABELS[tier] || TIER_LABELS[0];
-      const badgeText = pin.dataset.badge || t.text;
-      let badgeHTML = `<span class="${t.cls}">${badgeText}</span>`;
+      // Badge — hide tier/status labels, only show badge2 (e.g. Provenance Founder)
+      const hiddenBadges = ['Free Listing', 'Provenance Approved', 'Provenance Visited', 'Verification in Progress'];
+      let badgeHTML = '';
       if (pin.dataset.badge2) {
-        badgeHTML += ` <span class="badge badge-founder">${pin.dataset.badge2}</span>`;
+        badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
