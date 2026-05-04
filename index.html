@@ -778,14 +778,8 @@
       const divider = document.getElementById('card-divider');
       const links   = document.getElementById('card-links');
 
-      if (pin.dataset.description) {
-        desc.textContent = pin.dataset.description;
-        desc.classList.remove('hidden');
-        divider.classList.remove('hidden');
-      } else {
-        desc.classList.add('hidden');
-        divider.classList.add('hidden');
-      }
+      desc.classList.add('hidden');
+      divider.classList.add('hidden');
 
       if (isPaid) {
         links.classList.remove('hidden');
