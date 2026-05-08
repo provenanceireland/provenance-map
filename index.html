@@ -72,6 +72,58 @@
       margin-top: 5px;
     }
 
+    #store-btn {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 20px) + 12px);
+      right: 16px;
+      z-index: 12;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 44px;
+      padding: 0 14px;
+      background: #060807;
+      border: 1px solid rgba(196,164,74,0.35);
+      border-radius: 6px;
+      color: #E8DEC8;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #store-btn:hover { border-color: #C4A44A; }
+    #store-btn svg {
+      width: 11px; height: 11px;
+      stroke: #C4A44A;
+      flex-shrink: 0;
+    }
+
+    #store-banner {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 20px) + 68px);
+      left: 0; right: 0;
+      z-index: 11;
+      background: #0E100D;
+      padding: 8px 20px;
+      text-align: center;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.60rem;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      color: #E8DEC8;
+      pointer-events: all;
+    }
+    #store-banner a {
+      color: #C4A44A;
+      text-decoration: none;
+    }
+    #store-banner a:hover { text-decoration: underline; }
+
 
     /* ── PINS — FREE ── */
     .pin {
@@ -584,6 +636,21 @@
   <div id="header">
     <h1>Provenance</h1>
     <p>Real food. Named source. Verified producer.</p>
+  </div>
+
+  <!-- STORE BUTTON -->
+  <a id="store-btn" href="https://provenanceireland.ie" target="_blank" rel="noopener">
+    Provenance Store
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  </a>
+
+  <!-- STORE BANNER -->
+  <div id="store-banner">
+    Every product. Named source. Full origin. — <a href="https://provenanceireland.ie" target="_blank" rel="noopener">Visit the Provenance Store</a>
   </div>
 
 
