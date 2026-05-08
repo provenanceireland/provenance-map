@@ -74,7 +74,7 @@
 
     #store-btn {
       position: fixed;
-      top: calc(env(safe-area-inset-top, 20px) + 12px);
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
       right: 16px;
       z-index: 12;
       display: inline-flex;
@@ -103,26 +103,6 @@
       flex-shrink: 0;
     }
 
-    #store-banner {
-      position: fixed;
-      top: calc(env(safe-area-inset-top, 20px) + 68px);
-      left: 0; right: 0;
-      z-index: 11;
-      background: #0E100D;
-      padding: 8px 20px;
-      text-align: center;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.60rem;
-      font-weight: 400;
-      letter-spacing: 0.10em;
-      color: #E8DEC8;
-      pointer-events: all;
-    }
-    #store-banner a {
-      color: #C4A44A;
-      text-decoration: none;
-    }
-    #store-banner a:hover { text-decoration: underline; }
 
 
     /* ── PINS — FREE ── */
@@ -648,10 +628,6 @@
     </svg>
   </a>
 
-  <!-- STORE BANNER -->
-  <div id="store-banner">
-    Every product. Named source. Full origin. — <a href="https://provenanceireland.ie" target="_blank" rel="noopener">Visit the Provenance Store</a>
-  </div>
 
 
   <!-- APPLY BUTTON -->
