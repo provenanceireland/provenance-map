@@ -1,0 +1,72 @@
+<div class="recently-visited">
+  <p class="recently-visited__heading">Recently visited</p>
+  <div class="recently-visited__pills">
+    <span class="recently-visited__pill">
+      <span class="recently-visited__dot"></span>
+      Saltrock Dairy Farm · Wexford
+    </span>
+    <span class="recently-visited__pill">
+      <span class="recently-visited__dot"></span>
+      Gorse Farm · Bunclody
+    </span>
+    {%- comment -%} Add further pills here {%- endcomment -%}
+  </div>
+</div>
+
+<style>
+  .recently-visited {
+    padding: 24px 0;
+  }
+
+  .recently-visited__heading {
+    margin: 0 0 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #504838;
+  }
+
+  .recently-visited__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .recently-visited__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background-color: #0E100D;
+    border: 0.5px solid #C4A44A;
+    border-radius: 20px;
+    color: #E8DEC8;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .recently-visited__dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #4A8A55;
+    flex-shrink: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Recently Visited",
+  "tag": "section",
+  "class": "recently-visited-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Recently Visited"
+    }
+  ]
+}
+{% endschema %}

@@ -386,6 +386,38 @@
       0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.85; }
       100% { transform: translate(-50%,-50%) scale(4.2); opacity: 0; }
     }
+    .pin.white .pin-dot {
+      background: #F8F8F3 !important;
+      box-shadow: 0 0 6px 2px rgba(248,248,243,0.2), 0 0 3px 1px rgba(248,248,243,0.3) !important;
+    }
+    .pin.white .pin-pulse {
+      background: rgba(248,248,243,0.2) !important;
+    }
+    .pin.black-border .pin-dot {
+      border: 1px solid rgba(0,0,0,0.7) !important;
+    }
+    .pin.gold-border .pin-dot,
+    .pin.approved.gold-border .pin-dot {
+      border: 1px solid rgba(196,164,74,0.9) !important;
+    }
+    .pin.custom-gold .pin-dot,
+    .pin.approved.custom-gold .pin-dot {
+      background: #C4A44A !important;
+      border: 1px solid rgba(255,255,255,0.8) !important;
+      box-shadow: 0 0 14px 4px rgba(196,164,74,0.55), 0 0 5px 2px rgba(196,164,74,0.75) !important;
+    }
+    .pin.custom-gold .pin-pulse,
+    .pin.approved.custom-gold .pin-pulse {
+      background: rgba(196,164,74,0.25) !important;
+    }
+    .pin.teal .pin-dot {
+      background: #2A7A6A !important;
+      border: 1px solid rgba(196,164,74,0.8) !important;
+      box-shadow: 0 0 14px 4px rgba(42,122,106,0.55), 0 0 5px 2px rgba(42,122,106,0.75) !important;
+    }
+    .pin.teal .pin-pulse {
+      background: rgba(42,122,106,0.25) !important;
+    }
 
     .badge-founder {
       background: rgba(248,248,243,0.08);
@@ -596,6 +628,19 @@
       <div class="pin-dot"></div>
     </div>
 
+    <!-- FREE LISTING — Windmill Honey -->
+    <div class="pin"
+         data-lat="52.516" data-lng="-7.889"
+         data-tier="0"
+         data-category="honey"
+         data-name="Windmill Honey"
+         data-location="Cashel, Co. Tipperary"
+         data-product="Honey"
+         data-photo="Windmillhoney.png.png">
+      <div class="pin-pulse"></div>
+      <div class="pin-dot"></div>
+    </div>
+
     <!-- FREE LISTING — All About Nectar -->
     <div class="pin"
          data-lat="52.288" data-lng="-6.444"
@@ -609,14 +654,27 @@
       <div class="pin-dot"></div>
     </div>
 
+    <!-- FREE LISTING — Spear & Arrow -->
+    <div class="pin"
+         data-lat="54.60" data-lng="-6.08"
+         data-tier="0"
+         data-category="broth"
+         data-name="Spear &amp; Arrow"
+         data-location="Larne, Northern Ireland"
+         data-product="Bone Broth"
+         data-photo="Spearandarrow.png">
+      <div class="pin-pulse"></div>
+      <div class="pin-dot"></div>
+    </div>
+
     <!-- PROVENANCE APPROVED — Staffords Butchers -->
     <div class="pin approved"
-         data-lat="52.500927280791444" data-lng="-6.569086365364968"
+         data-lat="52.50110050666063" data-lng="-6.56907427116428"
          data-tier="0"
          data-badge="Provenance Approved"
          data-category="beef"
          data-name="Staffords Butchers"
-         data-location="Kilanne, Co. Wexford"
+         data-location="Enniscorthy, Co. Wexford"
          data-product="Beef"
          data-photo="staffords.png"
          data-description="Hand reared angus beef in the foothills of the Black Stairs Mountains."
@@ -765,7 +823,14 @@
     }
 
     mapImg.addEventListener('load', positionPins);
-    if (mapImg.complete) positionPins();
+    if (mapImg.complete && mapImg.naturalWidth) {
+      positionPins();
+    } else if (mapImg.complete) {
+      // naturalWidth not yet available — retry after decode
+      mapImg.decode().then(positionPins).catch(() => {
+        requestAnimationFrame(positionPins);
+      });
+    }
     window.addEventListener('resize', positionPins);
 
     // Apply tier class to each pin for colour styling
