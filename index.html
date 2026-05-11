@@ -657,6 +657,7 @@
     <!-- FREE LISTING — iDevour -->
     <div class="pin"
          data-lat="54.61" data-lng="-6.40"
+         data-lat-desktop="54.84196333812645" data-lng-desktop="-5.857734049962995"
          data-tier="0"
          data-category="beef"
          data-name="iDevour"
@@ -825,11 +826,12 @@
       const rh = ih * scale;
       const ox = (vw - rw) / 2;
       const oy = (vh - rh) / 2;
+      const isLandscape = window.innerWidth > window.innerHeight;
       document.querySelectorAll('.pin').forEach(pin => {
-        const { x, y } = latLngToPercent(
-          parseFloat(pin.dataset.lat),
-          parseFloat(pin.dataset.lng)
-        );
+        const useLandscape = isLandscape && pin.dataset.latDesktop && pin.dataset.lngDesktop;
+        const lat = parseFloat(useLandscape ? pin.dataset.latDesktop : pin.dataset.lat);
+        const lng = parseFloat(useLandscape ? pin.dataset.lngDesktop : pin.dataset.lng);
+        const { x, y } = latLngToPercent(lat, lng);
         pin.style.left = (ox + x * rw - 20) + 'px';
         pin.style.top  = (oy + y * rh - 20) + 'px';
       });
