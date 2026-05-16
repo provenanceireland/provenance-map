@@ -229,11 +229,17 @@
       height: 160px;
       border: 0.5px solid rgba(30,58,40,0.35);
       border-radius: 8px;
-      background: #0E100D;
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 18px;
+      padding: 8px;
+    }
+
+    #qr-code canvas, #qr-code img {
+      width: 100% !important;
+      height: 100% !important;
     }
 
     .qr-placeholder svg {
@@ -430,16 +436,23 @@
   <!-- 5. QR CODE SECTION -->
   <div class="qr-section">
     <div class="qr-placeholder">
-      <svg viewBox="0 0 24 24">
-        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-        <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/>
-        <rect x="19" y="14" width="2" height="2"/><rect x="14" y="19" width="7" height="2"/>
-        <rect x="19" y="17" width="2" height="2"/>
-      </svg>
+      <div id="qr-code"></div>
     </div>
     <p class="qr-text">This QR code appears on every jar of Wexford Sea Salt sold through the Provenance Store</p>
     <p class="qr-subtext">Scan any jar to return to this page</p>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById('qr-code'), {
+      text: 'https://provenanceireland.github.io/provenance-map/producers/wexford-sea-salt.html',
+      width: 144,
+      height: 144,
+      colorDark: '#1E3A28',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
 
   <!-- 7. MAP LINK SECTION -->
   <div class="map-section">
