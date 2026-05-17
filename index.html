@@ -79,27 +79,29 @@
       z-index: 12;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       height: 44px;
-      padding: 0 10px;
-      background: #060807;
-      border: 1px solid rgba(196,164,74,0.35);
-      border-radius: 6px;
-      color: #E8DEC8;
+      padding: 0 14px;
+      background: #C4A44A;
+      border: none;
+      border-radius: 24px;
+      color: #060807;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.62rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
-      transition: border-color 0.2s;
+      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
+      transition: opacity 0.2s, transform 0.2s;
       -webkit-tap-highlight-color: transparent;
     }
-    #store-btn:hover { border-color: #C4A44A; }
+    #store-btn:hover { opacity: 0.88; }
+    #store-btn:active { transform: scale(0.97); }
     #store-btn svg {
-      width: 11px; height: 11px;
-      stroke: #C4A44A;
+      width: 13px; height: 13px;
+      stroke: #060807;
       flex-shrink: 0;
     }
 
