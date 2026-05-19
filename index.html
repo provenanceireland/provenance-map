@@ -1033,6 +1033,13 @@
         profileEl.classList.add('hidden');
       }
 
+      // Reset pinch-zoom so card is fully visible
+      const viewport = document.querySelector('meta[name=viewport]');
+      viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover');
+      setTimeout(() => {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
+      }, 300);
+
       card.classList.add('open');
       overlay.classList.add('active');
       applyBtn.style.display = 'none';
