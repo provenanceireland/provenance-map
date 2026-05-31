@@ -448,6 +448,27 @@
     <p class="seal-text"><em>This is what a food label should look like.</em></p>
   </div>
 
+  <!-- 6. QR CODE -->
+  <div class="qr-section">
+    <div class="qr-placeholder">
+      <div id="qr-code"></div>
+    </div>
+    <p class="qr-text">This QR code appears on selected batches of Gorse Farm salad bags</p>
+    <p class="qr-subtext">Scan any bag to return to this page</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById('qr-code'), {
+      text: 'https://provenancemap.ie/producers/gorse-farm.html',
+      width: 144,
+      height: 144,
+      colorDark: '#1E3A28',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+
   <!-- 7. MAP LINK -->
   <div class="map-section">
     <div class="map-pin-icon"></div>
