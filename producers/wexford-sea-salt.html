@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wexford Sea Salt — Provenance</title>
-  <meta name="description" content="Wexford Sea Salt. Hand harvested from the Irish Sea along the Wexford coast. Sun dried. Nothing added. Verified by Provenance." />
+  <meta name="description" content="Wexford Sea Salt. Hand harvested from the Irish Sea along the Wexford coast. Sun dried. Nothing added. Gold winner, Blas na hÉireann 2024. Verified by Provenance." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
@@ -71,24 +71,24 @@
       border-bottom: 0.5px solid rgba(30,58,40,0.12);
     }
 
-    .store-badge {
+    .founder-badge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 12px;
-      border: 0.5px solid rgba(30,58,40,0.6);
+      gap: 4px;
+      padding: 3px 7px;
+      border: 0.5px solid rgba(255,255,255,0.3);
       border-radius: 20px;
-      font-size: 10px;
-      letter-spacing: 2px;
+      font-size: 7px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: #1E3A28;
-      margin-bottom: 24px;
+      color: #ffffff;
+      margin-bottom: 20px;
     }
 
-    .store-badge-dot {
-      width: 5px; height: 5px;
+    .founder-badge-dot {
+      width: 3px; height: 3px;
       border-radius: 50%;
-      background: #1E3A28;
+      background: #ffffff;
       flex-shrink: 0;
     }
 
@@ -103,10 +103,11 @@
     }
 
     .hero-location {
-      font-size: 13px;
+      font-size: 12px;
       color: #C4A44A;
       letter-spacing: 0.5px;
       margin-bottom: 4px;
+      line-height: 1.5;
     }
 
     .hero-product {
@@ -171,57 +172,123 @@
       color: #E8DEC8;
     }
 
-    /* ── BUY SECTION ── */
-    .buy-section {
-      padding: 40px 24px 32px;
-      border-top: 0.5px solid rgba(30,58,40,0.12);
-      margin-top: 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* ── FOUNDERS SECTION ── */
+    .growers-section {
+      margin: 0 24px 36px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.15);
+    }
+
+    .growers-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+    }
+
+    .growers-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .growers-text:last-child { margin-bottom: 0; }
+
+    .growers-text em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    /* ── MINERAL DATA SECTION ── */
+    .mineral-section {
+      margin: 0 24px 36px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.15);
+    }
+
+    .mineral-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .mineral-item {
+      padding: 14px;
+      background: rgba(196,164,74,0.05);
+      border: 0.5px solid rgba(196,164,74,0.2);
+      border-radius: 6px;
       text-align: center;
     }
 
-    .buy-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      background: #C4A44A;
-      color: #060807;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 24px;
-      height: 44px;
-      padding: 0 28px;
-      text-decoration: none;
-      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
-      transition: opacity 0.2s, transform 0.2s;
-      width: 100%;
-      max-width: 320px;
+    .mineral-value {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: #C4A44A;
+      line-height: 1;
+      margin-bottom: 4px;
     }
 
-    .buy-btn:hover { opacity: 0.88; }
-    .buy-btn:active { transform: scale(0.97); }
+    .mineral-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #504838;
+    }
 
-    .buy-price {
+    .mineral-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+    }
+
+    /* ── SEAL SECTION ── */
+    .seal-section {
+      margin: 0 24px 36px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seal-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(to right, #C4A44A, transparent);
+    }
+
+    .seal-heading {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 400;
       color: #E8DEC8;
-      margin-top: 18px;
+      margin-bottom: 16px;
+      line-height: 1.3;
     }
 
-    .buy-note {
-      font-size: 11px;
-      color: #504838;
-      margin-top: 10px;
-      line-height: 1.6;
-      letter-spacing: 0.3px;
+    .seal-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .seal-text:last-child { margin-bottom: 0; }
+
+    .seal-text em {
+      font-style: italic;
+      color: #C4A44A;
     }
 
     /* ── QR SECTION ── */
@@ -251,13 +318,6 @@
       height: 100% !important;
     }
 
-    .qr-placeholder svg {
-      width: 40px; height: 40px;
-      stroke: #504838;
-      fill: none;
-      stroke-width: 1;
-    }
-
     .qr-text {
       font-size: 13px;
       color: #E8DEC8;
@@ -270,39 +330,6 @@
       font-size: 11px;
       color: #504838;
       letter-spacing: 0.5px;
-    }
-
-    /* ── LINKS SECTION ── */
-    .links-section {
-      padding: 0 24px 36px;
-      display: flex;
-      gap: 12px;
-    }
-
-    .link-btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 12px;
-      background: #0E100D;
-      border: 0.5px solid rgba(30,58,40,0.3);
-      border-radius: 6px;
-      font-size: 12px;
-      color: #E8DEC8;
-      letter-spacing: 0.5px;
-      transition: border-color 0.2s;
-    }
-
-    .link-btn:hover { border-color: rgba(30,58,40,0.7); }
-
-    .link-btn svg {
-      width: 15px; height: 15px;
-      stroke: #C4A44A;
-      fill: none;
-      stroke-width: 1.5;
-      flex-shrink: 0;
     }
 
     /* ── MAP SECTION ── */
@@ -333,7 +360,7 @@
     .map-pin-icon {
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: #2E5438;
+      background: #4A8A55;
       box-shadow: 0 0 10px 3px rgba(74,138,85,0.5);
       margin: 0 auto 14px;
     }
@@ -403,11 +430,17 @@
     </a>
   </header>
 
-  <!-- 2. PRODUCER HERO -->
+  <!-- 2. HERO -->
   <section class="hero">
+    <div class="founder-badge">
+      <div class="founder-badge-dot"></div>
+      Provenance Founder
+    </div>
     <h1 class="hero-name">Wexford Sea Salt</h1>
-    <p class="hero-location">Wexford</p>
+    <p class="hero-location">Ballyvaldon, Blackwater, Co. Wexford</p>
     <p class="hero-product">Hand Harvested Irish Sea Salt</p>
+    <div class="hero-divider"></div>
+    <p class="hero-description">At Wexford Sea Salt, the best flavours come from nature. Nestled along the pristine coastline of Wexford, their sea salt is harvested using traditional methods that honour the purity of the ocean and the heritage of their community. Hand-harvested and unrefined, dried naturally under the sun and wind, preserving the ocean's moisture and essential trace elements. Gold winner at the 2024 Blas na hÉireann Awards. Ireland's Best Sea Salt.</p>
   </section>
 
   <!-- 3. ORIGIN -->
@@ -416,33 +449,73 @@
 
     <div class="question-card">
       <h3>Where exactly does this come from?</h3>
-      <p>Irish Sea along the Wexford coastline in Ireland's sunny southeast.</p>
+      <p>The Irish Sea along the Wexford coastline in Ireland's sunny southeast. Hand-collected seawater is transported to the production site where filtered seawater flows through a sequence of evaporative ponds. Salt brines crystallise in the final ponds before the harvested salt is dried under the sun and packed for delivery. One coastline. One source. Nothing else.</p>
     </div>
 
     <div class="question-card">
       <h3>How is it made or harvested?</h3>
-      <p>Hand harvested from Irish seawater using traditional methods. Dried naturally under the sun and the wind of the Wexford Coast.</p>
+      <p>Ancient techniques and fully renewable energy. The process begins with hand-collected seawater transported to the production site. Filtered seawater flows through a sequence of evaporative ponds. Salt brines crystallise in the final ponds. The salt is then dried naturally under the sun and wind of the Wexford coast, preserving the ocean's moisture and essential trace elements. No artificial drying. No heat processing. 1,008 hours of sunshine in every crystal.</p>
     </div>
 
     <div class="question-card">
       <h3>What is in it?</h3>
-      <p>Pure Irish sea salt. Unrefined. It retains the ocean's natural trace elements and minerals.</p>
+      <p>Pure Irish sea salt. Unrefined. Naturally lower in sodium. No washing, no bleaching, no post-harvest treatments and no anti-caking agents. One ingredient. The Irish Sea. Nothing added. Nothing taken away.</p>
     </div>
 
     <div class="question-card">
       <h3>Why does this meet the Provenance standard?</h3>
-      <p>Harvested from named Wexford coastline using traditional methods powered entirely by renewable energy.</p>
+      <p>Wexford Sea Salt uses 100% off-grid renewable energy sources, such as wind and solar power. Every batch undergoes rigorous screening and analysis to meet stringent food quality and safety standards set by the Environmental Health Office. The production is named, the coastline is named, the process is documented and the founders are real people whose story is told here. Recommended by McKenna Guides, whose support celebrates Ireland's most passionate food producers, recognising their commitment to traditional methods, local sourcing and the unique coastal character of Wexford Sea Salt.</p>
     </div>
 
   </div>
 
+  <!-- 4. THE FOUNDERS -->
+  <p class="section-label">The Founders</p>
+  <div class="growers-section">
+    <p class="growers-name">Jack &amp; Kevin N'Guinan</p>
+    <p class="growers-text">Jack, with his culinary passion, inherited a love of natural ingredients from his mother's and grandmother's kitchen in Poland. Fostered in the Polish countryside and enhanced on the Wexford coastline, Jack had always been captivated by the flavours and nuances that sea salt could bring to his dishes.</p>
+    <p class="growers-text">Kevin, a Wexford-born Architectural Technician with an eye for design, saw the potential to build unique evaporation ponds drawing on traditional sea salt marshes found in the warmer climates of France and Spain, while keeping in mind the Irish weather.</p>
+    <p class="growers-text">Together Jack and Kevin embarked on their Wexford adventure, diving into the coastal rhythms and gaining deep insights into the land-sea connection. They mastered the time-honoured salt-making process, from collecting pristine seawater to patient evaporation, yielding the purest sea salt crystals.</p>
+  </div>
 
-  <!-- 5. QR CODE SECTION -->
+  <!-- 5. THE MINERAL DATA -->
+  <p class="section-label">The Mineral Data</p>
+  <div class="mineral-section">
+    <div class="mineral-grid">
+      <div class="mineral-item">
+        <p class="mineral-value">0.69%</p>
+        <p class="mineral-label">Calcium</p>
+      </div>
+      <div class="mineral-item">
+        <p class="mineral-value">0.38%</p>
+        <p class="mineral-label">Magnesium</p>
+      </div>
+      <div class="mineral-item">
+        <p class="mineral-value">0.14%</p>
+        <p class="mineral-label">Potassium</p>
+      </div>
+      <div class="mineral-item">
+        <p class="mineral-value">0.15mg/kg</p>
+        <p class="mineral-label">Iodine</p>
+      </div>
+    </div>
+    <p class="mineral-text">Independent analysis confirms a mineral profile that reflects the unrefined character of salt harvested from a living ocean and dried by natural weather rather than industrial processing. No harmful bacteria detected.</p>
+  </div>
+
+  <!-- 6. THE PROVENANCE SEAL -->
+  <p class="section-label">The Provenance Seal</p>
+  <div class="seal-section">
+    <h2 class="seal-heading">Scan the jar.<br>See the source.</h2>
+    <p class="seal-text">Every jar of Wexford Sea Salt stocked through the Provenance Map carries a QR code linking back to this page. Scan it and see exactly where your salt came from, how it was made and who made it.</p>
+    <p class="seal-text"><em>This is what a food label should look like.</em></p>
+  </div>
+
+  <!-- 7. QR CODE -->
   <div class="qr-section">
     <div class="qr-placeholder">
       <div id="qr-code"></div>
     </div>
-    <p class="qr-text">This QR code appears on every jar of Wexford Sea Salt sold through the Provenance Store</p>
+    <p class="qr-text">This QR code appears on every jar of Wexford Sea Salt sold through the Provenance Map</p>
     <p class="qr-subtext">Scan any jar to return to this page</p>
   </div>
 
@@ -458,14 +531,14 @@
     });
   </script>
 
-  <!-- 7. MAP LINK SECTION -->
+  <!-- 8. MAP LINK -->
   <div class="map-section">
     <div class="map-pin-icon"></div>
     <p class="map-verified">Wexford Sea Salt is verified<br>on the Provenance Map</p>
     <a href="../index.html" class="map-btn">See on the Map</a>
   </div>
 
-  <!-- 8. FOOTER -->
+  <!-- 9. FOOTER -->
   <footer class="site-footer">
     <p class="footer-logo">Provenance</p>
     <p class="footer-url">provenancemap.ie</p>
