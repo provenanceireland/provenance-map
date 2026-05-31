@@ -379,6 +379,28 @@
       letter-spacing: 1px;
       font-style: italic;
     }
+
+    /* ── VIDEO SECTION ── */
+    .video-section {
+      padding: 0 24px;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 177.78%; /* 9:16 for Shorts */
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0E100D;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -404,6 +426,20 @@
     <div class="hero-divider"></div>
     <p class="hero-description">A certified organic market garden run by Jenny Watkins and Janet Power, two nature enthusiasts with a passion for healthy natural foods. On half an acre of south-facing growing space in the foothills of Mount Leinster, they grow organic leafy greens and vegetables.</p>
   </section>
+
+  <!-- PRODUCER VISIT VIDEO -->
+  <div class="video-section">
+    <p class="section-label" style="padding-top:36px;padding-bottom:14px;">The Visit</p>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/h1sKgbvRvjo"
+        title="Gorse Farm — Provenance Visit"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
 
   <!-- 3. ORIGIN -->
   <p class="section-label">Origin</p>
