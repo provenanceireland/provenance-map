@@ -80,46 +80,7 @@
       margin-top: 5px;
     }
 
-    #store-btn {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
-      left: 20px;
-      z-index: 12;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      height: 44px;
-      padding: 0 14px;
-      background: #C4A44A;
-      border: none;
-      border-radius: 24px;
-      color: #060807;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
-      transition: opacity 0.2s, transform 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    #store-btn:hover { opacity: 0.88; }
-    #store-btn:active { transform: scale(0.97); }
-    #store-btn svg {
-      width: 13px; height: 13px;
-      stroke: #060807;
-      flex-shrink: 0;
-    }
-
     @media (max-width: 400px) {
-      #store-btn {
-        font-size: 0.54rem;
-        padding: 0 8px;
-        gap: 4px;
-        left: 12px;
-      }
       #apply-btn {
         font-size: 0.60rem;
         padding: 0 10px;
@@ -898,15 +859,6 @@
     <p>Real food. Named source. Verified producer.</p>
   </div>
 
-  <!-- STORE BUTTON -->
-  <a id="store-btn" href="https://provenanceireland.ie" target="_blank" rel="noopener">
-    Provenance Store
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-      <polyline points="15 3 21 3 21 9"/>
-      <line x1="10" y1="14" x2="21" y2="3"/>
-    </svg>
-  </a>
 
 
 
