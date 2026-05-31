@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gorse Farm — Provenance</title>
+  <meta name="description" content="Gorse Farm. Certified organic market garden run by Jenny Watkins and Janet Power. Bunclody, Co. Wexford. Verified by Provenance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.15);
+    }
+
+    .site-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #E8DEC8;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #504838;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #C4A44A; }
+
+    .back-link svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 24px 32px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.12);
+    }
+
+    .founder-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      border: 0.5px solid rgba(196,164,74,0.4);
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      margin-bottom: 20px;
+    }
+
+    .founder-badge-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #C4A44A;
+      flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #E8DEC8;
+      margin-bottom: 10px;
+    }
+
+    .hero-location {
+      font-size: 12px;
+      color: #C4A44A;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .hero-product {
+      font-size: 13px;
+      color: #C4A44A;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 0.5px;
+      background: rgba(30,58,40,0.4);
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #E8DEC8;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      padding: 36px 24px 16px;
+    }
+
+    /* ── PROVENANCE QUESTIONS ── */
+    .questions {
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .question-card {
+      background: #0E100D;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 20px 20px 18px;
+    }
+
+    .question-card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .question-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E8DEC8;
+    }
+
+    /* ── GROWERS SECTION ── */
+    .growers-section {
+      margin: 0 24px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.15);
+    }
+
+    .growers-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+    }
+
+    .growers-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .growers-text:last-child { margin-bottom: 0; }
+
+    .growers-text em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    /* ── SEAL SECTION ── */
+    .seal-section {
+      margin: 0 24px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seal-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(to right, #C4A44A, transparent);
+    }
+
+    .seal-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      margin-bottom: 12px;
+    }
+
+    .seal-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .seal-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .seal-text:last-child { margin-bottom: 0; }
+
+    .seal-text em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    /* ── QR SECTION ── */
+    .qr-section {
+      padding: 48px 24px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .qr-placeholder {
+      width: 160px;
+      height: 160px;
+      border: 0.5px solid rgba(30,58,40,0.35);
+      border-radius: 8px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      padding: 8px;
+    }
+
+    #qr-code canvas, #qr-code img {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .qr-text {
+      font-size: 13px;
+      color: #E8DEC8;
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 8px;
+    }
+
+    .qr-subtext {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── MAP SECTION ── */
+    .map-section {
+      margin: 0 24px 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: #0E100D url('../ireland-map.png.png') 72% 60% / cover no-repeat;
+    }
+
+    .map-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(6,8,7,0.72);
+    }
+
+    .map-section > * { position: relative; z-index: 1; }
+
+    .map-pin-icon {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4A8A55;
+      box-shadow: 0 0 10px 3px rgba(74,138,85,0.5);
+      margin: 0 auto 14px;
+    }
+
+    .map-verified {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #E8DEC8;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .map-btn {
+      display: inline-block;
+      padding: 11px 28px;
+      border: 0.5px solid rgba(30,58,40,0.6);
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      transition: background 0.2s;
+    }
+
+    .map-btn:hover { background: rgba(30,58,40,0.08); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 32px 24px;
+      border-top: 0.5px solid rgba(30,58,40,0.12);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #E8DEC8;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .footer-url {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="site-header">
+    <a href="../index.html" class="site-logo">Provenance</a>
+    <a href="../index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to the Map
+    </a>
+  </header>
+
+  <!-- 2. HERO -->
+  <section class="hero">
+    <div class="founder-badge">
+      <div class="founder-badge-dot"></div>
+      Provenance Founder
+    </div>
+    <h1 class="hero-name">Gorse Farm</h1>
+    <p class="hero-location">New Deerpark, Bunclody, County Wexford<br>Foothills of Mount Leinster, Carlow–Wexford border</p>
+    <p class="hero-product">Certified Organic Market Garden</p>
+    <div class="hero-divider"></div>
+    <p class="hero-description">A certified organic market garden run by Jenny Watkins and Janet Power, two nature enthusiasts with a passion for healthy natural foods. On half an acre of south-facing growing space in the foothills of Mount Leinster, they grow organic leafy greens and vegetables.</p>
+  </section>
+
+  <!-- 3. ORIGIN -->
+  <p class="section-label">Origin</p>
+  <div class="questions">
+
+    <div class="question-card">
+      <h3>Where exactly does this come from?</h3>
+      <p>Gorse Farm is located in Bunclody on the border between the counties of Carlow and Wexford, in a scenic spot looking out at Mount Leinster and the Blackstairs mountain range. The specific growing beds sit on half an acre of south-facing land. The farm is three acres in total, with the remaining land dedicated to nature.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>How is it grown?</h3>
+      <p>Farming at Gorse Farm is based around nurturing the soil and protecting the environment. Growing with nature ensures that their soil is rich in minerals, which in turn ensures that crops are both high in nutrients and delicious. Even with limited space they give 25% of their land to nature through developing new hedgerows, shelter belts, flowers and allowing rewilding. Every crop is harvested by hand and packed for local distribution.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>What is in it?</h3>
+      <p>Produce is free from chemicals and pesticides. Salad bags contain up to twelve different varieties of leaves depending on the season — from lettuces and mild Chinese mustard leaves to rocket, spinach, kale and edible flowers. One ingredient. Named soil. Named growers. Nothing added.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>Why does this meet the Provenance standard?</h3>
+      <p>The vegetable garden received full organic certification in February 2018. Janet and Jenny's commitment to growing food for their community that is not just certified organic but nutrient dense and grown in a way that protects and enhances nature on their holding is an inspiration. They share their passion with their community through walks, talks and engagement — building strong connections between their farm, their customers and nature. Janet is a former board member of the Irish Organic Association and a passionate advocate of small-scale food production, having spoken at Talamh Beo forums on local food systems.</p>
+    </div>
+
+  </div>
+
+  <!-- 4. THE GROWERS -->
+  <p class="section-label">The Growers</p>
+  <div class="growers-section">
+    <p class="growers-name">Janet Power &amp; Jenny Watkins</p>
+    <p class="growers-text">Janet is a passionate advocate of agroecology and local food and an active member of <em>Talamh Beo</em> — Ireland's farmers and citizens organisation working for agroecology, regenerative farming and food sovereignty. Talamh Beo are Ireland's only members of the European Coordination Via Campesina — itself part of La Via Campesina, the international movement of farmers with more than 180 member organisations in 82 countries.</p>
+    <p class="growers-text">Janet believes that people in Ireland want to eat Irish grown produce. The demand is there but there isn't enough supply. Gorse Farm is one of the farms proving that small-scale organic production is commercially viable, ecologically sound and worth protecting.</p>
+  </div>
+
+  <!-- 5. THE PROVENANCE SEAL -->
+  <p class="section-label">The Provenance Seal</p>
+  <div class="seal-section">
+    <p class="seal-label">V3 Trial — Founding Producer</p>
+    <h2 class="seal-heading">Scan the bag.<br>See the farm.</h2>
+    <p class="seal-text">Gorse Farm is one of the founding producers participating in the Provenance Seal trial. A QR code on selected batches of their salad bags links directly to this profile. Scan it and see exactly where your food was grown, how it was grown and who grew it.</p>
+    <p class="seal-text"><em>This is what a food label should look like.</em></p>
+  </div>
+
+  <!-- 6. QR CODE -->
+  <div class="qr-section">
+    <div class="qr-placeholder">
+      <div id="qr-code"></div>
+    </div>
+    <p class="qr-text">This QR code appears on selected batches of Gorse Farm salad bags</p>
+    <p class="qr-subtext">Scan any bag to return to this page</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById('qr-code'), {
+      text: 'https://provenancemap.ie/producers/gorse-farm.html',
+      width: 144,
+      height: 144,
+      colorDark: '#1E3A28',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+
+  <!-- 7. MAP LINK -->
+  <div class="map-section">
+    <div class="map-pin-icon"></div>
+    <p class="map-verified">Gorse Farm is verified<br>on the Provenance Map</p>
+    <a href="../index.html" class="map-btn">See on the Map</a>
+  </div>
+
+  <!-- 8. FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-logo">Provenance</p>
+    <p class="footer-url">provenancemap.ie</p>
+    <p class="footer-tagline">Every product. Named source. Full origin.</p>
+  </footer>
+
+</body>
+</html>
