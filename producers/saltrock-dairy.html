@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saltrock Dairy Farm — Provenance</title>
+  <meta name="description" content="Saltrock Dairy Farm. Non-homogenised pasteurised milk from grass-fed cows on the Wexford coast. Catherine and Paul Kinsella. Verified by Provenance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.15);
+    }
+
+    .site-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #504838;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #C4A44A; }
+
+    .back-link svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 24px 32px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.12);
+    }
+
+    .founder-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border: 0.5px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      font-size: 7px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .founder-badge-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #E8DEC8;
+      margin-bottom: 10px;
+    }
+
+    .hero-location {
+      font-size: 12px;
+      color: #C4A44A;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .hero-product {
+      font-size: 13px;
+      color: #C4A44A;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 0.5px;
+      background: rgba(30,58,40,0.4);
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #E8DEC8;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      padding: 36px 24px 16px;
+    }
+
+    /* ── PROVENANCE QUESTIONS ── */
+    .questions {
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .question-card {
+      background: #0E100D;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 20px 20px 18px;
+    }
+
+    .question-card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .question-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E8DEC8;
+    }
+
+    /* ── FARMERS SECTION ── */
+    .growers-section {
+      margin: 0 24px 48px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.15);
+    }
+
+    .growers-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+    }
+
+    .growers-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .growers-text:last-child { margin-bottom: 0; }
+
+    .growers-text em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    /* ── MAP SECTION ── */
+    .map-section {
+      margin: 0 24px 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: #0E100D url('../ireland-map.png.png') 79% 65% / cover no-repeat;
+    }
+
+    .map-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(6,8,7,0.72);
+    }
+
+    .map-section > * { position: relative; z-index: 1; }
+
+    .map-pin-icon {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4A8A55;
+      box-shadow: 0 0 10px 3px rgba(74,138,85,0.5);
+      margin: 0 auto 14px;
+    }
+
+    .map-verified {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #E8DEC8;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .map-btn {
+      display: inline-block;
+      padding: 11px 28px;
+      border: 0.5px solid rgba(30,58,40,0.6);
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      transition: background 0.2s;
+    }
+
+    .map-btn:hover { background: rgba(30,58,40,0.08); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 32px 24px;
+      border-top: 0.5px solid rgba(30,58,40,0.12);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #E8DEC8;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .footer-url {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+
+    /* ── VIDEO SECTION ── */
+    .video-section {
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 177.78%; /* 9:16 at 100% width */
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0E100D;
+    }
+
+    @media (max-width: 480px) {
+      .video-wrap {
+        width: 100%;
+        padding-bottom: 177.78%;
+      }
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="site-header">
+    <a href="../index.html" class="site-logo">Provenance</a>
+    <a href="../index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to the Map
+    </a>
+  </header>
+
+  <!-- 2. HERO -->
+  <section class="hero">
+    <div class="founder-badge">
+      <div class="founder-badge-dot"></div>
+      Provenance Founder
+    </div>
+    <h1 class="hero-name">Saltrock Dairy Farm</h1>
+    <p class="hero-location">Gorey, Co. Wexford</p>
+    <p class="hero-product">Non-homogenised Pasteurised Milk</p>
+    <div class="hero-divider"></div>
+    <p class="hero-description">Saltrock Farm is a 70-acre coastal farm in North Wexford naturally suited to grass growth. Catherine and Paul Kinsella produce non-homogenised, pasteurised milk and sell direct to the customer — bypassing every step of the industrial dairy chain that sits between a Wexford cow and the person drinking its milk.</p>
+  </section>
+
+  <!-- PRODUCER VISIT VIDEO -->
+  <div class="video-section">
+    <p class="section-label" style="padding-top:36px;padding-bottom:14px;">The Visit</p>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/-Vf7Hr-8HIs"
+        title="Saltrock Dairy Farm — Provenance Visit"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- 3. ORIGIN -->
+  <p class="section-label">Origin</p>
+  <div class="questions">
+
+    <div class="question-card">
+      <h3>Where exactly does this come from?</h3>
+      <p>Saltrock Farm sits on Tara Hill in North County Wexford. The herd of Holstein Cross cows graze outdoors for up to nine months of the year on the coastal pastures of North Wexford, being brought indoors when weather dictates, where they are housed on straw bedding and fed with silage harvested from the farm in the summer months. The farm address is Kildermot, Gorey, County Wexford.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>How is it made?</h3>
+      <p>Saltrock Dairy produces fresh, non-homogenised, pasteurised milk and handmade farmhouse butter, as well as yoghurt and kefir. The milk is freshly pasteurised but not homogenised — meaning it is not mechanically forced through tiny pores to break down the fat globules the way industrial dairy processors do. The cream sits at the top. The milk tastes the way milk from a real farm tastes.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>What is in it?</h3>
+      <p>Fresh whole milk from grass-fed Holstein Cross cows on named coastal Wexford pasture. Pasteurised. Non-homogenised. Nothing added. Nothing removed beyond the heat treatment required for safety. Sold direct to the customer — a fully sustainable system using reusable glass bottles and a self-service vending unit, completely waste-free.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>Why does this meet the Provenance standard?</h3>
+      <p>Paul Kinsella grew up on Tara Hill on his family farm and established his own farm in 1993. He converted to dairy in 2013, growing a strong healthy herd producing the quality product that inspired him and Catherine to sell direct to the consumer. After selling more than 35,000 litres of milk and claiming Green Business of the Year at the Gorey Business Awards, Catherine has already outperformed her first-year targets. The farm is named. The herd is named. The practices are documented. The founders are real people whose faces and farm appear in this profile. That is the Provenance standard.</p>
+    </div>
+
+  </div>
+
+  <!-- 4. THE FARMERS -->
+  <p class="section-label">The Farmers</p>
+  <div class="growers-section">
+    <p class="growers-name">Catherine &amp; Paul Kinsella</p>
+    <p class="growers-text">Catherine spent thirty years as a nurse before launching Saltrock Dairy. During a week housebound due to COVID she made a decision, drew up a plan and paid a deposit on machinery — the beginning of Saltrock Dairy.</p>
+    <p class="growers-text">A growing dismay at the disparity between the quality of milk produced on almost every dairy farm in Ireland and what arrives in the supermarket bottle inspired Catherine to set up her own independent dairy food company in October 2021. The disparity, she believes, is due to processes involved in industrial scale milk processing — a level of interference that is incompatible with the simplicity of the quality product being produced on almost every dairy farm in Ireland.</p>
+    <p class="growers-text">Catherine is passionate about the health benefits of returning to original milk products. Her commitment to local food production, sustainability and creating a circular economy continues to contribute to the growing food culture of Wexford and beyond.</p>
+  </div>
+
+  <!-- 5. MAP LINK -->
+  <div class="map-section">
+    <div class="map-pin-icon"></div>
+    <p class="map-verified">Saltrock Dairy Farm is verified<br>on the Provenance Map</p>
+    <a href="../index.html" class="map-btn">See on the Map</a>
+  </div>
+
+  <!-- 6. FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-logo">Provenance</p>
+    <p class="footer-url">provenancemap.ie</p>
+    <p class="footer-tagline">Every product. Named source. Full origin.</p>
+  </footer>
+
+</body>
+</html>
