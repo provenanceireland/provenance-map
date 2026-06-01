@@ -231,6 +231,33 @@
       pointer-events: all;
     }
 
+    /* ── PROVENANCE SEAL PILL ── */
+    #seal-pill {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+      left: 18px;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      background: #C4A44A;
+      color: #060807;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 24px;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(196,164,74,0.4);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: auto;
+    }
+
+    #seal-pill:hover { opacity: 0.88; }
+    #seal-pill:active { transform: scale(0.96); }
+
     /* ── MENU BUTTON ── */
     #menu-btn {
       position: fixed;
@@ -960,6 +987,9 @@
     <h1>Provenance</h1>
     <p>Real food. Named source. Verified producer.</p>
   </div>
+
+  <!-- PROVENANCE SEAL PILL -->
+  <a href="producers/wexford-sea-salt.html" id="seal-pill">The Provenance Seal</a>
 
   <!-- MENU BUTTON -->
   <div id="menu-btn" onclick="toggleMenu()">
