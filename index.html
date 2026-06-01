@@ -63,7 +63,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 10;
-      padding: calc(env(safe-area-inset-top, 20px) + 10px) 20px 60px;
+      padding: calc(env(safe-area-inset-top, 20px) + 36px) 20px 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -89,23 +89,10 @@
       margin-top: 5px;
     }
 
-    @media (max-width: 768px) {
-      #menu-btn {
-        top: unset !important;
-        bottom: 20px !important;
-        left: 20px !important;
-      }
-      #seal-pill {
-        bottom: 20px !important;
-        left: 72px !important;
-      }
-    }
-
     @media (max-width: 400px) {
       #seal-pill {
         font-size: 0.60rem;
         padding: 0 10px;
-        left: 68px;
       }
     }
 
