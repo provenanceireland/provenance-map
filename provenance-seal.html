@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Provenance Seal</title>
+  <meta name="description" content="The Provenance Seal. The label tells you what the law requires. The Seal shows you the truth." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.15);
+    }
+
+    .site-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #504838;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #C4A44A; }
+
+    .back-link svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 24px 32px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.12);
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      color: #C4A44A;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 0.5px;
+      background: rgba(30,58,40,0.4);
+      margin-bottom: 20px;
+    }
+
+    .hero-body {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .hero-body:last-child { margin-bottom: 0; }
+
+    .hero-gold {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      padding: 36px 24px 16px;
+    }
+
+    /* ── BODY SECTIONS ── */
+    .body-section {
+      padding: 0 24px;
+      margin-bottom: 8px;
+    }
+
+    .body-section p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+    }
+
+    .body-section p:last-child { margin-bottom: 0; }
+
+    .body-section p em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    .body-section p strong {
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    /* ── VERSION CARD ── */
+    .version-card {
+      margin: 0 24px 12px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .version-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(to right, #C4A44A, transparent);
+    }
+
+    .version-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      margin-bottom: 10px;
+    }
+
+    .version-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .version-card p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 12px;
+    }
+
+    .version-card p:last-child { margin-bottom: 0; }
+
+    /* ── STATEMENT CARD ── */
+    .statement-card {
+      margin: 32px 24px;
+      padding: 28px;
+      background: #0E100D;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .statement-card p {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .statement-card p:last-child { margin-bottom: 0; }
+
+    /* ── WHAT SEAL SHOWS — LIST ── */
+    .seal-item {
+      margin: 0 24px 12px;
+      padding: 20px 20px 20px 18px;
+      background: #0E100D;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .seal-item h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .seal-item p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E8DEC8;
+    }
+
+    /* ── MAP CTA ── */
+    .map-cta {
+      margin: 36px 24px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: #0E100D url('ireland-map.png.png') 50% 50% / cover no-repeat;
+    }
+
+    .map-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(6,8,7,0.72);
+    }
+
+    .map-cta > * { position: relative; z-index: 1; }
+
+    .map-cta-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #E8DEC8;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .map-btn {
+      display: inline-block;
+      padding: 11px 28px;
+      border: 0.5px solid rgba(30,58,40,0.6);
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      transition: background 0.2s;
+    }
+
+    .map-btn:hover { background: rgba(30,58,40,0.08); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 32px 24px;
+      border-top: 0.5px solid rgba(30,58,40,0.12);
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #E8DEC8;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .footer-url {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Provenance</a>
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to the Map
+    </a>
+  </header>
+
+  <!-- 2. HERO -->
+  <section class="hero">
+    <h1 class="hero-name">The Provenance Seal</h1>
+    <p class="hero-sub">The label tells you what the law requires.<br>The Seal shows you the truth.</p>
+    <div class="hero-divider"></div>
+    <p class="hero-body">Every food product you buy carries a label. That label was designed by a legal team to satisfy a regulatory requirement. It tells you the country of origin, the weight and the ingredients in descending order.</p>
+    <p class="hero-body">It cannot tell you anything specific about the farm, the animal, the field or the person who grew it. Whether any of what it claims is actually true.</p>
+    <p class="hero-gold">The Provenance Seal was built to answer every question the label cannot.</p>
+  </section>
+
+  <!-- 3. WHAT THE SEAL IS -->
+  <p class="section-label">What the Seal Is</p>
+  <div class="body-section">
+    <p>A QR code on a food product's packaging. Scan to see full Provenance.</p>
+    <p>When you scan it with your phone you arrive at a complete documentation page for that specific product from that specific production run. Not the brand's general farming claims. Not a marketing page. The specific batch. The specific source. The specific proof.</p>
+  </div>
+
+  <!-- 4. WHAT THE SEAL SHOWS -->
+  <p class="section-label">What the Seal Shows You</p>
+  <div class="body-section" style="margin-bottom: 16px;">
+    <p>Every Provenance Seal page contains the same foundational elements regardless of the product it is attached to.</p>
+  </div>
+
+  <div class="seal-item">
+    <h3>The named source</h3>
+    <p>Not a country. Not a region. The specific farm, coastline, hive or production facility where this product came from. Named. Located on the Provenance Map. Tappable so you can see the farm pin on the illustrated Ireland map and explore every other verified producer nearby.</p>
+  </div>
+
+  <div class="seal-item">
+    <h3>The documented process</h3>
+    <p>How the product was made or harvested. In plain English. By the specific person who made it. No marketing language. No claims that cannot be verified.</p>
+  </div>
+
+  <div class="seal-item">
+    <h3>The independent testing results</h3>
+    <p>Selected Seal products are tested by an accredited independent laboratory. The results are published in full on the batch page. Not summarised. Not interpreted by the brand. Every marker tested. Every result shown. The legal limits displayed alongside each result so you can see not just that it passed but by exactly how much.</p>
+  </div>
+
+  <div class="seal-item">
+    <h3>The chatbot</h3>
+    <p>An AI assistant trained specifically on the documentation for that batch. Ask it anything. Which farm is this from. What does the testing show. Is this suitable for high heat cooking. When is the next batch available. It answers from verified data not from a script.</p>
+  </div>
+
+  <!-- 5. IN PRACTICE -->
+  <p class="section-label">The Seal in Practice — Wexford Sea Salt</p>
+  <div class="body-section">
+    <p>The first product carrying the Provenance Seal is Wexford Sea Salt. Hand harvested from the Irish Sea along the Wexford coastline by Jack and Kevin N'Guinan. Gold winner at the 2024 Blas na hÉireann Awards. Ireland's Best Sea Salt.</p>
+    <p>Every jar of Wexford Sea Salt stocked through the Provenance ecosystem carries a circular QR sticker on the packaging.</p>
+    <p>When you scan the QR on a jar of Wexford Sea Salt you arrive at the Wexford Sea Salt producer profile on the Provenance Map. You see the named coastline where the seawater was collected. You see the evaporative pond process that transforms Irish seawater into pure unrefined sea salt under Wexford sun and wind. You see the mineral analysis confirming the specific calcium, magnesium, potassium and iodine content of this salt. You see the complete production story from the Irish Sea to the glass jar in your hand.</p>
+    <p>No other sea salt on any shelf in Ireland can show you any of this. The label on every other salt tells you it is sea salt from a named country. The Provenance Seal on Wexford Sea Salt shows you the coastline, the process, the people and the proof.</p>
+    <p><em>That is the difference between a label and a Seal.</em></p>
+    <p><strong>DM us to order.</strong></p>
+  </div>
+
+  <!-- 6. VERSIONS -->
+  <p class="section-label">The Seal — Three Versions</p>
+
+  <div class="version-card">
+    <p class="version-label">V1 — Live Now</p>
+    <h2 class="version-heading">The proof of concept</h2>
+    <p>The current Provenance Seal on Wexford Sea Salt is V1. The QR code links to the producer profile page on the Provenance Map showing the four provenance questions answered, the named location, the documented process and the independent mineral analysis.</p>
+    <p>V1 demonstrates that a physical product can carry a scannable code that delivers genuine verified origin information to any consumer with a phone. It is a real and meaningful upgrade on any label currently on any food product in Ireland.</p>
+    <p><em>It is also the beginning of something significantly more complete.</em></p>
+  </div>
+
+  <div class="version-card">
+    <p class="version-label">V2 — Coming Next</p>
+    <h2 class="version-heading">Batch-specific. Laboratory tested. AI-assisted.</h2>
+    <p>The next iteration launches with Athnuachan Grass-Fed Beef Tallow from a local beef farm. The V2 Seal is batch-specific rather than producer-specific. Every production run has its own unique QR code pointing to its own unique batch documentation page.</p>
+    <p>The V2 batch page contains everything the V1 Seal carries and significantly more. The exact farm, the exact animal, the exact date, the exact jar count, the individual jar number out of the total batch produced. The full render process documented on film. Eurofins laboratory testing results published in full with EU legal limits shown alongside every marker. A chatbot trained specifically on the documentation for that batch. And a batch status showing exactly how many jars remain.</p>
+    <p>Every batch is numbered, every batch is limited and when they are gone the batch page remains as a permanent record of something real that existed and sold out.</p>
+  </div>
+
+  <div class="version-card">
+    <p class="version-label">V3 — The Vision</p>
+    <h2 class="version-heading">On every shelf. In every shop.</h2>
+    <p>The full Provenance vision is a consumer standing in a supermarket picking up a product, scanning the Seal with their phone, seeing the real farm behind it and then opening the map to discover every other verified real producer available nearby.</p>
+    <p>The V3 Seal is on products sold through conventional retail. Supermarket shelves, health food shops, butchers, delis, farm shops. The QR mark printed directly on the product label. The batch page loading in under two seconds on mobile data in a shop aisle. The map discovery layer showing every other Provenance-verified product within reach.</p>
+    <p>Not a niche product for conscious consumers who seek out verified food. A standard on any shelf, in any shop, available to any consumer who picks up a product and wants to know where it actually came from.</p>
+    <p><em>We are building toward it one batch at a time beginning in Wexford.</em></p>
+  </div>
+
+  <!-- 7. FOR PRODUCERS -->
+  <p class="section-label">For Producers</p>
+  <div class="body-section">
+    <p>If you are an Irish food producer who is doing things properly and has never had a way to prove it, the Provenance Seal is built for you.</p>
+    <p>The Seal gives your product something no label can carry. A scannable verified proof of exactly what you do, where you do it and what the independent testing confirms about what you make. Every customer who scans the Seal on your product sees your farm, your practices and your results. Not the supermarket's anonymous origin mark. Yours.</p>
+    <p>The Seal is the most powerful direct-to-consumer tool available to any Irish food producer because it turns every product you sell — at a market, in a shop, through a delivery box — into a direct connection between your customer and your farm.</p>
+    <p><em>DM us MAP on Instagram or visit provenancemap.ie to find out more.</em></p>
+  </div>
+
+  <!-- 8. THE STANDARD -->
+  <div class="statement-card">
+    <p>Every Provenance Seal is earned not purchased. A producer cannot buy a Seal without meeting the verification standard. Named source confirmed. Process documented. Independent testing completed. Results published in full regardless of what they show.</p>
+    <p>The Seal means something because we have never granted it to anything that does not deserve it. That standard is the foundation of every scan and every consumer trust that comes from it.</p>
+    <p><em>The label told you what the law required. The Seal shows you everything else.</em></p>
+  </div>
+
+  <!-- 9. MAP CTA -->
+  <div class="map-cta">
+    <p class="map-cta-text">Explore verified producers<br>on the map</p>
+    <a href="index.html" class="map-btn">Open the Map</a>
+  </div>
+
+  <!-- 10. FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-logo">Provenance</p>
+    <p class="footer-url">provenancemap.ie</p>
+    <p class="footer-tagline">Every product. Named source. Full origin.</p>
+  </footer>
+
+</body>
+</html>
