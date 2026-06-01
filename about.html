@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Provenance</title>
-  <meta name="description" content="Provenance connects real people directly with the farmers and producers of Ireland. No middleman. No supermarket margin. No anonymous supply chain." />
+  <meta name="description" content="Provenance is the new food label. A verified map of real Irish food producers. Named source. Real practices. Nothing hidden." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
@@ -78,23 +78,34 @@
       font-style: italic;
       line-height: 1.1;
       color: #E8DEC8;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
-    .hero-divider {
-      width: 40px;
-      height: 0.5px;
-      background: rgba(30,58,40,0.4);
-      margin-bottom: 20px;
-    }
-
-    .hero-description {
-      font-size: 17px;
-      line-height: 1.65;
-      color: #E8DEC8;
-      font-style: italic;
+    .hero-opening {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 300;
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
+      color: #E8DEC8;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .hero-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .hero-body:last-child { margin-bottom: 0; }
+
+    .hero-gold {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: #C4A44A;
+      margin-bottom: 0;
     }
 
     /* ── SECTION LABEL ── */
@@ -109,23 +120,14 @@
     /* ── BODY SECTIONS ── */
     .body-section {
       padding: 0 24px;
-      margin-bottom: 32px;
-    }
-
-    .body-section h2 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: #E8DEC8;
-      margin-bottom: 14px;
-      line-height: 1.3;
+      margin-bottom: 8px;
     }
 
     .body-section p {
       font-size: 14px;
       line-height: 1.75;
       color: #E8DEC8;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .body-section p:last-child { margin-bottom: 0; }
@@ -137,10 +139,9 @@
 
     /* ── STATEMENT CARD ── */
     .statement-card {
-      margin: 0 24px 36px;
+      margin: 32px 24px;
       padding: 28px;
       background: #0E100D;
-      border-radius: 8px;
       border-left: 2px solid #C4A44A;
       border-radius: 0 8px 8px 0;
     }
@@ -150,13 +151,16 @@
       font-size: 19px;
       font-weight: 300;
       font-style: italic;
-      line-height: 1.6;
+      line-height: 1.65;
       color: #E8DEC8;
+      margin-bottom: 14px;
     }
+
+    .statement-card p:last-child { margin-bottom: 0; }
 
     /* ── MAP CTA ── */
     .map-cta {
-      margin: 0 24px 36px;
+      margin: 36px 24px 0;
       border-radius: 10px;
       overflow: hidden;
       position: relative;
@@ -206,6 +210,7 @@
     .site-footer {
       padding: 32px 24px;
       border-top: 0.5px solid rgba(30,58,40,0.12);
+      margin-top: 36px;
       text-align: center;
     }
 
@@ -247,44 +252,66 @@
   <!-- 2. HERO -->
   <section class="hero">
     <h1 class="hero-name">About Provenance</h1>
-    <div class="hero-divider"></div>
-    <p class="hero-description">Ireland's platform for finding real food producers. Not certification logos — direct access to verified farmers and producers. Built in Wexford, expanding county by county across all 32 counties.</p>
+    <p class="hero-opening">Provenance is the new food label.</p>
+    <p class="hero-body">The label on your food tells you what the law requires. The country it came from. The weight. The ingredients in descending order.</p>
+    <p class="hero-body">It cannot tell you anything specific about the farm, the animal, the field or the person who grew it. Whether any of what it claims is actually true.</p>
+    <p class="hero-gold">Provenance fixes that.</p>
   </section>
 
-  <!-- 3. THE PROBLEM -->
-  <p class="section-label">The Problem</p>
+  <!-- 3. WHAT WE ARE -->
+  <p class="section-label">What We Are</p>
   <div class="body-section">
-    <p>When a consumer buys food from a supermarket the farmer receives a fraction of what the consumer pays. The supermarket controls the price, the shelf space, the story and the margin. The farmer has no direct relationship with the person eating their food. The consumer has no way to verify anything about where their food came from beyond what is printed on a label the brand controls.</p>
-    <p>The label replaced the personal knowledge that once existed in small communities where people knew their farmer, had been to the farm and knew the land. Both replacements solved a logistics problem and created a trust deficit.</p>
+    <p>Provenance is a verified map of real Irish food producers. Farmers, butchers, growers, beekeepers, and food craftspeople who can prove exactly what they make. Every producer on the map has been personally found and assessed against one standard. Named source. Real practices. Nothing hidden.</p>
+    <p>When you tap a pin on the Provenance Map you do not see a marketing page. You see the farm. You see the land. You see the process. You see the person who made the food you are about to buy.</p>
+    <p><em>The map is free to explore. It will always be.</em></p>
   </div>
 
-  <!-- STATEMENT -->
+  <!-- 4. THE PROVENANCE SEAL -->
+  <p class="section-label">The Provenance Seal</p>
+  <div class="body-section">
+    <p>Some producers on the Provenance Map carry the Provenance Seal on their physical packaging.</p>
+    <p>In its current form the Seal is a QR code sticker applied to every product before it reaches the customer. When you scan it with your phone you arrive at the producer's verified profile on the Provenance Map. You see the named source. You see the documented process. You see the four provenance questions answered in full. You see the person who made what you are holding.</p>
+    <p>The first product carrying the Provenance Seal is Wexford Sea Salt. Hand harvested from the Irish Sea along the Wexford coastline. Every jar carries the Seal. Every scan brings you to the coast it came from.</p>
+    <p>This is V1. It is the proof that a physical product can carry a scannable code that answers the questions the label never could. It is real, it is working and it is the foundation of something significantly more complete.</p>
+    <p>The next version of the Seal launches with the first batch of Athnuachan Grass-Fed Beef Tallow from a local beef farm. Batch specific documentation. Named farm. Named animal. Independent laboratory results published in full. A chatbot trained on the batch data. A numbered limited run. Every jar traceable to the exact farm, the exact herd and the exact date it was produced.</p>
+  </div>
+
   <div class="statement-card">
-    <p>Provenance makes the personal knowledge of the small community available at the scale of the modern food system.</p>
+    <p>The Seal is being built in public. Every stage documented. Every result published. Nothing withheld.</p>
+    <p>That is the standard it is being held to from the very first jar.</p>
   </div>
 
-  <!-- 4. WHAT WE DO -->
-  <p class="section-label">What We Do</p>
+  <!-- 5. WHY WE EXIST -->
+  <p class="section-label">Why We Exist</p>
   <div class="body-section">
-    <p>The map pin is the farm gate. The producer profile is the conversation at the farm gate. The POV visit is the farm visit. The QR code is the proof that travels with the product wherever it is sold.</p>
-    <p>Every producer on Provenance earns more per unit than they would through a supermarket because there is no supermarket margin removed from the chain. This is not a tagline. It is the founding purpose of the platform.</p>
+    <p>Irish farms have fed this land for generations. The connection between those farms and the people who eat their food has been systematically removed by a distribution system that made country of origin the only provenance information a consumer could rely on.</p>
+    <p>Between now and 2030 the policy environment, the payment structures and the market conditions that kept small Irish farms viable are all changing simultaneously. The producers who survive will be the ones who built a direct relationship with the people eating their food before those changes made it too late.</p>
+    <p>Provenance is the infrastructure that makes that relationship possible. We find the producers. We document what they do. We put a scannable verified proof on their product. We connect them directly to the consumers who are already looking for them.</p>
+    <p>This is not a directory. It is not a certification scheme. It is not a food delivery service. It is infrastructure. The same way the tractor changed farming permanently. Not by being a better tool but by making the alternative unthinkable. <em>Provenance is being built to make the anonymous food label unacceptable.</em></p>
   </div>
 
-  <!-- 5. THE COMMITMENT -->
-  <p class="section-label">The Commitment</p>
+  <!-- 6. WHERE WE ARE BUILDING -->
+  <p class="section-label">Where We Are Building</p>
   <div class="body-section">
-    <p>Provenance will never be sold to a corporation, a logistics company, a supermarket group or any entity whose interests conflict with real food producers and the communities they feed.</p>
-    <p>Starting in Wexford. Expanding county by county across all 32 counties of Ireland.</p>
-    <p><em>No middleman. No supermarket margin. No anonymous supply chain. Just the person who grew it and the person who eats it.</em></p>
+    <p>Wexford is where Provenance begins. Every county follows. The goal is every real food producer in Ireland who is doing things properly findable on the map. Every product that meets the standard carrying the Seal. Every consumer who cares about what they eat opening Provenance before they open a supermarket door.</p>
+    <p><em>We are building it one producer at a time, one visit at a time, one scan at a time.</em></p>
   </div>
 
-  <!-- 6. MAP CTA -->
+  <!-- 7. THE STANDARD -->
+  <p class="section-label">The Standard</p>
+  <div class="body-section">
+    <p>Every producer on the Provenance Map has been personally found and assessed. Producers who have received a Provenance founding visit have their farm documented on film embedded directly on their map profile.</p>
+    <p>We do not accept self-reported information as the basis for a Seal. We visit. We film. We test. We publish everything.</p>
+    <p><em>That standard is non-negotiable because the mark is only worth anything if what it represents is true.</em></p>
+  </div>
+
+  <!-- 8. MAP CTA -->
   <div class="map-cta">
     <p class="map-cta-text">Find a real producer<br>near you</p>
     <a href="index.html" class="map-btn">Open the Map</a>
   </div>
 
-  <!-- 7. FOOTER -->
+  <!-- 9. FOOTER -->
   <footer class="site-footer">
     <p class="footer-logo">Provenance</p>
     <p class="footer-url">provenancemap.ie</p>
