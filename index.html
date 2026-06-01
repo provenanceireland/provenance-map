@@ -234,29 +234,31 @@
     /* ── PROVENANCE SEAL PILL ── */
     #seal-pill {
       position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-      left: 18px;
-      z-index: 20;
-      display: inline-flex;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
+      left: 20px;
+      z-index: 15;
+      display: flex;
       align-items: center;
       gap: 7px;
-      padding: 9px 16px;
       background: #C4A44A;
       color: #060807;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       border-radius: 24px;
+      height: 44px;
+      padding: 0 14px;
       text-decoration: none;
-      box-shadow: 0 4px 18px rgba(196,164,74,0.4);
+      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
       transition: opacity 0.2s, transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
       pointer-events: auto;
     }
 
     #seal-pill:hover { opacity: 0.88; }
-    #seal-pill:active { transform: scale(0.96); }
+    #seal-pill:active { transform: scale(0.97); }
 
     /* ── MENU BUTTON ── */
     #menu-btn {
