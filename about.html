@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Provenance</title>
+  <meta name="description" content="Provenance connects real people directly with the farmers and producers of Ireland. No middleman. No supermarket margin. No anonymous supply chain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.15);
+    }
+
+    .site-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #504838;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #C4A44A; }
+
+    .back-link svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 24px 32px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.12);
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #E8DEC8;
+      margin-bottom: 20px;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 0.5px;
+      background: rgba(30,58,40,0.4);
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #E8DEC8;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      padding: 36px 24px 16px;
+    }
+
+    /* ── BODY SECTIONS ── */
+    .body-section {
+      padding: 0 24px;
+      margin-bottom: 32px;
+    }
+
+    .body-section h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .body-section p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .body-section p:last-child { margin-bottom: 0; }
+
+    .body-section p em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    /* ── STATEMENT CARD ── */
+    .statement-card {
+      margin: 0 24px 36px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .statement-card p {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.6;
+      color: #E8DEC8;
+    }
+
+    /* ── MAP CTA ── */
+    .map-cta {
+      margin: 0 24px 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: #0E100D url('ireland-map.png.png') 50% 50% / cover no-repeat;
+    }
+
+    .map-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(6,8,7,0.72);
+    }
+
+    .map-cta > * { position: relative; z-index: 1; }
+
+    .map-cta-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #E8DEC8;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .map-btn {
+      display: inline-block;
+      padding: 11px 28px;
+      border: 0.5px solid rgba(30,58,40,0.6);
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      transition: background 0.2s;
+    }
+
+    .map-btn:hover { background: rgba(30,58,40,0.08); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 32px 24px;
+      border-top: 0.5px solid rgba(30,58,40,0.12);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #E8DEC8;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .footer-url {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Provenance</a>
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to the Map
+    </a>
+  </header>
+
+  <!-- 2. HERO -->
+  <section class="hero">
+    <h1 class="hero-name">About Provenance</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-description">Ireland's platform for finding real food producers. Not certification logos — direct access to verified farmers and producers. Built in Wexford, expanding county by county across all 32 counties.</p>
+  </section>
+
+  <!-- 3. THE PROBLEM -->
+  <p class="section-label">The Problem</p>
+  <div class="body-section">
+    <p>When a consumer buys food from a supermarket the farmer receives a fraction of what the consumer pays. The supermarket controls the price, the shelf space, the story and the margin. The farmer has no direct relationship with the person eating their food. The consumer has no way to verify anything about where their food came from beyond what is printed on a label the brand controls.</p>
+    <p>The label replaced the personal knowledge that once existed in small communities where people knew their farmer, had been to the farm and knew the land. Both replacements solved a logistics problem and created a trust deficit.</p>
+  </div>
+
+  <!-- STATEMENT -->
+  <div class="statement-card">
+    <p>Provenance makes the personal knowledge of the small community available at the scale of the modern food system.</p>
+  </div>
+
+  <!-- 4. WHAT WE DO -->
+  <p class="section-label">What We Do</p>
+  <div class="body-section">
+    <p>The map pin is the farm gate. The producer profile is the conversation at the farm gate. The POV visit is the farm visit. The QR code is the proof that travels with the product wherever it is sold.</p>
+    <p>Every producer on Provenance earns more per unit than they would through a supermarket because there is no supermarket margin removed from the chain. This is not a tagline. It is the founding purpose of the platform.</p>
+  </div>
+
+  <!-- 5. THE COMMITMENT -->
+  <p class="section-label">The Commitment</p>
+  <div class="body-section">
+    <p>Provenance will never be sold to a corporation, a logistics company, a supermarket group or any entity whose interests conflict with real food producers and the communities they feed.</p>
+    <p>Starting in Wexford. Expanding county by county across all 32 counties of Ireland.</p>
+    <p><em>No middleman. No supermarket margin. No anonymous supply chain. Just the person who grew it and the person who eats it.</em></p>
+  </div>
+
+  <!-- 6. MAP CTA -->
+  <div class="map-cta">
+    <p class="map-cta-text">Find a real producer<br>near you</p>
+    <a href="index.html" class="map-btn">Open the Map</a>
+  </div>
+
+  <!-- 7. FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-logo">Provenance</p>
+    <p class="footer-url">provenancemap.ie</p>
+    <p class="footer-tagline">Every product. Named source. Full origin.</p>
+  </footer>
+
+</body>
+</html>
