@@ -81,26 +81,10 @@
     }
 
     @media (max-width: 400px) {
-      #apply-btn {
-        font-size: 0.60rem;
-        padding: 0 10px;
-        right: 12px;
-      }
       #seal-pill {
         font-size: 0.60rem;
         padding: 0 10px;
         left: 12px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #apply-btn {
-        bottom: 28px;
-        right: 20px;
-      }
-      #seal-pill {
-        bottom: 82px;
-        left: 20px;
       }
     }
 
@@ -204,35 +188,6 @@
       100% { transform: translate(-50%,-50%) scale(4.2); opacity: 0; }
     }
 
-    /* ── APPLY BUTTON ── */
-    #apply-btn {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
-      right: 20px;
-      z-index: 15;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: #C4A44A;
-      color: #060807;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 24px;
-      height: 44px;
-      padding: 0 14px;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
-      transition: opacity 0.2s, transform 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    #apply-btn:hover { opacity: 0.88; }
-    #apply-btn:active { transform: scale(0.97); }
-    #apply-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
     /* ── OVERLAY ── */
     #overlay {
@@ -1034,19 +989,13 @@
     <p class="menu-logo">Provenance</p>
     <a href="producers/wexford-sea-salt.html" class="menu-link">Wexford Sea Salt</a>
     <a href="about.html" class="menu-link">About Provenance</a>
+    <a href="https://provenancemap.fillout.com/t/uhxfxup3ukus" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
     <p class="menu-tagline">provenancemap.ie</p>
   </div>
 
 
 
 
-  <!-- APPLY BUTTON -->
-  <a id="apply-btn" href="https://provenancemap.fillout.com/t/uhxfxup3ukus" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
-    List Your Farm
-  </a>
 
   <!-- OVERLAY -->
   <div id="overlay"></div>
