@@ -148,7 +148,31 @@
       color: #ffffff;
     }
 
-    /* ── VERSION CARD ── */
+    /* ── SEAL ITEMS ── */
+    .seal-item {
+      margin: 0 24px 12px;
+      padding: 20px 20px 20px 18px;
+      background: #0E100D;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .seal-item h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .seal-item p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E8DEC8;
+    }
+
+    /* ── VERSION CARDS ── */
     .version-card {
       margin: 0 24px 12px;
       padding: 28px;
@@ -193,6 +217,11 @@
 
     .version-card p:last-child { margin-bottom: 0; }
 
+    .version-card p em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
     /* ── STATEMENT CARD ── */
     .statement-card {
       margin: 32px 24px;
@@ -213,30 +242,6 @@
     }
 
     .statement-card p:last-child { margin-bottom: 0; }
-
-    /* ── WHAT SEAL SHOWS — LIST ── */
-    .seal-item {
-      margin: 0 24px 12px;
-      padding: 20px 20px 20px 18px;
-      background: #0E100D;
-      border-left: 2px solid #C4A44A;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .seal-item h3 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: #ffffff;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .seal-item p {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #E8DEC8;
-    }
 
     /* ── MAP CTA ── */
     .map-cta {
@@ -335,14 +340,14 @@
     <p class="hero-sub">The label tells you what the law requires.<br>The Seal shows you the truth.</p>
     <div class="hero-divider"></div>
     <p class="hero-body">Every food product you buy carries a label. That label was designed by a legal team to satisfy a regulatory requirement. It tells you the country of origin, the weight and the ingredients in descending order.</p>
-    <p class="hero-body">It cannot tell you anything specific about the farm, the animal, the field or the person who grew it. Whether any of what it claims is actually true.</p>
+    <p class="hero-body">It cannot tell you anything specific about the farm, the animal, the field or the person who grew it, and whether any of what it claims is actually true.</p>
     <p class="hero-gold">The Provenance Seal was built to answer every question the label cannot.</p>
   </section>
 
   <!-- 3. WHAT THE SEAL IS -->
   <p class="section-label">What the Seal Is</p>
   <div class="body-section">
-    <p>A QR code on a food product's packaging. Scan to see full Provenance.</p>
+    <p>A QR code on a food product's packaging. Scan it to see the full Provenance.</p>
     <p>When you scan it with your phone you arrive at a complete documentation page for that specific product from that specific production run. Not the brand's general farming claims. Not a marketing page. The specific batch. The specific source. The specific proof.</p>
   </div>
 
@@ -354,7 +359,7 @@
 
   <div class="seal-item">
     <h3>The named source</h3>
-    <p>Not a country. Not a region. The specific farm, coastline, hive or production facility where this product came from. Named. Located on the Provenance Map. Tappable so you can see the farm pin on the illustrated Ireland map and explore every other verified producer nearby.</p>
+    <p>Not a country. Not a region. The specific farm, coastline, hive or production facility where this product came from. Named. Pinned on the Provenance Map, so you can see the farm location and visit footage on the illustrated Ireland map and explore every other verified producer nearby.</p>
   </div>
 
   <div class="seal-item">
@@ -369,18 +374,18 @@
 
   <div class="seal-item">
     <h3>The chatbot</h3>
-    <p>An AI assistant trained specifically on the documentation for that batch. Ask it anything. Which farm is this from. What does the testing show. Is this suitable for high heat cooking. When is the next batch available. It answers from verified data not from a script.</p>
+    <p>An AI assistant trained specifically on the documentation for that batch. Ask it anything. Which farm is this from? What does the testing show? Is this beef completely grass fed? When is the next batch available? It answers from verified data not from a script.</p>
   </div>
 
   <!-- 5. IN PRACTICE -->
   <p class="section-label">The Seal in Practice — Wexford Sea Salt</p>
   <div class="body-section">
     <p>The first product carrying the Provenance Seal is Wexford Sea Salt. Hand harvested from the Irish Sea along the Wexford coastline by Jack and Kevin N'Guinan. Gold winner at the 2024 Blas na hÉireann Awards. Ireland's Best Sea Salt.</p>
-    <p>Every jar of Wexford Sea Salt stocked through the Provenance ecosystem carries a circular QR sticker on the packaging.</p>
-    <p>When you scan the QR on a jar of Wexford Sea Salt you arrive at the Wexford Sea Salt producer profile on the Provenance Map. You see the named coastline where the seawater was collected. You see the evaporative pond process that transforms Irish seawater into pure unrefined sea salt under Wexford sun and wind. You see the mineral analysis confirming the specific calcium, magnesium, potassium and iodine content of this salt. You see the complete production story from the Irish Sea to the glass jar in your hand.</p>
+    <p>Every jar of Wexford Sea Salt stocked through the Provenance ecosystem carries a QR sticker on the packaging.</p>
+    <p>When you scan the QR on a jar of Wexford Sea Salt you arrive at the Wexford Sea Salt producer profile on the Provenance Map. You see the named coastline where the seawater was collected. You see the evaporative pond process that transforms Irish seawater into pure unrefined sea salt under Wexford sun and wind. You see the mineral analysis confirming the specific calcium, magnesium, potassium and iodine content of this salt compared to commercially processed alternatives. You see the complete production story from the Irish Sea to the glass jar in your hand.</p>
     <p>No other sea salt on any shelf in Ireland can show you any of this. The label on every other salt tells you it is sea salt from a named country. The Provenance Seal on Wexford Sea Salt shows you the coastline, the process, the people and the proof.</p>
     <p><em>That is the difference between a label and a Seal.</em></p>
-    <p><strong>DM us to order.</strong></p>
+    <p>To order directly from Provenance…</p>
   </div>
 
   <!-- 6. VERSIONS -->
@@ -390,7 +395,7 @@
     <p class="version-label">V1 — Live Now</p>
     <h2 class="version-heading">The proof of concept</h2>
     <p>The current Provenance Seal on Wexford Sea Salt is V1. The QR code links to the producer profile page on the Provenance Map showing the four provenance questions answered, the named location, the documented process and the independent mineral analysis.</p>
-    <p>V1 demonstrates that a physical product can carry a scannable code that delivers genuine verified origin information to any consumer with a phone. It is a real and meaningful upgrade on any label currently on any food product in Ireland.</p>
+    <p>V1 is the proof of concept. It demonstrates that a physical product can carry a scannable code that delivers genuine verified origin information to any consumer with a phone. It is a real and meaningful upgrade on any label currently on any food product in Ireland.</p>
     <p><em>It is also the beginning of something significantly more complete.</em></p>
   </div>
 
@@ -398,7 +403,7 @@
     <p class="version-label">V2 — Coming Next</p>
     <h2 class="version-heading">Batch-specific. Laboratory tested. AI-assisted.</h2>
     <p>The next iteration launches with Athnuachan Grass-Fed Beef Tallow from a local beef farm. The V2 Seal is batch-specific rather than producer-specific. Every production run has its own unique QR code pointing to its own unique batch documentation page.</p>
-    <p>The V2 batch page contains everything the V1 Seal carries and significantly more. The exact farm, the exact animal, the exact date, the exact jar count, the individual jar number out of the total batch produced. The full render process documented on film. Eurofins laboratory testing results published in full with EU legal limits shown alongside every marker. A chatbot trained specifically on the documentation for that batch. And a batch status showing exactly how many jars remain.</p>
+    <p>The V2 batch page contains everything the V1 Seal carries and significantly more. Specific batch identity: the exact farm, the exact animal, the exact date, the exact jar count, the individual jar number out of the total batch produced. The full render process documented on film. Eurofins laboratory testing results published in full with EU legal limits shown alongside every marker. A chatbot trained specifically on the documentation for that batch. And a batch status showing exactly how many jars remain.</p>
     <p>Every batch is numbered, every batch is limited and when they are gone the batch page remains as a permanent record of something real that existed and sold out.</p>
   </div>
 
@@ -406,8 +411,8 @@
     <p class="version-label">V3 — The Vision</p>
     <h2 class="version-heading">On every shelf. In every shop.</h2>
     <p>The full Provenance vision is a consumer standing in a supermarket picking up a product, scanning the Seal with their phone, seeing the real farm behind it and then opening the map to discover every other verified real producer available nearby.</p>
-    <p>The V3 Seal is on products sold through conventional retail. Supermarket shelves, health food shops, butchers, delis, farm shops. The QR mark printed directly on the product label. The batch page loading in under two seconds on mobile data in a shop aisle. The map discovery layer showing every other Provenance-verified product within reach.</p>
-    <p>Not a niche product for conscious consumers who seek out verified food. A standard on any shelf, in any shop, available to any consumer who picks up a product and wants to know where it actually came from.</p>
+    <p>The V3 Seal is the Seal on products sold through conventional retail. Supermarket shelves, health food shops, butchers, delis, farm shops. The QR mark printed directly on the product label rather than applied as a sticker. The batch page loading in under two seconds on mobile data in a shop aisle. The map discovery layer showing every other Provenance-verified product within reach.</p>
+    <p>This is the Seal in its ultimate form. Not a niche product for conscious consumers who seek out verified food. A standard on any shelf, in any shop, available to any consumer who picks up a product and wants to know where it actually came from.</p>
     <p><em>We are building toward it one batch at a time beginning in Wexford.</em></p>
   </div>
 
@@ -415,16 +420,16 @@
   <p class="section-label">For Producers</p>
   <div class="body-section">
     <p>If you are an Irish food producer who is doing things properly and has never had a way to prove it, the Provenance Seal is built for you.</p>
-    <p>The Seal gives your product something no label can carry. A scannable verified proof of exactly what you do, where you do it and what the independent testing confirms about what you make. Every customer who scans the Seal on your product sees your farm, your practices and your results. Not the supermarket's anonymous origin mark. Yours.</p>
-    <p>The Seal is the most powerful direct-to-consumer tool available to any Irish food producer because it turns every product you sell — at a market, in a shop, through a delivery box — into a direct connection between your customer and your farm.</p>
-    <p><em>DM us MAP on Instagram or visit provenancemap.ie to find out more.</em></p>
+    <p>The Seal gives your product something no label can carry. A scannable verified proof of exactly what you do, where you do it and what the independent testing confirms about what you make. Every customer who scans the Seal on your product sees your farm, your practices and your results. Not the supermarket's anonymous origin mark.</p>
+    <p>The Seal is the most powerful direct-to-consumer tool available to any Irish food producer because it turns every product you sell at a market, in a shop, through a delivery box, into a direct connection between your customer and your farm.</p>
+    <p><em>DM us MAP on Instagram or visit provenancemap.ie/listyourfarm to find out more.</em></p>
   </div>
 
   <!-- 8. THE STANDARD -->
   <div class="statement-card">
     <p>Every Provenance Seal is earned not purchased. A producer cannot buy a Seal without meeting the verification standard. Named source confirmed. Process documented. Independent testing completed. Results published in full regardless of what they show.</p>
     <p>The Seal means something because we have never granted it to anything that does not deserve it. That standard is the foundation of every scan and every consumer trust that comes from it.</p>
-    <p><em>The label told you what the law required. The Seal shows you everything else.</em></p>
+    <p>The label told you what the law required. The Seal shows you everything else.</p>
   </div>
 
   <!-- 9. MAP CTA -->
