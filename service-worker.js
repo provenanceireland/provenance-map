@@ -1,4 +1,4 @@
-const CACHE = 'provenance-v109';
+const CACHE = 'provenance-v110';
 const ASSETS = [
   '/',
   '/index.html',
