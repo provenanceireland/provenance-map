@@ -478,6 +478,18 @@
     .pin.white .pin-pulse {
       background: rgba(248,248,243,0.2) !important;
     }
+    /* ── FARMERS MARKET PIN ── */
+    .pin.market .pin-dot {
+      width: 8.4px !important;
+      height: 8.4px !important;
+      background: #F8F8F3 !important;
+      border: 1px solid rgba(255,255,255,0.9) !important;
+      box-shadow: 0 0 10px 3px rgba(248,248,243,0.5), 0 0 4px 1px rgba(248,248,243,0.7) !important;
+    }
+    .pin.market .pin-pulse {
+      background: rgba(248,248,243,0.25) !important;
+    }
+
     .pin.black-border .pin-dot {
       border: 1px solid rgba(0,0,0,0.7) !important;
     }
@@ -512,6 +524,26 @@
       color: #f8f8f3;
     }
     .badge-founder::before { background: #f8f8f3; }
+
+    /* ── MARKET CARD — white accent theme ── */
+    .badge-market {
+      background: rgba(248,248,243,0.08);
+      border: 1px solid rgba(248,248,243,0.35);
+      color: #f8f8f3;
+    }
+    .badge-market::before { background: #f8f8f3; }
+
+    #card.market-card .card-product {
+      color: #f8f8f3;
+    }
+    #card.market-card .strip-thumb.active {
+      border-color: #f8f8f3;
+    }
+    #card.market-card .card-profile-btn {
+      background: #f8f8f3;
+      color: #060807;
+      box-shadow: 0 4px 22px rgba(248,248,243,0.2);
+    }
 
     #card-name {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -1392,13 +1424,22 @@
     };
 
     function openCard(pin) {
-      const tier   = parseInt(pin.dataset.tier || '0');
-      const isPaid = tier >= 1;
+      const tier     = parseInt(pin.dataset.tier || '0');
+      const isPaid   = tier >= 1;
+      const isMarket = pin.classList.contains('market');
 
-      // Badge — hide tier/status labels, only show badge2 (e.g. Provenance Founder)
-      const hiddenBadges = ['Free Listing', 'Provenance Approved', 'Provenance Visited', 'Verification in Progress'];
+      // Apply/remove market card theme
+      if (isMarket) {
+        card.classList.add('market-card');
+      } else {
+        card.classList.remove('market-card');
+      }
+
+      // Badge
       let badgeHTML = '';
-      if (pin.dataset.badge2) {
+      if (isMarket) {
+        badgeHTML = `<span class="badge badge-market">Farmers Market</span>`;
+      } else if (pin.dataset.badge2) {
         badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
@@ -1507,6 +1548,7 @@
 
     function closeCard() {
       card.classList.remove('open');
+      card.classList.remove('market-card');
       overlay.classList.remove('active');
       applyBtn.style.display = '';
     }
