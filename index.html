@@ -1242,6 +1242,15 @@
       <div class="pin-dot"></div>
     </div>
 
+    <!-- FARMERS MARKET — Gorey Farmers Market -->
+    <div class="pin market"
+         data-lat="52.67604967968938" data-lng="-6.285316082042103"
+         data-name="Gorey Farmers Market"
+         data-location="Gorey, Co. Wexford">
+      <div class="pin-pulse"></div>
+      <div class="pin-dot"></div>
+    </div>
+
   </div>
 
   <!-- HEADER -->
@@ -1464,8 +1473,12 @@
       }
 
       if (allPhotos.length > 0) {
+        photoWrap.style.display = '';
         showPhoto(allPhotos[0]);
+      } else if (isMarket) {
+        photoWrap.style.display = 'none';
       } else {
+        photoWrap.style.display = '';
         photoWrap.innerHTML = `<div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#f8f8f3" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
       }
 
@@ -1551,6 +1564,7 @@
       card.classList.remove('market-card');
       overlay.classList.remove('active');
       applyBtn.style.display = '';
+      document.getElementById('card-photo-wrap').style.display = '';
     }
 
     document.querySelectorAll('.pin').forEach(pin => {
