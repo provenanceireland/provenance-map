@@ -20,7 +20,7 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 
 ### Pin Colours
 
-- **Free (Tier 0):** Deep muted green — `#3D7A4A`, 7px dot (5px on mobile), white border, soft green glow. The default pin. No profile page, no badge. 37 producers currently on this tier.
+- **Free (Tier 0):** Deep muted green — `#3D7A4A`, 7px dot (6px on mobile), white border, soft green glow. The default pin. No profile page, no badge. 37 producers currently on this tier.
 - **Provenance Approved:** Green — `#4A8A55`, soft green glow (the original free pin colour). 7px dot on mobile.
 - **Provenance Approved + Founder:** Same green `#4A8A55` with gold border, 8.4px dot (20% larger). Awarded to founding producers. Currently: Newbard Organic Farm Ltd, Staffords Butchers. Staffords also has a profile page and video link. Add `class="pin approved gold-border"` and `data-badge2="Provenance Founder"` to the pin.
 - **Provenance Visited:** Gold — `#C4AA28`, 8.5px dot, gold glow, thin white border. Add `class="pin approved gold"` and `data-badge="Provenance Visited"` to the pin.
