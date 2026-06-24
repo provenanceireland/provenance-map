@@ -479,15 +479,137 @@
       background: rgba(248,248,243,0.2) !important;
     }
     /* ── FARMERS MARKET PIN ── */
+    .pin.market .market-icon {
+      display: block;
+      pointer-events: none;
+      filter: drop-shadow(0 0 4px rgba(176,98,58,0.55));
+    }
     .pin.market .pin-dot {
-      width: 4.8px !important;
-      height: 4.8px !important;
-      background: #D9C9A3 !important;
+      position: absolute;
+      width: 18px !important;
+      height: 14px !important;
+      border-radius: 2px !important;
+      background: transparent !important;
       border: none !important;
-      box-shadow: 0 0 6px 2px rgba(217,201,163,0.35) !important;
+      box-shadow: none !important;
     }
     .pin.market .pin-pulse {
-      background: rgba(217,201,163,0.18) !important;
+      width: 24px !important;
+      height: 20px !important;
+      border-radius: 4px !important;
+      background: rgba(176,98,58,0.18) !important;
+      animation: pulse-terracotta 2.8s ease-out infinite !important;
+    }
+    .pin.market.confirmed .pin-pulse {
+      animation: pulse-terracotta 2.2s ease-out infinite !important;
+      background: rgba(176,98,58,0.25) !important;
+    }
+    @keyframes pulse-terracotta {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
+      100% { transform: translate(-50%,-50%) scale(3.5); opacity: 0; }
+    }
+
+    /* ── MARKET CARD — terracotta theme ── */
+    .badge-market {
+      background: rgba(176,98,58,0.12);
+      border: 1px solid rgba(176,98,58,0.4);
+      color: #C07050;
+    }
+    .badge-market::before { background: #B0623A; }
+    .badge-confirmed {
+      background: rgba(176,98,58,0.08);
+      border: 1px solid rgba(176,98,58,0.3);
+      color: #C07050;
+      margin-left: 6px;
+    }
+    .badge-confirmed::before { background: #B0623A; }
+    #card.market-card .card-product { color: #B0623A; }
+    #card.market-card .card-profile-btn {
+      background: #B0623A;
+      color: #f8f8f3;
+      box-shadow: 0 4px 22px rgba(176,98,58,0.3);
+    }
+    #card.market-card .strip-thumb.active { border-color: #B0623A; }
+
+    /* ── MARKET CARD CONTENT ── */
+    .card-hours {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.9rem;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .card-hours svg {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      stroke: #B0623A;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      margin-top: 2px;
+    }
+    .card-producers-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #504838;
+      margin-bottom: 10px;
+    }
+    .card-producer-entry {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .card-producer-entry:last-child { border-bottom: none; }
+    .card-producer-name {
+      font-size: 0.88rem;
+      color: #E8DEC8;
+    }
+    .card-producer-link {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #B0623A;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.15s;
+    }
+    .card-producer-link:hover { opacity: 1; }
+
+    /* ── MAP LEGEND ── */
+    #map-legend {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
+      right: 16px;
+      z-index: 25;
+      background: rgba(14,16,13,0.88);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #504838;
+    }
+    .legend-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     .pin.black-border .pin-dot {
@@ -1247,7 +1369,13 @@
          data-lat="52.55" data-lng="-6.285316082042103"
          data-lat-desktop="52.67604967968938" data-lng-desktop="-6.285316082042103"
          data-name="Gorey Farmers Market"
-         data-location="Gorey, Co. Wexford">
+         data-location="Gorey, Co. Wexford"
+         data-hours="Every Saturday, 10am–2pm">
+      <svg class="market-icon" viewBox="0 0 18 14" width="18" height="14">
+        <polygon points="9,1 16.5,6.5 1.5,6.5" fill="#B0623A"/>
+        <rect x="2" y="6" width="14" height="7.5" fill="#B0623A" rx="0.5" opacity="0.82"/>
+        <rect x="5.5" y="7.5" width="7" height="3.5" fill="rgba(6,8,7,0.45)" rx="0.5"/>
+      </svg>
       <div class="pin-pulse"></div>
       <div class="pin-dot"></div>
     </div>
@@ -1283,6 +1411,30 @@
 
 
 
+  <!-- MAP LEGEND -->
+  <div id="map-legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#3D7A4A;box-shadow:0 0 4px rgba(61,122,74,0.5);"></div>
+      <span>Free Listing</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#4A8A55;box-shadow:0 0 4px rgba(74,138,85,0.5);"></div>
+      <span>Provenance Approved</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="width:9px;height:9px;background:#C48E28;border:1.5px solid rgba(248,248,243,0.8);box-shadow:0 0 6px rgba(196,142,40,0.6);"></div>
+      <span>Paid Listing</span>
+    </div>
+    <div class="legend-item">
+      <svg viewBox="0 0 18 14" width="14" height="11" style="flex-shrink:0">
+        <polygon points="9,1 16.5,6.5 1.5,6.5" fill="#B0623A"/>
+        <rect x="2" y="6" width="14" height="7.5" fill="#B0623A" rx="0.5" opacity="0.82"/>
+        <rect x="5.5" y="7.5" width="7" height="3.5" fill="rgba(6,8,7,0.45)" rx="0.5"/>
+      </svg>
+      <span>Farmers Market</span>
+    </div>
+  </div>
+
   <!-- OVERLAY -->
   <div id="overlay"></div>
 
@@ -1314,6 +1466,14 @@
       <p class="card-location" id="card-location"></p>
       <p class="card-product" id="card-product"></p>
       <p class="card-description hidden" id="card-description"></p>
+      <div id="card-market-info" class="hidden">
+        <div class="card-hours hidden" id="card-hours-row">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="card-hours-text"></span>
+        </div>
+        <p class="card-producers-label hidden" id="card-producers-label">Provenance producers at this market</p>
+        <div id="card-producers-list"></div>
+      </div>
       <div class="card-divider hidden" id="card-divider"></div>
       <div class="card-links hidden" id="card-links">
         <a class="card-link hidden" id="card-instagram" href="#" target="_blank" rel="noopener">
@@ -1449,6 +1609,9 @@
       let badgeHTML = '';
       if (isMarket) {
         badgeHTML = `<span class="badge badge-market">Farmers Market</span>`;
+        if (pin.dataset.confirmed === 'true') {
+          badgeHTML += `<span class="badge badge-confirmed">Personally Confirmed</span>`;
+        }
       } else if (pin.dataset.badge2) {
         badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
       }
@@ -1456,7 +1619,7 @@
 
       document.getElementById('card-name').textContent     = pin.dataset.name;
       document.getElementById('card-location').textContent = pin.dataset.location;
-      document.getElementById('card-product').textContent  = pin.dataset.product;
+      document.getElementById('card-product').textContent  = isMarket ? '' : (pin.dataset.product || '');
 
       // Photo + strip
       const photoWrap  = document.getElementById('card-photo-wrap');
@@ -1501,9 +1664,42 @@
       const desc    = document.getElementById('card-description');
       const divider = document.getElementById('card-divider');
       const links   = document.getElementById('card-links');
+      const marketInfo = document.getElementById('card-market-info');
 
       desc.classList.add('hidden');
       divider.classList.add('hidden');
+
+      if (isMarket) {
+        marketInfo.classList.remove('hidden');
+
+        const hoursRow  = document.getElementById('card-hours-row');
+        const hoursText = document.getElementById('card-hours-text');
+        if (pin.dataset.hours) {
+          hoursText.textContent = pin.dataset.hours;
+          hoursRow.classList.remove('hidden');
+        } else {
+          hoursRow.classList.add('hidden');
+        }
+
+        const producersList  = document.getElementById('card-producers-list');
+        const producersLabel = document.getElementById('card-producers-label');
+        if (pin.dataset.producers) {
+          const entries = pin.dataset.producers.split(',').map(s => s.trim()).filter(Boolean);
+          producersList.innerHTML = entries.map(p => {
+            const [name, url] = p.split('|');
+            return `<div class="card-producer-entry">
+              <span class="card-producer-name">${name}</span>
+              ${url ? `<a class="card-producer-link" href="${url}">View →</a>` : ''}
+            </div>`;
+          }).join('');
+          producersLabel.classList.remove('hidden');
+        } else {
+          producersList.innerHTML = '';
+          producersLabel.classList.add('hidden');
+        }
+      } else {
+        marketInfo.classList.add('hidden');
+      }
 
       if (isPaid) {
         links.classList.remove('hidden');
@@ -1557,14 +1753,14 @@
 
       card.classList.add('open');
       overlay.classList.add('active');
-      applyBtn.style.display = 'none';
+      if (applyBtn) applyBtn.style.display = 'none';
     }
 
     function closeCard() {
       card.classList.remove('open');
       card.classList.remove('market-card');
       overlay.classList.remove('active');
-      applyBtn.style.display = '';
+      if (applyBtn) applyBtn.style.display = '';
       document.getElementById('card-photo-wrap').style.display = '';
     }
 
