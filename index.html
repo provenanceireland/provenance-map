@@ -89,12 +89,6 @@
       margin-top: 5px;
     }
 
-    @media (max-width: 400px) {
-      #seal-pill {
-        font-size: 0.60rem;
-        padding: 0 10px;
-      }
-    }
 
     @media (max-width: 600px) {
       .pin-dot { width: 6px !important; height: 6px !important; }
@@ -212,34 +206,6 @@
       pointer-events: all;
     }
 
-    /* ── PROVENANCE SEAL PILL ── */
-    #seal-pill {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
-      left: 20px;
-      z-index: 25;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: #C4A44A;
-      color: #060807;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      border-radius: 24px;
-      height: 44px;
-      padding: 0 14px;
-      text-decoration: none;
-      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
-      transition: opacity 0.2s, transform 0.2s;
-      -webkit-tap-highlight-color: transparent;
-      pointer-events: auto;
-    }
-
-    #seal-pill:hover { opacity: 0.88; }
-    #seal-pill:active { transform: scale(0.97); }
 
     /* ── MENU BUTTON ── */
     #menu-btn {
@@ -1375,9 +1341,6 @@
     <h1>Provenance</h1>
     <p>Real food. Named source. Verified producer.</p>
   </div>
-
-  <!-- PROVENANCE SEAL PILL -->
-  <a href="provenance-seal.html" id="seal-pill">The Provenance Seal</a>
 
   <!-- MENU BUTTON -->
   <div id="menu-btn" onclick="toggleMenu()">
