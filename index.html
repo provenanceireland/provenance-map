@@ -1590,6 +1590,7 @@
       }
 
       // Badge
+      const isFree = !isMarket && !pin.classList.contains('approved') && !pin.classList.contains('tier-1') && !pin.classList.contains('tier-2') && !pin.classList.contains('tier-3');
       let badgeHTML = '';
       if (isMarket) {
         badgeHTML = `<span class="badge badge-market">Farmers Market</span>`;
@@ -1598,6 +1599,8 @@
         }
       } else if (pin.dataset.badge2) {
         badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
+      } else if (isFree) {
+        badgeHTML = `<span class="badge badge-free">Free Listing</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
