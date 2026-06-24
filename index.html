@@ -245,8 +245,8 @@
 
     @media (min-width: 601px) {
       #menu-btn {
-        top: auto;
-        bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
+        top: calc(env(safe-area-inset-top, 20px) + 29px);
+        bottom: auto;
         width: 34px; height: 34px;
         border-radius: 6px;
       }
@@ -254,9 +254,10 @@
       #menu-btn span:nth-child(2) { width: 11px; height: 1px; }
       #menu-btn span:nth-child(3) { width: 16px; height: 1.5px; }
       #map-legend {
-        right: auto;
-        left: 16px;
-        bottom: 120px;
+        left: auto;
+        right: 16px;
+        bottom: auto;
+        top: calc(env(safe-area-inset-top, 20px) + 29px);
         padding: 7px 10px;
         gap: 5px;
         border-radius: 6px;
