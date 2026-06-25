@@ -1412,10 +1412,6 @@
   <!-- MAP LEGEND -->
   <div id="map-legend">
     <div class="legend-item">
-      <div class="legend-dot" style="background:#3D7A4A;box-shadow:0 0 4px rgba(61,122,74,0.5);"></div>
-      <span>Free Listing</span>
-    </div>
-    <div class="legend-item">
       <div class="legend-dot" style="background:#4A8A55;border:1px solid rgba(196,164,74,0.9);box-shadow:0 0 4px rgba(74,138,85,0.5);"></div>
       <span>Provenance Founder</span>
     </div>
@@ -1596,7 +1592,6 @@
       }
 
       // Badge
-      const isFree = !isMarket && !pin.classList.contains('approved') && !pin.classList.contains('tier-1') && !pin.classList.contains('tier-2') && !pin.classList.contains('tier-3');
       let badgeHTML = '';
       if (isMarket) {
         badgeHTML = `<span class="badge badge-market">Farmers Market</span>`;
@@ -1605,8 +1600,6 @@
         }
       } else if (pin.dataset.badge2) {
         badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
-      } else if (isFree) {
-        badgeHTML = `<span class="badge badge-free">Free Listing</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
