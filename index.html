@@ -454,6 +454,12 @@
       color: #4A8A55;
     }
     .badge-free::before { background: #4A8A55; }
+    .badge-discovered {
+      background: rgba(74,138,138,0.10);
+      border: 1px solid rgba(74,138,138,0.30);
+      color: #4A8A8A;
+    }
+    .badge-discovered::before { background: #4A8A8A; }
     .badge-paid {
       background: rgba(196,164,74,0.10);
       border: 1px solid rgba(196,164,74,0.32);
@@ -1592,6 +1598,7 @@
       }
 
       // Badge
+      const isFree = !isMarket && !pin.classList.contains('approved') && !pin.classList.contains('tier-1') && !pin.classList.contains('tier-2') && !pin.classList.contains('tier-3');
       let badgeHTML = '';
       if (isMarket) {
         badgeHTML = `<span class="badge badge-market">Farmers Market</span>`;
@@ -1600,6 +1607,8 @@
         }
       } else if (pin.dataset.badge2) {
         badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
+      } else if (isFree) {
+        badgeHTML = `<span class="badge badge-discovered">Discovered producer</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
