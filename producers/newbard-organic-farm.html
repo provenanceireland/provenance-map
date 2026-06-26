@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newbard Organic Farm — Provenance</title>
+  <meta name="description" content="Newbard Organic Farm. Certified organic heritage breed pork, lamb and La Bresse chicken from Cooladalane Lower, Lismore. Siobhán Hubbard and Ross Newcombe. Verified by Provenance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.15);
+    }
+
+    .site-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #504838;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #C4A44A; }
+
+    .back-link svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 24px 32px;
+      border-bottom: 0.5px solid rgba(30,58,40,0.12);
+    }
+
+    .founder-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border: 0.5px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      font-size: 7px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .founder-badge-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #E8DEC8;
+      margin-bottom: 10px;
+    }
+
+    .hero-location {
+      font-size: 12px;
+      color: #C4A44A;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .hero-product {
+      font-size: 13px;
+      color: #C4A44A;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 0.5px;
+      background: rgba(30,58,40,0.4);
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #E8DEC8;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+    }
+
+    /* ── ATTRIBUTE TAGS ── */
+    .hero-attrs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 22px;
+    }
+
+    .attr-tag {
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: rgba(61,122,74,0.08);
+      border: 0.5px solid rgba(61,122,74,0.3);
+      color: #4A8A55;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      padding: 36px 24px 16px;
+    }
+
+    /* ── PROVENANCE QUESTIONS ── */
+    .questions {
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .question-card {
+      background: #0E100D;
+      border-left: 2px solid #C4A44A;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 20px 20px 18px;
+    }
+
+    .question-card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .question-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E8DEC8;
+    }
+
+    /* ── FARMERS SECTION ── */
+    .growers-section {
+      margin: 0 24px 48px;
+      padding: 28px;
+      background: #0E100D;
+      border-radius: 8px;
+      border: 0.5px solid rgba(196,164,74,0.15);
+    }
+
+    .growers-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #E8DEC8;
+      margin-bottom: 16px;
+    }
+
+    .growers-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #E8DEC8;
+      margin-bottom: 14px;
+    }
+
+    .growers-text:last-child { margin-bottom: 0; }
+
+    .growers-text em {
+      font-style: italic;
+      color: #C4A44A;
+    }
+
+    .growers-quote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      color: #E8DEC8;
+      line-height: 1.6;
+      border-left: 2px solid rgba(196,164,74,0.4);
+      padding-left: 16px;
+      margin: 20px 0 0;
+    }
+
+    /* ── VIDEO SECTION ── */
+    .video-section {
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 177.78%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0E100D;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .video-placeholder-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(196,164,74,0.3);
+      border: 0.5px solid rgba(196,164,74,0.5);
+    }
+
+    .video-placeholder-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 15px;
+      font-style: italic;
+      color: #504838;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── MAP SECTION ── */
+    .map-section {
+      margin: 0 24px 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: #0E100D url('../ireland-map.png.png') 79% 65% / cover no-repeat;
+    }
+
+    .map-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(6,8,7,0.72);
+    }
+
+    .map-section > * { position: relative; z-index: 1; }
+
+    .map-pin-icon {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4A8A55;
+      box-shadow: 0 0 10px 3px rgba(74,138,85,0.5);
+      margin: 0 auto 14px;
+    }
+
+    .map-verified {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #E8DEC8;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .map-btn {
+      display: inline-block;
+      padding: 11px 28px;
+      border: 0.5px solid rgba(30,58,40,0.6);
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C4A44A;
+      transition: background 0.2s;
+    }
+
+    .map-btn:hover { background: rgba(30,58,40,0.08); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 32px 24px;
+      border-top: 0.5px solid rgba(30,58,40,0.12);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #E8DEC8;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .footer-url {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      color: #504838;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="site-header">
+    <a href="../index.html" class="site-logo">Provenance</a>
+    <a href="../index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to the Map
+    </a>
+  </header>
+
+  <!-- 2. HERO -->
+  <section class="hero">
+    <div class="founder-badge">
+      <div class="founder-badge-dot"></div>
+      Provenance Founder
+    </div>
+    <h1 class="hero-name">Newbard Organic Farm</h1>
+    <p class="hero-location">Cooladalane Lower, Lismore, Co. Waterford</p>
+    <p class="hero-product">Organic Pork, Bacon, Lamb &amp; La Bresse Chicken</p>
+    <div class="hero-divider"></div>
+    <p class="hero-description">Newbard Organic Farm has been raising heritage breed pigs, lamb, and La Bresse chicken on certified organic pasture outside Lismore since 2012. Siobhán Hubbard and Ross Newcombe farm on the principle that the soil, the animal, and the person eating it are all part of the same system — and that each deserves to be treated as such.</p>
+    <div class="hero-attrs">
+      <span class="attr-tag">Organic</span>
+      <span class="attr-tag">Regenerative</span>
+      <span class="attr-tag">Hormone Free</span>
+      <span class="attr-tag">Antibiotic Free</span>
+    </div>
+  </section>
+
+  <!-- PRODUCER VISIT VIDEO -->
+  <div class="video-section">
+    <p class="section-label" style="padding-top:36px;padding-bottom:14px;">The Visit</p>
+    <div class="video-wrap">
+      <div class="video-placeholder">
+        <div class="video-placeholder-dot"></div>
+        <p class="video-placeholder-text">Farm visit coming soon</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ORIGIN -->
+  <p class="section-label">Origin</p>
+  <div class="questions">
+
+    <div class="question-card">
+      <h3>Where exactly does this come from?</h3>
+      <p>Newbard Farm sits at Cooladalane Lower, outside Lismore in Co. Waterford, less than 30km from Dungarvan. Siobhán Hubbard and Ross Newcombe have farmed this land since 2012, starting with a small group of pigs and expanding gradually into a certified organic operation raising heritage breed pigs, lamb, La Bresse chicken, and seasonal crops including pumpkins, kale, peas, oats, and an orchard.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>What are the farming practices?</h3>
+      <p>All animals are raised outdoors on pasture that is never sprayed with herbicides or insecticides. The pigs are Oxford Sandy &amp; Black crossed with Tamworth — heritage breeds selected for outdoor hardiness, temperament, and meat quality — alongside Berkshire pigs. Gut health is managed through diverse pasture and selected anthelmintic plants rather than routine chemical worming. Crops grown on the farm — pumpkins, kale, peas, and oats — are fed directly to the animals. The farm also receives sourdough offcuts from Dún Artisan Bakery in Dungarvan, fed back to the pigs as part of a documented waste-reduction loop with a named local business.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>What is in it?</h3>
+      <p>Pork from heritage breed Oxford Sandy &amp; Black x Tamworth and Berkshire pigs raised outdoors on certified organic pasture. Lamb and La Bresse chicken raised on the same farm to the same standard. No hormones. No routine antibiotics. Formally third-party certified organic — not a self-declaration. Nothing enters the supply chain from this farm that cannot be traced back to a named animal on a named field.</p>
+    </div>
+
+    <div class="question-card">
+      <h3>Why does this meet the Provenance standard?</h3>
+      <p>Siobhán and Ross started farming in Lismore in 2012 with a few pigs and a determination to farm honestly. Over more than a decade they have built a certified organic operation with named breeds, named pasture, and documented practices. Siobhán is also leading a national campaign to reinstate farmer-led local abattoirs across Ireland — because a farm can produce as well as it chooses, but without local processing the chain between farm and plate cannot be closed. The farm is named. The farmers are named. The breeds are named. The practices are certified. That is the Provenance standard.</p>
+    </div>
+
+  </div>
+
+  <!-- 4. THE FARMERS -->
+  <p class="section-label">The Farmers</p>
+  <div class="growers-section">
+    <p class="growers-name">Siobhán Hubbard &amp; Ross Newcombe</p>
+    <p class="growers-text">Siobhán and Ross began farming at Cooladalane Lower in 2012, starting with a small group of pigs and, in their own words, "a lot of questions, and a determination to farm in a way that felt right." Over the years that followed, those questions produced answers: certified organic status, heritage breeds chosen for outdoor hardiness and flavour, and a farm that grows its own feed crops and closes the loop with named local businesses.</p>
+    <p class="growers-text">Siobhán is a member of Talamh Beo, the Land Workers' Alliance of Ireland, and is leading a national effort to restore small-scale, farmer-led abattoirs across Ireland. The closure of the local abattoir that had served small producers in the south east left farms like Newbard with longer transport distances, higher costs, and greater animal stress at the point of slaughter. Rather than absorb the problem, she began organising a farmer-led alternative — securing Department of Agriculture funding, conducting HACCP research, and working with more than 160 farmers across the country who are ready to process locally as soon as conditions allow.</p>
+    <p class="growers-text">Newbard pork is stocked at Ardkeen Foodstore in Waterford, Ballymaloe Farm Shop and Cookery School, and Seagull Bakery in Tramore. The farm also supplies Dún Artisan Bakery in Dungarvan, who feed their sourdough offcuts back to the pigs in return.</p>
+    <p class="growers-quote">"We need to bring back the local producers because so many people have lost the connection with food."<br><em style="font-size:12px;font-style:normal;color:#504838;letter-spacing:0.5px;">— Siobhán Hubbard, Irish Times, 2026</em></p>
+  </div>
+
+  <!-- 5. MAP LINK -->
+  <div class="map-section">
+    <div class="map-pin-icon"></div>
+    <p class="map-verified">Newbard Organic Farm is verified<br>on the Provenance Map</p>
+    <a href="../index.html" class="map-btn">See on the Map</a>
+  </div>
+
+  <!-- 6. FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-logo">Provenance</p>
+    <p class="footer-url">provenancemap.ie</p>
+    <p class="footer-tagline">Every product. Named source. Full origin.</p>
+  </footer>
+
+</body>
+</html>
