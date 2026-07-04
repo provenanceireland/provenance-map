@@ -332,16 +332,16 @@
     /* ── CARD ── */
     #card {
       position: fixed;
+      top: calc(env(safe-area-inset-top, 20px) + 71px);
       bottom: 0; left: 0; right: 0;
       z-index: 30;
       background: #0E100D;
       border-radius: 18px 18px 0 0;
       border-top: 1px solid rgba(255,255,255,0.05);
-      transform: translateY(100%);
+      transform: translateY(110%);
       transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
       max-width: 560px;
       margin: 0 auto;
-      max-height: 88vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
