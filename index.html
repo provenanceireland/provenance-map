@@ -861,8 +861,11 @@
       display: block;
     }
 
+    .filter-search-row {
+      display: flex; gap: 6px; align-items: stretch;
+    }
     #filter-search {
-      width: 100%;
+      flex: 1;
       background: rgba(255,255,255,0.04);
       border: 0.5px solid rgba(255,255,255,0.1);
       border-radius: 7px;
@@ -876,6 +879,22 @@
     }
     #filter-search::placeholder { color: #504838; }
     #filter-search:focus { border-color: rgba(196,164,74,0.4); }
+    #filter-search-btn {
+      flex-shrink: 0;
+      background: rgba(196,164,74,0.12);
+      border: 0.5px solid rgba(196,164,74,0.35);
+      border-radius: 7px;
+      padding: 0 14px;
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C4A44A;
+      cursor: pointer;
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    #filter-search-btn:hover { background: rgba(196,164,74,0.2); border-color: rgba(196,164,74,0.6); }
 
     #filter-county {
       width: 100%;
@@ -999,7 +1018,10 @@
 
     <div class="filter-section">
       <label class="filter-label" for="filter-search">Search</label>
-      <input id="filter-search" type="text" placeholder="Name, county, product…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+      <div class="filter-search-row">
+        <input id="filter-search" type="text" placeholder="Name, county, product…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+        <button id="filter-search-btn">Search</button>
+      </div>
     </div>
 
     <div class="filter-section">
@@ -1550,6 +1572,13 @@
 
     document.getElementById('filter-search').addEventListener('input', e => {
       filterState.search = e.target.value.trim();
+      applyFilters();
+    });
+    document.getElementById('filter-search').addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); applyFilters(); }
+    });
+    document.getElementById('filter-search-btn').addEventListener('click', () => {
+      filterState.search = document.getElementById('filter-search').value.trim();
       applyFilters();
     });
 
