@@ -773,6 +773,169 @@
     }
 
     .hidden { display: none !important; }
+    /* ── FILTER TOGGLE ── */
+    #filter-toggle {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 20px) + 29px);
+      right: 16px;
+      z-index: 120;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      background: rgba(14,16,13,0.88);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.2s;
+    }
+    #filter-toggle.active { border-color: rgba(196,164,74,0.55); }
+    #filter-toggle svg {
+      width: 18px; height: 18px;
+      stroke: #E8DEC8; fill: none;
+      stroke-width: 1.6; stroke-linecap: round;
+    }
+    #filter-count {
+      position: absolute;
+      top: 7px; right: 7px;
+      width: 13px; height: 13px;
+      background: #C4A44A;
+      border-radius: 50%;
+      font-size: 8px; font-weight: 700;
+      color: #060807;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── FILTER PANEL ── */
+    #filter-panel {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 108;
+      background: rgba(14,16,13,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+      padding: calc(env(safe-area-inset-top, 20px) + 82px) 18px 22px;
+      transform: translateY(-105%);
+      transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+      max-height: 78vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    #filter-panel.open { transform: translateY(0); }
+
+    .filter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .filter-title {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #504838;
+      font-weight: 600;
+    }
+    #filter-clear {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #C4A44A;
+      background: none; border: none;
+      cursor: pointer; padding: 4px 0;
+      opacity: 0.65;
+      transition: opacity 0.15s;
+      font-family: inherit;
+    }
+    #filter-clear:hover { opacity: 1; }
+
+    .filter-section { margin-bottom: 18px; }
+    .filter-label {
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #504838;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    #filter-search {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 7px;
+      padding: 10px 13px;
+      font-size: 0.88rem;
+      color: #E8DEC8;
+      outline: none;
+      font-family: inherit;
+      -webkit-appearance: none;
+      transition: border-color 0.15s;
+    }
+    #filter-search::placeholder { color: #504838; }
+    #filter-search:focus { border-color: rgba(196,164,74,0.4); }
+
+    #filter-county {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 7px;
+      padding: 10px 32px 10px 13px;
+      font-size: 0.88rem;
+      color: #E8DEC8;
+      outline: none;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 4.5L11 1' stroke='%23504838' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: border-color 0.15s;
+    }
+    #filter-county option { background: #0E100D; color: #E8DEC8; }
+    #filter-county:focus,
+    #filter-county.active { border-color: rgba(196,164,74,0.4); }
+
+    .filter-chips {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .filter-chip, .tier-btn {
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      color: #504838;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .filter-chip.active, .tier-btn.active {
+      background: rgba(196,164,74,0.1);
+      border-color: rgba(196,164,74,0.5);
+      color: #C4A44A;
+    }
+    .filter-tiers { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    @media (min-width: 601px) {
+      #filter-panel {
+        top: 0; left: auto; right: 0; bottom: 0;
+        width: 290px;
+        max-height: none;
+        border-bottom: none;
+        border-left: 0.5px solid rgba(255,255,255,0.07);
+        padding: calc(env(safe-area-inset-top, 20px) + 82px) 18px 28px;
+        transform: translateX(105%);
+        overflow-y: auto;
+      }
+      #filter-panel.open { transform: translateX(0); }
+    }
   </style>
 </head>
 <body>
@@ -815,6 +978,76 @@
     <div class="legend-item">
       <div class="legend-dot" style="background:#4A8A55;border:1px solid rgba(196,164,74,0.9);box-shadow:0 0 4px rgba(74,138,85,0.5);"></div>
       <span>Provenance Founder</span>
+    </div>
+  </div>
+
+  <!-- FILTER TOGGLE -->
+  <div id="filter-toggle" onclick="toggleFilter()" aria-label="Filter producers">
+    <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+      <line x1="2" y1="4.5" x2="16" y2="4.5"/>
+      <line x1="4.5" y1="9" x2="13.5" y2="9"/>
+      <line x1="7" y1="13.5" x2="11" y2="13.5"/>
+    </svg>
+  </div>
+
+  <!-- FILTER PANEL -->
+  <div id="filter-panel">
+    <div class="filter-header">
+      <span class="filter-title">Filter Producers</span>
+      <button id="filter-clear" onclick="clearFilters()">Clear all</button>
+    </div>
+
+    <div class="filter-section">
+      <label class="filter-label" for="filter-search">Search</label>
+      <input id="filter-search" type="text" placeholder="Name, county, product…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+    </div>
+
+    <div class="filter-section">
+      <label class="filter-label" for="filter-county">County</label>
+      <select id="filter-county">
+        <option value="">All counties</option>
+        <option>Antrim</option><option>Armagh</option><option>Carlow</option>
+        <option>Cavan</option><option>Clare</option><option>Cork</option>
+        <option>Derry</option><option>Donegal</option><option>Down</option>
+        <option>Dublin</option><option>Fermanagh</option><option>Galway</option>
+        <option>Kerry</option><option>Kildare</option><option>Kilkenny</option>
+        <option>Laois</option><option>Leitrim</option><option>Limerick</option>
+        <option>Longford</option><option>Louth</option><option>Mayo</option>
+        <option>Meath</option><option>Monaghan</option><option>Offaly</option>
+        <option>Roscommon</option><option>Sligo</option><option>Tipperary</option>
+        <option>Tyrone</option><option>Waterford</option><option>Westmeath</option>
+        <option>Wexford</option><option>Wicklow</option>
+      </select>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Product type</span>
+      <div class="filter-chips">
+        <button class="filter-chip" data-type="dairy">Dairy</button>
+        <button class="filter-chip" data-type="beef">Beef</button>
+        <button class="filter-chip" data-type="pork">Pork</button>
+        <button class="filter-chip" data-type="lamb">Lamb</button>
+        <button class="filter-chip" data-type="honey">Honey</button>
+        <button class="filter-chip" data-type="vegetables">Vegetables</button>
+        <button class="filter-chip" data-type="fruit">Fruit</button>
+        <button class="filter-chip" data-type="fish">Fish</button>
+        <button class="filter-chip" data-type="bread">Bread</button>
+        <button class="filter-chip" data-type="preserves">Preserves</button>
+        <button class="filter-chip" data-type="drinks">Drinks</button>
+        <button class="filter-chip" data-type="eggs">Eggs</button>
+        <button class="filter-chip" data-type="salt">Salt</button>
+        <button class="filter-chip" data-type="meat">Meat</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Tier</span>
+      <div class="filter-tiers">
+        <button class="tier-btn" data-tier="discovered">Discovered</button>
+        <button class="tier-btn" data-tier="verified">Verified</button>
+        <button class="tier-btn" data-tier="seal-lite">Seal Lite</button>
+        <button class="tier-btn" data-tier="seal-complete">Seal Complete</button>
+      </div>
     </div>
   </div>
 
@@ -972,6 +1205,9 @@
       if (p.product_type && p.product_type.length) div.dataset.category = p.product_type[0];
       div.dataset.name     = p.name;
       div.dataset.location = p.location;
+      div.dataset.county = p.county || '';
+      div.dataset.productTypes = (p.product_type || []).join(',');
+      div.dataset.tierName = p.tier || 'discovered';
       if (p.product)     div.dataset.product     = p.product;
       if (p.photo_url)   div.dataset.photo       = p.photo_url;
       if (p.map_link)    div.dataset.profile     = p.map_link;
@@ -1232,6 +1468,123 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js?v=32');
     }
+
+    /* ── FILTER SYSTEM ── */
+    const filterState = {
+      search: '',
+      county: '',
+      productTypes: new Set(),
+      tiers: new Set()
+    };
+
+    function applyFilters() {
+      const pins = document.querySelectorAll('.pin');
+      const { search, county, productTypes, tiers } = filterState;
+      const hasFilters = search || county || productTypes.size || tiers.size;
+
+      pins.forEach(pin => {
+        if (!hasFilters) { pin.style.opacity = ''; return; }
+        const name = (pin.dataset.name || '').toLowerCase();
+        const pinCounty = (pin.dataset.county || '').toLowerCase();
+        const pinProduct = (pin.dataset.product || '').toLowerCase();
+        const pinTypes = (pin.dataset.productTypes || '').toLowerCase().split(',').filter(Boolean);
+        const tierName = pin.dataset.tierName || 'discovered';
+
+        let match = true;
+
+        if (search) {
+          const q = search.toLowerCase();
+          match = name.includes(q) || pinCounty.includes(q) || pinProduct.includes(q) ||
+                  pinTypes.some(t => t.includes(q));
+        }
+        if (match && county) {
+          match = pinCounty === county.toLowerCase();
+        }
+        if (match && productTypes.size) {
+          match = pinTypes.some(t => productTypes.has(t));
+        }
+        if (match && tiers.size) {
+          match = tiers.has(tierName);
+        }
+
+        pin.style.opacity = match ? '' : '0.2';
+      });
+
+      updateFilterBadge();
+    }
+
+    function updateFilterBadge() {
+      const { search, county, productTypes, tiers } = filterState;
+      const count = (search ? 1 : 0) + (county ? 1 : 0) + productTypes.size + tiers.size;
+      const toggle = document.getElementById('filter-toggle');
+      let badge = document.getElementById('filter-count');
+      if (count > 0) {
+        toggle.classList.add('active');
+        if (!badge) {
+          badge = document.createElement('div');
+          badge.id = 'filter-count';
+          toggle.appendChild(badge);
+        }
+        badge.textContent = count;
+      } else {
+        toggle.classList.remove('active');
+        if (badge) badge.remove();
+      }
+    }
+
+    function clearFilters() {
+      filterState.search = '';
+      filterState.county = '';
+      filterState.productTypes.clear();
+      filterState.tiers.clear();
+      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-county').value = '';
+      document.querySelectorAll('.filter-chip, .tier-btn').forEach(b => b.classList.remove('active'));
+      applyFilters();
+    }
+
+    function toggleFilter() {
+      const panel = document.getElementById('filter-panel');
+      panel.classList.toggle('open');
+    }
+
+    document.getElementById('filter-search').addEventListener('input', e => {
+      filterState.search = e.target.value.trim();
+      applyFilters();
+    });
+
+    document.getElementById('filter-county').addEventListener('change', e => {
+      filterState.county = e.target.value;
+      applyFilters();
+    });
+
+    document.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
+        if (filterState.productTypes.has(type)) {
+          filterState.productTypes.delete(type);
+          btn.classList.remove('active');
+        } else {
+          filterState.productTypes.add(type);
+          btn.classList.add('active');
+        }
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll('.tier-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tier = btn.dataset.tier;
+        if (filterState.tiers.has(tier)) {
+          filterState.tiers.delete(tier);
+          btn.classList.remove('active');
+        } else {
+          filterState.tiers.add(tier);
+          btn.classList.add('active');
+        }
+        applyFilters();
+      });
+    });
 
     function toggleMenu() {
       const btn = document.getElementById('menu-btn');
