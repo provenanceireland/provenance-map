@@ -1438,25 +1438,7 @@
         sealEl.classList.remove('hidden');
       } else { sealEl.classList.add('hidden'); }
 
-      // ── Action icons (instagram + directions) ──
-      const iconsEl = document.getElementById('card-action-icons');
-      let iconsHTML = '';
-      if (pin.dataset.instagram) {
-        iconsHTML += `<a class="card-action-icon" href="https://instagram.com/${pin.dataset.instagram}" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-          <span>Instagram</span>
-        </a>`;
-      }
-      const lat = pin.dataset.lat;
-      const lng = pin.dataset.lng;
-      if (lat && lng) {
-        iconsHTML += `<a class="card-action-icon" href="https://maps.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener" aria-label="Get directions">
-          <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          <span>Directions</span>
-        </a>`;
-      }
-      iconsEl.innerHTML = iconsHTML;
-      iconsEl.style.display = iconsHTML ? '' : 'none';
+      document.getElementById('card-action-icons').style.display = 'none';
 
       // Reset pinch-zoom so card is fully visible on iOS
       const viewport = document.querySelector('meta[name=viewport]');
