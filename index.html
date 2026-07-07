@@ -379,20 +379,27 @@
       stroke-linecap: round;
     }
 
-    /* Photo */
+    /* Photo — 16:9 */
     .card-photo-wrap {
       width: 100%;
-      height: 185px;
+      padding-top: 56.25%;
+      position: relative;
       background: #080a09;
-      margin-top: 14px;
-      display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
     .card-photo-wrap img {
+      position: absolute;
+      inset: 0;
       width: 100%; height: 100%;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
       display: block;
+    }
+    .card-photo-wrap .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .card-photo-wrap .photo-placeholder svg {
       width: 34px; height: 34px;
@@ -432,41 +439,26 @@
       padding: 18px 22px calc(env(safe-area-inset-bottom, 16px) + 30px);
     }
 
-    /* Badges */
-    .badge {
-      display: inline-flex; align-items: center; gap: 5px;
+    /* Tier pills — solid colour-coded */
+    .tier-pill {
+      display: inline-flex;
+      align-items: center;
       border-radius: 20px;
-      padding: 3px 10px;
-      font-size: 0.6rem;
+      padding: 3px 11px;
+      font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      color: #f8f8f3;
+      margin-bottom: 10px;
     }
-    .badge::before {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .badge-free {
-      background: rgba(74,138,85,0.10);
-      border: 1px solid rgba(74,138,85,0.28);
-      color: #4A8A55;
-    }
-    .badge-free::before { background: #4A8A55; }
-    .badge-discovered {
-      background: rgba(61,122,74,0.10);
-      border: 1px solid rgba(61,122,74,0.30);
-      color: #3D7A4A;
-    }
-    .badge-discovered::before { background: #3D7A4A; }
-    .badge-paid {
-      background: rgba(196,164,74,0.10);
-      border: 1px solid rgba(196,164,74,0.32);
-      color: #C4A44A;
-    }
-    .badge-paid::before { background: #C4A44A; }
+    .tier-pill + .tier-pill { margin-left: 5px; }
+    .tier-pill-discovered   { background: #2A5A38; }
+    .tier-pill-verified     { background: #2A7A6A; }
+    .tier-pill-seal-lite    { background: #707070; }
+    .tier-pill-seal-complete { background: #C4A44A; color: #060807; }
+    .tier-pill-market       { background: #B0623A; }
+    .tier-pill-founder      { background: #2A5A38; border: 1px solid rgba(196,164,74,0.55); }
     /* ── PINS — GOLD (Provenance Visited) ── */
     .pin.gold .pin-dot,
     .pin.approved.gold .pin-dot {
@@ -512,27 +504,13 @@
       100% { transform: translate(-50%,-50%) scale(3.5); opacity: 0; }
     }
 
-    /* ── MARKET CARD — terracotta theme ── */
-    .badge-market {
-      background: rgba(176,98,58,0.12);
-      border: 1px solid rgba(176,98,58,0.4);
-      color: #C07050;
-    }
-    .badge-market::before { background: #B0623A; }
-    .badge-confirmed {
-      background: rgba(176,98,58,0.08);
-      border: 1px solid rgba(176,98,58,0.3);
-      color: #C07050;
-      margin-left: 6px;
-    }
-    .badge-confirmed::before { background: #B0623A; }
-    #card.market-card .card-product { color: #B0623A; }
-    #card.market-card .card-profile-btn {
-      background: #B0623A;
-      color: #f8f8f3;
-      box-shadow: 0 4px 22px rgba(176,98,58,0.3);
-    }
+    /* ── MARKET CARD ── */
     #card.market-card .strip-thumb.active { border-color: #B0623A; }
+    #card.market-card .card-action-primary {
+      background: #f8f8f3;
+      color: #060807;
+      box-shadow: 0 4px 22px rgba(248,248,243,0.2);
+    }
 
     /* ── MARKET CARD CONTENT ── */
     .card-hours {
@@ -644,40 +622,14 @@
       background: rgba(42,122,106,0.25) !important;
     }
 
-    .badge-founder {
-      background: rgba(248,248,243,0.08);
-      border: 1px solid rgba(248,248,243,0.35);
-      color: #f8f8f3;
-    }
-    .badge-founder::before { background: #f8f8f3; }
-
-    /* ── MARKET CARD — white accent theme ── */
-    .badge-market {
-      background: rgba(248,248,243,0.08);
-      border: 1px solid rgba(248,248,243,0.35);
-      color: #f8f8f3;
-    }
-    .badge-market::before { background: #f8f8f3; }
-
-    #card.market-card .card-product {
-      color: #f8f8f3;
-    }
-    #card.market-card .strip-thumb.active {
-      border-color: #f8f8f3;
-    }
-    #card.market-card .card-profile-btn {
-      background: #f8f8f3;
-      color: #060807;
-      box-shadow: 0 4px 22px rgba(248,248,243,0.2);
-    }
 
     #card-name {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 2rem;
-      font-weight: 600;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.3rem;
+      font-weight: 500;
       color: #f8f8f3;
       line-height: 1.05;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .card-location {
@@ -688,10 +640,59 @@
       margin-bottom: 10px;
     }
 
-    .card-product {
-      font-size: 0.9rem;
-      color: #C4A44A;
+    /* Product type tags */
+    .card-product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
       margin-bottom: 14px;
+    }
+    .product-tag {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: rgba(61,122,74,0.08);
+      border: 1px solid rgba(61,122,74,0.2);
+      color: #4A8A55;
+    }
+    /* Where to buy */
+    .card-where-buy { margin-bottom: 14px; }
+    .card-where-buy-label {
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #504838;
+      margin-bottom: 7px;
+      display: block;
+    }
+    .card-where-buy-item {
+      font-size: 0.83rem;
+      color: #E8DEC8;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .card-where-buy-item:last-child { border-bottom: none; }
+    .card-where-buy-item a { color: #C4A44A; text-decoration: none; }
+    /* Venue tags (farm shop, farmers market) */
+    .card-venue-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+    .venue-tag {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: rgba(196,164,74,0.08);
+      border: 1px solid rgba(196,164,74,0.25);
+      color: #C4A44A;
     }
 
     #card-attributes {
@@ -719,55 +720,66 @@
       margin-bottom: 20px;
     }
 
-    .card-divider {
-      height: 1px;
-      background: #161a1d;
-      margin-bottom: 16px;
+    /* ── ACTION ROW ── */
+    .card-actions {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
     }
-
-    .card-links { display: flex; flex-direction: column; gap: 11px; }
-
-    .card-profile-btn {
+    .card-action-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 14px;
-      padding: 0 20px;
-      height: 44px;
-      background: #C4A44A;
-      border: none;
-      border-radius: 24px;
-      color: #060807;
+      height: 46px;
+      border-radius: 23px;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.13em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      text-align: center;
       text-decoration: none;
-      box-shadow: 0 4px 22px rgba(196,164,74,0.32);
-      transition: opacity 0.2s, transform 0.2s;
+      transition: opacity 0.2s, transform 0.15s;
+      border: none;
+      cursor: pointer;
     }
-    .card-profile-btn:hover { opacity: 0.88; }
-    .card-profile-btn:active { transform: scale(0.97); }
-
-    .card-link {
-      display: inline-flex;
+    .card-action-btn:active { transform: scale(0.97); }
+    .card-action-primary {
+      background: #C4A44A;
+      color: #060807;
+      box-shadow: 0 4px 22px rgba(196,164,74,0.28);
+    }
+    .card-action-primary:hover { opacity: 0.9; }
+    .card-action-seal {
+      background: rgba(196,164,74,0.08);
+      border: 1px solid rgba(196,164,74,0.3);
+      color: #C4A44A;
+    }
+    .card-action-seal:hover { background: rgba(196,164,74,0.14); }
+    .card-action-icons {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 6px 0 2px;
+    }
+    .card-action-icon {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 9px;
+      gap: 5px;
       color: #E8DEC8;
       text-decoration: none;
-      font-size: 0.83rem;
-      opacity: 0.65;
-      transition: opacity 0.2s;
+      font-size: 0.52rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.15s;
     }
-    .card-link:hover { opacity: 1; }
-    .card-link svg {
-      width: 15px; height: 15px;
-      flex-shrink: 0;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.8;
+    .card-action-icon:hover { opacity: 1; }
+    .card-action-icon svg {
+      width: 20px; height: 20px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -1082,9 +1094,7 @@
     <div class="card-top">
       <div class="card-handle"></div>
       <button class="card-close" id="card-close" aria-label="Close">
-        <svg viewBox="0 0 24 24">
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
 
@@ -1100,12 +1110,18 @@
     <div class="card-photo-strip hidden" id="card-photo-strip"></div>
 
     <div class="card-body">
+      <!-- TOP -->
       <div id="card-badge"></div>
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
-      <p class="card-product" id="card-product"></p>
+      <div id="card-product-tags" class="card-product-tags"></div>
       <div id="card-attributes" class="hidden"></div>
+
+      <!-- MIDDLE -->
       <p class="card-description hidden" id="card-description"></p>
+      <div id="card-where-to-buy" class="card-where-buy hidden"></div>
+      <div id="card-venue-tags" class="card-venue-tags hidden"></div>
+
       <div id="card-market-info" class="hidden">
         <div class="card-hours hidden" id="card-hours-row">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1114,35 +1130,13 @@
         <p class="card-producers-label hidden" id="card-producers-label">Provenance producers at this market</p>
         <div id="card-producers-list"></div>
       </div>
-      <div class="card-divider hidden" id="card-divider"></div>
-      <div class="card-links hidden" id="card-links">
-        <a class="card-link hidden" id="card-instagram" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-          </svg>
-          <span id="card-instagram-handle"></span>
-        </a>
-        <a class="card-link hidden" id="card-website" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M2 12h20"/>
-            <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-          </svg>
-          <span id="card-website-text"></span>
-        </a>
+
+      <!-- BOTTOM -->
+      <div class="card-actions">
+        <a id="card-profile" class="card-action-btn card-action-primary hidden" href="#">See full profile</a>
+        <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
+        <div class="card-action-icons" id="card-action-icons"></div>
       </div>
-      <a class="card-link hidden" id="card-video" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="10"/>
-          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
-        </svg>
-        <span>Producer Visit</span>
-      </a>
-      <a class="card-profile-btn hidden" id="card-profile" href="#">
-        Provenance
-      </a>
     </div>
   </div>
 
@@ -1240,6 +1234,11 @@
       if (p.website)     div.dataset.website     = p.website;
       if (p.video)       div.dataset.video       = p.video;
       if (p.date_added)  div.dataset.listed      = p.date_added;
+      if (p.seal_active) div.dataset.sealActive = 'true';
+      if (p.seal_url)    div.dataset.sealUrl    = p.seal_url;
+      if (p.where_to_buy && p.where_to_buy.length) div.dataset.whereToBuy = JSON.stringify(p.where_to_buy);
+      if (p.farmers_market) div.dataset.farmersMarket = 'true';
+      if (p.farm_shop)      div.dataset.farmShop      = 'true';
       div.innerHTML = '<div class="pin-pulse"></div><div class="pin-dot"></div>';
       return div;
     }
@@ -1272,45 +1271,56 @@
     const overlay = document.getElementById('overlay');
     const applyBtn = document.getElementById('apply-btn');
 
-    const TIER_LABELS = {
-      0: { text: 'Free Listing',       cls: 'badge badge-free' },
-      1: { text: 'Provenance Verified', cls: 'badge badge-paid' },
-      2: { text: 'POV Verified',       cls: 'badge badge-paid' },
-      3: { text: 'Provenance Seal',    cls: 'badge badge-paid' },
+    const TIER_PILL_MAP = {
+      'discovered':    { label: 'Discovered Producer',  cls: 'tier-pill tier-pill-discovered' },
+      'verified':      { label: 'Provenance Verified',  cls: 'tier-pill tier-pill-verified' },
+      'seal-lite':     { label: 'Seal Lite',            cls: 'tier-pill tier-pill-seal-lite' },
+      'seal-complete': { label: 'Provenance Seal',      cls: 'tier-pill tier-pill-seal-complete' },
     };
 
     function openCard(pin) {
-      const tier     = parseInt(pin.dataset.tier || '0');
-      const isPaid   = tier >= 1;
+      const tierName = pin.dataset.tierName || 'discovered';
       const isMarket = pin.classList.contains('market');
+      card.classList.toggle('market-card', isMarket);
 
-      // Apply/remove market card theme
-      if (isMarket) {
-        card.classList.add('market-card');
-      } else {
-        card.classList.remove('market-card');
-      }
-
-      // Badge
-      const isFree = !isMarket && !pin.classList.contains('approved') && !pin.classList.contains('tier-1') && !pin.classList.contains('tier-2') && !pin.classList.contains('tier-3');
+      // ── Tier badge ──
       let badgeHTML = '';
       if (isMarket) {
-        badgeHTML = `<span class="badge badge-market">Farmers Market</span>`;
-        if (pin.dataset.confirmed === 'true') {
-          badgeHTML += `<span class="badge badge-confirmed">Personally Confirmed</span>`;
-        }
+        badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
       } else if (pin.dataset.badge2) {
-        badgeHTML = `<span class="badge badge-founder">${pin.dataset.badge2}</span>`;
-      } else if (isFree) {
-        badgeHTML = `<span class="badge badge-discovered">Discovered producer</span>`;
+        badgeHTML = `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
+        if (pin.dataset.badge) {
+          badgeHTML += `<span class="tier-pill tier-pill-discovered" style="margin-left:4px">${pin.dataset.badge}</span>`;
+        }
+      } else {
+        const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
+        badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
+      // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;
       document.getElementById('card-location').textContent = pin.dataset.location;
-      document.getElementById('card-product').textContent  = isMarket ? '' : (pin.dataset.product || '');
 
-      // Photo + strip
+      // ── Product type tags ──
+      const tagsEl = document.getElementById('card-product-tags');
+      const types  = (pin.dataset.productTypes || '').split(',').filter(Boolean);
+      tagsEl.innerHTML = types.map(t =>
+        `<span class="product-tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`
+      ).join('');
+
+      // ── Attributes ──
+      const attrsEl = document.getElementById('card-attributes');
+      if (pin.dataset.attributes) {
+        attrsEl.innerHTML = pin.dataset.attributes.split(',').map(t =>
+          `<span class="badge-attr">${t.trim()}</span>`
+        ).join('');
+        attrsEl.classList.remove('hidden');
+      } else {
+        attrsEl.classList.add('hidden');
+      }
+
+      // ── Photo + strip ──
       const photoWrap  = document.getElementById('card-photo-wrap');
       const photoStrip = document.getElementById('card-photo-strip');
       const allPhotos  = [
@@ -1320,9 +1330,9 @@
 
       function showPhoto(src) {
         photoWrap.innerHTML = `<img src="${src}" alt="${pin.dataset.name}" />`;
-        photoStrip.querySelectorAll('.strip-thumb').forEach(t => {
-          t.classList.toggle('active', t.dataset.src === src);
-        });
+        photoStrip.querySelectorAll('.strip-thumb').forEach(t =>
+          t.classList.toggle('active', t.dataset.src === src)
+        );
       }
 
       if (allPhotos.length > 0) {
@@ -1337,51 +1347,64 @@
 
       if (allPhotos.length > 1) {
         photoStrip.innerHTML = allPhotos.map((src, i) =>
-          `<div class="strip-thumb${i === 0 ? ' active' : ''}" data-src="${src}">
-            <img src="${src}" alt="" />
-          </div>`
+          `<div class="strip-thumb${i === 0 ? ' active' : ''}" data-src="${src}"><img src="${src}" alt="" /></div>`
         ).join('');
-        photoStrip.querySelectorAll('.strip-thumb').forEach(thumb => {
-          thumb.addEventListener('click', () => showPhoto(thumb.dataset.src));
-        });
+        photoStrip.querySelectorAll('.strip-thumb').forEach(thumb =>
+          thumb.addEventListener('click', () => showPhoto(thumb.dataset.src))
+        );
         photoStrip.classList.remove('hidden');
       } else {
         photoStrip.innerHTML = '';
         photoStrip.classList.add('hidden');
       }
 
-      const desc    = document.getElementById('card-description');
-      const divider = document.getElementById('card-divider');
-      const links   = document.getElementById('card-links');
-      const marketInfo = document.getElementById('card-market-info');
-
-      desc.classList.add('hidden');
+      // ── Description ──
+      const desc = document.getElementById('card-description');
       if (pin.dataset.description) {
         desc.textContent = pin.dataset.description;
         desc.classList.remove('hidden');
+      } else {
+        desc.classList.add('hidden');
       }
 
-      const attrsEl = document.getElementById('card-attributes');
-      attrsEl.classList.add('hidden');
-      if (pin.dataset.attributes) {
-        attrsEl.innerHTML = pin.dataset.attributes.split(',').map(t =>
-          `<span class="badge-attr">${t.trim()}</span>`
-        ).join('');
-        attrsEl.classList.remove('hidden');
-      }
-      divider.classList.add('hidden');
+      // ── Where to buy ──
+      const whereToBuyEl = document.getElementById('card-where-to-buy');
+      if (pin.dataset.whereToBuy) {
+        try {
+          const items = JSON.parse(pin.dataset.whereToBuy);
+          if (items.length) {
+            whereToBuyEl.innerHTML = `<span class="card-where-buy-label">Where to buy</span>` +
+              items.map(item => {
+                if (typeof item === 'string') return `<div class="card-where-buy-item">${item}</div>`;
+                return `<div class="card-where-buy-item">${item.url
+                  ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}</a>`
+                  : item.name}</div>`;
+              }).join('');
+            whereToBuyEl.classList.remove('hidden');
+          } else { whereToBuyEl.classList.add('hidden'); }
+        } catch { whereToBuyEl.classList.add('hidden'); }
+      } else { whereToBuyEl.classList.add('hidden'); }
 
+      // ── Venue tags ──
+      const venueTagsEl = document.getElementById('card-venue-tags');
+      const venueTags = [];
+      if (pin.dataset.farmersMarket === 'true') venueTags.push('Farmers Market');
+      if (pin.dataset.farmShop === 'true') venueTags.push('Farm Shop');
+      if (venueTags.length) {
+        venueTagsEl.innerHTML = venueTags.map(t => `<span class="venue-tag">${t}</span>`).join('');
+        venueTagsEl.classList.remove('hidden');
+      } else { venueTagsEl.classList.add('hidden'); }
+
+      // ── Market info ──
+      const marketInfo = document.getElementById('card-market-info');
       if (isMarket) {
         marketInfo.classList.remove('hidden');
-
         const hoursRow  = document.getElementById('card-hours-row');
         const hoursText = document.getElementById('card-hours-text');
         if (pin.dataset.hours) {
           hoursText.textContent = pin.dataset.hours;
           hoursRow.classList.remove('hidden');
-        } else {
-          hoursRow.classList.add('hidden');
-        }
+        } else { hoursRow.classList.add('hidden'); }
 
         const producersList  = document.getElementById('card-producers-list');
         const producersLabel = document.getElementById('card-producers-label');
@@ -1399,52 +1422,41 @@
           producersList.innerHTML = '';
           producersLabel.classList.add('hidden');
         }
-      } else {
-        marketInfo.classList.add('hidden');
-      }
+      } else { marketInfo.classList.add('hidden'); }
 
-      if (isPaid) {
-        links.classList.remove('hidden');
-
-        const igEl     = document.getElementById('card-instagram');
-        const igHandle = pin.dataset.instagram;
-        if (igHandle) {
-          igEl.href = `https://instagram.com/${igHandle}`;
-          document.getElementById('card-instagram-handle').textContent = `@${igHandle}`;
-          igEl.classList.remove('hidden');
-        } else {
-          igEl.classList.add('hidden');
-        }
-
-        const wsEl  = document.getElementById('card-website');
-        const wsUrl = pin.dataset.website;
-        if (wsUrl) {
-          wsEl.href = wsUrl;
-          document.getElementById('card-website-text').textContent =
-            wsUrl.replace(/^https?:\/\//, '');
-          wsEl.classList.remove('hidden');
-        } else {
-          wsEl.classList.add('hidden');
-        }
-      } else {
-        links.classList.add('hidden');
-      }
-
-      const videoEl = document.getElementById('card-video');
-      if (pin.dataset.video) {
-        videoEl.href = pin.dataset.video;
-        videoEl.classList.remove('hidden');
-      } else {
-        videoEl.classList.add('hidden');
-      }
-
+      // ── Profile button ──
       const profileEl = document.getElementById('card-profile');
       if (pin.dataset.profile) {
         profileEl.href = pin.dataset.profile;
         profileEl.classList.remove('hidden');
-      } else {
-        profileEl.classList.add('hidden');
+      } else { profileEl.classList.add('hidden'); }
+
+      // ── Seal button ──
+      const sealEl = document.getElementById('card-seal');
+      if (pin.dataset.sealActive === 'true' && pin.dataset.sealUrl) {
+        sealEl.href = pin.dataset.sealUrl;
+        sealEl.classList.remove('hidden');
+      } else { sealEl.classList.add('hidden'); }
+
+      // ── Action icons (instagram + directions) ──
+      const iconsEl = document.getElementById('card-action-icons');
+      let iconsHTML = '';
+      if (pin.dataset.instagram) {
+        iconsHTML += `<a class="card-action-icon" href="https://instagram.com/${pin.dataset.instagram}" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          <span>Instagram</span>
+        </a>`;
       }
+      const lat = pin.dataset.lat;
+      const lng = pin.dataset.lng;
+      if (lat && lng) {
+        iconsHTML += `<a class="card-action-icon" href="https://maps.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener" aria-label="Get directions">
+          <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          <span>Directions</span>
+        </a>`;
+      }
+      iconsEl.innerHTML = iconsHTML;
+      iconsEl.style.display = iconsHTML ? '' : 'none';
 
       // Reset pinch-zoom so card is fully visible on iOS
       const viewport = document.querySelector('meta[name=viewport]');
