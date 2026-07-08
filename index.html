@@ -776,6 +776,103 @@
       stroke-linejoin: round;
     }
 
+    /* ── LIVING PIN SYSTEM ── */
+    /* Discovered — static, deep muted green, no animation */
+    .pin.t-discovered .pin-dot {
+      background: #2A5A38;
+      box-shadow: 0 0 4px 1px rgba(42,90,56,0.35);
+    }
+    .pin.t-discovered .pin-pulse { display: none; }
+
+    /* Verified — teal, ~1.2x, static glow halo */
+    .pin.t-verified .pin-dot {
+      width: 7.5px !important;
+      height: 7.5px !important;
+      background: #2A7A6A;
+      border: 1px solid rgba(248,248,243,0.85);
+      box-shadow: 0 0 8px 3px rgba(42,122,106,0.4);
+    }
+    .pin.t-verified .pin-pulse { display: none; }
+
+    /* Seal Lite — gold with gentle desynchronised pulse */
+    .pin.t-seal-lite .pin-dot,
+    .pin.t-seal-complete .pin-dot {
+      width: 8px !important;
+      height: 8px !important;
+      background: #C4A44A;
+      border: 1px solid rgba(248,248,243,0.85);
+      box-shadow: 0 0 8px 2px rgba(196,164,74,0.45);
+    }
+    /* Seal Complete — adds thin gold ring around the pin */
+    .pin.t-seal-complete .pin-dot {
+      box-shadow: 0 0 0 1.5px rgba(196,164,74,0.9), 0 0 8px 2px rgba(196,164,74,0.45);
+    }
+    .pin.t-seal-lite .pin-pulse,
+    .pin.t-seal-complete .pin-pulse {
+      display: block;
+      width: 8px; height: 8px;
+      background: rgba(196,164,74,0.3);
+      animation: pulse-seal 3s ease-out infinite;
+    }
+    @keyframes pulse-seal {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
+      100% { transform: translate(-50%,-50%) scale(4); opacity: 0; }
+    }
+
+    /* Available now — bright green dot on top-right of pin */
+    .pin.available-now .pin-dot::after {
+      content: '';
+      position: absolute;
+      top: -3px; right: -3px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4A8A55;
+      border: 1px solid rgba(6,8,7,0.9);
+      box-shadow: 0 0 4px 1px rgba(74,138,85,0.6);
+    }
+
+    /* Reduced motion — pulses become static glows */
+    @media (prefers-reduced-motion: reduce) {
+      .pin-pulse { animation: none !important; opacity: 0 !important; }
+      .pin.t-seal-lite .pin-dot,
+      .pin.t-seal-complete .pin-dot {
+        box-shadow: 0 0 10px 3px rgba(196,164,74,0.5);
+      }
+      .pin.t-seal-complete .pin-dot {
+        box-shadow: 0 0 0 1.5px rgba(196,164,74,0.9), 0 0 10px 3px rgba(196,164,74,0.5);
+      }
+    }
+
+    /* ── DISCOVERY COUNTER ── */
+    #discovery-counter {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
+      left: 16px;
+      z-index: 25;
+      background: #0E100D;
+      border: 1px solid rgba(196,164,74,0.25);
+      border-radius: 8px;
+      padding: 7px 13px;
+      max-height: 40px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      pointer-events: none;
+    }
+    #discovery-counter .dc-num {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #E8DEC8;
+      line-height: 1;
+    }
+    #discovery-counter .dc-text {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: #706050;
+      line-height: 1;
+    }
+
     .hidden { display: none !important; }
     /* ── FILTER TOGGLE ── */
     #filter-toggle {
@@ -1005,6 +1102,12 @@
     </div>
   </div>
 
+  <!-- DISCOVERY COUNTER -->
+  <div id="discovery-counter">
+    <span class="dc-num" id="dc-num">0</span>
+    <span class="dc-text">producers and growing</span>
+  </div>
+
   <!-- FILTER TOGGLE -->
   <div id="filter-toggle" onclick="toggleFilter()" aria-label="Filter producers">
     <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
@@ -1200,8 +1303,9 @@
     function renderPin(p) {
       const div = document.createElement('div');
       const tierNum = TIER_NUM[p.tier] || 0;
-      const classes = ['pin'];
+      const classes = ['pin', 't-' + (p.tier || 'discovered')];
       if (p.pin_classes) classes.push(...p.pin_classes.trim().split(' ').filter(Boolean));
+      if (p.available_now) classes.push('available-now');
       div.className = classes.join(' ');
       div.dataset.lat = p.lat;
       div.dataset.lng = p.lng;
@@ -1231,6 +1335,8 @@
       if (p.farmers_market) div.dataset.farmersMarket = 'true';
       if (p.farm_shop)      div.dataset.farmShop      = 'true';
       div.innerHTML = '<div class="pin-pulse"></div><div class="pin-dot"></div>';
+      // Desynchronise pulse cycles so seal pins never blink in unison
+      div.querySelector('.pin-pulse').style.animationDelay = '-' + (Math.random() * 3).toFixed(2) + 's';
       return div;
     }
 
@@ -1451,12 +1557,26 @@
       document.getElementById('card-photo-wrap').style.display = '';
     }
 
+    function animateCounter(total) {
+      const el = document.getElementById('dc-num');
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(eased * total);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
     fetch('producers.json')
       .then(r => r.json())
       .then(data => {
         const container = document.getElementById('pins');
         data.producers.forEach(p => container.appendChild(renderPin(p)));
         initPins();
+        animateCounter(data.producers.length);
       })
       .catch(err => console.error('Failed to load producers.json:', err));
 
