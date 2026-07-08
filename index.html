@@ -41,8 +41,16 @@
     }
 
     /* ── MAP ── */
-    #map-img {
+    #map-wrap {
       position: fixed;
+      inset: 0;
+      z-index: 1;
+      transform-origin: 0 0;
+      transition: transform 0.65s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    #map-img {
+      position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: contain;
@@ -51,11 +59,20 @@
       display: block;
     }
 
+    #near-me-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      display: none;
+    }
+
     #pins {
-      position: fixed;
+      position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: 2;
+      z-index: 3;
     }
 
     /* ── HEADER ── */
@@ -1088,13 +1105,161 @@
       }
       #filter-panel.open { transform: translateX(0); }
     }
+
+  /* ── NEAR ME ── */
+  /* PRIVACY: user coordinates exist in session memory only — never stored, never transmitted */
+  #near-me-btn {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 16px) + 78px);
+    right: 16px;
+    z-index: 25;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #0E100D;
+    border: 1px solid rgba(196,164,74,0.30);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.2s, background 0.2s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  #near-me-btn.active {
+    border-color: rgba(196,164,74,0.65);
+    background: rgba(14,16,13,0.95);
+  }
+  #near-me-btn svg {
+    width: 18px; height: 18px;
+    stroke: #C4A44A; fill: none;
+    stroke-width: 1.5; stroke-linecap: round;
+  }
+  @keyframes near-me-spin { to { transform: rotate(360deg); } }
+  #near-me-btn.loading svg { animation: near-me-spin 1s linear infinite; }
+  @media (min-width: 601px) {
+    #near-me-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 22px); }
+  }
+
+  #near-me-chip {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 20px) + 88px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 25;
+    background: rgba(14,16,13,0.94);
+    border: 1px solid rgba(196,164,74,0.30);
+    border-radius: 22px;
+    padding: 9px 12px 9px 13px;
+    display: flex; align-items: center; gap: 8px;
+    white-space: nowrap; cursor: pointer;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    -webkit-tap-highlight-color: transparent;
+  }
+  #near-me-chip.visible { opacity: 1; pointer-events: auto; }
+  #near-me-chip > svg {
+    width: 13px; height: 13px;
+    stroke: #C4A44A; fill: none;
+    stroke-width: 1.6; stroke-linecap: round; flex-shrink: 0;
+  }
+  .nm-chip-text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.82rem; color: #E8DEC8;
+  }
+  #nm-chip-close {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0; margin-left: 2px;
+  }
+  #nm-chip-close svg {
+    width: 8px; height: 8px; stroke: #504838; fill: none;
+    stroke-width: 2.5; stroke-linecap: round;
+  }
+
+  #near-me-toast {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 16px) + 112px);
+    left: 50%; transform: translateX(-50%);
+    z-index: 50;
+    background: rgba(14,16,13,0.96); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 0.76rem; color: #E8DEC8; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  #near-me-toast.visible { opacity: 1; }
+
+  #near-me-panel {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+    background: #0E100D; border-radius: 18px 18px 0 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+    max-width: 560px; margin: 0 auto;
+    max-height: 72vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  #near-me-panel.open { transform: translateY(0); }
+
+  .nm-panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    position: sticky; top: 0; background: #0E100D; z-index: 1;
+  }
+  .nm-panel-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem; font-weight: 400; color: #E8DEC8;
+  }
+  #nm-panel-close {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background 0.15s;
+  }
+  #nm-panel-close:hover { background: rgba(255,255,255,0.09); }
+  #nm-panel-close svg {
+    width: 11px; height: 11px; stroke: #504838; fill: none;
+    stroke-width: 2; stroke-linecap: round;
+  }
+  .nm-list-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px; border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer; transition: background 0.12s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nm-list-item:last-child { border-bottom: none; }
+  .nm-list-item:active { background: rgba(255,255,255,0.02); }
+  .nm-list-info { display: flex; flex-direction: column; gap: 3px; }
+  .nm-list-name { font-size: 0.92rem; color: #E8DEC8; font-family: 'Cormorant Garamond', Georgia, serif; }
+  .nm-list-location { font-size: 0.60rem; letter-spacing: 0.1em; text-transform: uppercase; color: #504838; }
+  .nm-list-dist { font-size: 0.72rem; color: #C4A44A; letter-spacing: 0.05em; flex-shrink: 0; margin-left: 14px; }
+
+  .user-location-dot {
+    position: absolute; transform: translate(-50%, -50%);
+    pointer-events: none; display: flex; align-items: center; justify-content: center;
+  }
+  .user-location-dot .udot {
+    width: 10px; height: 10px; border-radius: 50%; background: #4A8A55;
+    border: 1.5px solid rgba(248,248,243,0.9); box-shadow: 0 0 8px 2px rgba(74,138,85,0.65);
+    position: relative; z-index: 1;
+  }
+  .user-location-dot .upulse {
+    position: absolute; top: 50%; left: 50%;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(74,138,85,0.35);
+    animation: pulse-verified 2.5s ease-out infinite;
+  }
   </style>
 </head>
 <body>
 
-  <img id="map-img" src="ireland-map.png.png" alt="Map of Ireland" />
-
-  <div id="pins"></div>
+  <div id="map-wrap">
+    <img id="map-img" src="ireland-map.png.png" alt="Map of Ireland" />
+    <canvas id="near-me-canvas"></canvas>
+    <div id="pins"></div>
+  </div>
 
   <!-- HEADER -->
   <div id="header">
@@ -1141,6 +1306,46 @@
   <div id="discovery-counter">
     <span class="dc-num" id="dc-num">0</span>
     <span class="dc-text">producers and growing</span>
+  </div>
+
+  <!-- NEAR ME BUTTON -->
+  <button id="near-me-btn" aria-label="Find producers near me">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="3"/>
+      <line x1="12" y1="2" x2="12" y2="6"/>
+      <line x1="12" y1="18" x2="12" y2="22"/>
+      <line x1="2" y1="12" x2="6" y2="12"/>
+      <line x1="18" y1="12" x2="22" y2="12"/>
+    </svg>
+  </button>
+
+  <!-- NEAR ME CHIP (counter shown while mode is active) -->
+  <div id="near-me-chip">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="3"/>
+      <line x1="12" y1="2" x2="12" y2="6"/>
+      <line x1="12" y1="18" x2="12" y2="22"/>
+      <line x1="2" y1="12" x2="6" y2="12"/>
+      <line x1="18" y1="12" x2="22" y2="12"/>
+    </svg>
+    <span class="nm-chip-text">0 producers within 30km</span>
+    <button id="nm-chip-close" aria-label="Exit near me">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- NEAR ME TOAST -->
+  <div id="near-me-toast"></div>
+
+  <!-- NEAR ME PANEL (sorted list of nearby producers) -->
+  <div id="near-me-panel">
+    <div class="nm-panel-header">
+      <span class="nm-panel-title">Producers near you</span>
+      <button id="nm-panel-close" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="nm-list"></div>
   </div>
 
   <!-- FILTER TOGGLE -->
@@ -1330,7 +1535,10 @@
         requestAnimationFrame(positionPins);
       });
     }
-    window.addEventListener('resize', positionPins);
+    window.addEventListener('resize', () => {
+      positionPins();
+      if (nearMe.active) exitNearMeMode();
+    });
 
     // ── DYNAMIC PIN RENDERING ─────────────────────────────────────
     const TIER_NUM = { discovered: 0, verified: 1, 'seal-lite': 2, 'seal-complete': 3 };
@@ -1627,7 +1835,13 @@
       })
       .catch(err => console.error('Failed to load producers.json:', err));
 
-    overlay.addEventListener('click', closeCard);
+    overlay.addEventListener('click', () => {
+      if (document.getElementById('near-me-panel').classList.contains('open')) {
+        closeNearMePanel();
+      } else {
+        closeCard();
+      }
+    });
     document.getElementById('card-close').addEventListener('click', closeCard);
 
     // Swipe down to dismiss
@@ -1653,6 +1867,7 @@
     };
 
     function applyFilters() {
+      if (nearMe.active) return; // near-me controls pin opacity while mode is on
       const pins = document.querySelectorAll('.pin');
       const { search, county, productTypes, tiers } = filterState;
       const hasFilters = search || county || productTypes.size || tiers.size;
@@ -1774,6 +1989,221 @@
       btn.classList.toggle('open');
       overlay.classList.toggle('open');
     }
+
+    /* ── NEAR ME ────────────────────────────────────────────────────
+       PRIVACY: user coordinates are held in JS memory only for the
+       duration of this session. They are never written to localStorage,
+       cookies, analytics, or any external endpoint.
+    ──────────────────────────────────────────────────────────────── */
+    const nearMe = { active: false, lat: null, lng: null, radiusKm: 30 };
+
+    function haversine(lat1, lng1, lat2, lng2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLng / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function getMapDims() {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const iw = mapImg.naturalWidth || 1, ih = mapImg.naturalHeight || 1;
+      const scale = Math.min(vw / iw, vh / ih);
+      const rw = iw * scale, rh = ih * scale;
+      const ox = (vw - rw) / 2, oy = (vh - rh) / 2;
+      return { vw, vh, rw, rh, ox, oy };
+    }
+
+    function latLngToPixel(lat, lng) {
+      const { rw, rh, ox, oy } = getMapDims();
+      const { x, y } = latLngToPercent(lat, lng);
+      return { px: ox + x * rw, py: oy + y * rh };
+    }
+
+    function requestNearMe() {
+      if (nearMe.active) { exitNearMeMode(); return; }
+      if (!navigator.geolocation) { openCountyFallback(); return; }
+      document.getElementById('near-me-btn').classList.add('loading');
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          document.getElementById('near-me-btn').classList.remove('loading');
+          enterNearMeMode(pos.coords.latitude, pos.coords.longitude);
+        },
+        () => {
+          document.getElementById('near-me-btn').classList.remove('loading');
+          openCountyFallback();
+        },
+        { timeout: 10000, maximumAge: 60000 }
+      );
+    }
+
+    function openCountyFallback() {
+      document.getElementById('filter-panel').classList.add('open');
+      setTimeout(() => document.getElementById('filter-county').focus(), 350);
+      showNearMeToast('Location unavailable — choose your county instead');
+    }
+
+    function showNearMeToast(msg) {
+      const t = document.getElementById('near-me-toast');
+      t.textContent = msg;
+      t.classList.add('visible');
+      setTimeout(() => t.classList.remove('visible'), 3500);
+    }
+
+    function enterNearMeMode(lat, lng) {
+      nearMe.active = true;
+      nearMe.lat = lat;
+      nearMe.lng = lng;
+
+      const { vw, vh, rh } = getMapDims();
+      const { px, py } = latLngToPixel(lat, lng);
+
+      // 30 km ≈ 0.054 × rh pixels (0.27° × 20%/° × rh); target ~35% of viewport height
+      const km30px = 0.054 * rh;
+      const N = Math.min(Math.max((0.35 * vh) / km30px, 3), 8);
+      // translate so user's map point becomes the viewport centre
+      // with transform: translate(tx,ty) scale(N) and transform-origin: 0 0
+      const tx = vw / 2 - N * px;
+      const ty = vh / 2 - N * py;
+
+      const wrap = document.getElementById('map-wrap');
+      wrap.style.transformOrigin = '0 0';
+      wrap.style.transform = `translate(${tx}px,${ty}px) scale(${N})`;
+
+      drawNearMeCircle(px, py, rh);
+      addUserDot(px, py);
+
+      const count = applyNearMeOpacity();
+      updateNearMeChip(count);
+      document.getElementById('near-me-chip').classList.add('visible');
+      document.getElementById('near-me-btn').classList.add('active');
+    }
+
+    function drawNearMeCircle(px, py, rh) {
+      const { vw, vh } = getMapDims();
+      const canvas = document.getElementById('near-me-canvas');
+      canvas.width = vw;
+      canvas.height = vh;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, vw, vh);
+      ctx.beginPath();
+      ctx.arc(px, py, 0.054 * rh, 0, 2 * Math.PI);
+      ctx.strokeStyle = 'rgba(196,164,74,0.25)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      canvas.style.display = 'block';
+    }
+
+    function addUserDot(px, py) {
+      removeUserDot();
+      const dot = document.createElement('div');
+      dot.className = 'user-location-dot';
+      dot.id = 'user-location-dot';
+      dot.style.left = px + 'px';
+      dot.style.top  = py + 'px';
+      dot.innerHTML = '<div class="upulse"></div><div class="udot"></div>';
+      document.getElementById('pins').appendChild(dot);
+    }
+
+    function removeUserDot() {
+      const el = document.getElementById('user-location-dot');
+      if (el) el.remove();
+    }
+
+    function applyNearMeOpacity() {
+      let count = 0;
+      document.querySelectorAll('.pin').forEach(pin => {
+        if (pin.id === 'user-location-dot') return;
+        const pinLat = parseFloat(pin.dataset.lat);
+        const pinLng = parseFloat(pin.dataset.lng);
+        if (isNaN(pinLat) || isNaN(pinLng)) return;
+        const dist = haversine(nearMe.lat, nearMe.lng, pinLat, pinLng);
+        pin.dataset.nearMeDist = dist.toFixed(1);
+        if (dist <= nearMe.radiusKm) { pin.style.opacity = ''; count++; }
+        else { pin.style.opacity = '0.2'; }
+      });
+      return count;
+    }
+
+    function updateNearMeChip(count) {
+      const s = count !== 1 ? 's' : '';
+      document.querySelector('.nm-chip-text').textContent =
+        `${count} producer${s} within 30km`;
+    }
+
+    function exitNearMeMode() {
+      nearMe.active = false;
+      nearMe.lat = nearMe.lng = null;
+
+      const wrap = document.getElementById('map-wrap');
+      wrap.style.transform = '';
+
+      const canvas = document.getElementById('near-me-canvas');
+      canvas.style.display = 'none';
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+      removeUserDot();
+
+      document.querySelectorAll('.pin').forEach(pin => {
+        pin.style.opacity = '';
+        delete pin.dataset.nearMeDist;
+      });
+
+      document.getElementById('near-me-chip').classList.remove('visible');
+      document.getElementById('near-me-btn').classList.remove('active');
+      closeNearMePanel();
+      applyFilters(); // re-apply any existing filter state
+    }
+
+    function openNearMePanel() {
+      closeCard();
+      const inRadius = Array.from(document.querySelectorAll('.pin'))
+        .filter(pin => {
+          if (pin.id === 'user-location-dot') return false;
+          const d = parseFloat(pin.dataset.nearMeDist);
+          return !isNaN(d) && d <= nearMe.radiusKm;
+        })
+        .sort((a, b) => parseFloat(a.dataset.nearMeDist) - parseFloat(b.dataset.nearMeDist));
+
+      const list = document.getElementById('nm-list');
+      list.innerHTML = inRadius.map((pin, i) => {
+        const dist = parseFloat(pin.dataset.nearMeDist).toFixed(1);
+        const loc = pin.dataset.location || pin.dataset.county || '';
+        return `<div class="nm-list-item" data-idx="${i}">
+          <div class="nm-list-info">
+            <span class="nm-list-name">${pin.dataset.name}</span>
+            ${loc ? `<span class="nm-list-location">${loc}</span>` : ''}
+          </div>
+          <span class="nm-list-dist">${dist} km</span>
+        </div>`;
+      }).join('');
+
+      list.querySelectorAll('.nm-list-item').forEach((item, i) => {
+        item.addEventListener('click', () => {
+          closeNearMePanel();
+          openCard(inRadius[i]);
+        });
+      });
+
+      document.getElementById('near-me-panel').classList.add('open');
+      overlay.classList.add('active');
+    }
+
+    function closeNearMePanel() {
+      document.getElementById('near-me-panel').classList.remove('open');
+      if (!card.classList.contains('open')) overlay.classList.remove('active');
+    }
+
+    // Near me event listeners
+    document.getElementById('near-me-btn').addEventListener('click', requestNearMe);
+    document.getElementById('near-me-chip').addEventListener('click', openNearMePanel);
+    document.getElementById('nm-chip-close').addEventListener('click', e => {
+      e.stopPropagation();
+      exitNearMeMode();
+    });
+    document.getElementById('nm-panel-close').addEventListener('click', closeNearMePanel);
   </script>
 </body>
 </html>
