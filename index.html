@@ -585,6 +585,17 @@
       width: 7px; height: 7px;
       border-radius: 50%;
       flex-shrink: 0;
+      position: relative;
+    }
+    .legend-dot-verified::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(74,138,85,0.35);
+      animation: pulse-verified 4s ease-out infinite;
+      pointer-events: none;
     }
 
     .pin.black-border .pin-dot {
@@ -1108,15 +1119,15 @@
   <!-- MAP LEGEND -->
   <div id="map-legend">
     <div class="legend-item">
-      <div class="legend-dot" style="background:#2A5A38;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 4px rgba(42,90,56,0.35);"></div>
+      <div class="legend-dot" style="width:6.9px;height:6.9px;background:#B8AA8A;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 4px 1px rgba(184,170,138,0.35);"></div>
       <span>Discovered producer</span>
     </div>
     <div class="legend-item">
-      <div class="legend-dot" style="background:#2A7A6A;border:1px solid rgba(248,248,243,0.85);box-shadow:0 0 6px rgba(42,122,106,0.4);"></div>
+      <div class="legend-dot legend-dot-verified" style="width:9px;height:9px;background:#4A8A55;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 11px 4.5px rgba(74,138,85,0.61);"></div>
       <span>Verified producer</span>
     </div>
     <div class="legend-item">
-      <div class="legend-dot" style="background:#4A8A55;border:1px solid rgba(196,164,74,0.9);box-shadow:0 0 4px rgba(74,138,85,0.5);"></div>
+      <div class="legend-dot" style="width:7.5px;height:7.5px;background:#4A8A55;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(74,138,85,0.45);"></div>
       <span>Provenance Founder</span>
     </div>
   </div>
