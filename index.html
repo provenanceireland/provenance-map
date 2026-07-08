@@ -783,23 +783,18 @@
     }
     .pin.t-discovered .pin-pulse { display: none; }
 
-    /* Verified — #4A8A55, ~1.2x discovered, slow green ripple */
+    /* Verified — #4A8A55, ~1.1x discovered, breathing glow */
     .pin.t-verified .pin-dot {
-      width: 8.5px !important;
-      height: 8.5px !important;
+      width: 7.5px !important;
+      height: 7.5px !important;
       background: #4A8A55 !important;
       border: none !important;
-      box-shadow: 0 0 6px 2px rgba(74,138,85,0.4) !important;
+      animation: glow-verified 3.5s ease-in-out infinite;
     }
-    .pin.t-verified .pin-pulse {
-      display: block;
-      width: 8.5px; height: 8.5px;
-      background: rgba(74,138,85,0.25);
-      animation: pulse-verified 5s ease-out infinite;
-    }
-    @keyframes pulse-verified {
-      0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
-      100% { transform: translate(-50%,-50%) scale(4.5); opacity: 0; }
+    .pin.t-verified .pin-pulse { display: none; }
+    @keyframes glow-verified {
+      0%, 100% { box-shadow: 0 0 4px 2px rgba(74,138,85,0.3); }
+      50%       { box-shadow: 0 0 10px 5px rgba(74,138,85,0.6); }
     }
 
     /* Seal Lite — gold with gentle desynchronised pulse */
