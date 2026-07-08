@@ -2022,6 +2022,31 @@
       return { px: ox + x * rw, py: oy + y * rh };
     }
 
+    // ── USER DOT CORRECTION ─────────────────────────────────────
+    // The painted map is not geographically linear: the south-east
+    // is drawn narrower than the linear calibration assumes, so raw
+    // GPS positions in inland Wexford render east of the drawn
+    // coast, in the sea. This corrects the DISPLAY position of the
+    // user dot and radius circle only — producer pins are untouched.
+    // Measured against the artwork coastline (land edge x=73.2% at
+    // y=68%). Full strength near the anchor, fading out (Gaussian,
+    // sigma 25km) so users elsewhere in Ireland are unaffected.
+    const USER_WARP = { lat: 52.514, lng: -6.545, xTrue: 69.1, yTrue: 67.7, sigmaKm: 25 };
+
+    function userLatLngToPixel(lat, lng) {
+      const { rw, rh, ox, oy } = getMapDims();
+      const { x, y } = latLngToPercent(lat, lng);
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const refX = isLandscape ? 82 : 85;
+      const ax = refX + (USER_WARP.lng - CAL.refLng) * CAL.scaleX;
+      const ay = CAL.refY + (CAL.refLat - USER_WARP.lat) * CAL.scaleY;
+      const d = haversine(lat, lng, USER_WARP.lat, USER_WARP.lng);
+      const wgt = Math.exp(-(d * d) / (2 * USER_WARP.sigmaKm * USER_WARP.sigmaKm));
+      const xPct = x * 100 + (USER_WARP.xTrue - ax) * wgt;
+      const yPct = y * 100 + (USER_WARP.yTrue - ay) * wgt;
+      return { px: ox + (xPct / 100) * rw, py: oy + (yPct / 100) * rh };
+    }
+
     function requestNearMe() {
       if (nearMe.active) { exitNearMeMode(); return; }
       if (!navigator.geolocation) { openCountyFallback(); return; }
@@ -2058,7 +2083,7 @@
       nearMe.lng = lng;
 
       const { vw, vh, rh } = getMapDims();
-      const { px, py } = latLngToPixel(lat, lng);
+      const { px, py } = userLatLngToPixel(lat, lng);
 
       // 30 km ≈ 0.054 × rh pixels (0.27° × 20%/° × rh); target ~35% of viewport height
       const km30px = 0.054 * rh;
