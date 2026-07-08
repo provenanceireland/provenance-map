@@ -1246,9 +1246,9 @@
 
       <!-- BOTTOM -->
       <div class="card-actions">
-        <a id="card-profile" class="card-action-btn card-action-primary hidden" href="#">See full profile</a>
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
         <div class="card-action-icons" id="card-action-icons"></div>
+        <a id="card-profile" class="card-action-btn card-action-primary hidden" href="#">See full profile</a>
       </div>
     </div>
   </div>
@@ -1405,7 +1405,7 @@
       if (isMarket) {
         badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
       } else {
-        if (!pin.dataset.badge2) {
+        if (tierName !== 'discovered') {
           const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
           badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
         }
@@ -1544,6 +1544,7 @@
       const profileEl = document.getElementById('card-profile');
       if (pin.dataset.profile) {
         profileEl.href = pin.dataset.profile;
+        profileEl.textContent = pin.dataset.badge2 === 'Provenance Founder' ? 'Provenance Founder' : 'See full profile';
         profileEl.classList.remove('hidden');
       } else { profileEl.classList.add('hidden'); }
 
