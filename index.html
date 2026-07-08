@@ -1495,32 +1495,12 @@
       refLat: 55.40,  refY: 10,   scaleY: 20,       // %/° south
     };
 
-    // ── REGIONAL WARP ────────────────────────────────────────────
-    // The painted map is not geographically linear: the south-east
-    // is drawn narrower than the linear calibration assumes, which
-    // pushed inland Wexford locations east into the sea. Measured
-    // against the artwork coastline (land edge x=73.2% at y=68%),
-    // positions near the anchor below are pulled west to match the
-    // drawn island. The correction fades out with distance
-    // (Gaussian, sigma 25km) so the rest of Ireland is untouched.
-    // Anchor: Kiltealy, Co. Wexford — drawn-correct at x=69.1, y=67.7.
-    const WARP = { lat: 52.514, lng: -6.545, xTrue: 69.1, yTrue: 67.7, sigmaKm: 25 };
-
     function latLngToPercent(lat, lng) {
       // Use slightly different horizontal anchor for landscape (PC) vs portrait (mobile)
       const isLandscape = window.innerWidth > window.innerHeight;
       const refX = isLandscape ? 82 : 85;
-      let x = refX + (lng - CAL.refLng) * CAL.scaleX;
-      let y = CAL.refY + (CAL.refLat - lat) * CAL.scaleY;
-
-      // Apply regional warp (weight ~1 at the anchor, ~0 beyond ~60km)
-      const ax = refX + (WARP.lng - CAL.refLng) * CAL.scaleX;
-      const ay = CAL.refY + (CAL.refLat - WARP.lat) * CAL.scaleY;
-      const d = haversine(lat, lng, WARP.lat, WARP.lng);
-      const wgt = Math.exp(-(d * d) / (2 * WARP.sigmaKm * WARP.sigmaKm));
-      x += (WARP.xTrue - ax) * wgt;
-      y += (WARP.yTrue - ay) * wgt;
-
+      const x = refX + (lng - CAL.refLng) * CAL.scaleX;
+      const y = CAL.refY + (CAL.refLat - lat) * CAL.scaleY;
       return { x: x / 100, y: y / 100 };
     }
 
