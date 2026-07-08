@@ -1404,8 +1404,10 @@
       if (isMarket) {
         badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
       } else {
-        const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
-        badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
+        if (!pin.dataset.badge2) {
+          const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
+          badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
+        }
         if (pin.dataset.badge2) {
           badgeHTML += `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
         }
