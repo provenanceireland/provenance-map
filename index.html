@@ -1344,8 +1344,9 @@
       if (p.map_link)    div.dataset.profile     = p.map_link;
       if (p.description) div.dataset.description = p.description;
       if (p.attributes && p.attributes.length) div.dataset.attributes = p.attributes.join(',');
-      if (p.social_instagram) div.dataset.instagram = p.social_instagram;
-      if (p.website)     div.dataset.website     = p.website;
+      if (p.social_instagram) div.dataset.instagram  = p.social_instagram;
+      if (p.website)          div.dataset.website    = p.website;
+      if (p.directions)       div.dataset.directions = p.directions;
       if (p.video)       div.dataset.video       = p.video;
       if (p.date_added)  div.dataset.listed      = p.date_added;
       if (p.seal_active) div.dataset.sealActive = 'true';
@@ -1553,7 +1554,18 @@
         sealEl.classList.remove('hidden');
       } else { sealEl.classList.add('hidden'); }
 
-      document.getElementById('card-action-icons').style.display = 'none';
+      // ── Action icons (instagram, website, directions) ──
+      const iconsEl = document.getElementById('card-action-icons');
+      const icons = [];
+      if (pin.dataset.instagram) icons.push(`<a class="card-action-icon" href="https://www.instagram.com/${pin.dataset.instagram}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
+      if (pin.dataset.website) icons.push(`<a class="card-action-icon" href="${pin.dataset.website}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
+      if (pin.dataset.directions) icons.push(`<a class="card-action-icon" href="${pin.dataset.directions}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
+      if (icons.length) {
+        iconsEl.innerHTML = icons.join('');
+        iconsEl.style.display = '';
+      } else {
+        iconsEl.style.display = 'none';
+      }
 
       // Reset pinch-zoom so card is fully visible on iOS
       const viewport = document.querySelector('meta[name=viewport]');
