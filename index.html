@@ -1384,14 +1384,12 @@
       let badgeHTML = '';
       if (isMarket) {
         badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
-      } else if (pin.dataset.badge2) {
-        badgeHTML = `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
-        if (pin.dataset.badge) {
-          badgeHTML += `<span class="tier-pill tier-pill-discovered" style="margin-left:4px">${pin.dataset.badge}</span>`;
-        }
       } else {
         const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
+        if (pin.dataset.badge2) {
+          badgeHTML += `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
+        }
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
