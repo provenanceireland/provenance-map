@@ -783,15 +783,24 @@
     }
     .pin.t-discovered .pin-pulse { display: none; }
 
-    /* Verified — #4A8A55, ~1.2x discovered, static glow halo, no animation */
+    /* Verified — #4A8A55, ~1.2x discovered, slow green ripple */
     .pin.t-verified .pin-dot {
       width: 8.5px !important;
       height: 8.5px !important;
       background: #4A8A55 !important;
       border: none !important;
-      box-shadow: 0 0 0 2.5px rgba(74,138,85,0.25), 0 0 10px 5px rgba(74,138,85,0.4) !important;
+      box-shadow: 0 0 6px 2px rgba(74,138,85,0.4) !important;
     }
-    .pin.t-verified .pin-pulse { display: none; }
+    .pin.t-verified .pin-pulse {
+      display: block;
+      width: 8.5px; height: 8.5px;
+      background: rgba(74,138,85,0.25);
+      animation: pulse-verified 5s ease-out infinite;
+    }
+    @keyframes pulse-verified {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+      100% { transform: translate(-50%,-50%) scale(4.5); opacity: 0; }
+    }
 
     /* Seal Lite — gold with gentle desynchronised pulse */
     .pin.t-seal-lite .pin-dot,
