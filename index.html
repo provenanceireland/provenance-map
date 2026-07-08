@@ -1488,7 +1488,6 @@
       const venueTagsEl = document.getElementById('card-venue-tags');
       const venueTags = [];
       if (pin.dataset.farmersMarket === 'true') venueTags.push('Farmers Market');
-      if (pin.dataset.farmShop === 'true') venueTags.push('Farm Shop');
       if (venueTags.length) {
         venueTagsEl.innerHTML = venueTags.map(t => `<span class="venue-tag">${t}</span>`).join('');
         venueTagsEl.classList.remove('hidden');
