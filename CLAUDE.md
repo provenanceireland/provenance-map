@@ -13,7 +13,6 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 | Tier | Name | Price | Includes |
 |------|------|-------|----------|
 | 0 | Free Listing | €0 | Basic map pin |
-| 0.5 | Provenance Approved | €0 | Free listing with darker green pin — manually awarded by Provenance |
 | 1 | Map Pin | €33/month | Basic verified listing |
 | 2 | Map Verified | €99/month | Map Pin + POV farm visit filmed and posted to Provenance social channels |
 | 3 | Provenance Seal | €200/month | Full documentation, QR code on physical product, Eurofins purity testing results published, AI chatbot for customer Q&A and sales |
@@ -21,8 +20,7 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 ### Pin Colours
 
 - **Free (Tier 0):** Deep muted green — `#3D7A4A`, 7px dot (6px on mobile), white border, soft green glow. The default pin. No profile page, no badge. 37 producers currently on this tier.
-- **Provenance Approved:** Green — `#4A8A55`, soft green glow (the original free pin colour). 7px dot on mobile.
-- **Provenance Founder:** Same green `#4A8A55` with gold border, 7.5px dot. Awarded to founding producers. Currently: Newbard Organic Farm Ltd, Staffords Butchers. Staffords also has a profile page and video link. Add `class="pin approved gold-border"` and `data-badge2="Provenance Founder"` to the pin.
+- **Provenance Founder:** Green `#4A8A55`, 7.5px dot, no border. Awarded to founding producers. Currently: Newbard Organic Farm Ltd, Staffords Butchers, Saltrock Dairy Farm. Add `class="pin approved gold-border"` and `data-badge2="Provenance Founder"` to the pin.
 - **Provenance Visited:** Gold — `#C4AA28`, 8.5px dot, gold glow, thin white border. Add `class="pin approved gold"` and `data-badge="Provenance Visited"` to the pin.
 - **Paid (Tier 1+):** Gold-orange — `#C48E28`, 9px dot, gold-orange glow (`rgba(196,142,40,...)`) — this exact colour applies to all paid tiers (1, 2 and 3)
 - **Farmers Market:** Terracotta — `#B0623A`, 7px dot (5px on mobile), no border, terracotta glow. Completely different card layout showing hours and a producer list. Currently: Gorey Farmers Market (Saturday 10am–2pm). Add `class="pin market"` and `data-category="market"` to the pin.
