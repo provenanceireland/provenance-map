@@ -783,13 +783,13 @@
     }
     .pin.t-discovered .pin-pulse { display: none; }
 
-    /* Verified — same green as discovered, larger, teal border */
+    /* Verified — #4A8A55, ~1.2x discovered, static glow halo, no animation */
     .pin.t-verified .pin-dot {
-      width: 9px !important;
-      height: 9px !important;
-      background: #2A5A38;
-      border: 1.5px solid #4A8A8A;
-      box-shadow: 0 0 8px 3px rgba(74,138,138,0.35);
+      width: 8.5px !important;
+      height: 8.5px !important;
+      background: #4A8A55 !important;
+      border: none !important;
+      box-shadow: 0 0 0 2.5px rgba(74,138,85,0.25), 0 0 10px 5px rgba(74,138,85,0.4) !important;
     }
     .pin.t-verified .pin-pulse { display: none; }
 
