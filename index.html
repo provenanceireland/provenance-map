@@ -800,6 +800,41 @@
       transition: opacity 0.15s;
     }
     .card-action-icon:hover { opacity: 1; }
+    button.card-action-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+    }
+    .card-share-icon {
+      color: #706050;
+      opacity: 1;
+      transition: color 0.2s;
+    }
+    .card-share-icon:hover { color: #C4A44A; }
+
+    /* ── SHARE TOAST ── */
+    #share-toast-card {
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 60;
+      background: #0E100D;
+      border: 1px solid rgba(196,164,74,0.35);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 24px;
+      color: #E8DEC8;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #share-toast-card.visible {
+      opacity: 1;
+      transition: opacity 0.15s;
+    }
     .card-action-icon svg {
       width: 20px; height: 20px;
       stroke: currentColor; fill: none;
@@ -1337,6 +1372,9 @@
   <!-- NEAR ME TOAST -->
   <div id="near-me-toast"></div>
 
+  <!-- SHARE TOAST -->
+  <div id="share-toast-card">Link copied</div>
+
   <!-- NEAR ME PANEL (sorted list of nearby producers) -->
   <div id="near-me-panel">
     <div class="nm-panel-header">
@@ -1545,6 +1583,7 @@
 
     function renderPin(p) {
       const div = document.createElement('div');
+      div.dataset.id = p.id;
       const tierNum = TIER_NUM[p.tier] || 0;
       const classes = ['pin', 't-' + (p.tier || 'discovered')];
       if (p.pin_classes) classes.push(...p.pin_classes.trim().split(' ').filter(Boolean));
@@ -1787,11 +1826,20 @@
       if (pin.dataset.instagram) icons.push(`<a class="card-action-icon" href="https://www.instagram.com/${pin.dataset.instagram}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
       if (pin.dataset.website) icons.push(`<a class="card-action-icon" href="${pin.dataset.website}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       if (pin.dataset.directions) icons.push(`<a class="card-action-icon" href="${pin.dataset.directions}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
+      // Share is a Provenance Verified (and above) benefit only
+      const canShare = !isMarket && ['verified', 'seal-lite', 'seal-complete'].includes(tierName);
+      if (canShare) {
+        icons.push(`<button class="card-action-icon card-share-icon" id="card-share-btn" type="button" aria-label="Share this producer"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
+      }
       if (icons.length) {
         iconsEl.innerHTML = icons.join('');
         iconsEl.style.display = '';
       } else {
+        iconsEl.innerHTML = '';
         iconsEl.style.display = 'none';
+      }
+      if (canShare) {
+        document.getElementById('card-share-btn').addEventListener('click', e => shareProducer(pin, e.currentTarget));
       }
 
       // Reset pinch-zoom so card is fully visible on iOS
@@ -1990,6 +2038,45 @@
       const overlay = document.getElementById('menu-overlay');
       btn.classList.toggle('open');
       overlay.classList.toggle('open');
+    }
+
+    /* ── SHARE ─────────────────────────────────────────────────── */
+    let shareToastTimer = null;
+
+    async function shareProducer(pin, anchorEl) {
+      const name    = pin.dataset.name || 'Producer';
+      const county  = pin.dataset.county || 'Ireland';
+      const product = (pin.dataset.product || (pin.dataset.productTypes || '').split(',')[0] || 'food').toLowerCase();
+      const slug    = pin.dataset.id || '';
+      const url     = pin.dataset.profile
+        ? 'https://provenancemap.ie/' + pin.dataset.profile
+        : 'https://provenancemap.ie/';
+      const verified = (pin.dataset.tierName || 'discovered') !== 'discovered';
+      const text = `${name} is ${verified ? 'a verified' : 'an'} Irish ${product} producer in ${county}. Found on the Provenance Map.`;
+
+      // Share counter — separate from card/page view counts
+      if (typeof gtag === 'function' && slug) gtag('event', slug + '-share');
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: `${name} — Provenance Map`, text, url });
+        } catch (err) { /* user cancelled the share sheet — not an error */ }
+      } else {
+        try {
+          await navigator.clipboard.writeText(url);
+          showShareToast(anchorEl);
+        } catch (err) { /* clipboard unavailable */ }
+      }
+    }
+
+    function showShareToast(anchorEl) {
+      const t = document.getElementById('share-toast-card');
+      const r = anchorEl.getBoundingClientRect();
+      t.style.top  = (r.bottom + 8) + 'px';
+      t.style.left = (r.left + r.width / 2) + 'px';
+      t.classList.add('visible');
+      clearTimeout(shareToastTimer);
+      shareToastTimer = setTimeout(() => t.classList.remove('visible'), 2150);
     }
 
     /* ── NEAR ME ────────────────────────────────────────────────────

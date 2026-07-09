@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saltrock Dairy Farm - Provenance</title>
   <meta name="description" content="Saltrock Dairy Farm. Non-homogenised pasteurised milk from grass-fed cows on the Wexford coast. Catherine and Paul Kinsella. Verified by Provenance." />
+  <link rel="canonical" href="https://provenancemap.ie/producers/saltrock-dairy.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Provenance Map" />
+  <meta property="og:title" content="Saltrock Dairy Farm — Provenance Map" />
+  <meta property="og:description" content="Non-homogenised pasteurised milk from grass-fed cows on the Wexford coast. Verified by Provenance." />
+  <meta property="og:url" content="https://provenancemap.ie/producers/saltrock-dairy.html" />
+  <meta property="og:image" content="https://provenancemap.ie/saltrock.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Saltrock Dairy Farm — Provenance Map" />
+  <meta name="twitter:description" content="Non-homogenised pasteurised milk from grass-fed cows on the Wexford coast. Verified by Provenance." />
+  <meta name="twitter:image" content="https://provenancemap.ie/saltrock.jpg" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y56PR1JFH8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y56PR1JFH8');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" />
@@ -289,6 +308,48 @@
       font-style: italic;
     }
 
+    /* ── SHARE ── */
+    .hero-name-row {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .share-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 6px; margin-top: 12px;
+      color: #706050;
+      flex-shrink: 0;
+      transition: color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .share-btn:hover { color: #C4A44A; }
+    .share-btn svg {
+      width: 20px; height: 20px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+      display: block;
+    }
+    #share-toast {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #0E100D;
+      border: 1px solid rgba(196,164,74,0.35);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 24px;
+      color: #E8DEC8;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 5;
+    }
+    #share-toast.visible { opacity: 1; transition: opacity 0.15s; }
+
     /* ── VIDEO SECTION ── */
     .video-section {
       padding: 0 24px;
@@ -339,7 +400,13 @@
       <div class="founder-badge-dot"></div>
       Provenance Founder
     </div>
-    <h1 class="hero-name">Saltrock Dairy Farm</h1>
+    <div class="hero-name-row">
+      <h1 class="hero-name">Saltrock Dairy Farm</h1>
+      <button class="share-btn" id="share-btn" aria-label="Share this producer">
+        <svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      </button>
+      <div id="share-toast">Link copied</div>
+    </div>
     <p class="hero-location">Gorey, Co. Wexford</p>
     <p class="hero-product">Non-homogenised Pasteurised Milk</p>
     <div class="hero-divider"></div>
@@ -409,5 +476,31 @@
     <p class="footer-tagline">Every product. Named source. Full origin.</p>
   </footer>
 
+  <script>
+    const SHARE = {
+      slug: 'saltrock-dairy',
+      name: 'Saltrock Dairy Farm',
+      text: 'Saltrock Dairy Farm is a verified Irish dairy producer in Wexford. Found on the Provenance Map.',
+      url: 'https://provenancemap.ie/producers/saltrock-dairy.html'
+    };
+    let shareToastTimer = null;
+    document.getElementById('share-btn').addEventListener('click', async () => {
+      // Share counter — separate from page view counts
+      if (typeof gtag === 'function') gtag('event', SHARE.slug + '-share');
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: SHARE.name + ' — Provenance Map', text: SHARE.text, url: SHARE.url });
+        } catch (err) { /* user cancelled the share sheet */ }
+      } else {
+        try {
+          await navigator.clipboard.writeText(SHARE.url);
+          const t = document.getElementById('share-toast');
+          t.classList.add('visible');
+          clearTimeout(shareToastTimer);
+          shareToastTimer = setTimeout(() => t.classList.remove('visible'), 2150);
+        } catch (err) { /* clipboard unavailable */ }
+      }
+    });
+  </script>
 </body>
 </html>
