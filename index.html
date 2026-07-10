@@ -1674,7 +1674,8 @@
           const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
           badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
         }
-        if (pin.dataset.badge2) {
+        // Founder pill only on discovered-tier founders; not beside a tier pill (e.g. Verified)
+        if (pin.dataset.badge2 && tierName === 'discovered') {
           badgeHTML += `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
         }
       }
