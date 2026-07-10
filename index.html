@@ -1882,6 +1882,13 @@
         data.producers.forEach(p => container.appendChild(renderPin(p)));
         initPins();
         animateCounter(data.producers.length);
+
+        // Deep link: /?producer=slug opens that producer's card
+        const targetSlug = new URLSearchParams(location.search).get('producer');
+        if (targetSlug) {
+          const target = container.querySelector(`.pin[data-id="${CSS.escape(targetSlug)}"]`);
+          if (target) setTimeout(() => openCard(target), 600);
+        }
       })
       .catch(err => console.error('Failed to load producers.json:', err));
 
@@ -2048,8 +2055,11 @@
       const county  = pin.dataset.county || 'Ireland';
       const product = (pin.dataset.product || (pin.dataset.productTypes || '').split(',')[0] || 'food').toLowerCase();
       const slug    = pin.dataset.id || '';
-      const url     = pin.dataset.profile
-        ? 'https://provenancemap.ie/' + pin.dataset.profile
+      // Share stub carries the producer's OG tags for rich link previews,
+      // then redirects to the map with this producer's card open.
+      // Stubs are generated for Verified producers by generate-share-pages.ps1.
+      const url     = slug
+        ? 'https://provenancemap.ie/share/' + slug + '.html'
         : 'https://provenancemap.ie/';
       const verified = (pin.dataset.tierName || 'discovered') !== 'discovered';
       const text = `${name} is ${verified ? 'a verified' : 'an'} Irish ${product} producer in ${county}. Found on the Provenance Map.`;

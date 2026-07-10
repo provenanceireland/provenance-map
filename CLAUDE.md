@@ -124,6 +124,7 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 | File | Purpose | Notes |
 |------|---------|-------|
 | `qr-generator.html` | QR code generator | Standalone HTML. Input: URL. Output: downloadable PNG at 1000×1000px minimum. Uses CDN-hosted QR library. Background matches design system. |
+| `generate-share-pages.ps1` | Share stub generator | Creates `/share/<slug>.html` for every Verified+ producer in producers.json: OG tags for rich link previews, then redirects to `/?producer=<slug>` which opens their card on the map. **Run whenever a producer upgrades to Verified**, then commit the new stub. The card Share button (Verified only) shares this stub URL. |
 
 ## Social Channels
 
