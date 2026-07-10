@@ -19,7 +19,7 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 
 ### Pin Colours
 
-- **Discovered Producers (tier: "discovered" / default):** Muted warm cream — `#B8AA8A`, 6.9px dot (6.8px on mobile), thin white border (`1px solid rgba(248,248,243,0.6)`), faint cream glow. The default pin. No profile page, no badge. Card shows "Discovered Producer" pill in matching cream (`#B8AA8A`). Set `"tier": "discovered"` in producers.json (or omit tier field).
+- **Discovered Producers (tier: "discovered" / default):** Dark green — `#2A5A38`, 6.9px dot (6.8px on mobile), cream border (`1px solid rgba(232,222,200,0.75)`), faint green glow (`box-shadow: 0 0 4px 1px rgba(42,90,56,0.40)`). The default pin. No profile page, no badge. Card shows "Discovered Producer" pill in matching dark green (border `#2A5A38`, text `#4E8560`). Set `"tier": "discovered"` in producers.json (or omit tier field).
 - **Verified Producers (tier: "verified"):** Green `#4A8A55`, 9px dot, thin white border (`1px solid rgba(248,248,243,0.6)`), static green glow (`box-shadow: 0 0 11px 4.5px rgba(74,138,85,0.61)`), expanding green pulse ring (`pulse-verified` — 4s ease-out, scale 1→5.3, same style as gold seal pulse). Card pill "Provenance Verified" in matching `#4A8A55`. Set `"tier": "verified"` in producers.json.
 - **Provenance Founder:** Shown as an additional pill (`data-badge2="Provenance Founder"`) on the card. No special pin treatment — pin appearance is controlled by tier. Currently: Newbard Organic Farm Ltd, Staffords Butchers, Saltrock Dairy Farm.
 - **Provenance Visited:** Gold — `#C4AA28`, 8.5px dot, gold glow, thin white border. Add `class="pin approved gold"` and `data-badge="Provenance Visited"` to the pin.
