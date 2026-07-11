@@ -412,6 +412,80 @@
       width: 34px; height: 34px;
       opacity: 0.08;
     }
+    /* Gallery producers: hero fills the banner (no letterbox bars) and is tappable */
+    .card-photo-wrap.cover img { object-fit: cover; cursor: zoom-in; }
+    .card-photo-wrap.cover .card-photo-count {
+      position: absolute;
+      right: 12px; bottom: 12px;
+      z-index: 2;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 11px;
+      border-radius: 20px;
+      background: rgba(6,8,7,0.72);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #E8DEC8;
+      font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      pointer-events: none;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    }
+    .card-photo-wrap.cover .card-photo-count svg {
+      width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.7;
+      position: static; inset: auto;
+    }
+
+    /* ── LIGHTBOX / PHOTO VIEWER ── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(6,8,7,0.97);
+      display: none;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      -webkit-tap-highlight-color: transparent;
+    }
+    #lightbox.open { display: flex; }
+    .lightbox-stage {
+      position: relative;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 64px 20px;
+    }
+    #lightbox-img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      user-select: none; -webkit-user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: calc(env(safe-area-inset-top, 12px) + 14px); right: 16px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 3; -webkit-tap-highlight-color: transparent;
+    }
+    .lightbox-close svg { width: 16px; height: 16px; stroke: #E8DEC8; fill: none; stroke-width: 2; stroke-linecap: round; }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 3; -webkit-tap-highlight-color: transparent;
+    }
+    .lightbox-nav.prev { left: 12px; }
+    .lightbox-nav.next { right: 12px; }
+    .lightbox-nav svg { width: 22px; height: 22px; stroke: #E8DEC8; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .lightbox-counter {
+      position: absolute;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 18px); left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem; letter-spacing: 0.1em; color: #E8DEC8;
+      background: rgba(14,16,13,0.7); padding: 4px 14px; border-radius: 20px;
+    }
+    @media (min-width: 601px) {
+      #lightbox-img { max-width: 900px; max-height: 88vh; }
+    }
 
     /* Photo strip */
     .card-photo-strip {
@@ -1508,6 +1582,23 @@
     </div>
   </div>
 
+  <!-- LIGHTBOX / PHOTO VIEWER -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close photos">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous photo">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="lightbox-stage" id="lightbox-stage">
+      <img id="lightbox-img" src="" alt="" />
+    </div>
+    <button class="lightbox-nav next" id="lightbox-next" aria-label="Next photo">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
+  </div>
+
   <script>
     const mapImg = document.getElementById('map-img');
 
@@ -1705,25 +1796,27 @@
       const photoWrap  = document.getElementById('card-photo-wrap');
       photoWrap.style.background = pin.dataset.photoBg === 'white' ? '#ffffff' : '';
       const photoStrip = document.getElementById('card-photo-strip');
-      // Logo/hero (photo_url) is kept separate from the gallery photos (photos[]).
-      const heroPhoto = pin.dataset.photo || '';
+      const heroLogo = pin.dataset.photo || '';
       const galleryPhotos = pin.dataset.photos
         ? pin.dataset.photos.split(',').map(s => s.trim()).filter(Boolean)
         : [];
-      // If there's no logo, fall back to leading with the first gallery photo.
-      const leadPhoto = heroPhoto || galleryPhotos[0] || '';
-      const stripPhotos = heroPhoto ? galleryPhotos : galleryPhotos.slice(1);
+      const hasGallery = galleryPhotos.length > 0;
 
-      function showPhoto(src) {
-        photoWrap.innerHTML = `<img src="${src}" alt="${pin.dataset.name}" />`;
-        photoStrip.querySelectorAll('.strip-thumb').forEach(t =>
-          t.classList.toggle('active', t.dataset.src === src)
-        );
-      }
+      // Photos available to the fullscreen viewer for this producer.
+      cardLightboxPhotos = hasGallery ? galleryPhotos : (heroLogo ? [heroLogo] : []);
+
+      // Gallery producers lead with the first photo, cover-filled and tappable to open
+      // the viewer. Others keep the single contained hero (logos etc.).
+      photoWrap.classList.toggle('cover', hasGallery);
+      const leadPhoto = hasGallery ? galleryPhotos[0] : heroLogo;
 
       if (leadPhoto) {
         photoWrap.style.display = '';
-        showPhoto(leadPhoto);
+        const countBadge = hasGallery
+          ? `<div class="card-photo-count"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>${galleryPhotos.length} photos</div>`
+          : '';
+        photoWrap.innerHTML = `<img src="${leadPhoto}" alt="${pin.dataset.name}" />${countBadge}`;
+        if (hasGallery) photoWrap.querySelector('img').addEventListener('click', () => openLightbox(0));
       } else if (isMarket) {
         photoWrap.style.display = 'none';
       } else {
@@ -1731,12 +1824,13 @@
         photoWrap.innerHTML = `<div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#f8f8f3" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
       }
 
-      if (stripPhotos.length) {
-        photoStrip.innerHTML = stripPhotos.map(src =>
-          `<div class="strip-thumb" data-src="${src}"><img src="${src}" alt="" /></div>`
+      // Thumbnail strip (gallery producers) — each thumb opens the viewer at its photo.
+      if (hasGallery) {
+        photoStrip.innerHTML = galleryPhotos.map((src, i) =>
+          `<div class="strip-thumb${i === 0 ? ' active' : ''}" data-src="${src}"><img src="${src}" alt="" /></div>`
         ).join('');
-        photoStrip.querySelectorAll('.strip-thumb').forEach(thumb =>
-          thumb.addEventListener('click', () => showPhoto(thumb.dataset.src))
+        photoStrip.querySelectorAll('.strip-thumb').forEach((thumb, i) =>
+          thumb.addEventListener('click', () => openLightbox(i))
         );
         photoStrip.classList.remove('hidden');
       } else {
@@ -1865,6 +1959,58 @@
       if (applyBtn) applyBtn.style.display = '';
       document.getElementById('card-photo-wrap').style.display = '';
     }
+
+    /* ── LIGHTBOX / PHOTO VIEWER ─────────────────────────────────── */
+    let cardLightboxPhotos = [];
+    let lightboxIndex = 0;
+    const lightboxEl = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+
+    function renderLightbox() {
+      const n = cardLightboxPhotos.length;
+      if (!n) return;
+      lightboxIndex = ((lightboxIndex % n) + n) % n; // wrap around
+      lightboxImg.src = cardLightboxPhotos[lightboxIndex];
+      lightboxCounter.textContent = `${lightboxIndex + 1} / ${n}`;
+      const multi = n > 1;
+      document.getElementById('lightbox-prev').style.display = multi ? '' : 'none';
+      document.getElementById('lightbox-next').style.display = multi ? '' : 'none';
+      lightboxCounter.style.display = multi ? '' : 'none';
+    }
+    function openLightbox(i) {
+      if (!cardLightboxPhotos.length) return;
+      lightboxIndex = i || 0;
+      renderLightbox();
+      lightboxEl.classList.add('open');
+    }
+    function closeLightbox() { lightboxEl.classList.remove('open'); lightboxImg.src = ''; }
+    function lightboxNext() { lightboxIndex++; renderLightbox(); }
+    function lightboxPrev() { lightboxIndex--; renderLightbox(); }
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-next').addEventListener('click', e => { e.stopPropagation(); lightboxNext(); });
+    document.getElementById('lightbox-prev').addEventListener('click', e => { e.stopPropagation(); lightboxPrev(); });
+    // Click the dark backdrop (not the image) to close
+    lightboxEl.addEventListener('click', e => {
+      if (e.target === lightboxEl || e.target.id === 'lightbox-stage') closeLightbox();
+    });
+    // Keyboard controls
+    document.addEventListener('keydown', e => {
+      if (!lightboxEl.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') lightboxNext();
+      else if (e.key === 'ArrowLeft') lightboxPrev();
+    });
+    // Swipe left/right on mobile
+    let lbTouchX = null;
+    lightboxEl.addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+    lightboxEl.addEventListener('touchend', e => {
+      if (lbTouchX === null) return;
+      const dx = e.changedTouches[0].clientX - lbTouchX;
+      if (Math.abs(dx) > 50) { if (dx < 0) lightboxNext(); else lightboxPrev(); }
+      lbTouchX = null;
+    }, { passive: true });
 
     function animateCounter(total) {
       const el = document.getElementById('dc-num');
