@@ -1705,10 +1705,14 @@
       const photoWrap  = document.getElementById('card-photo-wrap');
       photoWrap.style.background = pin.dataset.photoBg === 'white' ? '#ffffff' : '';
       const photoStrip = document.getElementById('card-photo-strip');
-      const allPhotos  = [
-        pin.dataset.photo,
-        ...(pin.dataset.photos ? pin.dataset.photos.split(',').map(s => s.trim()) : [])
-      ].filter(Boolean);
+      // Logo/hero (photo_url) is kept separate from the gallery photos (photos[]).
+      const heroPhoto = pin.dataset.photo || '';
+      const galleryPhotos = pin.dataset.photos
+        ? pin.dataset.photos.split(',').map(s => s.trim()).filter(Boolean)
+        : [];
+      // If there's no logo, fall back to leading with the first gallery photo.
+      const leadPhoto = heroPhoto || galleryPhotos[0] || '';
+      const stripPhotos = heroPhoto ? galleryPhotos : galleryPhotos.slice(1);
 
       function showPhoto(src) {
         photoWrap.innerHTML = `<img src="${src}" alt="${pin.dataset.name}" />`;
@@ -1717,9 +1721,9 @@
         );
       }
 
-      if (allPhotos.length > 0) {
+      if (leadPhoto) {
         photoWrap.style.display = '';
-        showPhoto(allPhotos[0]);
+        showPhoto(leadPhoto);
       } else if (isMarket) {
         photoWrap.style.display = 'none';
       } else {
@@ -1727,9 +1731,9 @@
         photoWrap.innerHTML = `<div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="#f8f8f3" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
       }
 
-      if (allPhotos.length > 1) {
-        photoStrip.innerHTML = allPhotos.map((src, i) =>
-          `<div class="strip-thumb${i === 0 ? ' active' : ''}" data-src="${src}"><img src="${src}" alt="" /></div>`
+      if (stripPhotos.length) {
+        photoStrip.innerHTML = stripPhotos.map(src =>
+          `<div class="strip-thumb" data-src="${src}"><img src="${src}" alt="" /></div>`
         ).join('');
         photoStrip.querySelectorAll('.strip-thumb').forEach(thumb =>
           thumb.addEventListener('click', () => showPhoto(thumb.dataset.src))
