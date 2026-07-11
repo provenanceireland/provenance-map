@@ -413,7 +413,24 @@
       opacity: 0.08;
     }
     /* Gallery producers: hero fills the banner (no letterbox bars) and is tappable */
-    .card-photo-wrap.cover img { object-fit: cover; cursor: zoom-in; }
+    .card-photo-wrap.cover {
+      border-radius: 18px 18px 0 0;
+    }
+    .card-photo-wrap.cover img {
+      object-fit: cover;
+      object-position: center 32%;
+      cursor: zoom-in;
+    }
+    /* Soft gradient at the base for depth + badge legibility */
+    .card-photo-wrap.cover::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 45%;
+      background: linear-gradient(to top, rgba(6,8,7,0.60), rgba(6,8,7,0));
+      pointer-events: none;
+      z-index: 1;
+    }
     .card-photo-wrap.cover .card-photo-count {
       position: absolute;
       right: 12px; bottom: 12px;
