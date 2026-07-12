@@ -1531,6 +1531,32 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "coole-farm",
+      "name": "Coole Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.857416782976806,
+      "lng": -6.5394456048082725,
+      "county": "Louth",
+      "location": "Co. Louth",
+      "product": "Organic Salad Leaves & Vegetables",
+      "product_type": ["vegetables"],
+      "description": "An organic market garden in Co. Louth, growing salad leaves and seasonal vegetables and selling them direct to local people.",
+      "photo_url": "Coolefarm.avif",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
