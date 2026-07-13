@@ -1609,6 +1609,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "muckross-creamery",
+      "name": "Muckross Creamery",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.14279312200261,
+      "lng": -9.29083607827833,
+      "county": "Kerry",
+      "location": "Muckross, Killarney, Co. Kerry",
+      "product": "Skyr Yoghurt & Ice Cream",
+      "product_type": ["dairy"],
+      "description": "A family dairy farm in Muckross, Killarney, making ice cream and Icelandic-style skyr from their own cows' milk. Pasteurised and churned on site, from cow to cone, and sold from their farm creamery and café.",
+      "photo_url": "muckross.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
