@@ -389,7 +389,7 @@
     /* Photo */
     .card-photo-wrap {
       width: 100%;
-      padding-top: 52%;
+      padding-top: 40%;
       position: relative;
       background: #080a09;
       overflow: hidden;
@@ -534,7 +534,7 @@
 
     /* Body */
     .card-body {
-      padding: 18px 22px calc(env(safe-area-inset-bottom, 16px) + 30px);
+      padding: 14px 22px calc(env(safe-area-inset-bottom, 16px) + 18px);
     }
 
     /* Tier pills — hollow/outline style */
@@ -737,19 +737,19 @@
 
     #card-name {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.3rem;
+      font-size: 1.85rem;
       font-weight: 500;
       color: #f8f8f3;
       line-height: 1.05;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .card-location {
-      font-size: 0.67rem;
+      font-size: 0.62rem;
       color: #504838;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     /* Product type tags */
@@ -757,7 +757,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
     }
     .product-tag {
       font-size: 0.55rem;
@@ -771,19 +771,19 @@
       color: #4A8A55;
     }
     /* Where to buy */
-    .card-where-buy { margin-bottom: 14px; }
+    .card-where-buy { margin-bottom: 10px; }
     .card-where-buy-label {
       font-size: 0.56rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #C4A44A;
-      margin-bottom: 7px;
+      margin-bottom: 4px;
       display: block;
     }
     .card-where-buy-item {
-      font-size: 0.83rem;
+      font-size: 0.77rem;
       color: #E8DEC8;
-      padding: 6px 0;
+      padding: 3px 0;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .card-where-buy-item:last-child { border-bottom: none; }
@@ -808,9 +808,9 @@
     }
 
     #card-attributes {
-      margin-top: -8px;
-      margin-bottom: 14px;
-      line-height: 1.6;
+      margin-top: -4px;
+      margin-bottom: 8px;
+      line-height: 1.5;
     }
     .badge-attr {
       display: inline;
@@ -825,15 +825,15 @@
       color: #3a3028;
     }
     .card-description {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: #E8DEC8;
-      line-height: 1.68;
-      margin-bottom: 20px;
+      line-height: 1.5;
+      margin-bottom: 12px;
     }
 
     /* ── ACTION ROW ── */
     .card-actions {
-      margin-top: 20px;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
       gap: 9px;
@@ -870,8 +870,11 @@
     .card-action-icons {
       display: flex;
       justify-content: center;
-      gap: 32px;
-      padding: 6px 0 2px;
+      gap: 34px;
+      margin: 2px 0 12px;
+      padding: 11px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .card-action-icon {
       display: flex;
@@ -1578,6 +1581,7 @@
 
       <!-- MIDDLE -->
       <p class="card-description hidden" id="card-description"></p>
+      <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
 
@@ -1593,7 +1597,6 @@
       <!-- BOTTOM -->
       <div class="card-actions">
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
-        <div class="card-action-icons" id="card-action-icons"></div>
         <a id="card-profile" class="card-action-btn card-action-primary hidden" href="#">See full profile</a>
       </div>
     </div>
