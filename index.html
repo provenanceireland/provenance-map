@@ -780,10 +780,15 @@
       margin-bottom: 4px;
       display: block;
     }
+    .card-where-buy-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px 14px;
+    }
     .card-where-buy-item {
-      font-size: 0.77rem;
+      font-size: 0.72rem;
       color: #E8DEC8;
-      padding: 3px 0;
+      padding: 2px 0;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .card-where-buy-item:last-child { border-bottom: none; }
@@ -1876,13 +1881,13 @@
         try {
           const items = JSON.parse(pin.dataset.whereToBuy);
           if (items.length) {
-            whereToBuyEl.innerHTML = `<span class="card-where-buy-label">Where to buy</span>` +
+            whereToBuyEl.innerHTML = `<span class="card-where-buy-label">Where to buy</span><div class="card-where-buy-list">` +
               items.map(item => {
                 if (typeof item === 'string') return `<div class="card-where-buy-item">${item}</div>`;
                 return `<div class="card-where-buy-item">${item.url
                   ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}</a>`
                   : item.name}</div>`;
-              }).join('');
+              }).join('') + `</div>`;
             whereToBuyEl.classList.remove('hidden');
           } else { whereToBuyEl.classList.add('hidden'); }
         } catch { whereToBuyEl.classList.add('hidden'); }
