@@ -1822,18 +1822,21 @@
       // Photos available to the fullscreen viewer for this producer.
       cardLightboxPhotos = hasGallery ? galleryPhotos : (heroLogo ? [heroLogo] : []);
 
-      // Gallery producers lead with the first photo, cover-filled and tappable to open
-      // the viewer. Others keep the single contained hero (logos etc.).
-      photoWrap.classList.toggle('cover', hasGallery);
-      const leadPhoto = hasGallery ? galleryPhotos[0] : heroLogo;
+      // Header image: keep the producer's logo (photo_url) as the header when they
+      // have one — the gallery photos are opened by tapping their thumbnails, not by
+      // taking over the header. Only when there's no logo do we lead with the first
+      // gallery photo (cover-filled and tappable to open the viewer).
+      const galleryHeader = hasGallery && !heroLogo;
+      photoWrap.classList.toggle('cover', galleryHeader);
+      const leadPhoto = heroLogo || (hasGallery ? galleryPhotos[0] : '');
 
       if (leadPhoto) {
         photoWrap.style.display = '';
-        const countBadge = hasGallery
+        const countBadge = galleryHeader
           ? `<div class="card-photo-count"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>${galleryPhotos.length} photos</div>`
           : '';
         photoWrap.innerHTML = `<img src="${leadPhoto}" alt="${pin.dataset.name}" />${countBadge}`;
-        if (hasGallery) photoWrap.querySelector('img').addEventListener('click', () => openLightbox(0));
+        if (galleryHeader) photoWrap.querySelector('img').addEventListener('click', () => openLightbox(0));
       } else if (isMarket) {
         photoWrap.style.display = 'none';
       } else {
