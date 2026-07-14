@@ -1610,6 +1610,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "traceys-farmhouse-kitchen",
+      "name": "Tracey's Farmhouse Kitchen",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.46368416296611,
+      "lng": -5.651552517773394,
+      "county": "Down",
+      "location": "Ballymorran, Co. Down",
+      "product": "Bread",
+      "product_type": ["bread"],
+      "description": "A farmhouse kitchen near Ballymorran Bay where Tracey hosts traditional soda bread and wheaten bread baking in an 18th century converted stable. The bread is baked the old way, by hand, in a real farmhouse.",
+      "photo_url": "TraceysFarmhouse.svg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
