@@ -1005,6 +1005,15 @@
       box-shadow: 0 0 4px 1px rgba(74,138,85,0.6);
     }
 
+    @media (min-width: 769px) {
+      #card {
+        bottom: auto;
+        max-height: calc(100vh - env(safe-area-inset-top, 20px) - 94px);
+        border-radius: 18px;
+        margin-bottom: 20px;
+      }
+    }
+
     @media (max-width: 768px) {
       .pin.t-discovered .pin-dot { width: 6.8px !important; height: 6.8px !important; }
     }
