@@ -1691,6 +1691,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "st-tola",
+      "name": "St Tola",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.92813377061984,
+      "lng": -9.090212412959344,
+      "county": "Clare",
+      "location": "Ennistymon, Co. Clare",
+      "product": "Goats Cheese & Milk",
+      "product_type": ["cheese", "dairy"],
+      "description": "Goats cheese and milk produced on their own farm near Ennistymon, Co. Clare, using milk from their own herd. Run by Siobhán, the farm is open to visitors and their cheeses have won at the World Cheese Awards.",
+      "photo_url": "sttola.png",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
