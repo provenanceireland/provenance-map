@@ -357,7 +357,12 @@
       margin: 0 auto;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      scrollbar-color: #1a1c1a #0E100D;
     }
+    #card::-webkit-scrollbar { width: 8px; }
+    #card::-webkit-scrollbar-track { background: #0E100D; }
+    #card::-webkit-scrollbar-thumb { background: #1a1c1a; border-radius: 4px; }
+    #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
 
     .card-top {
