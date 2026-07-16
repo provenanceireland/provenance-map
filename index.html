@@ -757,6 +757,26 @@
       margin-bottom: 6px;
     }
 
+    /* Farming practice line */
+    .card-practice {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .card-practice::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .card-practice.practice-regenerative { color: #59A666; }
+    .card-practice.practice-organic      { color: #C4A44A; }
+    .card-practice.practice-conventional { color: #6E8290; }
+
     /* Product type tags */
     .card-product-tags {
       display: flex;
@@ -1590,6 +1610,7 @@
       <div id="card-badge"></div>
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
+      <p class="card-practice hidden" id="card-practice"></p>
       <div id="card-product-tags" class="card-product-tags"></div>
       <div id="card-attributes" class="hidden"></div>
 
@@ -1723,6 +1744,7 @@
       div.dataset.county = p.county || '';
       div.dataset.productTypes = (p.product_type || []).join(',');
       div.dataset.tierName = p.tier || 'discovered';
+      if (p.practice)    div.dataset.practice    = p.practice;
       if (p.product)     div.dataset.product     = p.product;
       if (p.photo_url)   div.dataset.photo       = p.photo_url;
       if (p.photos && p.photos.length) div.dataset.photos = p.photos.join(',');
@@ -1807,6 +1829,16 @@
       // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;
       document.getElementById('card-location').textContent = pin.dataset.location;
+
+      // ── Farming practice ── (shown only for a known practice, not "unspecified")
+      const practiceEl = document.getElementById('card-practice');
+      const practice = pin.dataset.practice;
+      if (practice && practice !== 'unspecified') {
+        practiceEl.textContent = practice.charAt(0).toUpperCase() + practice.slice(1);
+        practiceEl.className = 'card-practice practice-' + practice;
+      } else {
+        practiceEl.className = 'card-practice hidden';
+      }
 
       // ── Product type tags ──
       const tagsEl = document.getElementById('card-product-tags');
