@@ -759,27 +759,28 @@
 
     /* Farming practice line */
     .card-practice {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      display: block;
+      border-left: 2px solid currentColor;
+      padding: 1px 0 1px 10px;
+      margin-bottom: 10px;
+    }
+    .card-practice .practice-label {
+      display: block;
+      font-size: 0.53rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #504838;
+      margin-bottom: 2px;
+    }
+    .card-practice .practice-value {
+      display: block;
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       line-height: 1;
-      margin-bottom: 9px;
+      color: #E8DEC8;
     }
-    .card-practice svg {
-      width: 15px; height: 15px;
-      flex-shrink: 0;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .card-practice.practice-regenerative { color: #6FC07F; }
-    .card-practice.practice-organic      { color: #CBAF5F; }
-    .card-practice.practice-conventional { color: #ADA492; }
+    .card-practice.practice-regenerative { color: #59A666; }
+    .card-practice.practice-organic      { color: #C4A44A; }
 
     /* Product type tags */
     .card-product-tags {
@@ -1834,17 +1835,12 @@
       document.getElementById('card-name').textContent     = pin.dataset.name;
       document.getElementById('card-location').textContent = pin.dataset.location;
 
-      // ── Farming practice ── (shown only for a known practice, not "unspecified")
+      // ── Farming practice ── (only regenerative & organic are shown on the card)
       const practiceEl = document.getElementById('card-practice');
       const practice = pin.dataset.practice;
-      const practiceIcons = {
-        regenerative: '<svg viewBox="0 0 24 24"><path d="M12 21v-9"/><path d="M12 14c-1-3-4-4-7-4 0 3 3 5 7 4z"/><path d="M12 12c1-2.5 3.5-3.5 6-3.5 0 2.5-2.5 4-6 3.5z"/></svg>',
-        organic: '<svg viewBox="0 0 24 24"><path d="M5 20c9 1 14-4 14-13-9-1-14 4-14 13z"/><path d="M5 20c1.5-5 4.5-8 9-10"/></svg>',
-        conventional: '<svg viewBox="0 0 24 24"><path d="M7 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M19 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M7 15v-3a1 1 0 0 1 1 -1h6l3 3"/><path d="M8 11v-4h3l2.5 4"/><path d="M15 15h2"/></svg>'
-      };
-      if (practice && practice !== 'unspecified') {
+      if (practice === 'regenerative' || practice === 'organic') {
         const label = practice.charAt(0).toUpperCase() + practice.slice(1);
-        practiceEl.innerHTML = (practiceIcons[practice] || '') + '<span>' + label + '</span>';
+        practiceEl.innerHTML = '<span class="practice-label">Farming practice</span><span class="practice-value">' + label + '</span>';
         practiceEl.className = 'card-practice practice-' + practice;
       } else {
         practiceEl.className = 'card-practice hidden';
