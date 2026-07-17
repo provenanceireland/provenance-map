@@ -1782,6 +1782,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "buzzing-meadows-farm",
+      "practice": "unspecified",
+      "name": "Buzzing Meadows Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.99863986620844,
+      "lng": -8.391589763997434,
+      "county": "Galway",
+      "location": "Co. Galway",
+      "product": "Honey",
+      "product_type": ["honey"],
+      "description": "A young honey farm on the border of Galway and Clare, where Joan keeps native Irish black bees. She started with four colonies in 2023 and took her first honey in 2024. The farm also grows cut flowers without pesticides to support local pollinators.",
+      "photo_url": "buzzingmeadows.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
