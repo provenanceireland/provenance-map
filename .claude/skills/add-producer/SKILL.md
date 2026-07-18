@@ -158,6 +158,27 @@ Tell the user it's live and at what cache version, restate the **drafted
 description** for them to edit, and flag anything you inferred (county from
 coordinates, town, left-off Instagram). Offer to add a photo if none was given.
 
+## Adding from the Obsidian vault
+
+The user keeps producer notes in their Obsidian vault, one note per producer, at
+`C:\Users\darra\Documents\Provenance Obsidian\Provenance\Producers` (access
+granted via `.claude/settings.local.json` → `permissions.additionalDirectories`;
+needs a Claude Code restart to take effect the first time). Each note has YAML
+frontmatter — `name, product, lat, lng, county, tier, practice,
+practice_confirmed, instagram, website, photo` — and the description in the body.
+
+When the user says "add producers from Obsidian" (or similar):
+1. List the `.md` notes in that Producers folder; skip `_TEMPLATE.md` and
+   `README.md`.
+2. Parse each note's frontmatter + body. Skip any whose `name` already maps to an
+   existing `producers.json` id, unless the user asks to update it.
+3. Build a producers.json entry per the Step 3 template, mapping fields straight
+   across. Carry `practice` through as-is; `practice_confirmed` (true/false)
+   governs whether the practice pill is shown on the card — never display an
+   organic/regenerative practice the producer hasn't confirmed.
+4. Then follow Steps 4–7 for the batch (photos, single cache bump, one commit,
+   push). Present the drafted descriptions for the user to edit as usual.
+
 ## Quick reference
 
 - Pin colours & tier spec: `CLAUDE.md` → "Pin Colours"
