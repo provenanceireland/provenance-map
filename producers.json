@@ -2,7 +2,7 @@
   "producers": [
     {
       "id": "saltrock-dairy",
-      "practice": "unspecified",
+      "practice": "conventional",
       "name": "Saltrock Dairy Farm",
       "tier": "verified",
       "pin_classes": "",
