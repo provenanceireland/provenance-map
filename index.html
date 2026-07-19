@@ -701,16 +701,6 @@
       flex-shrink: 0;
       position: relative;
     }
-    .legend-dot-wrap.legend-dot-verified::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 9.45px; height: 9.45px;
-      border-radius: 50%;
-      background: rgba(89,166,102,0.35);
-      animation: pulse-verified 4s ease-out infinite;
-      pointer-events: none;
-    }
 
     .pin.black-border .pin-dot {
       border: 1px solid rgba(0,0,0,0.7) !important;
@@ -995,16 +985,8 @@
       border: 1px solid rgba(248,248,243,0.6) !important;
       box-shadow: 0 0 11px 4.5px rgba(89,166,102,0.73) !important;
     }
-    .pin.t-verified .pin-pulse {
-      display: block;
-      width: 9.45px; height: 9.45px;
-      background: rgba(89,166,102,0.40);
-      animation: pulse-verified 4s ease-out infinite;
-    }
-    @keyframes pulse-verified {
-      0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
-      100% { transform: translate(-50%,-50%) scale(5.3); opacity: 0; }
-    }
+    /* Verified is static — the pulse is a paid (Featured/Seal) signal */
+    .pin.t-verified .pin-pulse { display: none; }
 
     /* Seal Lite — gold with gentle desynchronised pulse */
     .pin.t-seal-lite .pin-dot,
@@ -1420,7 +1402,11 @@
     position: absolute; top: 50%; left: 50%;
     width: 10px; height: 10px; border-radius: 50%;
     background: rgba(74,138,85,0.35);
-    animation: pulse-verified 2.5s ease-out infinite;
+    animation: pulse-user 2.5s ease-out infinite;
+  }
+  @keyframes pulse-user {
+    0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(5.3); opacity: 0; }
   }
   </style>
 </head>
