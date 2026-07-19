@@ -10,20 +10,24 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 
 ### Producer Tiers (B2B)
 
-| Tier | Name | Price | Includes |
-|------|------|-------|----------|
-| 0 | Free Listing | €0 | Basic map pin |
-| 1 | Map Pin | €33/month | Basic verified listing |
-| 2 | Map Verified | €99/month | Map Pin + POV farm visit filmed and posted to Provenance social channels |
-| 3 | Provenance Seal | €200/month | Full documentation, QR code on physical product, Eurofins purity testing results published, AI chatbot for customer Q&A and sales |
+| Tier | Price | Includes |
+|------|-------|----------|
+| **Discovered** | €0 | Free basic map pin. The default listing for any producer. |
+| **Verified** | €0 | Free. The producer confirms their own details and farming practice via the "verify your profile" Fillout form. Green pin and a confirmed practice pill (organic / regenerative). **No photos, Instagram, website, or where-to-buy** — those begin at Featured. |
+| **Provenance Featured** | €49/month | Visit-gated, farm-level. Never sold without a prior personal visit. Includes the filmed farm visit (vlogged), a gold pulsing pin with priority placement, photo gallery, Instagram + website links, where-to-buy, a chatbot trained on the farm's practice, a monthly collaborative reel/carousel posted across Provenance, and a silver-bordered QR sticker. No producer sits here yet. |
+| **Provenance Seal Complete** | €149/month | Product-level — requires a qualifying packaged product (jarred / bottled / bagged / boxed, with a batch number and date). Full batch documentation, Eurofins facilitation, blockchain anchor, API store integration, and a gold-bordered QR sticker. Gold pulsing pin with a gold ring. |
+
+**Featured and the Seal are two separate layers, not a ladder.** Featured is about the *farm* (who the producer is, how they farm); the Seal is about a specific *packaged product*. Most Featured farms will never need a Seal, and a Seal can be sold directly to any producer with a qualifying product without a Featured relationship. Neither paid step is self-service — both are reached through a real conversation (the visit relationship or direct commercial outreach), never a public payment link.
 
 ### Pin Colours
 
 - **Discovered Producers (tier: "discovered" / default):** Dark green — `#2A5A38`, 6.9px dot (6.8px on mobile), cream border (`1px solid rgba(232,222,200,0.75)`), faint green glow (`box-shadow: 0 0 4px 1px rgba(42,90,56,0.40)`). The default pin. No profile page, no badge. Card shows "Discovered Producer" pill in matching dark green (border `#2A5A38`, text `#4E8560`). Set `"tier": "discovered"` in producers.json (or omit tier field).
 - **Verified Producers (tier: "verified"):** Green `#59A666`, 9.45px dot, thin white border (`1px solid rgba(248,248,243,0.6)`), static green glow (`box-shadow: 0 0 11px 4.5px rgba(89,166,102,0.73)`), expanding green pulse ring (`pulse-verified` — 4s ease-out, scale 1→5.3, same style as gold seal pulse). Card pill "Provenance Verified" in matching `#4A8A55`. Set `"tier": "verified"` in producers.json.
-- **Provenance Founder:** Shown as an additional pill (`data-badge2="Provenance Founder"`) on the card, and the card's "See full profile" button reads "Provenance Founder". No special pin treatment — pin appearance is controlled by tier. The Founder pill is suppressed when it would sit beside a tier pill (e.g. Verified). Currently: Newbard Organic Farm Ltd, Staffords Butchers (both Discovered tier — pill shows, pin is standard dark green), and Saltrock Dairy Farm (Verified tier — badge2 set but pill suppressed as it sits beside the Verified pill).
-- **Provenance Visited:** Gold — `#C4AA28`, 8.5px dot, gold glow, thin white border. Add `class="pin approved gold"` and `data-badge="Provenance Visited"` to the pin.
-- **Paid (Tier 1+):** Gold-orange — `#C48E28`, 9px dot, gold-orange glow (`rgba(196,142,40,...)`) — this exact colour applies to all paid tiers (1, 2 and 3)
+- **Provenance Featured (paid, gold):** Gold — `#C4A44A`, pulsing pin with priority placement. The visit-gated €49/month farm tier. Unlocks the photo gallery, Instagram + website links, where-to-buy, and the filmed-visit video on the card. Currently: none.
+- **Provenance Seal Complete:** Gold — `#C4A44A`, pulsing + gold ring border. The €149/month product-level tier.
+- **Provenance Founder:** An additional pill (`data-badge2="Provenance Founder"`) on the card; the "See full profile" button reads "Provenance Founder". No special pin treatment — pin appearance is controlled by tier. The Founder pill is suppressed when it sits beside a tier pill. Currently: Newbard Organic Farm Ltd and Staffords Butchers (both Discovered), and Saltrock Dairy Farm (Verified).
+
+> **Implementation note:** the code today ships tiers `discovered`, `verified`, `seal-lite`, `seal-complete`. The gold **Featured** tier above is the target model, to be wired into the code when the first Featured producer signs. Saltrock renders on `verified` (green) with a single hero photo; its former gallery/IG/website/where-to-buy were removed from its record when it moved to Verified. Pin size is not affected by farming practice — organic/regenerative shows via the card practice pill only, never by enlarging the pin.
 - **Farmers Market:** Terracotta — `#B0623A`, 7px dot (5px on mobile), no border, terracotta glow. Completely different card layout showing hours and a producer list. Currently: Gorey Farmers Market (Saturday 10am–2pm). Add `class="pin market"` and `data-category="market"` to the pin.
 
 ### Consumer Model (B2C, Freemium)
@@ -85,24 +89,30 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 | Date notification sent | |
 | Notification response | |
 | Date visited | |
-| Subscription tier | 1 / 2 / 3 |
+| Subscription tier | Discovered / Verified / Featured / Seal |
 | Subscription start date | |
 | Monthly report sent date | |
 | Notes | |
 
-### Producer Profile (public-facing, all tiers)
+### Producer Profile — what shows at each tier
 
+**Discovered and Verified (both free)** show:
 - Producer name
-- County
-- Town
+- County / Town
 - Product type
-- Verification tier badge
-- Short description (visible on all tiers including free)
-- Photo
-- Instagram link (paid tiers only)
-- Website link (paid tiers only)
+- Verification tier badge (and, for Verified, the confirmed practice pill — organic / regenerative)
+- Short description
 
-### Provenance Seal Batch Documentation Page (Tier 3)
+**Provenance Featured (€49/mo) and above** additionally show:
+- Photo gallery
+- Instagram link
+- Website link
+- Where-to-buy
+- Filmed farm-visit video
+
+Photos, Instagram, website, and where-to-buy are **not** shown on Discovered or Verified — they begin at Featured.
+
+### Provenance Seal Batch Documentation Page (Provenance Seal Complete)
 
 - Named farm
 - Named butcher or supplier
