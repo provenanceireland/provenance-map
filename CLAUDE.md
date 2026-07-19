@@ -13,7 +13,7 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 | Tier | Price | Includes |
 |------|-------|----------|
 | **Discovered** | €0 | Free basic map pin. The default listing for any producer. |
-| **Verified** | €0 | Free. The producer confirms their own details and farming practice via the "verify your profile" Fillout form. Green pin and a confirmed practice pill (organic / regenerative). **No photos, Instagram, website, or where-to-buy** — those begin at Featured. |
+| **Verified** | €0 | Free. The producer confirms their own details and farming practice via the "verify your profile" Fillout form. Green pin and a confirmed practice pill (organic / regenerative). Single logo image only — **no farm photos, Instagram, website, or where-to-buy**; those begin at Featured. |
 | **Provenance Featured** | €49/month | Visit-gated, farm-level. Never sold without a prior personal visit. Includes the filmed farm visit (vlogged), a gold pulsing pin with priority placement, photo gallery, Instagram + website links, where-to-buy, a chatbot trained on the farm's practice, a monthly collaborative reel/carousel posted across Provenance, and a silver-bordered QR sticker. No producer sits here yet. |
 | **Provenance Seal Complete** | €149/month | Product-level — requires a qualifying packaged product (jarred / bottled / bagged / boxed, with a batch number and date). Full batch documentation, Eurofins facilitation, blockchain anchor, API store integration, and a gold-bordered QR sticker. Gold pulsing pin with a gold ring. |
 
@@ -27,7 +27,7 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 - **Provenance Seal Complete:** Gold — `#C4A44A`, pulsing + gold ring border. The €149/month product-level tier.
 - **Provenance Founder:** An additional pill (`data-badge2="Provenance Founder"`) on the card; the "See full profile" button reads "Provenance Founder". No special pin treatment — pin appearance is controlled by tier. The Founder pill is suppressed when it sits beside a tier pill. Currently: Newbard Organic Farm Ltd and Staffords Butchers (both Discovered), and Saltrock Dairy Farm (Verified).
 
-> **Implementation note:** the code today ships tiers `discovered`, `verified`, `seal-lite`, `seal-complete`. The gold **Featured** tier above is the target model, to be wired into the code when the first Featured producer signs. Saltrock renders on `verified` (green) with a single hero photo; its former gallery/IG/website/where-to-buy were removed from its record when it moved to Verified. Pin size is not affected by farming practice — organic/regenerative shows via the card practice pill only, never by enlarging the pin.
+> **Implementation note:** the code today ships tiers `discovered`, `verified`, `seal-lite`, `seal-complete`. The gold **Featured** tier above is the target model, to be wired into the code when the first Featured producer signs. Saltrock renders on `verified` (green) with its logo as the single card image; its former gallery/IG/website/where-to-buy were removed from its record when it moved to Verified. `photo_url` should always be a logo — farm photography belongs only in the Featured-tier `photos` gallery. Pin size is not affected by farming practice — organic/regenerative shows via the card practice pill only, never by enlarging the pin.
 - **Farmers Market:** Terracotta — `#B0623A`, 7px dot (5px on mobile), no border, terracotta glow. Completely different card layout showing hours and a producer list. Currently: Gorey Farmers Market (Saturday 10am–2pm). Add `class="pin market"` and `data-category="market"` to the pin.
 
 ### Consumer Model (B2C, Freemium)
@@ -96,21 +96,22 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 
 ### Producer Profile — what shows at each tier
 
-**Discovered and Verified (both free)** show:
+**Every tier (including Discovered and Verified)** shows:
 - Producer name
 - County / Town
 - Product type
 - Verification tier badge (and, for Verified, the confirmed practice pill — organic / regenerative)
 - Short description
+- A single image: the producer's **logo** (`photo_url`), never farm photography
 
 **Provenance Featured (€49/mo) and above** additionally show:
-- Photo gallery
+- Farm photo gallery (`photos` array — real farm/produce images, lightbox viewer)
 - Instagram link
 - Website link
 - Where-to-buy
 - Filmed farm-visit video
 
-Photos, Instagram, website, and where-to-buy are **not** shown on Discovered or Verified — they begin at Featured.
+The rule: **logo on every card; farm images, Instagram, website, and where-to-buy begin at Featured.**
 
 ### Provenance Seal Batch Documentation Page (Provenance Seal Complete)
 

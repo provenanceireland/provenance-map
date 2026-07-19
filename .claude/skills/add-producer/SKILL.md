@@ -109,6 +109,12 @@ Field notes:
 
 ## Step 4 — Wire the photo
 
+**The rule: every producer's single card image (`photo_url`) is their LOGO.**
+Farm/produce photography (the `photos` gallery) is a paid Featured-tier benefit
+— never attach farm images to a Discovered or Verified listing, even if the
+user supplies them. If only farm photos are available and no logo, set
+`photo_url: null` (placeholder shows) and note it to the user.
+
 The image file lives in the **repo root** (or a subfolder); `photo_url` is its
 path relative to root, e.g. `"galteehoney.png"`.
 
