@@ -747,8 +747,14 @@
       margin-bottom: 6px;
     }
 
-    /* Farming practice pill */
+    /* Farming practice pills (a producer can hold more than one) */
     .card-practice {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .practice-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -758,9 +764,8 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1rem;
       line-height: 1;
-      margin-bottom: 10px;
     }
-    .card-practice svg {
+    .practice-pill svg {
       width: 15px; height: 15px;
       flex-shrink: 0;
       stroke: currentColor;
@@ -769,17 +774,17 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .card-practice.practice-regenerative {
+    .practice-pill.practice-regenerative {
       color: #7EC98C;
       background: rgba(89,166,102,0.12);
       border-color: rgba(89,166,102,0.42);
     }
-    .card-practice.practice-organic {
+    .practice-pill.practice-organic {
       color: #D6BB6A;
       background: rgba(196,164,74,0.12);
       border-color: rgba(196,164,74,0.42);
     }
-    .card-practice.practice-conventional {
+    .practice-pill.practice-conventional {
       color: #B7AE9B;
       background: rgba(150,144,128,0.12);
       border-color: rgba(150,144,128,0.42);
@@ -1842,10 +1847,13 @@
         organic: '<svg viewBox="0 0 24 24"><path d="M5 20c9 1 14-4 14-13-9-1-14 4-14 13z"/><path d="M5 20c1.5-5 4.5-8 9-10"/></svg>',
         conventional: '<svg viewBox="0 0 24 24"><circle cx="7" cy="15" r="5"/><circle cx="18" cy="18" r="2"/><path d="M8 10.1V4"/><path d="M4 11V4"/><path d="M3 4h8.129a1 1 0 0 1 .99.863L13 11.246"/><path d="M18 5a1 1 0 0 0-1 1v5.573"/><path d="M16 18h-5"/><path d="m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20"/></svg>'
       };
-      if (practice === 'regenerative' || practice === 'organic' || practice === 'conventional') {
-        const label = practice.charAt(0).toUpperCase() + practice.slice(1);
-        practiceEl.innerHTML = practiceIcons[practice] + '<span>' + label + '</span>';
-        practiceEl.className = 'card-practice practice-' + practice;
+      const practices = (practice || '').split(',').map(s => s.trim())
+        .filter(p => ['regenerative', 'organic', 'conventional'].includes(p));
+      if (practices.length) {
+        practiceEl.innerHTML = practices.map(p =>
+          `<span class="practice-pill practice-${p}">${practiceIcons[p]}<span>${p.charAt(0).toUpperCase() + p.slice(1)}</span></span>`
+        ).join('');
+        practiceEl.className = 'card-practice';
       } else {
         practiceEl.className = 'card-practice hidden';
         practiceEl.innerHTML = '';
