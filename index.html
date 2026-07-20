@@ -747,26 +747,26 @@
       margin-bottom: 6px;
     }
 
-    /* Farming practice pills (a producer can hold more than one) */
+    /* Farming practice — icon + italic label, stacked (a producer can hold more than one) */
     .card-practice {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 12px;
       margin-bottom: 10px;
     }
     .practice-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 13px 5px;
-      border-radius: 999px;
-      border: 1px solid transparent;
+      gap: 8px;
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1rem;
+      font-style: italic;
+      font-size: 1.15rem;
       line-height: 1;
     }
     .practice-pill svg {
-      width: 15px; height: 15px;
+      width: 16px; height: 16px;
       flex-shrink: 0;
       stroke: currentColor;
       fill: none;
@@ -774,21 +774,9 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .practice-pill.practice-regenerative {
-      color: #7EC98C;
-      background: rgba(89,166,102,0.12);
-      border-color: rgba(89,166,102,0.42);
-    }
-    .practice-pill.practice-organic {
-      color: #D6BB6A;
-      background: rgba(196,164,74,0.12);
-      border-color: rgba(196,164,74,0.42);
-    }
-    .practice-pill.practice-conventional {
-      color: #B7AE9B;
-      background: rgba(150,144,128,0.12);
-      border-color: rgba(150,144,128,0.42);
-    }
+    .practice-pill.practice-regenerative { color: #6FC07F; }
+    .practice-pill.practice-organic      { color: #CBAF5F; }
+    .practice-pill.practice-conventional { color: #ADA492; }
 
     /* Product type tags */
     .card-product-tags {
@@ -1620,11 +1608,11 @@
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
       <div id="card-product-tags" class="card-product-tags"></div>
-      <p class="card-practice hidden" id="card-practice"></p>
       <div id="card-attributes" class="hidden"></div>
 
       <!-- MIDDLE -->
       <p class="card-description hidden" id="card-description"></p>
+      <p class="card-practice hidden" id="card-practice"></p>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
