@@ -57,7 +57,7 @@
     },
     {
       "id": "giy",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "GIY",
       "tier": "discovered",
       "pin_classes": "",
@@ -84,7 +84,7 @@
     },
     {
       "id": "green-earth-organics",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Green Earth Organics",
       "tier": "discovered",
       "pin_classes": "",
@@ -111,7 +111,7 @@
     },
     {
       "id": "mill-house-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Mill House Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -138,7 +138,7 @@
     },
     {
       "id": "an-garrai-glas",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "An Garraí Glas",
       "tier": "discovered",
       "pin_classes": "",
@@ -219,7 +219,7 @@
     },
     {
       "id": "skehana-hill",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Skehana Hill",
       "tier": "discovered",
       "pin_classes": "",
@@ -246,7 +246,7 @@
     },
     {
       "id": "seannua-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "SeanNua Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -273,7 +273,7 @@
     },
     {
       "id": "forest-hill-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Forest Hill Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -358,7 +358,7 @@
     },
     {
       "id": "wolf-seeds",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Wolf Seeds",
       "tier": "discovered",
       "pin_classes": "",
@@ -385,7 +385,7 @@
     },
     {
       "id": "lunasa-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Lunasa Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -441,7 +441,7 @@
     },
     {
       "id": "new-leaf-urban-farmers",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "New Leaf Urban Farmers",
       "tier": "discovered",
       "pin_classes": "",
@@ -495,7 +495,7 @@
     },
     {
       "id": "graze-dairy",
-      "practice": "conventional",
+      "practice": "unspecified",
       "name": "Graze Dairy",
       "tier": "discovered",
       "pin_classes": "",
@@ -522,7 +522,7 @@
     },
     {
       "id": "duhallow-organics",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Duhallow Organics",
       "tier": "discovered",
       "pin_classes": "",
@@ -549,7 +549,7 @@
     },
     {
       "id": "moy-hill-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Moy Hill Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -576,7 +576,7 @@
     },
     {
       "id": "mad-yolk-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Mad Yolk Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -603,7 +603,7 @@
     },
     {
       "id": "beechlawn-organic-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Beechlawn Organic Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -630,7 +630,7 @@
     },
     {
       "id": "gleann-bui-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Gleann Bui Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -657,7 +657,7 @@
     },
     {
       "id": "finlays-dairy-farm",
-      "practice": "conventional",
+      "practice": "unspecified",
       "name": "Finlay's Dairy Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -684,7 +684,7 @@
     },
     {
       "id": "walshs-organic-eggs",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Walsh's Organic Eggs",
       "tier": "discovered",
       "pin_classes": "",
@@ -711,7 +711,7 @@
     },
     {
       "id": "fiorbhia-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Fiorbhia Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -738,7 +738,7 @@
     },
     {
       "id": "regan-organic-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Regan Organic Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -765,7 +765,7 @@
     },
     {
       "id": "rathgarogue-organic-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Rathgarogue Organic Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -954,7 +954,7 @@
     },
     {
       "id": "wexford-organics",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Wexford Organics",
       "tier": "discovered",
       "pin_classes": "",
@@ -981,7 +981,7 @@
     },
     {
       "id": "garden-county-organics",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Garden County Organics",
       "tier": "discovered",
       "pin_classes": "",
@@ -1008,7 +1008,7 @@
     },
     {
       "id": "castleruddery-organic-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Castleruddery Organic Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -1035,7 +1035,7 @@
     },
     {
       "id": "keadeen-mountain-farms",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Keadeen Mountain Farms",
       "tier": "discovered",
       "pin_classes": "",
@@ -1311,7 +1311,7 @@
     },
     {
       "id": "chestnuttss-farm",
-      "practice": "conventional",
+      "practice": "unspecified",
       "name": "Chestnutt's Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -1365,7 +1365,7 @@
     },
     {
       "id": "mulroy-meadow-farm",
-      "practice": "regenerative",
+      "practice": "unspecified",
       "name": "Mulroy Meadow Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -1394,7 +1394,7 @@
     },
     {
       "id": "merry-mill",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "The Merry Mill",
       "tier": "discovered",
       "pin_classes": "",
@@ -1616,7 +1616,7 @@
     },
     {
       "id": "riversfield-organic-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Riversfield Organic Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -1728,7 +1728,7 @@
     },
     {
       "id": "ballincarey-farm",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "Ballincarey Farm",
       "tier": "discovered",
       "pin_classes": "",
@@ -1755,7 +1755,7 @@
     },
     {
       "id": "st-tola",
-      "practice": "organic",
+      "practice": "unspecified",
       "name": "St Tola",
       "tier": "discovered",
       "pin_classes": "",
