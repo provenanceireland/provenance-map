@@ -47,7 +47,7 @@ The note keys have changed over time — accept both the current and older names
 |----------|----------------|-------|
 | `name` | `name` + `id` | `id` = kebab-case of name (`happy-roots`) |
 | `product` (or `produce`) | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
-| `Description` (or note body) | `description` | **If blank, research online and generate it — required.** See the description rule below. |
+| `Description` (or note body) | `description` | Use the producer's text **verbatim** — never reword or re-voice it. Only if blank, research online and generate one (see rule). |
 | `Attributes` | `attributes` | Comma- or line-separated tags → `attributes` array (e.g. `["Grass Fed","Free Range"]`). They render as small pills directly under the practice line. |
 | `Eircode` | — | not stored; use only to sanity-check the town/location string |
 | `county` | `county` | one of the 32 counties |
@@ -94,14 +94,17 @@ render as small pills under the practice line.
   `where_to_buy: []`, and no `photos` array — even if the note fills them in.
   Those begin at **Featured** (`featured`/`seal-*`). Capture them only when the
   tier is Featured+.
-- **Description — research if blank.** If the note's `Description` (or body) is
-  empty or still the template placeholder, you MUST generate one by researching
-  online: `WebFetch` the `website` if there is one, and `WebSearch` the producer
-  name + county for real detail (town, family, land, method, how they sell
-  direct). Write 1–2 plain sentences in the Provenance voice — named people and
-  places, "sold direct", no em dashes, no website-cliché phrasing. If research
-  turns up nothing specific, write a minimal honest line from the known facts and
-  say so. Always present the drafted description in your reply for the user to edit.
+- **Description — producer's words verbatim, else research.** If the note's
+  `Description` (or body) has real content, use it **exactly as written** — do not
+  reword, rewrite, re-case, fix grammar/spelling, or convert first-person to
+  third-person. It is the producer's own description and goes in verbatim (a
+  producer's voice is the point). Only when the description is blank or still the
+  template placeholder do you generate one by researching online (`WebFetch` the
+  `website` if present, `WebSearch` the producer name + county), written in the
+  Provenance voice (plain, named people/places, no em dashes, no website clichés).
+  If research turns up nothing specific, write a minimal honest line from the known
+  facts and say so. Present any *generated* description in your reply for the user
+  to edit; a verbatim producer one needs no sign-off.
 - **Practice gating.** Only write a real practice (`regenerative` and/or
   `organic`) to `producers.json` when the note's `practice_confirmed` is `true`.
   If practice is set but not confirmed, store `"practice": "unspecified"` (no pill
@@ -142,8 +145,9 @@ render as small pills under the practice line.
 
 A verification usually means the note changed `tier` to `Verified`, filled in
 `practice` + `practice_confirmed: true`, and improved the description. Apply those
-(tier → `verified`, set the confirmed practice pill, refine description/town) and
-keep Instagram/website/where-to-buy null — those stay Featured-only. Mention to
+(tier → `verified`, set the confirmed practice pill, use the description as
+written, set the town) and keep Instagram/website/where-to-buy null — those stay
+Featured-only. Mention to
 the user that those paid-tier fields were captured in your notes but won't display
 until Featured.
 
