@@ -13,7 +13,7 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 | Tier | Price | Includes |
 |------|-------|----------|
 | **Discovered** | €0 | Free basic map pin. The default listing for any producer. |
-| **Verified** | €0 | Free. The producer confirms their own details and farming practice via the "verify your profile" Fillout form. Green pin and a confirmed practice pill (organic / regenerative / conventional, each with its own icon). Single logo image only — **no farm photos, Instagram, website, or where-to-buy**; those begin at Featured. |
+| **Verified** | €0 | Free. The producer confirms their own details and farming practice via the "verify your profile" Fillout form. Green pin and a confirmed practice pill — **organic** (dark green `#4A8A55`, leaf icon) and/or **regenerative** (gold `#C4A44A`, sprout icon); a producer can hold both, shown side by side. Any other value shows no pill. Single logo image only — **no farm photos, Instagram, website, or where-to-buy**; those begin at Featured. |
 | **Provenance Featured** | €49/month | Visit-gated, farm-level. Never sold without a prior personal visit. Includes the filmed farm visit (vlogged), a gold pulsing pin with priority placement, photo gallery, Instagram + website links, where-to-buy, a chatbot trained on the farm's practice, a monthly collaborative reel/carousel posted across Provenance, and a silver-bordered QR sticker. No producer sits here yet. |
 | **Provenance Seal Complete** | €149/month | Product-level — requires a qualifying packaged product (jarred / bottled / bagged / boxed, with a batch number and date). Full batch documentation, Eurofins facilitation, blockchain anchor, API store integration, and a gold-bordered QR sticker. Gold pulsing pin with a gold ring. |
 
@@ -100,7 +100,7 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 - Producer name
 - County / Town
 - Product type
-- Verification tier badge (and, for Verified, the confirmed practice pill — organic / regenerative / conventional; each has its own icon, and `unspecified` shows no pill)
+- Verification tier badge (and, for Verified, the confirmed practice pill — **organic** in dark green with a leaf icon, and/or **regenerative** in gold with a sprout icon; a producer can hold both, shown side by side. Only these two render; any other practice value shows no pill)
 - Short description
 - A single image: the producer's **logo** (`photo_url`), never farm photography
 

@@ -2,7 +2,7 @@
   "producers": [
     {
       "id": "saltrock-dairy",
-      "practice": "conventional",
+      "practice": "unspecified",
       "name": "Saltrock Dairy Farm",
       "tier": "verified",
       "pin_classes": "",
@@ -1454,7 +1454,7 @@
     },
     {
       "id": "staffords-butchers",
-      "practice": "conventional",
+      "practice": "unspecified",
       "name": "Staffords Butchers",
       "tier": "verified",
       "pin_classes": "",
