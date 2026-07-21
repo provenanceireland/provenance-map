@@ -48,7 +48,7 @@ The note keys have changed over time — accept both the current and older names
 | `name` | `name` + `id` | `id` = kebab-case of name (`happy-roots`) |
 | `product` (or `produce`) | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
 | `Description` (or note body) | `description` | **If blank, research online and generate it — required.** See the description rule below. |
-| `Attributes` | `attributes` | Small chip tags. NOTE: card attribute chips were removed from every listing earlier — confirm with the user before populating this again; default to `attributes: []`. |
+| `Attributes` | `attributes` | Comma- or line-separated tags → `attributes` array (e.g. `["Grass Fed","Free Range"]`). They render as small pills directly under the practice line. |
 | `Eircode` | — | not stored; use only to sanity-check the town/location string |
 | `county` | `county` | one of the 32 counties |
 | `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng` |
@@ -59,7 +59,7 @@ The note keys have changed over time — accept both the current and older names
 | `website` | `website` | **null unless tier is Featured+** |
 | `Email` | — | contact/admin only, never displayed on the map or stored in producers.json |
 | `photo` | `photo_url` (+ `photo_bg`) | logo only — see photo rule |
-| `Listed` (`Researched`) | — | your tracking flags; write `Listed: Yes` back to the note after a successful sync (see last step) |
+| `Listed` | — | your tracking flag; write `Listed: Yes` back to the note after a successful sync (see last step) |
 
 Keep every other producers.json field at its template default (`badge`, `badge2`,
 `map_link`, `attributes: []`, `seal_active: false`, `where_to_buy: []`, etc.),
@@ -122,9 +122,8 @@ or, for an update, leave existing values untouched unless the note changes them.
    confirm the GitHub Pages deploy went live (poll the live service-worker for the
    new version).
 8. **Write back** to the Obsidian note — always, on every successful add or
-   update: set `Listed: Yes` (and `Researched: Yes` if you researched it) so the
-   user's tracking stays accurate. Preserve the rest of the note (front matter
-   order and body) and its UTF-8 encoding.
+   update: set `Listed: Yes` so the user's tracking stays accurate. Preserve the
+   rest of the note (front matter order and body) and its UTF-8 encoding.
 9. **Report**: what was added/changed, restate any drafted description for the
    user to edit, and flag anything left off by rule (Instagram/website/where-to-buy
    held for Featured; practice held because `practice_confirmed` was false).

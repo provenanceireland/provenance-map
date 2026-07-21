@@ -839,21 +839,24 @@
     }
 
     #card-attributes {
-      margin-top: -4px;
-      margin-bottom: 8px;
-      line-height: 1.5;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+      margin-bottom: 10px;
     }
     .badge-attr {
-      display: inline;
-      font-size: 0.52rem;
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.55rem;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: #504838;
-    }
-    .badge-attr + .badge-attr::before {
-      content: ' · ';
-      color: #3a3028;
+      color: #A89A82;
+      background: rgba(232,222,200,0.05);
+      border: 1px solid rgba(232,222,200,0.15);
+      border-radius: 999px;
+      padding: 3px 9px;
     }
     .card-description {
       font-size: 0.82rem;
@@ -1608,11 +1611,11 @@
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
       <div id="card-product-tags" class="card-product-tags"></div>
-      <div id="card-attributes" class="hidden"></div>
 
       <!-- MIDDLE -->
       <p class="card-description hidden" id="card-description"></p>
       <p class="card-practice hidden" id="card-practice"></p>
+      <div id="card-attributes" class="hidden"></div>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
