@@ -39,21 +39,27 @@ ones whose front matter differs from the current `producers.json` (new `id`s, or
 
 The user's notes use these keys (values may be blank):
 
+The note keys have changed over time — accept both the current and older names
+(the note may use `product` **or** `produce`; the description may be a
+`Description` property **or** in the note body).
+
 | Note key | producers.json | Notes |
 |----------|----------------|-------|
 | `name` | `name` + `id` | `id` = kebab-case of name (`happy-roots`) |
-| `produce` | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
+| `product` (or `produce`) | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
+| `Description` (or note body) | `description` | **If blank, research online and generate it — required.** See the description rule below. |
+| `Attributes` | `attributes` | Small chip tags. NOTE: card attribute chips were removed from every listing earlier — confirm with the user before populating this again; default to `attributes: []`. |
+| `Eircode` | — | not stored; use only to sanity-check the town/location string |
 | `county` | `county` | one of the 32 counties |
 | `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng` |
-| `Eircode` | — | not stored; use only to sanity-check the town/location string |
 | `tier` | `tier` | `Discovered`→`discovered`, `Verified`→`verified` (see gating below) |
 | `practice` | `practice` | see the **practice gating** rule |
 | `practice_confirmed` | (gate) | see below |
 | `instagram` | `social_instagram` | **null unless tier is Featured+** (see gating) |
 | `website` | `website` | **null unless tier is Featured+** |
+| `Email` | — | contact/admin only, never displayed on the map or stored in producers.json |
 | `photo` | `photo_url` (+ `photo_bg`) | logo only — see photo rule |
-| body text | `description` | if the body is still the template placeholder ("Write the producer description here…") treat it as empty and draft one (fetch the website first if there is one). Present the draft for the user to edit. No em dashes. |
-| `Researched` / `Listed` | — | your tracking flags; optionally write `Listed: Yes` back to the note after a successful add (see last step) |
+| `Listed` (`Researched`) | — | your tracking flags; write `Listed: Yes` back to the note after a successful sync (see last step) |
 
 Keep every other producers.json field at its template default (`badge`, `badge2`,
 `map_link`, `attributes: []`, `seal_active: false`, `where_to_buy: []`, etc.),
@@ -63,13 +69,13 @@ or, for an update, leave existing values untouched unless the note changes them.
 
 - **First-add tier from completeness (new producers only).** When the `id` is new,
   set the tier by how complete the note is. If **every** meaningful field is filled
-  in — `name`, `produce`, `county`, `Location`, a real (non-placeholder)
-  description, a `photo`, and `practice` with `practice_confirmed: true` — list
+  in — `name`, `product`, `county`, `Location`, a real (non-placeholder)
+  `Description`, a `photo`, and `practice` with `practice_confirmed: true` — list
   them as **Verified** (`tier: verified`), even if the note's `tier` still says
   Discovered. If any of those is blank/missing, list them as **Discovered**.
-  (`instagram`, `website`, `Eircode` are optional and don't count toward
-  completeness.) For an existing producer (an update/verification), take the tier
-  from the note's `tier` field instead.
+  (`instagram`, `website`, `Email`, `Attributes`, `Eircode` are optional and don't
+  count toward completeness.) For an existing producer (an update/verification),
+  take the tier from the note's `tier` field instead.
 - **Tier gating (what the free tiers may show).** Discovered and Verified are both
   free and show only: name, county/town, product, tier badge, description, the
   single **logo**, and — for Verified — a confirmed practice pill. They must NOT
@@ -78,6 +84,14 @@ or, for an update, leave existing values untouched unless the note changes them.
   `where_to_buy: []`, and no `photos` array — even if the note fills them in.
   Those begin at **Featured** (`featured`/`seal-*`). Capture them only when the
   tier is Featured+.
+- **Description — research if blank.** If the note's `Description` (or body) is
+  empty or still the template placeholder, you MUST generate one by researching
+  online: `WebFetch` the `website` if there is one, and `WebSearch` the producer
+  name + county for real detail (town, family, land, method, how they sell
+  direct). Write 1–2 plain sentences in the Provenance voice — named people and
+  places, "sold direct", no em dashes, no website-cliché phrasing. If research
+  turns up nothing specific, write a minimal honest line from the known facts and
+  say so. Always present the drafted description in your reply for the user to edit.
 - **Practice gating.** Only write a real practice (`regenerative` and/or
   `organic`) to `producers.json` when the note's `practice_confirmed` is `true`.
   If practice is set but not confirmed, store `"practice": "unspecified"` (no pill
