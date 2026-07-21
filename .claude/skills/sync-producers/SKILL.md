@@ -61,6 +61,15 @@ or, for an update, leave existing values untouched unless the note changes them.
 
 ## The rules that are easy to get wrong
 
+- **First-add tier from completeness (new producers only).** When the `id` is new,
+  set the tier by how complete the note is. If **every** meaningful field is filled
+  in — `name`, `produce`, `county`, `Location`, a real (non-placeholder)
+  description, a `photo`, and `practice` with `practice_confirmed: true` — list
+  them as **Verified** (`tier: verified`), even if the note's `tier` still says
+  Discovered. If any of those is blank/missing, list them as **Discovered**.
+  (`instagram`, `website`, `Eircode` are optional and don't count toward
+  completeness.) For an existing producer (an update/verification), take the tier
+  from the note's `tier` field instead.
 - **Tier gating (what the free tiers may show).** Discovered and Verified are both
   free and show only: name, county/town, product, tier badge, description, the
   single **logo**, and — for Verified — a confirmed practice pill. They must NOT
@@ -98,8 +107,10 @@ or, for an update, leave existing values untouched unless the note changes them.
 7. **Commit + push** (`producers.json`, `service-worker.js`, any new image), then
    confirm the GitHub Pages deploy went live (poll the live service-worker for the
    new version).
-8. **(Optional) write back** to the Obsidian note: set `Listed: Yes` (and
-   `Researched: Yes` if you researched it) so the user's tracking stays accurate.
+8. **Write back** to the Obsidian note — always, on every successful add or
+   update: set `Listed: Yes` (and `Researched: Yes` if you researched it) so the
+   user's tracking stays accurate. Preserve the rest of the note (front matter
+   order and body) and its UTF-8 encoding.
 9. **Report**: what was added/changed, restate any drafted description for the
    user to edit, and flag anything left off by rule (Instagram/website/where-to-buy
    held for Featured; practice held because `practice_confirmed` was false).
