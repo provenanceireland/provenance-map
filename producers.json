@@ -1835,6 +1835,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "happy-roots",
+      "practice": "unspecified",
+      "name": "Happy Roots",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.99713974020163,
+      "lng": -8.27331766518112,
+      "county": "Tipperary",
+      "location": "Co. Tipperary",
+      "product": "Seasonal Vegetables",
+      "product_type": ["vegetables"],
+      "description": "A market garden in Co. Tipperary growing seasonal vegetables, sold fresh and direct to the local community.",
+      "photo_url": "happyroots.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
