@@ -1891,6 +1891,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "the-curious-farmer",
+      "practice": "unspecified",
+      "name": "The Curious Farmer",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.580462792177656,
+      "lng": -6.791100471680958,
+      "county": "Tyrone",
+      "location": "Dungannon, Co. Tyrone",
+      "product": "Beef",
+      "product_type": ["beef"],
+      "description": "A family farm at Tyghan in Co. Tyrone, slow-rearing native Shorthorn beef on the grassy hills of the county. The Curious Farmer sells beef boxes direct, along with homemade pies, at markets and by post.",
+      "photo_url": "curiousfarmer.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
