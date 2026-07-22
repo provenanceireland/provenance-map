@@ -112,11 +112,13 @@ render as small pills under the practice line.
   and anything else render no pill; only `organic`/`regenerative` show. A producer
   can hold both — store `"regenerative,organic"` and the card shows both pills
   side by side.
-- **Logo only.** `photo_url` is always the producer's **logo**. Check the image
-  (Read it) — if it's a logo on a white/transparent background add
-  `"photo_bg": "white"`; if it has its own solid background, omit `photo_bg`.
-  Never attach farm photography to a Discovered/Verified card. If only farm
-  photos exist and no logo, set `photo_url: null`.
+- **Single card image.** Every tier gets **one** image (`photo_url`) — a logo is
+  ideal, but a single representative photo (e.g. a farm shot) is also fine on
+  Discovered and Verified. Check the image (Read it): if it's a logo on a
+  white/transparent background add `"photo_bg": "white"`; a photo or a logo with
+  its own solid background omits `photo_bg`. What stays Featured-only is the
+  multi-image **gallery** (`photos` array) — never add a `photos` array to a
+  Discovered/Verified record. If there's no image at all, set `photo_url: null`.
 - The image file must be in the **map repo** (root or subfolder). If the note's
   `photo` names a file that isn't in the repo yet, tell the user to drop it in.
 

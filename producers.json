@@ -1863,6 +1863,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "valleyview-farm",
+      "practice": "unspecified",
+      "name": "Valleyview Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.77373156575371,
+      "lng": -8.43662093811425,
+      "county": "Cork",
+      "location": "Riverstick, Co. Cork",
+      "product": "Free-Range Eggs, Potatoes & Vegetables",
+      "product_type": ["eggs", "vegetables"],
+      "description": "A family farm in Riverstick, Co. Cork, run by Jason and Helga Bryan. They grow potatoes and seasonal vegetables and keep 500 free-range hens in mobile housing that keeps them on fresh pasture, selling eggs, potatoes and vegetables direct from the farm.",
+      "photo_url": "valleyview.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
