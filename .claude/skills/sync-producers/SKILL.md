@@ -49,7 +49,7 @@ The note keys have changed over time — accept both the current and older names
 | `product` (or `produce`) | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
 | `Description` (or note body) | `description` | Use the producer's text **verbatim** — never reword or re-voice it. Only if blank, research online and generate one (see rule). |
 | `Attributes` | `attributes` | Comma- or line-separated tags → `attributes` array (e.g. `["Grass Fed","Free Range"]`). They render as small pills directly under the practice line. |
-| `Eircode` | — | not stored; use only to sanity-check the town/location string |
+| `Eircode` | `directions` | build a maps link `https://maps.google.com/?q=<EIRCODE>` (spaces → `+`) so the card gets a Directions button; also use it to sanity-check the town |
 | `county` | `county` | one of the 32 counties |
 | `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng` |
 | `tier` | `tier` | `Discovered`→`discovered`, `Verified`→`verified` (see gating below) |
