@@ -869,6 +869,27 @@
       flex-direction: column;
       gap: 9px;
     }
+    /* "Confirmed by <farm>" — verified trust line at the very bottom */
+    .card-confirmed {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4E8560;
+    }
+    .card-confirmed svg {
+      width: 11px; height: 11px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
     .card-action-btn {
       display: flex;
       align-items: center;
@@ -1631,6 +1652,7 @@
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
         <a id="card-profile" class="card-action-btn card-action-primary hidden" href="#">See full profile</a>
       </div>
+      <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
   </div>
 
@@ -1862,6 +1884,16 @@
         attrsEl.classList.remove('hidden');
       } else {
         attrsEl.classList.add('hidden');
+      }
+
+      // ── "Confirmed by <farm>" — Verified producers only ──
+      const confirmedEl = document.getElementById('card-confirmed');
+      if (!isMarket && tierName === 'verified') {
+        confirmedEl.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Confirmed by ${pin.dataset.name}`;
+        confirmedEl.classList.remove('hidden');
+      } else {
+        confirmedEl.classList.add('hidden');
+        confirmedEl.innerHTML = '';
       }
 
       // ── Photo + strip ──
