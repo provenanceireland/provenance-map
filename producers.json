@@ -1918,6 +1918,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "ballyholey-farm",
+      "practice": "unspecified",
+      "name": "Ballyholey Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.885,
+      "lng": -7.62,
+      "county": "Donegal",
+      "location": "Raphoe, Co. Donegal",
+      "product": "Vegetables & Potatoes",
+      "product_type": ["vegetables"],
+      "description": "A family farm outside Raphoe in Co. Donegal, growing vegetables and potatoes for over 30 years. Ballyholey sells more than 120 varieties direct from their Log Cabin farm shop and at the Letterkenny farmers market.",
+      "photo_url": "ballyholey.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
