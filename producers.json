@@ -1946,6 +1946,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "bare-acre-farm",
+      "practice": "unspecified",
+      "name": "Bare Acre Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.56411399021276,
+      "lng": -6.0976123503721675,
+      "county": "Dublin",
+      "location": "North Co. Dublin",
+      "product": "Vegetables & Eggs",
+      "product_type": ["vegetables", "eggs"],
+      "description": "A regenerative vegetable farm in North Co. Dublin, run by Dave and Ber Kavanagh. Bare Acre sells weekly produce boxes along with free-range eggs, bread and seasonal flowers direct from their farm shop.",
+      "photo_url": "bareacre.webp",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
