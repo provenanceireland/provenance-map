@@ -1974,6 +1974,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "toons-bridge-dairy",
+      "practice": "unspecified",
+      "name": "Toons Bridge Dairy",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.89076779388111,
+      "lng": -9.006736792521075,
+      "county": "Cork",
+      "location": "Toonsbridge, Co. Cork",
+      "product": "Buffalo Dairy",
+      "product_type": ["dairy", "cheese"],
+      "description": "Ireland's first buffalo mozzarella, made in the old creamery in Toonsbridge, West Cork, from the milk of their own water buffalo herd. Toons Bridge makes over 15 cheeses, sold direct at their shops and at the Cork English Market.",
+      "photo_url": "toonsbridge.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
