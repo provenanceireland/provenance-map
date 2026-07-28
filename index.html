@@ -608,11 +608,6 @@
 
     /* ── MARKET CARD ── */
     #card.market-card .strip-thumb.active { border-color: #B0623A; }
-    #card.market-card .card-action-primary {
-      background: #f8f8f3;
-      color: #060807;
-      box-shadow: 0 4px 22px rgba(248,248,243,0.2);
-    }
 
     /* ── MARKET CARD CONTENT ── */
     .card-hours {
@@ -907,13 +902,7 @@
       cursor: pointer;
     }
     .card-action-btn:active { transform: scale(0.97); }
-    .card-action-primary {
-      background: #C4A44A;
-      color: #060807;
-      box-shadow: 0 4px 22px rgba(196,164,74,0.28);
-    }
-    .card-action-primary:hover { opacity: 0.9; }
-    .card-action-seal {
+.card-action-seal {
       background: rgba(196,164,74,0.08);
       border: 1px solid rgba(196,164,74,0.3);
       color: #C4A44A;
@@ -1650,7 +1639,6 @@
       <!-- BOTTOM -->
       <div class="card-actions">
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
-        <a id="card-profile" class="card-action-btn card-action-primary hidden" href="#">See full profile</a>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
@@ -1768,7 +1756,6 @@
       if (p.photo_url)   div.dataset.photo       = p.photo_url;
       if (p.photos && p.photos.length) div.dataset.photos = p.photos.join(',');
       if (p.photo_bg)    div.dataset.photoBg     = p.photo_bg;
-      if (p.map_link)    div.dataset.profile     = p.map_link;
       if (p.description) div.dataset.description = p.description;
       if (p.attributes && p.attributes.length) div.dataset.attributes = p.attributes.join(',');
       if (p.social_instagram) div.dataset.instagram  = p.social_instagram;
@@ -2010,13 +1997,6 @@
         }
       } else { marketInfo.classList.add('hidden'); }
 
-      // ── Profile button ──
-      const profileEl = document.getElementById('card-profile');
-      if (pin.dataset.profile) {
-        profileEl.href = pin.dataset.profile;
-        profileEl.textContent = pin.dataset.badge2 === 'Provenance Founder' ? 'Provenance Founder' : 'See full profile';
-        profileEl.classList.remove('hidden');
-      } else { profileEl.classList.add('hidden'); }
 
       // ── Seal button ──
       const sealEl = document.getElementById('card-seal');

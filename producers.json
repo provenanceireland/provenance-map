@@ -1524,7 +1524,7 @@
       "product_type": ["honey"],
       "description": "Galtee Honey Farm is one of Ireland's oldest family-run honey farms nestled in the heart of the Galtee Vee Valley, dedicated to producing award-winning Irish honey.  It is at the heart of Ireland's first Conservation Area for the Native Irish Honey Bee. Calls are appointment only.",
       "photo_url": "galteehoney.png",
-      "map_link": "https://maps.google.com/?q=E21+YR64",
+      "map_link": null,
       "social_instagram": null,
       "website": null,
       "attributes": ["Raw / unpasteurised"],
