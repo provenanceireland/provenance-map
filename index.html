@@ -985,10 +985,10 @@
     }
     .pin.t-discovered .pin-pulse { display: none; }
 
-    /* Verified — #4A8A55, larger, white border, green pulse ring */
+    /* Verified — #59A666, same size as Discovered, white border, static green glow */
     .pin.t-verified .pin-dot {
-      width: 9.45px !important;
-      height: 9.45px !important;
+      width: 6.9px !important;
+      height: 6.9px !important;
       background: #59A666 !important;
       border: 1px solid rgba(248,248,243,0.6) !important;
       box-shadow: 0 0 11px 4.5px rgba(89,166,102,0.73) !important;
@@ -1038,6 +1038,7 @@
 
     @media (max-width: 768px) {
       .pin.t-discovered .pin-dot { width: 6.8px !important; height: 6.8px !important; }
+      .pin.t-verified .pin-dot { width: 6.8px !important; height: 6.8px !important; }
     }
 
     /* Reduced motion — pulses become static glows */
@@ -1462,7 +1463,7 @@
     </div>
     <div class="legend-item">
       <div class="legend-dot-wrap legend-dot-verified">
-        <div class="legend-dot" style="width:9.45px;height:9.45px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 11px 4.5px rgba(89,166,102,0.73);"></div>
+        <div class="legend-dot" style="width:6.9px;height:6.9px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 11px 4.5px rgba(89,166,102,0.73);"></div>
       </div>
       <span>Verified producer</span>
     </div>
