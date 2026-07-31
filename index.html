@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1285,36 +1285,9 @@
 
   /* ── NEAR ME ── */
   /* PRIVACY: user coordinates exist in session memory only — never stored, never transmitted */
-  #near-me-btn {
-    position: fixed;
-    bottom: calc(env(safe-area-inset-bottom, 16px) + 78px);
-    right: 16px;
-    z-index: 25;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: #0E100D;
-    border: 1px solid rgba(196,164,74,0.30);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    transition: border-color 0.2s, background 0.2s;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  #near-me-btn.active {
-    border-color: rgba(196,164,74,0.65);
-    background: rgba(14,16,13,0.95);
-  }
-  #near-me-btn svg {
-    width: 18px; height: 18px;
-    stroke: #C4A44A; fill: none;
-    stroke-width: 1.5; stroke-linecap: round;
-  }
-  @keyframes near-me-spin { to { transform: rotate(360deg); } }
-  #near-me-btn.loading svg { animation: near-me-spin 1s linear infinite; }
-  @media (min-width: 601px) {
-    #near-me-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 22px); }
-  }
+  /* The Near Me compass button was removed. The rest of the Near Me machinery below
+     is left intact but unreachable, so the feature can be restored by putting the
+     button and its click listener back. */
 
   #near-me-chip {
     position: fixed;
@@ -1490,16 +1463,8 @@
     <span class="dc-text">producers and growing</span>
   </div>
 
-  <!-- NEAR ME BUTTON -->
-  <button id="near-me-btn" aria-label="Find producers near me">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="3"/>
-      <line x1="12" y1="2" x2="12" y2="6"/>
-      <line x1="12" y1="18" x2="12" y2="22"/>
-      <line x1="2" y1="12" x2="6" y2="12"/>
-      <line x1="18" y1="12" x2="22" y2="12"/>
-    </svg>
-  </button>
+  <!-- NEAR ME BUTTON removed. Machinery below is dormant; restore the button and
+       its click listener (see "Near me event listeners") to bring the feature back. -->
 
   <!-- NEAR ME CHIP (counter shown while mode is active) -->
   <div id="near-me-chip">
@@ -2402,14 +2367,14 @@
     function requestNearMe() {
       if (nearMe.active) { exitNearMeMode(); return; }
       if (!navigator.geolocation) { openCountyFallback(); return; }
-      document.getElementById('near-me-btn').classList.add('loading');
+      document.getElementById('near-me-btn')?.classList.add('loading');
       navigator.geolocation.getCurrentPosition(
         pos => {
-          document.getElementById('near-me-btn').classList.remove('loading');
+          document.getElementById('near-me-btn')?.classList.remove('loading');
           enterNearMeMode(pos.coords.latitude, pos.coords.longitude);
         },
         () => {
-          document.getElementById('near-me-btn').classList.remove('loading');
+          document.getElementById('near-me-btn')?.classList.remove('loading');
           openCountyFallback();
         },
         { timeout: 10000, maximumAge: 60000 }
@@ -2455,7 +2420,7 @@
       const count = applyNearMeOpacity();
       updateNearMeChip(count);
       document.getElementById('near-me-chip').classList.add('visible');
-      document.getElementById('near-me-btn').classList.add('active');
+      document.getElementById('near-me-btn')?.classList.add('active');
     }
 
     function drawNearMeCircle(px, py, rh) {
@@ -2529,7 +2494,7 @@
       });
 
       document.getElementById('near-me-chip').classList.remove('visible');
-      document.getElementById('near-me-btn').classList.remove('active');
+      document.getElementById('near-me-btn')?.classList.remove('active');
       closeNearMePanel();
       applyFilters(); // re-apply any existing filter state
     }
@@ -2574,7 +2539,7 @@
     }
 
     // Near me event listeners
-    document.getElementById('near-me-btn').addEventListener('click', requestNearMe);
+    // (the compass button was removed — re-add its click listener here to restore the feature)
     document.getElementById('near-me-chip').addEventListener('click', openNearMePanel);
     document.getElementById('nm-chip-close').addEventListener('click', e => {
       e.stopPropagation();
