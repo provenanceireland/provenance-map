@@ -2035,6 +2035,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "old-head-milk",
+      "practice": "conventional",
+      "name": "Old Head Milk",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.63394605098165,
+      "lng": -8.547909137832615,
+      "county": "Cork",
+      "location": "Old Head, Co. Cork",
+      "product": "Milk",
+      "product_type": ["dairy"],
+      "description": "Small family dairy farm on the old head peninsula where we produce milk to the highest quality and sell it through a self service vending machine.",
+      "photo_url": "oldhead.jpg",
+      "directions": "https://maps.google.com/?q=P17RX37",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Pasture raised", "Non-Homogenised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
