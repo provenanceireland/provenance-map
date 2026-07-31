@@ -1,27 +1,27 @@
 ---
 name: sync-producers
 description: >-
-  Sync producer notes from the user's Obsidian vault into the live Provenance
-  Map — both adding brand-new producers and applying updates such as a
-  verification. Use whenever the user says things like "sync Happy Roots from
-  Obsidian", "sync from Obsidian", "sync any updated producers", "process the
-  verification", "producer verified", "update <producer> from Obsidian", or
-  pastes an `obsidian://` link to a producer note. Reads the note(s), maps the
-  front matter to producers.json, applies the tier / practice / photo rules,
+  Add or upgrade producers from the user's Obsidian vault. Two triggers:
+  "Add producer: [Name]" — reads the Obsidian note and adds them to the map
+  (Verified if all details are complete, Discovered otherwise).
+  "Upgrade producer: [Name]" — reads the Obsidian note and upgrades an existing
+  Discovered producer to Verified. Also triggers on "sync from Obsidian",
+  "sync any updated producers", or an `obsidian://` link. Reads the note(s), maps
+  the front matter to producers.json, applies the tier / practice / photo rules,
   bumps the service-worker cache, commits and pushes, and confirms the deploy.
 ---
 
 # Sync Producers from Obsidian
 
 The user keeps one Markdown note per producer in their Obsidian vault. This skill
-turns those notes into live map changes. It handles two cases with the same flow:
+turns those notes into live map changes. It handles two cases:
 
-- **New producer** — the note's `id` (kebab-case of `name`) isn't in `producers.json` yet → append a new record.
-- **Update / verification** — the `id` already exists → change only the fields that differ (e.g. `tier: Discovered → Verified`, a newly confirmed `practice`, a better description).
+- **"Add producer: [Name]"** — the note's `id` (kebab-case of `name`) isn't in `producers.json` yet. If every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list them as **Verified** even on first add. Otherwise list as **Discovered**.
+- **"Upgrade producer: [Name]"** — the `id` already exists in `producers.json` (usually as Discovered). Update it to **Verified** (`tier: verified`), applying the latest note fields (description, practice, photo, attributes, etc.). This is the explicit verification command.
 
 ## Where the notes live
 
-Vault: `C:\Users\darra\Documents\Provenance Obsidian\Provenance`
+Vault: `C:\Users\darra\Documents\Provenance Map Obsidian\Provenance Map`
 (granted to Claude via `.claude/settings.local.json` → `permissions.additionalDirectories`).
 
 Producer notes are under **`Provenance Map listings/`**, usually in a county
@@ -77,15 +77,9 @@ render as small pills under the practice line.
 
 ## The rules that are easy to get wrong
 
-- **First-add tier from completeness (new producers only).** When the `id` is new,
-  set the tier by how complete the note is. If **every** meaningful field is filled
-  in — `name`, `product`, `county`, `Location`, a real (non-placeholder)
-  `Description`, a `photo`, and `practice` with `practice_confirmed: true` — list
-  them as **Verified** (`tier: verified`), even if the note's `tier` still says
-  Discovered. If any of those is blank/missing, list them as **Discovered**.
-  (`instagram`, `website`, `Email`, `Attributes`, `Eircode` are optional and don't
-  count toward completeness.) For an existing producer (an update/verification),
-  take the tier from the note's `tier` field instead.
+- **Tier depends on the command and completeness.**
+  - **"Add producer"** — if every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list as **Verified** on first add. If any of those is blank/missing, list as **Discovered**. (`instagram`, `website`, `Email`, `Attributes`, `Eircode` are optional and don't count toward completeness.)
+  - **"Upgrade producer"** → always sets `tier: verified`. This is the explicit verification command for existing Discovered producers.
 - **Tier gating (what the free tiers may show).** Discovered and Verified are both
   free and show only: name, county/town, product, tier badge, description, the
   single **logo**, and — for Verified — a confirmed practice pill. They must NOT
@@ -142,6 +136,18 @@ render as small pills under the practice line.
 9. **Report**: what was added/changed, restate any drafted description for the
    user to edit, and flag anything left off by rule (Instagram/website/where-to-buy
    held for Featured; practice held because `practice_confirmed` was false).
+
+## Directions (default for Verified)
+
+When upgrading or adding a producer as Verified, always include directions if an
+Eircode is available in the note. Build a Google Maps link:
+`https://maps.google.com/?q=<EIRCODE>` (spaces → `+`), and set it as the
+**`directions`** field in producers.json. This is the default behaviour for all
+Verified producers unless the user explicitly says otherwise.
+
+**The field is `directions`, not `map_link`.** `index.html` reads
+`p.directions` to render the Directions button; a link written to `map_link`
+renders nothing.
 
 ## Verification updates specifically
 
