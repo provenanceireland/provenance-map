@@ -65,34 +65,9 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 
 ## Producers
 
-### Launch Producers (Wexford)
-
-| Producer | Town | Product | Status |
-|----------|------|---------|--------|
-| Gorse Farm | Bunclody | Salad & vegetables | Confirmed |
-| TBC | Wexford | Milk | Name to be confirmed |
-| TBC | Wexford | Honey | Name to be confirmed |
+`producers.json` is the source of truth for who is listed on the map. The Obsidian vault (`Provenance Map listings/<County>/<Producer>.md`) is the source of truth for producer detail. Never rely on a producer list written into this file.
 
 ## Data Models
-
-### Producer Database Record
-
-| Field | Notes |
-|-------|-------|
-| Producer name | |
-| Product type | |
-| County | |
-| Town | |
-| Instagram handle | |
-| Website | |
-| Date listed | |
-| Date notification sent | |
-| Notification response | |
-| Date visited | |
-| Subscription tier | Discovered / Verified / Featured / Seal |
-| Subscription start date | |
-| Monthly report sent date | |
-| Notes | |
 
 ### Producer Profile — what shows at each tier
 
