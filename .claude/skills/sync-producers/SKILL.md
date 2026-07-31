@@ -70,7 +70,7 @@ labels, verbatim, when writing the `attributes` array — don't paraphrase or
 re-case:
 
 `Grass Fed` · `Free range` · `Pasture raised` · `Raw / unpasteurised` ·
-`Chemical Free` · `Native / rare breed` · `Plastic Free`
+`Chemical Free` · `Native / rare breed` · `Plastic Free` · `Non-Homogenised`
 
 Only the ones ticked on the note go into the array, in the order above. They
 render as small pills under the practice line.
