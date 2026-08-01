@@ -146,6 +146,11 @@ bug to work around.
   Discovered/Verified record. If there's no image at all, set `photo_url: null`.
 - The image file must be in the **map repo** (root or subfolder). If the note's
   `photo` names a file that isn't in the repo yet, tell the user to drop it in.
+- **Never list a producer with no image.** Every producer on the map has one, and
+  a card with a blank image looks broken next to the rest. If the note has no
+  `photo`, do not add the record: say which producers are held back and what image
+  is needed, and let the user supply it first. This applies to bulk adds too —
+  check images for the whole batch *before* writing any of them, not after.
 
 ## Steps
 
