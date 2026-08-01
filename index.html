@@ -1544,19 +1544,50 @@
       <span class="filter-label">Product type</span>
       <div class="filter-chips">
         <button class="filter-chip" data-type="dairy">Dairy</button>
+        <button class="filter-chip" data-type="cheese">Cheese</button>
         <button class="filter-chip" data-type="beef">Beef</button>
         <button class="filter-chip" data-type="pork">Pork</button>
         <button class="filter-chip" data-type="lamb">Lamb</button>
+        <button class="filter-chip" data-type="poultry">Poultry</button>
+        <button class="filter-chip" data-type="eggs">Eggs</button>
         <button class="filter-chip" data-type="honey">Honey</button>
         <button class="filter-chip" data-type="vegetables">Vegetables</button>
         <button class="filter-chip" data-type="fruit">Fruit</button>
-        <button class="filter-chip" data-type="fish">Fish</button>
         <button class="filter-chip" data-type="bread">Bread</button>
-        <button class="filter-chip" data-type="preserves">Preserves</button>
         <button class="filter-chip" data-type="drinks">Drinks</button>
-        <button class="filter-chip" data-type="eggs">Eggs</button>
         <button class="filter-chip" data-type="salt">Salt</button>
-        <button class="filter-chip" data-type="meat">Meat</button>
+        <button class="filter-chip" data-type="seeds">Seeds</button>
+        <button class="filter-chip" data-type="oats">Oats</button>
+        <button class="filter-chip" data-type="fish">Fish</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">How they farm</span>
+      <div class="filter-chips">
+        <button class="filter-chip" data-practice="regenerative">Regenerative</button>
+        <button class="filter-chip" data-practice="organic">Organic</button>
+        <button class="filter-chip" data-attr="Chemical Free">Chemical free</button>
+        <button class="filter-chip" data-attr="Grass Fed">Grass fed</button>
+        <button class="filter-chip" data-attr="Pasture raised">Pasture raised</button>
+        <button class="filter-chip" data-attr="Free range">Free range</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Native &amp; heritage</span>
+      <div class="filter-chips">
+        <button class="filter-chip" data-attr="Native / rare breed">Native / rare breed</button>
+        <button class="filter-chip" data-attr="Native Irish bee">Native Irish bee</button>
+        <button class="filter-chip" data-attr="Heritage variety">Heritage variety</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">How it's made</span>
+      <div class="filter-chips">
+        <button class="filter-chip" data-attr="Raw / unpasteurised">Raw / unpasteurised</button>
+        <button class="filter-chip" data-attr="Non-Homogenised">Non-homogenised</button>
       </div>
     </div>
 
@@ -2100,6 +2131,7 @@
         data.producers.forEach(p => container.appendChild(renderPin(p)));
         initPins();
         animateCounter(data.producers.length);
+        hideEmptyChips(); // must run after pins exist — chips are driven by live data
 
         // Deep link: /?producer=slug opens that producer's card
         const targetSlug = new URLSearchParams(location.search).get('producer');
@@ -2138,14 +2170,17 @@
       search: '',
       county: '',
       productTypes: new Set(),
+      practices: new Set(),
+      attributes: new Set(),
       tiers: new Set()
     };
 
     function applyFilters() {
       if (nearMe.active) return; // near-me controls pin opacity while mode is on
       const pins = document.querySelectorAll('.pin');
-      const { search, county, productTypes, tiers } = filterState;
-      const hasFilters = search || county || productTypes.size || tiers.size;
+      const { search, county, productTypes, practices, attributes, tiers } = filterState;
+      const hasFilters = search || county || productTypes.size || practices.size ||
+                         attributes.size || tiers.size;
 
       pins.forEach(pin => {
         if (!hasFilters) { pin.style.opacity = ''; return; }
@@ -2153,6 +2188,11 @@
         const pinCounty = (pin.dataset.county || '').toLowerCase();
         const pinProduct = (pin.dataset.product || '').toLowerCase();
         const pinTypes = (pin.dataset.productTypes || '').toLowerCase().split(',').filter(Boolean);
+        // practice can hold both, e.g. "regenerative,organic"
+        const pinPractices = (pin.dataset.practice || '').toLowerCase().split(',')
+                               .map(s => s.trim()).filter(Boolean);
+        const pinAttrs = (pin.dataset.attributes || '').split(',')
+                           .map(s => s.trim()).filter(Boolean);
         const tierName = pin.dataset.tierName || 'discovered';
 
         let match = true;
@@ -2168,6 +2208,12 @@
         if (match && productTypes.size) {
           match = pinTypes.some(t => productTypes.has(t));
         }
+        if (match && practices.size) {
+          match = pinPractices.some(p => practices.has(p));
+        }
+        if (match && attributes.size) {
+          match = pinAttrs.some(a => attributes.has(a));
+        }
         if (match && tiers.size) {
           match = tiers.has(tierName);
         }
@@ -2178,9 +2224,39 @@
       updateFilterBadge();
     }
 
+    /* Hide any chip that no producer currently matches. A filter that always returns
+       an empty map is worse than no filter, and these fill in as producers verify. */
+    function hideEmptyChips() {
+      const pins = Array.from(document.querySelectorAll('.pin'));
+      const types = new Set(), pracs = new Set(), attrs = new Set();
+      pins.forEach(pin => {
+        (pin.dataset.productTypes || '').toLowerCase().split(',').filter(Boolean)
+          .forEach(t => types.add(t));
+        (pin.dataset.practice || '').toLowerCase().split(',').map(s => s.trim()).filter(Boolean)
+          .forEach(p => pracs.add(p));
+        (pin.dataset.attributes || '').split(',').map(s => s.trim()).filter(Boolean)
+          .forEach(a => attrs.add(a));
+      });
+      document.querySelectorAll('.filter-chip').forEach(btn => {
+        let keep = true;
+        if (btn.dataset.type)     keep = types.has(btn.dataset.type);
+        if (btn.dataset.practice) keep = pracs.has(btn.dataset.practice);
+        if (btn.dataset.attr)     keep = attrs.has(btn.dataset.attr);
+        btn.style.display = keep ? '' : 'none';
+      });
+      // hide a whole section if every chip inside it is hidden
+      document.querySelectorAll('.filter-section').forEach(sec => {
+        const chips = sec.querySelectorAll('.filter-chip');
+        if (!chips.length) return;
+        const anyVisible = Array.from(chips).some(c => c.style.display !== 'none');
+        sec.style.display = anyVisible ? '' : 'none';
+      });
+    }
+
     function updateFilterBadge() {
-      const { search, county, productTypes, tiers } = filterState;
-      const count = (search ? 1 : 0) + (county ? 1 : 0) + productTypes.size + tiers.size;
+      const { search, county, productTypes, practices, attributes, tiers } = filterState;
+      const count = (search ? 1 : 0) + (county ? 1 : 0) + productTypes.size +
+                    practices.size + attributes.size + tiers.size;
       const toggle = document.getElementById('filter-toggle');
       let badge = document.getElementById('filter-count');
       if (count > 0) {
@@ -2201,6 +2277,8 @@
       filterState.search = '';
       filterState.county = '';
       filterState.productTypes.clear();
+      filterState.practices.clear();
+      filterState.attributes.clear();
       filterState.tiers.clear();
       document.getElementById('filter-search').value = '';
       document.getElementById('filter-county').value = '';
@@ -2232,14 +2310,15 @@
 
     document.querySelectorAll('.filter-chip').forEach(btn => {
       btn.addEventListener('click', () => {
-        const type = btn.dataset.type;
-        if (filterState.productTypes.has(type)) {
-          filterState.productTypes.delete(type);
-          btn.classList.remove('active');
-        } else {
-          filterState.productTypes.add(type);
-          btn.classList.add('active');
-        }
+        // one handler for all three chip kinds: product type, practice, attribute
+        let set, key;
+        if (btn.dataset.type)          { set = filterState.productTypes; key = btn.dataset.type; }
+        else if (btn.dataset.practice) { set = filterState.practices;    key = btn.dataset.practice; }
+        else if (btn.dataset.attr)     { set = filterState.attributes;   key = btn.dataset.attr; }
+        else return;
+
+        if (set.has(key)) { set.delete(key); btn.classList.remove('active'); }
+        else              { set.add(key);    btn.classList.add('active'); }
         applyFilters();
       });
     });

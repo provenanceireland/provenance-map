@@ -69,8 +69,17 @@ or, for an update, leave existing values untouched unless the note changes them.
 labels, verbatim, when writing the `attributes` array — don't paraphrase or
 re-case:
 
-`Grass Fed` · `Free range` · `Pasture raised` · `Raw / unpasteurised` ·
-`Non-Homogenised` · `Chemical Free` · `Native / rare breed`
+The vocabulary is grouped into three kinds of claim. The grouping matters because
+the filter panel is built in the same three sections.
+
+**How they farm** (husbandry and land) —
+`Grass Fed` · `Free range` · `Pasture raised` · `Chemical Free`
+
+**Native and heritage** (what the animal, bee or seed *is*, not how it was kept) —
+`Native / rare breed` · `Native Irish bee` · `Heritage variety`
+
+**How it's made** (what was *not* done to it afterwards) —
+`Raw / unpasteurised` · `Non-Homogenised`
 
 `Plastic Free` and `Small batch` were removed: they describe packaging and batch
 size rather than how the food was farmed, which is what the map is for.
