@@ -91,6 +91,21 @@ the other in the same edit.
 Only the ones ticked on the note go into the array, in the order above. They
 render as small pills under the practice line.
 
+**Attributes are Verified-only, the same as practice.** Never put an attribute on
+a `discovered` producer, and never infer one from research, a website or a farm's
+own marketing. An attribute pill reads as a claim Provenance stands over, and the
+only thing that earns that is the producer ticking the box on the verify form.
+For a Discovered producer, always write `"attributes": []`.
+
+Researched facts about a farm belong in the **description**, which is understood
+to be secondhand, or in the note body under a "Researched, not confirmed" heading.
+They do not belong in the `Attributes:` property, because that field syncs
+straight onto the map.
+
+This is why the Native & heritage filter section can sit empty: the farms are
+listed, but nobody has confirmed the breed yet. That is the correct state, not a
+bug to work around.
+
 ## The rules that are easy to get wrong
 
 - **Tier depends on the command and completeness.**
