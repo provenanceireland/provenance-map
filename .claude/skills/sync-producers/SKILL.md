@@ -70,8 +70,10 @@ labels, verbatim, when writing the `attributes` array — don't paraphrase or
 re-case:
 
 `Grass Fed` · `Free range` · `Pasture raised` · `Raw / unpasteurised` ·
-`Non-Homogenised` · `Chemical Free` · `Native / rare breed` · `Plastic Free` ·
-`Small batch`
+`Non-Homogenised` · `Chemical Free` · `Native / rare breed`
+
+`Plastic Free` and `Small batch` were removed: they describe packaging and batch
+size rather than how the food was farmed, which is what the map is for.
 
 This list is the single source of truth and must stay identical to the checkbox
 options in `_Verify form questions.md` in the vault. If you change one, change
