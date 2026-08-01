@@ -2064,6 +2064,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "the-lost-valley-dairy",
+      "practice": "unspecified",
+      "name": "The Lost Valley Dairy",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.84329210712113,
+      "lng": -9.141137634907825,
+      "county": "Cork",
+      "location": "Inchigeelagh, Co. Cork",
+      "product": "Raw Milk Cheese",
+      "product_type": ["cheese", "dairy"],
+      "description": "A farmhouse cheese operation run by Mike Parle and Darcie Mayland in Inchigeelagh, West Cork. They milk their own mixed herd of Irish Shorthorn and Droimeann cattle, both native heritage breeds. They produce raw milk cheeses including Carraignamuc and Sobhriste. No freeze-dried cultures are used.",
+      "photo_url": "lostvalley.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
