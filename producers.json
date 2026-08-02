@@ -2092,6 +2092,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "pheasants-hill-farm",
+      "practice": "unspecified",
+      "name": "Pheasants Hill Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.364883304382616,
+      "lng": -5.700574121020462,
+      "county": "Down",
+      "location": "Downpatrick, Co. Down",
+      "product": "Irish Moiled Beef & Rare Breed Meat",
+      "product_type": ["beef", "pork", "poultry"],
+      "description": "A rare breed farm on the shores of Strangford Lough at Killyleagh Road, Downpatrick, rearing Irish Moiled cattle alongside grass fed beef, free range pork and chicken. The Irish Moiled is an ancient Ulster breed that was once the common house cow of small farmers here. Orders are collected at the farm on Friday and Saturday afternoons.",
+      "photo_url": "pheasantshill.webp",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
