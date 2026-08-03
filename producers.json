@@ -2121,6 +2121,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "kehoes-happy-hens",
+      "practice": "conventional",
+      "name": "Kehoe's Happy Hens",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.366579663547085,
+      "lng": -6.7245840518962074,
+      "county": "Kildare",
+      "location": "Co. Kildare",
+      "product": "Eggs",
+      "product_type": ["eggs"],
+      "description": "Our hens roam freely on our pastures, laying deliciously rich free range eggs.  We gather and pack our own eggs daily. Guaranteeing the freshest of eggs",
+      "photo_url": "kehoeshappyhens.jpg",
+      "directions": "https://maps.google.com/?q=W91+CF62",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Free range"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
