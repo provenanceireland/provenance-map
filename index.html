@@ -1695,15 +1695,10 @@
     };
 
     function latLngToPercent(lat, lng) {
-      // One projection for every screen. positionPins() below works out the
-      // letterboxed image box and places pins as a fraction OF THE PAINTING, so a
-      // coordinate lands on the same spot at any size or aspect ratio.
-      //
-      // This used to use refX 82 in landscape and 85 in portrait, which shifted
-      // every pin 3% of the image width sideways between PC and mobile. Producers
-      // were then patched one by one with lng_desktop offsets of 0.197 to cancel
-      // it (0.197 x 15.217 = 3.00). Root cause fixed, patches removed.
-      const x = CAL.refX + (lng - CAL.refLng) * CAL.scaleX;
+      // Use slightly different horizontal anchor for landscape (PC) vs portrait (mobile)
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const refX = isLandscape ? 82 : 85;
+      const x = refX + (lng - CAL.refLng) * CAL.scaleX;
       const y = CAL.refY + (CAL.refLat - lat) * CAL.scaleY;
       return { x: x / 100, y: y / 100 };
     }
