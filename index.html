@@ -925,6 +925,13 @@
       color: #C4A44A;
     }
     .card-action-seal:hover { background: rgba(196,164,74,0.14); }
+    /* Founder — the one gold element on the card, so it is the richer gold */
+    .card-action-founder {
+      background: rgba(214,175,60,0.14);
+      border: 1px solid rgba(224,187,74,0.75);
+      color: #EFCB6B;
+    }
+    .card-action-founder:hover { background: rgba(214,175,60,0.22); }
     .card-action-icons {
       display: flex;
       justify-content: center;
@@ -1653,6 +1660,7 @@
       <!-- BOTTOM -->
       <div class="card-actions">
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
+        <a id="card-founder" class="card-action-btn card-action-founder hidden" href="#">Provenance Founder</a>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
@@ -1779,6 +1787,7 @@
       if (p.date_added)  div.dataset.listed      = p.date_added;
       if (p.seal_active) div.dataset.sealActive = 'true';
       if (p.seal_url)    div.dataset.sealUrl    = p.seal_url;
+      if (p.map_link)    div.dataset.profile    = p.map_link;
       if (p.where_to_buy && p.where_to_buy.length) div.dataset.whereToBuy = JSON.stringify(p.where_to_buy);
       if (p.farmers_market) div.dataset.farmersMarket = 'true';
       if (p.farm_shop)      div.dataset.farmShop      = 'true';
@@ -1833,14 +1842,10 @@
       if (isMarket) {
         badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
       } else {
-        // Tier pill always shows
+        // Tier pill only. Founders get a button at the foot of the card instead,
+        // so the badge line stays a single tier statement.
         const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
-        // Founder pill sits to the right of it on the same line. No extra height:
-        // .tier-pill is inline-flex and .tier-pill + .tier-pill supplies the gap.
-        if (pin.dataset.badge2) {
-          badgeHTML += `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
-        }
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
@@ -2016,6 +2021,15 @@
         sealEl.href = pin.dataset.sealUrl;
         sealEl.classList.remove('hidden');
       } else { sealEl.classList.add('hidden'); }
+
+      // ── Founder button ── sits at the foot of the card and opens the full
+      // profile page. Only Founders have both badge2 and a profile page.
+      const founderEl = document.getElementById('card-founder');
+      if (pin.dataset.badge2 && pin.dataset.profile) {
+        founderEl.href = pin.dataset.profile;
+        founderEl.textContent = pin.dataset.badge2;
+        founderEl.classList.remove('hidden');
+      } else { founderEl.classList.add('hidden'); }
 
       // ── Action icons (instagram, website, directions) ──
       const iconsEl = document.getElementById('card-action-icons');
