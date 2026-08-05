@@ -1831,14 +1831,12 @@
       if (isMarket) {
         badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
       } else {
-        // Show tier pill for all tiers, except discovered-tier Founders
-        // (Provenance Founders show only the Founder pill)
-        if (tierName !== 'discovered' || !pin.dataset.badge2) {
-          const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
-          badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
-        }
-        // Founder pill only on discovered-tier founders; not beside a tier pill (e.g. Verified)
-        if (pin.dataset.badge2 && tierName === 'discovered') {
+        // Tier pill always shows
+        const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
+        badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
+        // Founder pill sits to the right of it on the same line. No extra height:
+        // .tier-pill is inline-flex and .tier-pill + .tier-pill supplies the gap.
+        if (pin.dataset.badge2) {
           badgeHTML += `<span class="tier-pill tier-pill-founder">${pin.dataset.badge2}</span>`;
         }
       }
