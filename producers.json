@@ -2180,6 +2180,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "portnoo-market-garden",
+      "practice": "unspecified",
+      "name": "Portnoo Market Garden",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.841875943735765,
+      "lng": -8.466970000989198,
+      "county": "Donegal",
+      "location": "Portnoo, Co. Donegal",
+      "product": "Seasonal Salad & Vegetables",
+      "product_type": ["vegetables"],
+      "description": "A market garden in rural Donegal growing chemical free vegetables and salad using regenerative and organic methods. They sell direct online and through local shops around the county, and open the garden for farm visits and farm to fork events through the season.",
+      "photo_url": "portnoo.avif",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
