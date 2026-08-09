@@ -140,20 +140,10 @@
       -webkit-touch-callout: none;
     }
 
-    /* Invisible tap target. The dot itself is the only clickable element, and at
-       ~6px it is far below a usable touch target. This widens the hit area without
-       changing anything visible. Kept near the median pin spacing on mobile so
-       neighbouring targets do not overlap and steal each other's taps. */
-    .pin-dot::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: transparent;
-      pointer-events: auto;
-    }
+    /* No invisible hit circle here. It used to widen the tap target, but with 80+
+       pins those circles overlapped and, because pins stack in DOM order, a
+       neighbour's invisible circle covered the dot you were aiming at. Hit testing
+       is done in JS instead, by nearest dot to the tap point. See PIN_TAP_RADIUS. */
 
     .pin-pulse {
       position: absolute;
@@ -1807,18 +1797,56 @@
         }
       });
       positionPins();
-      document.querySelectorAll('.pin').forEach(pin => {
-        pin.querySelector('.pin-dot').addEventListener('click', e => {
-          e.stopPropagation();
-          const dot = e.currentTarget;
-          dot.classList.remove('tapped');
-          void dot.offsetWidth;
-          dot.classList.add('tapped');
-          dot.addEventListener('animationend', () => dot.classList.remove('tapped'), { once: true });
-          openCard(pin);
-        });
-      });
     }
+
+    /* ── PIN HIT TESTING ──
+       Dots are ~6px and sit about 17px apart on a phone, so they are far below a
+       usable touch target. Widening each dot's own hit area does not work: the
+       areas overlap and pins stack in DOM order, so a neighbour's invisible target
+       ends up covering the dot being aimed at.
+
+       Instead one listener on the map resolves every tap to the NEAREST dot. That
+       is deterministic, ignores stacking order, and always matches what the user
+       aimed at. A pin can never be buried by a neighbour again. */
+    const PIN_TAP_RADIUS = 28; // px from the centre of a dot
+
+    function pinNearestTo(cx, cy) {
+      let best = null,   bestDist = PIN_TAP_RADIUS;   // pins matching the filter
+      let faded = null,  fadedDist = PIN_TAP_RADIUS;  // pins dimmed out by it
+      document.querySelectorAll('.pin').forEach(pin => {
+        const dot = pin.querySelector('.pin-dot');
+        if (!dot) return;
+        const r = dot.getBoundingClientRect();
+        if (!r.width) return; // not laid out yet
+        const dx = cx - (r.left + r.width / 2);
+        const dy = cy - (r.top + r.height / 2);
+        const dist = Math.hypot(dx, dy);
+        // A filtered-out pin should never win a tap over one the user filtered to,
+        // even if it happens to be marginally closer.
+        if (pin.style.opacity && parseFloat(pin.style.opacity) < 0.9) {
+          if (dist < fadedDist) { fadedDist = dist; faded = pin; }
+        } else if (dist < bestDist) {
+          bestDist = dist; best = pin;
+        }
+      });
+      return best || faded;
+    }
+
+    function tapPin(pin) {
+      const dot = pin.querySelector('.pin-dot');
+      if (dot) {
+        dot.classList.remove('tapped');
+        void dot.offsetWidth;
+        dot.classList.add('tapped');
+        dot.addEventListener('animationend', () => dot.classList.remove('tapped'), { once: true });
+      }
+      openCard(pin);
+    }
+
+    document.getElementById('map-wrap').addEventListener('click', e => {
+      const pin = pinNearestTo(e.clientX, e.clientY);
+      if (pin) { e.stopPropagation(); tapPin(pin); }
+    });
     // ─────────────────────────────────────────────────────────────
 
     const card    = document.getElementById('card');
