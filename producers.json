@@ -2209,6 +2209,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "sile-farm-and-nursery",
+      "practice": "regenerative",
+      "name": "Síle Farm and Nursery",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.768,
+      "lng": -7.024,
+      "county": "Laois",
+      "location": "Crettyard, Co. Laois",
+      "product": "Pasture raised Eggs, Pork, Raw Honey, Peat-free plants",
+      "product_type": ["eggs", "pork", "honey"],
+      "description": "We run a little smallholding, producing pasture raised eggs, pork, honey and a range of native and non-native, peat-free plants. Products are available to order via the website and collection available during onsite shop opening hours on Fridays and Sundays or by appointment.",
+      "photo_url": "Silefarm.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Pasture raised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
