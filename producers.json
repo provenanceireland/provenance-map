@@ -2237,6 +2237,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "glasrai-organic-farm",
+      "practice": "unspecified",
+      "name": "Glasraí Organic Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.663893470360925,
+      "lng": -9.117657524868752,
+      "county": "Mayo",
+      "location": "Hollymount, Co. Mayo",
+      "product": "Organic Vegetables, Herbs, Salad & Soft Fruit",
+      "product_type": ["vegetables", "fruit"],
+      "description": "A certified organic farm on seven acres at Hollymount, run by Joe and Aoife. They grow seasonal vegetables, herbs, salads and soft fruit across open ground and five polytunnels, building soil health with cover crops and their own compost.",
+      "photo_url": "glasrai.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
