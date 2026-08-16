@@ -2291,6 +2291,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "nowen-rock",
+      "practice": "unspecified",
+      "name": "Nowen Rock",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.75,
+      "lng": -9.14,
+      "county": "Cork",
+      "location": "Dunmanway, Co. Cork",
+      "product": "Raw Goats Milk, Goats Cheese, Eggs, Vegetables, Honey & Meat",
+      "product_type": ["dairy", "cheese", "eggs", "vegetables", "honey"],
+      "description": "An organic certified farm at Carrigskullihy near Dunmanway in West Cork, run by John Kingston. Toggenburg goats for raw milk and cheese, Kune Kune pigs and free range hens, with vegetables grown in tunnels and raised beds. No chemicals are used anywhere on the farm.",
+      "photo_url": "nowenrock.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": true,
+      "date_added": null
     }
   ]
 }
