@@ -2320,6 +2320,34 @@
       "farmers_market": false,
       "farm_shop": true,
       "date_added": null
+    },
+    {
+      "id": "honey-harvest",
+      "practice": "unspecified",
+      "name": "Honey Harvest",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.566,
+      "lng": -7.70,
+      "county": "Westmeath",
+      "location": "Co. Westmeath",
+      "product": "Raw Honey, Beeswax & Propolis",
+      "product_type": ["honey"],
+      "description": "A family run apiary near Ballymahon, keeping native Irish black bees. Angela and her partner harvest only when the bees have a natural surplus, leaving the colonies enough to get through the winter. Spring, summer and ivy blossom honey, alongside beeswax candles, propolis and skincare made from the hives.",
+      "photo_url": "honeyharvest.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
