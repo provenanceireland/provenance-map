@@ -2377,6 +2377,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "mcnally-family-farm",
+      "practice": "unspecified",
+      "name": "McNally Family Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.57279,
+      "lng": -6.22702,
+      "county": "Dublin",
+      "location": "North Co. Dublin",
+      "product": "Organic Vegetables & Salads",
+      "product_type": ["vegetables"],
+      "description": "Family-run organic farm spanning 99 acres in North County Dublin. Patrick and Jenny McNally converted to organic farming in 1997 and have been certified organic since 1998. They grow seasonal vegetables, herbs, salads, roots and fruits across around 50 polytunnels and open fields.",
+      "photo_url": "mcnallyfarm.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
