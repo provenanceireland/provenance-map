@@ -2409,6 +2409,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "oranmore-organic-farm",
+      "practice": "unspecified",
+      "name": "Oranmore Organic Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.2683,
+      "lng": -8.92,
+      "county": "Galway",
+      "location": "Oranmore, Co. Galway",
+      "product": "Organic Vegetables",
+      "product_type": ["vegetables"],
+      "description": "Small organic family farm on the shores of Galway Bay, the closest farm to Galway city. Every crop is grown without chemical sprays or artificial fertilisers. They supply boxes of mixed produce, bulk orders for restaurants and direct sales through local markets.",
+      "photo_url": "oranmore.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
