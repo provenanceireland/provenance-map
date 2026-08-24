@@ -81,7 +81,7 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 
 **Verified only** additionally shows:
 - The confirmed practice pill (organic and/or regenerative)
-- **Attribute pills** (`attributes` array: Grass Fed, Free range, Pasture raised, Chemical Free, Native / rare breed, Native Irish bee, Heritage variety, Raw / unpasteurised, Non-Homogenised)
+- **Attribute pills** (`attributes` array: Grass Fed, Free range, Pasture raised, Chemical Free, Native / rare breed, Native Irish bee, Heritage variety, Raw / unpasteurised, Non-Homogenised, Plastic Free)
 
 > **Practice and attributes are producer-confirmed only.** Both come from the producer ticking boxes on the verify form, never from research, a website, or a farm's own marketing. A Discovered producer always has `"practice": "unspecified"` and `"attributes": []`. A pill reads as a claim Provenance stands over, and only the producer can earn that. Researched facts go in the description, which is understood to be secondhand. This is why a filter chip can sit empty and hidden while relevant farms are already listed — that is the correct state, not a bug.
 

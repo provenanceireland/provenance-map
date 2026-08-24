@@ -79,10 +79,13 @@ the filter panel is built in the same three sections.
 `Native / rare breed` · `Native Irish bee` · `Heritage variety`
 
 **How it's made** (what was *not* done to it afterwards) —
-`Raw / unpasteurised` · `Non-Homogenised`
+`Raw / unpasteurised` · `Non-Homogenised` · `Plastic Free`
 
-`Plastic Free` and `Small batch` were removed: they describe packaging and batch
-size rather than how the food was farmed, which is what the map is for.
+`Plastic Free` was removed once, on the grounds that it describes packaging
+rather than farming. It was restored in August 2026: producers tick it on the
+form, it is a real and checkable commitment, and dropping it meant the form
+collected an answer the map could not show. `Small batch` stays removed, it
+describes batch size and is not checkable.
 
 This list is the single source of truth and must stay identical to the checkbox
 options in `_Verify form questions.md` in the vault. If you change one, change
