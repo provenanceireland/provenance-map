@@ -719,6 +719,31 @@
       position: relative;
     }
 
+    /* Mobile — the legend sits bottom-right and the discovery counter
+       bottom-left, on the same baseline. Once the legend gained per-tier
+       descriptions it grew wide enough to crowd the counter, so on phones it
+       tightens up and drops a little below the counter's line. */
+    @media (max-width: 600px) {
+      #map-legend {
+        bottom: calc(env(safe-area-inset-bottom, 16px) + 11px);
+        right: 12px;
+        padding: 4px 6px;
+        gap: 4px;
+        border-radius: 5px;
+        max-width: 44vw;
+      }
+      .legend-item {
+        font-size: 0.485rem;
+        gap: 6px;
+      }
+      .legend-desc {
+        font-size: 0.44rem;
+        letter-spacing: 0.01em;
+      }
+      .legend-text { gap: 0; line-height: 1.2; }
+      .legend-dot-wrap { width: 11px; height: 11px; }
+    }
+
     .pin.black-border .pin-dot {
       border: 1px solid rgba(0,0,0,0.7) !important;
     }
