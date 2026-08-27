@@ -24,7 +24,7 @@ $ogDir = Join-Path $root 'assets\og'
 New-Item -ItemType Directory -Force $shareDir | Out-Null
 New-Item -ItemType Directory -Force $ogDir | Out-Null
 
-$verifiedTiers = @('verified', 'seal-lite', 'seal-complete')
+$verifiedTiers = @('verified', 'featured', 'seal-lite', 'seal-complete')
 $made = 0
 
 # Build a 1200x630 OG image by contain-fitting the source photo onto a dark canvas

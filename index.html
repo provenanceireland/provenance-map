@@ -562,6 +562,7 @@
     .tier-pill + .tier-pill { margin-left: 5px; }
     .tier-pill-discovered   { background: rgba(42,90,56,0.14);   border: 1px solid rgba(42,90,56,0.85);   color: #4E8560; }
     .tier-pill-verified     { background: rgba(89,166,102,0.10); border: 1px solid rgba(89,166,102,0.55);  color: #59A666; }
+    .tier-pill-featured     { background: rgba(196,164,74,0.14); border: 1px solid rgba(224,187,74,0.75);  color: #E4C46A; }
     .tier-pill-seal-lite    { background: rgba(112,112,112,0.10);border: 1px solid rgba(140,140,140,0.55); color: #909090; }
     .tier-pill-seal-complete{ background: rgba(196,164,74,0.10); border: 1px solid rgba(196,164,74,0.55);  color: #C4A44A; }
     .tier-pill-market       { background: rgba(176,98,58,0.10);  border: 1px solid rgba(176,98,58,0.55);   color: #C07050; }
@@ -677,11 +678,12 @@
       padding: 5px 8px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 7px;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       pointer-events: none;
       width: fit-content;
+      max-width: 46vw;
     }
     .legend-item {
       display: flex;
@@ -691,6 +693,19 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #504838;
+    }
+    .legend-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      line-height: 1.25;
+      min-width: 0;
+    }
+    .legend-desc {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.53rem;
+      color: rgba(80,72,56,0.78);
     }
     .legend-dot-wrap {
       width: 12px; height: 12px;
@@ -871,6 +886,27 @@
       flex-direction: column;
       gap: 9px;
     }
+    /* Featured placeholder — sits under the badge while the full Featured
+       profile (gallery, links, farm visit film) is still being built. */
+    .card-featured-note {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 7px;
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C4A44A;
+    }
+    .card-featured-note::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #C4A44A;
+      box-shadow: 0 0 5px 1px rgba(196,164,74,0.6);
+    }
+
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
     .card-confirmed {
       display: flex;
@@ -1010,6 +1046,20 @@
     /* Verified is static — the pulse is a paid (Featured/Seal) signal */
     .pin.t-verified .pin-pulse { display: none; }
 
+    /* Featured — premium gold, 3% larger than Verified, fine gold ring and a
+       soft two-stage golden glow. Static: the glow carries the signal. */
+    .pin.t-featured .pin-dot {
+      width: 9.04px !important;
+      height: 9.04px !important;
+      background: #C4A44A !important;
+      border: 1px solid rgba(248,244,230,0.70) !important;
+      box-shadow:
+        0 0 0 1px rgba(228,196,106,0.40),
+        0 0 7px 2px rgba(196,164,74,0.60),
+        0 0 14px 5px rgba(196,164,74,0.22) !important;
+    }
+    .pin.t-featured .pin-pulse { display: none; }
+
     /* Seal Lite — gold with gentle desynchronised pulse */
     .pin.t-seal-lite .pin-dot,
     .pin.t-seal-complete .pin-dot {
@@ -1053,6 +1103,7 @@
     @media (max-width: 768px) {
       .pin.t-discovered .pin-dot { width: 5.78px !important; height: 5.78px !important; }
       .pin.t-verified .pin-dot { width: 8.67px !important; height: 8.67px !important; }
+      .pin.t-featured .pin-dot { width: 8.93px !important; height: 8.93px !important; }
     }
 
     /* Reduced motion — pulses become static glows */
@@ -1446,13 +1497,28 @@
       <div class="legend-dot-wrap">
         <div class="legend-dot" style="width:5.85px;height:5.85px;background:#2A5A38;border:1px solid rgba(232,222,200,0.75);box-shadow:0 0 4px 1px rgba(42,90,56,0.40);"></div>
       </div>
-      <span>Discovered producer</span>
+      <div class="legend-text">
+        <span>Discovered producer</span>
+        <span class="legend-desc">Found and listed by Provenance</span>
+      </div>
     </div>
     <div class="legend-item">
       <div class="legend-dot-wrap legend-dot-verified">
         <div class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></div>
       </div>
-      <span>Verified producer</span>
+      <div class="legend-text">
+        <span>Verified producer</span>
+        <span class="legend-desc">Details confirmed by the producer</span>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot-wrap legend-dot-featured">
+        <div class="legend-dot" style="width:9.04px;height:9.04px;background:#C4A44A;border:1px solid rgba(248,244,230,0.70);box-shadow:0 0 0 1px rgba(228,196,106,0.40), 0 0 7px 2px rgba(196,164,74,0.60), 0 0 14px 5px rgba(196,164,74,0.22);"></div>
+      </div>
+      <div class="legend-text">
+        <span>Featured producer</span>
+        <span class="legend-desc">Visited and filmed by Provenance</span>
+      </div>
     </div>
   </div>
 
@@ -1596,6 +1662,7 @@
       <div class="filter-tiers">
         <button class="tier-btn" data-tier="discovered">Discovered</button>
         <button class="tier-btn" data-tier="verified">Verified</button>
+        <button class="tier-btn" data-tier="featured">Featured</button>
         <button class="tier-btn" data-tier="seal-lite">Seal Lite</button>
         <button class="tier-btn" data-tier="seal-complete">Seal Complete</button>
       </div>
@@ -1627,6 +1694,7 @@
     <div class="card-body">
       <!-- TOP -->
       <div id="card-badge"></div>
+      <p class="card-featured-note hidden" id="card-featured-note"></p>
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
       <div id="card-product-tags" class="card-product-tags"></div>
@@ -1741,7 +1809,7 @@
     });
 
     // ── DYNAMIC PIN RENDERING ─────────────────────────────────────
-    const TIER_NUM = { discovered: 0, verified: 1, 'seal-lite': 2, 'seal-complete': 3 };
+    const TIER_NUM = { discovered: 0, verified: 1, featured: 2, 'seal-lite': 3, 'seal-complete': 4 };
 
     function renderPin(p) {
       const div = document.createElement('div');
@@ -1857,6 +1925,7 @@
     const TIER_PILL_MAP = {
       'discovered':    { label: 'Discovered Producer',  cls: 'tier-pill tier-pill-discovered' },
       'verified':      { label: 'Provenance Verified',  cls: 'tier-pill tier-pill-verified' },
+      'featured':      { label: 'Provenance Featured',  cls: 'tier-pill tier-pill-featured' },
       'seal-lite':     { label: 'Seal Lite',            cls: 'tier-pill tier-pill-seal-lite' },
       'seal-complete': { label: 'Provenance Seal',      cls: 'tier-pill tier-pill-seal-complete' },
     };
@@ -1877,6 +1946,18 @@
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
+
+      // ── Featured placeholder ──
+      // The full Featured profile is still being built, so the card says so
+      // rather than silently looking the same as a Verified one.
+      const featuredNoteEl = document.getElementById('card-featured-note');
+      if (!isMarket && tierName === 'featured') {
+        featuredNoteEl.textContent = 'Featured profile updating';
+        featuredNoteEl.classList.remove('hidden');
+      } else {
+        featuredNoteEl.classList.add('hidden');
+        featuredNoteEl.textContent = '';
+      }
 
       // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;
@@ -1921,7 +2002,7 @@
 
       // ── "Confirmed by <farm>" — Verified producers only ──
       const confirmedEl = document.getElementById('card-confirmed');
-      if (!isMarket && tierName === 'verified') {
+      if (!isMarket && (tierName === 'verified' || tierName === 'featured')) {
         confirmedEl.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Confirmed by ${pin.dataset.name}`;
         confirmedEl.classList.remove('hidden');
       } else {
@@ -2067,7 +2148,7 @@
       if (pin.dataset.website) icons.push(`<a class="card-action-icon" href="${pin.dataset.website}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       if (pin.dataset.directions) icons.push(`<a class="card-action-icon" href="${pin.dataset.directions}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
       // Share is a Provenance Verified (and above) benefit only
-      const canShare = !isMarket && ['verified', 'seal-lite', 'seal-complete'].includes(tierName);
+      const canShare = !isMarket && ['verified', 'featured', 'seal-lite', 'seal-complete'].includes(tierName);
       if (canShare) {
         icons.push(`<button class="card-action-icon card-share-icon" id="card-share-btn" type="button" aria-label="Share this producer"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
       }
