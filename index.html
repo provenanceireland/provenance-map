@@ -562,7 +562,7 @@
     .tier-pill + .tier-pill { margin-left: 5px; }
     .tier-pill-discovered   { background: rgba(42,90,56,0.14);   border: 1px solid rgba(42,90,56,0.85);   color: #4E8560; }
     .tier-pill-verified     { background: rgba(89,166,102,0.10); border: 1px solid rgba(89,166,102,0.55);  color: #59A666; }
-    .tier-pill-featured     { background: rgba(196,164,74,0.16); border: 1px solid rgba(214,184,92,0.85);  color: #D9BC5E; }
+    .tier-pill-featured     { background: rgba(201,154,56,0.16); border: 1px solid rgba(205,160,67,0.85);  color: #D9AE55; }
     .tier-pill-seal-lite    { background: rgba(112,112,112,0.10);border: 1px solid rgba(140,140,140,0.55); color: #909090; }
     .tier-pill-seal-complete{ background: rgba(196,164,74,0.10); border: 1px solid rgba(196,164,74,0.55);  color: #C4A44A; }
     .tier-pill-market       { background: rgba(176,98,58,0.10);  border: 1px solid rgba(176,98,58,0.55);   color: #C07050; }
@@ -921,15 +921,15 @@
       font-size: 0.56rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #D9BC5E;
+      color: #D9AE55;
     }
     .card-featured-note::before {
       content: '';
       width: 5px; height: 5px;
       border-radius: 50%;
       flex-shrink: 0;
-      background: #C4A44A;
-      box-shadow: 0 0 5px 1px rgba(196,164,74,0.7);
+      background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);
+      box-shadow: 0 0 5px 1px rgba(201,154,56,0.55);
     }
 
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
@@ -1074,14 +1074,17 @@
     /* Featured — premium gold, 3% larger than Verified, fine gold ring and a
        soft two-stage golden glow. Static: the glow carries the signal. */
     .pin.t-featured .pin-dot {
-      width: 8.78px !important;
-      height: 8.78px !important;
-      background: #C4A44A !important;
+      width: 9.04px !important;
+      height: 9.04px !important;
+      /* Lit from the upper left so the dot reads as a raised bead rather than
+         a flat disc. Deep amber gold core, brighter highlight, darker rim. */
+      background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%) !important;
       border: none !important;
       box-shadow:
-        0 0 0 1.2px rgba(226,199,116,0.75),
-        0 0 12px 4px rgba(196,164,74,0.82),
-        0 0 24px 9px rgba(196,164,74,0.38) !important;
+        inset 0 0 1.5px rgba(255,238,186,0.45),
+        0 0 0 1px rgba(201,154,56,0.55),
+        0 0 7px 2px rgba(201,154,56,0.45),
+        0 0 16px 6px rgba(201,154,56,0.20) !important;
     }
     .pin.t-featured .pin-pulse { display: none; }
 
@@ -1128,7 +1131,7 @@
     @media (max-width: 768px) {
       .pin.t-discovered .pin-dot { width: 5.78px !important; height: 5.78px !important; }
       .pin.t-verified .pin-dot { width: 8.67px !important; height: 8.67px !important; }
-      .pin.t-featured .pin-dot { width: 8.67px !important; height: 8.67px !important; }
+      .pin.t-featured .pin-dot { width: 8.93px !important; height: 8.93px !important; }
     }
 
     /* Reduced motion — pulses become static glows */
@@ -1538,7 +1541,7 @@
     </div>
     <div class="legend-item">
       <div class="legend-dot-wrap legend-dot-featured">
-        <div class="legend-dot" style="width:8.78px;height:8.78px;background:#C4A44A;border:none;box-shadow:0 0 0 1.2px rgba(226,199,116,0.75), 0 0 12px 4px rgba(196,164,74,0.82), 0 0 24px 9px rgba(196,164,74,0.38);"></div>
+        <div class="legend-dot" style="width:9.04px;height:9.04px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
       </div>
       <div class="legend-text">
         <span>Featured producer</span>
