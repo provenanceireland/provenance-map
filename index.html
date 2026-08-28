@@ -1074,8 +1074,8 @@
     /* Featured — premium gold, 3% larger than Verified, fine gold ring and a
        soft two-stage golden glow. Static: the glow carries the signal. */
     .pin.t-featured .pin-dot {
-      width: 9.04px !important;
-      height: 9.04px !important;
+      width: 9.22px !important;
+      height: 9.22px !important;
       /* Lit from the upper left so the dot reads as a raised bead rather than
          a flat disc. Deep amber gold core, brighter highlight, darker rim. */
       background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%) !important;
@@ -1086,7 +1086,18 @@
         0 0 10px 3px rgba(201,154,56,0.58),
         0 0 21px 7px rgba(201,154,56,0.27) !important;
     }
-    .pin.t-featured .pin-pulse { display: none; }
+    /* A very slow, very faint orange breath. Deliberately near the threshold
+       of noticeable: it should read as the pin being alive, not as an alert. */
+    .pin.t-featured .pin-pulse {
+      display: block;
+      width: 9.22px; height: 9.22px;
+      background: rgba(214,132,52,0.20);
+      animation: pulse-featured 4.5s ease-out infinite;
+    }
+    @keyframes pulse-featured {
+      0%   { transform: translate(-50%,-50%) scale(1);   opacity: 0.42; }
+      100% { transform: translate(-50%,-50%) scale(2.8); opacity: 0; }
+    }
 
     /* Seal Lite — gold with gentle desynchronised pulse */
     .pin.t-seal-lite .pin-dot,
@@ -1131,7 +1142,8 @@
     @media (max-width: 768px) {
       .pin.t-discovered .pin-dot { width: 5.78px !important; height: 5.78px !important; }
       .pin.t-verified .pin-dot { width: 8.67px !important; height: 8.67px !important; }
-      .pin.t-featured .pin-dot { width: 8.93px !important; height: 8.93px !important; }
+      .pin.t-featured .pin-dot { width: 9.10px !important; height: 9.10px !important; }
+      .pin.t-featured .pin-pulse { width: 9.10px; height: 9.10px; }
     }
 
     /* Reduced motion — pulses become static glows */
@@ -1541,7 +1553,7 @@
     </div>
     <div class="legend-item">
       <div class="legend-dot-wrap legend-dot-featured">
-        <div class="legend-dot" style="width:9.04px;height:9.04px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
+        <div class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
       </div>
       <div class="legend-text">
         <span>Featured producer</span>
