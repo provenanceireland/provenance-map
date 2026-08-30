@@ -147,6 +147,19 @@ bug to work around.
   its own solid background omits `photo_bg`. What stays Featured-only is the
   multi-image **gallery** (`photos` array) — never add a `photos` array to a
   Discovered/Verified record. If there's no image at all, set `photo_url: null`.
+- **Only list what they produce themselves.** A producer is listed for the food
+  they grow, raise or make on their own ground — never for what they buy in,
+  butcher or resell. Check the research before writing `product` and
+  `product_type`: if a farm sells four meats but only rears two, the listing
+  carries the two. This also applies to the **description**: if the producer's own
+  text advertises something they source from elsewhere, cut that clause, and say
+  so in your report. That is the one case where a verified producer's words are
+  edited rather than used verbatim, because the alternative is the map making a
+  claim it cannot stand over.
+
+  A farmer who butchers their own animals is still a producer (Staffords
+  Butchers rear their own Angus and are listed for beef). A butcher who buys in
+  is not.
 - The image file must be in the **map repo** (root or subfolder). If the note's
   `photo` names a file that isn't in the repo yet, tell the user to drop it in.
 - **Never list a producer with no image.** Every producer on the map has one, and

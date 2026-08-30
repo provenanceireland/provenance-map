@@ -67,6 +67,8 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 
 `producers.json` is the source of truth for who is listed on the map. The Obsidian vault (`Provenance Map listings/<County>/<Producer>.md`) is the source of truth for producer detail. Never rely on a producer list written into this file.
 
+**A producer is listed only for what they produce themselves.** The pin covers the food they grow, raise or make on their own ground, never what they buy in, butcher or resell. If a farm sells four meats but rears two, the listing carries the two. This applies to the description as well: a clause advertising something they source elsewhere gets cut, even from a verified producer's own words, because the alternative is the map making a claim it cannot stand over. A farmer who butchers their own animals is still a producer (Staffords Butchers rear their own Angus and are listed for beef); a butcher who buys in is not.
+
 ## Data Models
 
 ### Producer Profile — what shows at each tier
