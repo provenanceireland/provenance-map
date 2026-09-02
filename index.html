@@ -1660,7 +1660,7 @@
         <button class="filter-chip" data-type="fruit">Fruit</button>
         <button class="filter-chip" data-type="bread">Bread</button>
         <button class="filter-chip" data-type="drinks">Drinks</button>
-        <button class="filter-chip" data-type="salt">Salt</button>
+        <button class="filter-chip" data-type="salt">Sea salt</button>
         <button class="filter-chip" data-type="seeds">Seeds</button>
         <button class="filter-chip" data-type="oats">Oats</button>
         <button class="filter-chip" data-type="fish">Fish</button>
@@ -1962,6 +1962,10 @@
     const overlay = document.getElementById('overlay');
     const applyBtn = document.getElementById('apply-btn');
 
+    // Most product_type slugs read fine capitalised. These do not: the slug has
+    // to stay short for filtering, but the card tag should say what it is.
+    const PRODUCT_TAG_LABELS = { salt: 'Sea Salt' };
+
     const TIER_PILL_MAP = {
       'discovered':    { label: 'Discovered Producer',  cls: 'tier-pill tier-pill-discovered' },
       'verified':      { label: 'Provenance Verified',  cls: 'tier-pill tier-pill-verified' },
@@ -2026,7 +2030,7 @@
       const tagsEl = document.getElementById('card-product-tags');
       const types  = (pin.dataset.productTypes || '').split(',').filter(Boolean);
       tagsEl.innerHTML = types.map(t =>
-        `<span class="product-tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`
+        `<span class="product-tag">${PRODUCT_TAG_LABELS[t] || (t.charAt(0).toUpperCase() + t.slice(1))}</span>`
       ).join('');
 
       // ── Attributes ──
