@@ -364,6 +364,13 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-color: #1a1c1a #0E100D;
     }
+    /* Featured cards take a gold top edge and a faint bloom above it, so the
+       card matches the gold pin the visitor just tapped. Scoped to featured
+       only: every other tier keeps the plain white hairline. */
+    #card.featured-card {
+      border-top-color: rgba(201,164,74,0.55);
+      box-shadow: 0 -1px 20px -7px rgba(201,154,56,0.45);
+    }
     #card::-webkit-scrollbar { width: 8px; }
     #card::-webkit-scrollbar-track { background: #0E100D; }
     #card::-webkit-scrollbar-thumb { background: #1a1c1a; border-radius: 4px; }
@@ -1979,6 +1986,7 @@
       const tierName = pin.dataset.tierName || 'discovered';
       const isMarket = pin.classList.contains('market');
       card.classList.toggle('market-card', isMarket);
+      card.classList.toggle('featured-card', !isMarket && tierName === 'featured');
 
       // ── Tier badge ──
       let badgeHTML = '';
