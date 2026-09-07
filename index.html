@@ -918,26 +918,18 @@
       flex-direction: column;
       gap: 9px;
     }
-    /* Featured placeholder — sits under the badge while the full Featured
-       profile (gallery, links, farm visit film) is still being built. */
-    .card-featured-note {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 7px;
-      font-size: 0.56rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #D9AE55;
+
+    /* Featured profile pill — sits between the links and the confirmed line.
+       Deliberately inert: dashed border and a muted gold so it reads as
+       pending rather than clickable. Becomes a real link when the page ships. */
+    .card-action-progress {
+      background: rgba(196,164,74,0.04);
+      border: 1px dashed rgba(196,164,74,0.40);
+      color: #A08B4F;
+      cursor: default;
     }
-    .card-featured-note::before {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);
-      box-shadow: 0 0 5px 1px rgba(201,154,56,0.55);
-    }
+    .card-action-progress:hover  { background: rgba(196,164,74,0.04); }
+    .card-action-progress:active { transform: none; }
 
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
     .card-confirmed {
@@ -1742,7 +1734,6 @@
     <div class="card-body">
       <!-- TOP -->
       <div id="card-badge"></div>
-      <p class="card-featured-note hidden" id="card-featured-note"></p>
       <h2 id="card-name"></h2>
       <p class="card-location" id="card-location"></p>
       <div id="card-product-tags" class="card-product-tags"></div>
@@ -1768,6 +1759,7 @@
       <div class="card-actions">
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
         <a id="card-founder" class="card-action-btn card-action-founder hidden" href="#">Provenance Founder</a>
+        <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Featured Profile In Progress</span>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
@@ -2000,17 +1992,12 @@
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
-      // ── Featured placeholder ──
-      // The full Featured profile is still being built, so the card says so
-      // rather than silently looking the same as a Verified one.
-      const featuredNoteEl = document.getElementById('card-featured-note');
-      if (!isMarket && tierName === 'featured') {
-        featuredNoteEl.textContent = 'Featured profile updating';
-        featuredNoteEl.classList.remove('hidden');
-      } else {
-        featuredNoteEl.classList.add('hidden');
-        featuredNoteEl.textContent = '';
-      }
+      // ── Featured profile pill ──
+      // Deliberately inert until the profile page ships. It is a <span>, not an
+      // <a>, so there is nothing to click and no dead link to leave behind.
+      // When /skehanahill goes live this becomes the link to it.
+      document.getElementById('card-featured-progress')
+        .classList.toggle('hidden', isMarket || tierName !== 'featured');
 
       // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;
