@@ -1,4 +1,4 @@
-const CACHE = 'provenance-v516';
+﻿const CACHE = 'provenance-v517';
 const ASSETS = [
   '/',
   '/index.html',
@@ -24,7 +24,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Network-first for HTML pages — always get fresh content
+  // Network-first for HTML pages â€” always get fresh content
   if (e.request.destination === 'document' || url.pathname.endsWith('.html') || url.pathname === '/') {
     e.respondWith(
       fetch(e.request).then(response => {
