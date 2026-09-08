@@ -49,7 +49,7 @@ The note keys have changed over time — accept both the current and older names
 | `product` (or `produce`) | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
 | `Description` (or note body) | `description` | Use the producer's text **verbatim** — never reword or re-voice it. Only if blank, research online and generate one (see rule). |
 | `Attributes` | `attributes` | Comma- or line-separated tags → `attributes` array (e.g. `["Grass Fed","Free Range"]`). They render as small pills directly under the practice line. |
-| `Eircode` | `directions` | build a maps link `https://maps.google.com/?q=<EIRCODE>` (spaces → `+`) so the card gets a Directions button; also use it to sanity-check the town |
+| `Eircode` | (nothing, by default) | use it to sanity-check the town and county. It becomes a `directions` link **only when the user asks** — see the Directions rule below |
 | `county` | `county` | one of the 32 counties |
 | `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng` |
 | `tier` | `tier` | `Discovered`→`discovered`, `Verified`→`verified` (see gating below) |
@@ -189,17 +189,32 @@ bug to work around.
    user to edit, and flag anything left off by rule (Instagram/website/where-to-buy
    held for Featured; practice held because `practice_confirmed` was false).
 
-## Directions (default for Verified)
+## Directions (opt-in, never the default)
 
-When upgrading or adding a producer as Verified, always include directions if an
-Eircode is available in the note. Build a Google Maps link:
-`https://maps.google.com/?q=<EIRCODE>` (spaces → `+`), and set it as the
-**`directions`** field in producers.json. This is the default behaviour for all
-Verified producers unless the user explicitly says otherwise.
+**Do not add a directions link unless the user asks for it.** An Eircode on the
+note is not a request for one. Leave the `directions` field off the record, say
+in your report that you held it and that the Eircode is on file, and add it
+later if they say so.
 
-**The field is `directions`, not `map_link`.** `index.html` reads
-`p.directions` to render the Directions button; a link written to `map_link`
-renders nothing.
+This was the default for Verified until September 2026 and was flipped after the
+user removed it from six producers in a row. The reason is that most of these
+Eircodes are a family home, not a shop. A Directions button invites a stranger
+to drive to a farmer's house, and only the producer can decide they want that.
+The map's job is to say who they are and what they make, not where to find them
+uninvited. A farm shop, a stall or a pick-up point is a different case, and it
+still waits for the user to say so.
+
+Still use the Eircode to sanity-check the town and county. That never touches
+the card.
+
+When the user does ask, build a Google Maps link
+`https://maps.google.com/?q=<EIRCODE>` (spaces → `+`) and set it as the
+**`directions`** field in producers.json. **The field is `directions`, not
+`map_link`.** `index.html` reads `p.directions` to render the Directions
+button; a link written to `map_link` renders nothing.
+
+Twelve producers carried a directions link when this flipped. They were left
+alone. Removing one is a per-producer request, not a sweep.
 
 ## Verification updates specifically
 
