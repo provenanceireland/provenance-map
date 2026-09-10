@@ -2749,6 +2749,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "wall-wild-honey",
+      "practice": "regenerative",
+      "name": "Wall Wild Honey",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.2692,
+      "lng": -9.7057,
+      "county": "Kerry",
+      "location": "Tralee, Co. Kerry",
+      "product": "Raw Kerry Honey",
+      "product_type": ["honey"],
+      "description": "Started in 2014 , at the age of 12 years of age , first generation beekeeper . Currently have 50 hives spread across West Kerry and along the outskirts of Tralee. Now supplying Sheridans Cheese counters in Dunnes Stores location in Kerry and Cork",
+      "photo_url": "wallhoney.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Native Irish bee", "Raw / unpasteurised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
