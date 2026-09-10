@@ -143,7 +143,7 @@
     /* No invisible hit circle here. It used to widen the tap target, but with 80+
        pins those circles overlapped and, because pins stack in DOM order, a
        neighbour's invisible circle covered the dot you were aiming at. Hit testing
-       is done in JS instead, by nearest dot to the tap point. See PIN_TAP_RADIUS. */
+       is done in JS instead, against the dot's own circle. See PIN_TAP_SLOP. */
 
     .pin-pulse {
       position: absolute;
@@ -1909,19 +1909,27 @@
     }
 
     /* ── PIN HIT TESTING ──
-       Dots are ~6px and sit about 17px apart on a phone, so they are far below a
-       usable touch target. Widening each dot's own hit area does not work: the
-       areas overlap and pins stack in DOM order, so a neighbour's invisible target
-       ends up covering the dot being aimed at.
+       A tap opens a producer only when it lands ON the dot. There used to be a
+       flat 28px halo around every dot, and on a map this dense that meant a click
+       on open country still opened whichever producer happened to be nearest,
+       usually not the one the user was looking at. The halo is gone.
 
-       Instead one listener on the map resolves every tap to the NEAREST dot. That
-       is deterministic, ignores stacking order, and always matches what the user
-       aimed at. A pin can never be buried by a neighbour again. */
-    const PIN_TAP_RADIUS = 28; // px from the centre of a dot
+       The hit area is the dot's own rendered circle, measured rather than
+       hardcoded, because Discovered, Verified and Featured dots are all different
+       sizes and the sizes differ again on mobile.
+
+       Where two dots genuinely overlap the nearest centre still wins, so a pin can
+       never be buried by a neighbour in DOM order. That was the reason this was
+       done in JS rather than with CSS hit areas, and it still holds. */
+
+    // A finger has no pixel precision and the smallest dot is under 6px, so touch
+    // gets a few pixels of forgiveness. A mouse gets none: click the dot or nothing
+    // happens. Set to 0 to make touch exact too.
+    const PIN_TAP_SLOP = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 5 : 0;
 
     function pinNearestTo(cx, cy) {
-      let best = null,   bestDist = PIN_TAP_RADIUS;   // pins matching the filter
-      let faded = null,  fadedDist = PIN_TAP_RADIUS;  // pins dimmed out by it
+      let best = null,   bestDist = Infinity;   // pins matching the filter
+      let faded = null,  fadedDist = Infinity;  // pins dimmed out by it
       document.querySelectorAll('.pin').forEach(pin => {
         const dot = pin.querySelector('.pin-dot');
         if (!dot) return;
@@ -1930,6 +1938,7 @@
         const dx = cx - (r.left + r.width / 2);
         const dy = cy - (r.top + r.height / 2);
         const dist = Math.hypot(dx, dy);
+        if (dist > r.width / 2 + PIN_TAP_SLOP) return; // off the dot, not a hit
         // A filtered-out pin should never win a tap over one the user filtered to,
         // even if it happens to be marginally closer.
         if (pin.style.opacity && parseFloat(pin.style.opacity) < 0.9) {
