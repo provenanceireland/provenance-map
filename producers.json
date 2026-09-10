@@ -2722,6 +2722,33 @@
       "farmers_market": false,
       "farm_shop": true,
       "date_added": null
+    },
+    {
+      "id": "mussenden-sea-salt",
+      "practice": "regenerative",
+      "name": "Mussenden Sea Salt",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 55.1316,
+      "lng": -6.6719,
+      "county": "Derry",
+      "location": "Coleraine, Co. Derry",
+      "product": "Sea Salt",
+      "product_type": ["salt"],
+      "description": "Magnesium Rich Sea Salt produced on the Stunning Causeway Coast. Mussenden Sea Salt is the only pure and natural sea salt which is High In Magnesium, which contributes to your daily Magnesium allowance.",
+      "photo_url": "mussendensalt.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Chemical Free"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
