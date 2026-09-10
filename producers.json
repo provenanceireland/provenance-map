@@ -2695,6 +2695,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "castlemine-farm",
+      "practice": "unspecified",
+      "name": "Castlemine Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.6294,
+      "lng": -8.1719,
+      "county": "Roscommon",
+      "location": "Roscommon Town, Co. Roscommon",
+      "product": "Beef, Lamb, Pork & Bronze Turkey",
+      "product_type": ["beef", "lamb", "pork", "poultry"],
+      "description": "Castlemine farm is a family Run farm. It all began back in 1820 as a small family farm where Walter Allen began the farming tradition which has now passed on 4 generations. For more than 20 years we have dedicated ourselves to serving the people of Roscommon and nationwide. All our beef is grass fed and outdoor reared.",
+      "photo_url": "castlemine.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Pasture raised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": true,
+      "date_added": null
     }
   ]
 }
