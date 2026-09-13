@@ -1812,17 +1812,32 @@
       return { x: x / 100, y: y / 100 };
     }
 
+    /* ── MAP GEOMETRY, ONE SOURCE OF TRUTH ──
+       The artwork is a square image, object-fit: contain, filling #map-img,
+       which is 100% of #map-wrap (position: fixed; inset: 0). Pins are placed
+       as fractions of the CONTAINED square, so the maths has to size that
+       square from the box the browser actually gave the image.
+
+       This used to use window.innerWidth/innerHeight. On desktop those equal
+       the image box and nothing was wrong. On a phone they often do not: the
+       address bar showing or hiding changes innerHeight without changing the
+       fixed box, and on a portrait screen the whole error lands in the vertical
+       offset, so every pin sat a few pixels off the artwork on mobile while
+       looking right on PC. offsetWidth/offsetHeight are the box CSS laid out,
+       and they ignore transforms, so near-me zoom cannot skew them either. */
+    function getMapDims() {
+      const bw = mapImg.offsetWidth  || window.innerWidth;
+      const bh = mapImg.offsetHeight || window.innerHeight;
+      const iw = mapImg.naturalWidth || 1, ih = mapImg.naturalHeight || 1;
+      const scale = Math.min(bw / iw, bh / ih);
+      const rw = iw * scale, rh = ih * scale;
+      const ox = (bw - rw) / 2, oy = (bh - rh) / 2;
+      return { vw: bw, vh: bh, rw, rh, ox, oy };
+    }
+
     function positionPins() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const iw = mapImg.naturalWidth;
-      const ih = mapImg.naturalHeight;
-      if (!iw || !ih) return;
-      const scale = Math.min(vw / iw, vh / ih);
-      const rw = iw * scale;
-      const rh = ih * scale;
-      const ox = (vw - rw) / 2;
-      const oy = (vh - rh) / 2;
+      if (!mapImg.naturalWidth || !mapImg.naturalHeight) return;
+      const { rw, rh, ox, oy } = getMapDims();
       const isLandscape = window.innerWidth > window.innerHeight;
       document.querySelectorAll('.pin').forEach(pin => {
         const useLandscape = isLandscape && pin.dataset.latDesktop && pin.dataset.lngDesktop;
@@ -1832,6 +1847,65 @@
         pin.style.left = (ox + x * rw - 20) + 'px';
         pin.style.top  = (oy + y * rh - 20) + 'px';
       });
+      debugPins();
+    }
+
+    /* ── PIN DEBUG OVERLAY, ?debug=pins ──
+       Ends the guessing about where a pin actually lands. For every pin it
+       measures the dot's real on-screen centre and the image's real box, both
+       from getBoundingClientRect at the same instant, and reports where the
+       dot sits as a percentage of the contained artwork, next to where the
+       data says it should be. If the two agree, the geometry is right and any
+       remaining difference between devices is in the data. If they disagree,
+       the delta is the bug, in exact numbers, on the device that has it.
+       Add &ids=a,b,c to list only those pins. Nothing here runs without the
+       query string. */
+    const DEBUG_PINS = new URLSearchParams(location.search).get('debug') === 'pins';
+    function debugPins() {
+      if (!DEBUG_PINS) return;
+      let panel = document.getElementById('pin-debug');
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'pin-debug';
+        panel.style.cssText = 'position:fixed;left:8px;top:8px;z-index:9999;max-height:60vh;overflow:auto;background:rgba(6,8,7,.92);color:#E8DEC8;font:11px/1.45 monospace;padding:10px 12px;border:1px solid #4A8A55;border-radius:6px;white-space:pre;pointer-events:auto;';
+        document.body.appendChild(panel);
+      }
+      const only = (new URLSearchParams(location.search).get('ids') || '').split(',').map(s => s.trim()).filter(Boolean);
+      const img = mapImg.getBoundingClientRect();
+      const iw = mapImg.naturalWidth || 1, ih = mapImg.naturalHeight || 1;
+      const s = Math.min(img.width / iw, img.height / ih);
+      const cw = iw * s, ch = ih * s;                 // contained artwork, on screen
+      const cx0 = img.left + (img.width - cw) / 2;
+      const cy0 = img.top  + (img.height - ch) / 2;
+      const d = getMapDims();
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const lines = [];
+      lines.push('inner ' + window.innerWidth + 'x' + window.innerHeight + '  imgbox ' + Math.round(img.width) + 'x' + Math.round(img.height) + '  ' + (isLandscape ? 'landscape refX 82' : 'portrait refX 85'));
+      lines.push('artwork ' + Math.round(cw) + 'px square at (' + Math.round(cx0) + ',' + Math.round(cy0) + ')   pins assume (' + Math.round(d.ox) + ',' + Math.round(d.oy) + ')');
+      lines.push('');
+      lines.push('id                        data x,y      screen x,y    delta');
+      const rows = [];
+      document.querySelectorAll('.pin').forEach(pin => {
+        const id = pin.dataset.id || pin.dataset.name || '?';
+        if (only.length && !only.includes(id)) return;
+        const dot = pin.querySelector('.pin-dot');
+        if (!dot) return;
+        const r = dot.getBoundingClientRect();
+        if (!r.width) return;
+        const sx = ((r.left + r.width / 2) - cx0) / cw * 100;
+        const sy = ((r.top  + r.height / 2) - cy0) / ch * 100;
+        const useLandscape = isLandscape && pin.dataset.latDesktop && pin.dataset.lngDesktop;
+        const lat = parseFloat(useLandscape ? pin.dataset.latDesktop : pin.dataset.lat);
+        const lng = parseFloat(useLandscape ? pin.dataset.lngDesktop : pin.dataset.lng);
+        const p = latLngToPercent(lat, lng);
+        const ex = p.x * 100, ey = p.y * 100;
+        rows.push({ id, ex, ey, sx, sy, dx: sx - ex, dy: sy - ey });
+      });
+      rows.sort((a, b) => Math.hypot(b.dx, b.dy) - Math.hypot(a.dx, a.dy));
+      rows.forEach(w => {
+        lines.push(w.id.padEnd(25).slice(0, 25) + ' ' + w.ex.toFixed(2).padStart(6) + ',' + w.ey.toFixed(2).padStart(6) + '  ' + w.sx.toFixed(2).padStart(6) + ',' + w.sy.toFixed(2).padStart(6) + '  ' + (w.dx >= 0 ? '+' : '') + w.dx.toFixed(2) + ',' + (w.dy >= 0 ? '+' : '') + w.dy.toFixed(2));
+      });
+      panel.textContent = lines.join('\n');
     }
 
     mapImg.addEventListener('load', positionPins);
@@ -1844,8 +1918,9 @@
       });
     }
     window.addEventListener('resize', () => {
-      positionPins();
+      // leave near-me first, so pins are measured against the untransformed map
       if (nearMe.active) exitNearMeMode();
+      positionPins();
     });
 
     // ── DYNAMIC PIN RENDERING ─────────────────────────────────────
@@ -2576,14 +2651,8 @@
       return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
-    function getMapDims() {
-      const vw = window.innerWidth, vh = window.innerHeight;
-      const iw = mapImg.naturalWidth || 1, ih = mapImg.naturalHeight || 1;
-      const scale = Math.min(vw / iw, vh / ih);
-      const rw = iw * scale, rh = ih * scale;
-      const ox = (vw - rw) / 2, oy = (vh - rh) / 2;
-      return { vw, vh, rw, rh, ox, oy };
-    }
+    // getMapDims lives beside positionPins now, so pins and the near-me
+    // machinery can never disagree about where the artwork is.
 
     function latLngToPixel(lat, lng) {
       const { rw, rh, ox, oy } = getMapDims();
