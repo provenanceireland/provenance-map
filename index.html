@@ -931,6 +931,15 @@
     .card-action-progress:hover  { background: rgba(196,164,74,0.04); }
     .card-action-progress:active { transform: none; }
 
+    /* The live Featured profile link. Same amber as the tier pill, solid
+       border, so it reads as the one thing on the card worth pressing. */
+    .card-action-featured {
+      background: rgba(196,164,74,0.10);
+      border: 1px solid rgba(217,174,85,0.70);
+      color: #D9AE55;
+    }
+    .card-action-featured:hover { background: rgba(196,164,74,0.18); }
+
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
     .card-confirmed {
       display: flex;
@@ -1760,6 +1769,7 @@
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
         <a id="card-founder" class="card-action-btn card-action-founder hidden" href="#">Provenance Founder</a>
         <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Featured Profile In Progress</span>
+        <a id="card-featured-link" class="card-action-btn card-action-featured hidden" href="#">Featured Profile</a>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
@@ -1962,6 +1972,8 @@
       if (p.seal_active) div.dataset.sealActive = 'true';
       if (p.seal_url)    div.dataset.sealUrl    = p.seal_url;
       if (p.map_link)    div.dataset.profile    = p.map_link;
+      if (p.profile_slug) div.dataset.profileSlug = p.profile_slug;
+      if (p.profile_live) div.dataset.profileLive = 'true';
       if (p.where_to_buy && p.where_to_buy.length) div.dataset.whereToBuy = JSON.stringify(p.where_to_buy);
       if (p.farmers_market) div.dataset.farmersMarket = 'true';
       if (p.farm_shop)      div.dataset.farmShop      = 'true';
@@ -2077,11 +2089,16 @@
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
       // ── Featured profile pill ──
-      // Deliberately inert until the profile page ships. It is a <span>, not an
-      // <a>, so there is nothing to click and no dead link to leave behind.
-      // When /skehanahill goes live this becomes the link to it.
-      document.getElementById('card-featured-progress')
-        .classList.toggle('hidden', isMarket || tierName !== 'featured');
+      // Two elements, one shown. While the profile page is being built the
+      // inert <span> shows, so there is nothing to click and no dead link.
+      // Setting profile_live: true on the record swaps in the real link to
+      // /<profile_slug>/ without touching this code.
+      const isFeatured = !isMarket && tierName === 'featured';
+      const profileLive = isFeatured && pin.dataset.profileLive === 'true' && pin.dataset.profileSlug;
+      document.getElementById('card-featured-progress').classList.toggle('hidden', !isFeatured || !!profileLive);
+      const featuredLink = document.getElementById('card-featured-link');
+      if (profileLive) featuredLink.href = pin.dataset.profileSlug + '/';
+      featuredLink.classList.toggle('hidden', !profileLive);
 
       // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;

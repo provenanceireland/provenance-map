@@ -1,0 +1,26 @@
+{
+  "id": "skehana-hill",
+  "live": false,
+
+  "visit": {
+    "date": "",
+    "walked_by": "Provenance",
+    "ground": "",
+    "listed": "Verified 9 August 2026, Featured August 2026"
+  },
+
+  "hero": { "src": "", "alt": "" },
+
+  "film": { "url": "", "aspect": "16/9", "title": "Skehana Hill, the Provenance visit" },
+
+  "story": [],
+
+  "products": [
+    { "name": "Organic vegetables", "note": "", "season": "" },
+    { "name": "Lamb",  "note": "", "season": "" },
+    { "name": "Beef",  "note": "", "season": "" },
+    { "name": "Pork",  "note": "", "season": "" }
+  ],
+
+  "captions": {}
+}

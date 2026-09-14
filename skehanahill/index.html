@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Skehana Hill - Provenance</title>
+  <meta name="description" content="Skehana Hill, Freshford, Co. Kilkenny. Organic vegetables, lamb, beef and pork. A Provenance Featured farm, visited and filmed by Provenance." />
+  <link rel="canonical" href="https://provenancemap.ie/skehanahill/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Provenance Map" />
+  <meta property="og:title" content="Skehana Hill - Provenance Featured" />
+  <meta property="og:description" content="Organic vegetables, lamb, beef and pork from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
+  <meta property="og:url" content="https://provenancemap.ie/skehanahill/" />
+  <meta property="og:image" content="https://provenancemap.ie/assets/og/skehana-hill.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Skehana Hill - Provenance Featured" />
+  <meta name="twitter:description" content="Organic vegetables, lamb, beef and pork from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
+  <meta name="twitter:image" content="https://provenancemap.ie/assets/og/skehana-hill.jpg" />
+  <meta name="theme-color" content="#060807" />
+  <link rel="icon" href="../icons/icon-192.png" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y56PR1JFH8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y56PR1JFH8');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Featured profile page. Same ground, fonts and hairlines as the map and
+       the Founder pages in /producers, plus IBM Plex Mono for the record and
+       data lines. Text holds a 620px column; media breaks to 1040px. */
+    :root {
+      --ground: #060807;
+      --surface: #0E100D;
+      --surface-2: #12150F;
+      --hair: rgba(30,58,40,0.28);
+      --hair-warm: rgba(196,164,74,0.22);
+      --cream: #E8DEC8;
+      --body: #B9B098;
+      --muted: #7C7359;
+      --faint: #504838;
+      --gold: #C4A44A;
+      --amber: #D9AE55;
+      --green: #4A8A55;
+      --green-pin: #59A666;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--ground); }
+    body {
+      background: var(--ground); color: var(--body);
+      font-family: 'Source Serif 4', Georgia, serif; font-weight: 300;
+      font-size: 17px; line-height: 1.72; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 1.5px solid var(--gold); outline-offset: 3px; }
+    img { max-width: 100%; display: block; }
+    .hidden { display: none !important; }
+
+    .col  { max-width: 620px;  margin: 0 auto; padding: 0 24px; }
+    .wide { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; text-wrap: balance; color: var(--cream); }
+    h2 { font-size: 1.6rem; font-style: italic; line-height: 1.2; }
+    h3 { font-size: 1.06rem; line-height: 1.3; }
+    p + p { margin-top: 1.05em; }
+
+    .label {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 0.62rem; letter-spacing: 0.19em; text-transform: uppercase; color: var(--faint);
+    }
+
+    /* ── site header ── */
+    .site {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 18px 24px; border-bottom: 0.5px solid var(--hair);
+      max-width: 1040px; margin: 0 auto;
+    }
+    .logo { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; letter-spacing: 0.09em; color: #fff; }
+    .back {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--faint); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
+    }
+    .back:hover { color: var(--gold); }
+    .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+    /* ── hero ── */
+    .hero { padding-top: 8px; }
+    .hero-img { margin-bottom: 34px; }
+    .hero-img img { width: 100%; aspect-ratio: 3/2; object-fit: cover; border: 0.5px solid var(--hair); }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .pill-featured { border: 0.5px solid rgba(217,174,85,0.7); color: var(--amber); background: rgba(196,164,74,0.07); }
+    .pill-featured .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, #E8C670, #CDA043 48%, #A97C28);
+      box-shadow: 0 0 5px 1px rgba(201,154,56,0.5);
+    }
+    .pill-organic      { border: 0.5px solid rgba(74,138,85,0.6);  color: #6FA877; }
+    .pill-regenerative { border: 0.5px solid rgba(196,164,74,0.6); color: #C9AD5C; }
+    .pill-progress     { border: 0.5px dashed rgba(196,164,74,0.4); color: #A08B4F; }
+    .name-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; position: relative; }
+    h1.name { font-size: clamp(2.7rem, 7vw, 3.7rem); font-style: italic; line-height: 1.04; margin-bottom: 12px; }
+    .where { color: var(--gold); font-size: 0.95rem; letter-spacing: 0.02em; }
+    .produce { margin-top: 6px; color: var(--muted); font-size: 0.95rem; }
+    .links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+    }
+    .links a:hover { color: var(--gold); }
+    .links svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .share-btn {
+      background: none; border: none; cursor: pointer; padding: 6px; margin-top: 14px;
+      color: #706050; flex-shrink: 0; transition: color 0.2s; -webkit-tap-highlight-color: transparent;
+    }
+    .share-btn:hover { color: var(--gold); }
+    .share-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; display: block; }
+    #share-toast {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--surface); border: 1px solid rgba(196,164,74,0.35); border-radius: 8px;
+      padding: 10px 18px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; color: var(--cream);
+      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 5;
+    }
+    #share-toast.visible { opacity: 1; transition: opacity 0.15s; }
+
+    /* ── the visit record: the spine of a Featured page ── */
+    .record {
+      margin: 44px auto 0; border-top: 0.5px solid var(--hair-warm); border-bottom: 0.5px solid var(--hair-warm);
+      background: linear-gradient(180deg, rgba(196,164,74,0.035), transparent);
+    }
+    .record-inner { max-width: 620px; margin: 0 auto; padding: 26px 24px; }
+    .record dl { display: grid; grid-template-columns: 118px 1fr; gap: 10px 18px; margin-top: 14px; }
+    .record dt {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); padding-top: 0.35em;
+    }
+    .record dd { color: var(--cream); font-size: 0.95rem; }
+    .record dd small { display: block; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+
+    /* ── sections ── */
+    section { padding: 58px 0; }
+    section + section { border-top: 0.5px solid var(--hair); }
+    .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+    .sec-head h2 { flex: none; }
+    .rule { flex: 1; height: 0.5px; background: var(--hair); }
+
+    blockquote {
+      margin: 0 0 26px; padding-left: 20px; border-left: 1px solid var(--hair-warm);
+      font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+      font-size: 1.3rem; line-height: 1.45; color: var(--cream);
+    }
+    blockquote cite {
+      display: block; margin-top: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); font-style: normal;
+    }
+
+    /* ── film ── */
+    .film { margin: 0 auto 58px; }
+    .film-wrap { position: relative; width: 100%; background: var(--surface); border: 0.5px solid var(--hair); overflow: hidden; }
+    .film-wrap.r169 { aspect-ratio: 16/9; }
+    .film-wrap.r916 { aspect-ratio: 9/16; max-width: 420px; margin: 0 auto; }
+    .film-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ── products ── */
+    .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--hair); border: 0.5px solid var(--hair); }
+    @media (max-width: 620px) { .products { grid-template-columns: 1fr; } }
+    .prod { background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .prod p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .prod .season {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.58rem;
+      letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); margin-top: auto; padding-top: 8px;
+    }
+
+    /* ── gallery ── */
+    .gal { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 58px; }
+    .gal figure { position: relative; margin: 0; border: 0.5px solid var(--hair); background: var(--surface); overflow: hidden; cursor: zoom-in; }
+    .gal img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
+    .gal figure:first-child { grid-column: span 4; }
+    .gal figure:first-child img { aspect-ratio: 3/2; }
+    .gal figure:nth-child(2) { grid-column: span 2; }
+    .gal figure:nth-child(2) img { aspect-ratio: 4/5; height: 100%; }
+    .gal figure:nth-child(n+3) { grid-column: span 2; }
+    .gal figcaption {
+      position: absolute; left: 12px; bottom: 10px; right: 12px;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.58rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(232,222,200,0.75); text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+    }
+    @media (max-width: 720px) {
+      .gal { grid-template-columns: repeat(2, 1fr); }
+      .gal figure:first-child { grid-column: span 2; }
+      .gal figure:nth-child(2), .gal figure:nth-child(n+3) { grid-column: span 1; }
+    }
+
+    /* ── lightbox ── */
+    #lightbox {
+      position: fixed; inset: 0; background: rgba(6,8,7,0.96); z-index: 50;
+      display: none; align-items: center; justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: min(92vw, 1100px); max-height: 88vh; object-fit: contain; }
+    #lightbox button {
+      position: absolute; background: none; border: none; color: var(--cream); cursor: pointer; padding: 14px;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    #lb-close { top: 14px; right: 14px; }
+    #lb-prev { left: 8px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; }
+    #lb-next { right: 8px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; }
+    #lb-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; }
+
+    /* ── where to buy ── */
+    .buy { border-top: 0.5px solid var(--hair); }
+    .buy-row {
+      display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline;
+      padding: 15px 0; border-bottom: 0.5px solid var(--hair);
+    }
+    .buy-row strong { font-weight: 400; color: var(--cream); font-size: 1rem; }
+    .buy-row a strong:hover { color: var(--gold); }
+    .buy-row span { display: block; color: var(--muted); font-size: 0.86rem; margin-top: 2px; }
+    .buy-row .when {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-align: right; white-space: nowrap;
+    }
+
+    /* ── nearby ── */
+    .rel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 0.5px solid var(--hair); margin-bottom: 58px; }
+    @media (max-width: 720px) { .rel { grid-template-columns: 1fr; } }
+    .rel-card { background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 9px; transition: background 0.18s; }
+    .rel-card:hover { background: var(--surface-2); }
+    .rel-top { display: flex; align-items: center; gap: 8px; }
+    .p { border-radius: 50%; flex: none; }
+    .p-ver  { width: 9px; height: 9px; background: var(--green-pin); border: 1px solid rgba(248,248,243,0.6); box-shadow: 0 0 6px 2px rgba(89,166,102,0.5); }
+    .p-disc { width: 6px; height: 6px; background: #2A5A38; border: 1px solid rgba(232,222,200,0.75); }
+    .p-feat { width: 9px; height: 9px; background: radial-gradient(circle at 34% 30%, #E8C670, #CDA043 48%, #A97C28); box-shadow: 0 0 6px 2px rgba(201,154,56,0.4); }
+    .rel-card h3 { font-size: 1.02rem; }
+    .rel-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
+    .rel-card .tier {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.58rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: auto; padding-top: 8px;
+    }
+
+    /* ── map link ── */
+    .map-section {
+      margin: 0 auto 36px; max-width: 620px; padding: 40px 24px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      background: var(--surface) url('../ireland-map.png.png') 60% 40% / cover no-repeat;
+    }
+    .map-section::before { content: ''; position: absolute; inset: 0; background: rgba(6,8,7,0.74); }
+    .map-section > * { position: relative; z-index: 1; }
+    .map-pin { width: 9px; height: 9px; border-radius: 50%; margin: 0 auto 14px;
+      background: radial-gradient(circle at 34% 30%, #E8C670, #CDA043 48%, #A97C28);
+      box-shadow: 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.2); }
+    .map-line { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; color: var(--cream); line-height: 1.4; margin-bottom: 20px; }
+    .map-btn {
+      display: inline-block; padding: 11px 28px; border: 0.5px solid rgba(196,164,74,0.5); border-radius: 4px;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); transition: background 0.2s;
+    }
+    .map-btn:hover { background: rgba(196,164,74,0.08); }
+
+    footer { padding: 34px 24px 60px; text-align: center; }
+    footer .f-logo { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; color: var(--cream); letter-spacing: 0.05em; margin-bottom: 6px; }
+    footer .f-url { font-size: 11px; color: var(--faint); letter-spacing: 1px; margin-bottom: 10px; }
+    footer .f-tag { font-size: 11px; color: var(--faint); letter-spacing: 1px; font-style: italic; }
+
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <a class="logo" href="../">Provenance</a>
+    <a class="back" href="../?producer=skehana-hill"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to the map</a>
+  </header>
+
+  <!-- HERO. The facts are written in so the page reads without JavaScript;
+       the script below refreshes them from producers.json so the card and
+       this page can never drift apart. -->
+  <div class="hero">
+    <div class="wide hero-img hidden" id="hero-img"></div>
+    <div class="col">
+      <div class="pills" id="pills">
+        <span class="pill pill-featured"><span class="dot"></span>Provenance Featured</span>
+        <span class="pill pill-organic">Organic, confirmed</span>
+      </div>
+      <div class="name-row">
+        <h1 class="name" id="name">Skehana Hill</h1>
+        <button class="share-btn" id="share-btn" aria-label="Share this producer">
+          <svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        </button>
+        <div id="share-toast">Link copied</div>
+      </div>
+      <p class="where" id="where">Freshford, Co. Kilkenny</p>
+      <p class="produce" id="produce">Organic Vegetables, Lamb, Beef and Pork</p>
+      <div class="links" id="links"></div>
+    </div>
+  </div>
+
+  <!-- THE VISIT RECORD -->
+  <div class="record">
+    <div class="record-inner">
+      <p class="label">Visit record</p>
+      <dl id="record"></dl>
+    </div>
+  </div>
+
+  <div class="col">
+    <section>
+      <div class="sec-head"><h2>The farm</h2><span class="rule"></span></div>
+      <blockquote id="quote">
+        <span id="quote-text">Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which which nurtures human health, community and biodiversity.</span>
+        <cite>Skehana Hill, in their own words</cite>
+      </blockquote>
+      <div id="story"></div>
+    </section>
+
+    <section id="film-section" class="hidden">
+      <div class="sec-head"><h2>The visit</h2><span class="rule"></span></div>
+      <p id="film-intro">Filmed by Provenance on the farm.</p>
+    </section>
+  </div>
+
+  <div class="wide film hidden" id="film">
+    <div class="film-wrap r169" id="film-wrap"></div>
+  </div>
+
+  <!-- Ask this farm. Mounts here, below the film, and renders nothing until
+       the chatbot exists. Keyed on data-producer. -->
+  <div id="pv-chat" data-producer="skehana-hill" class="col hidden"></div>
+
+  <div class="col">
+    <section id="products-section" class="hidden" style="border-top: 0.5px solid var(--hair)">
+      <div class="sec-head"><h2>What they grow</h2><span class="rule"></span></div>
+      <p style="margin-bottom: 22px">Only what comes off their own ground.</p>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section id="gallery-section" class="hidden">
+      <div class="sec-head"><h2>The gallery</h2><span class="rule"></span></div>
+    </section>
+  </div>
+
+  <div class="wide">
+    <div class="gal hidden" id="gallery"></div>
+  </div>
+
+  <div class="col">
+    <section id="buy-section" class="hidden" style="border-top: 0.5px solid var(--hair)">
+      <div class="sec-head"><h2>Where to buy</h2><span class="rule"></span></div>
+      <div class="buy" id="buy"></div>
+    </section>
+
+    <!-- Seal. Renders only when seal_active and seal_url are set on the record. -->
+    <section id="pv-seal" class="hidden">
+      <div class="sec-head"><h2>The Seal</h2><span class="rule"></span></div>
+      <p>This producer carries a Provenance Seal product. Its batch documentation is public.</p>
+      <p style="margin-top: 18px"><a class="map-btn" id="seal-link" href="#" target="_blank" rel="noopener">Scan the Seal</a></p>
+    </section>
+
+    <section id="nearby-section" style="border-top: 0.5px solid var(--hair)">
+      <div class="sec-head"><h2>Nearby on the map</h2><span class="rule"></span></div>
+      <p style="margin-bottom: 22px">The closest producers to Skehana Hill, taken from the map itself.</p>
+    </section>
+  </div>
+
+  <div class="wide">
+    <div class="rel" id="nearby"></div>
+  </div>
+
+  <div class="map-section">
+    <div class="map-pin"></div>
+    <p class="map-line">Skehana Hill is a Provenance Featured farm<br>on the Provenance Map</p>
+    <a href="../?producer=skehana-hill" class="map-btn">See on the map</a>
+  </div>
+
+  <footer>
+    <p class="f-logo">Provenance</p>
+    <p class="f-url">provenancemap.ie/skehanahill</p>
+    <p class="f-tag">Every product. Named source. Full origin.</p>
+  </footer>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button id="lb-close" type="button">Close</button>
+    <button id="lb-prev" type="button" aria-label="Previous">&#8249;</button>
+    <img id="lb-img" src="" alt="" />
+    <button id="lb-next" type="button" aria-label="Next">&#8250;</button>
+    <div id="lb-count" class="label"></div>
+  </div>
+
+  <script>
+    // One producer per folder. The second Featured farm is a copy of this
+    // folder with these two lines changed and its own profile.json.
+    const PRODUCER_ID = 'skehana-hill';
+    const PAGE_URL    = 'https://provenancemap.ie/skehanahill/';
+
+    // The QR sticker prints this URL with ?src=qr, so a scan in a shop stays
+    // separable from a visit that came through the map or a shared link.
+    const SRC = new URLSearchParams(location.search).get('src');
+    if (SRC === 'qr' && typeof gtag === 'function') gtag('event', PRODUCER_ID + '-qr');
+
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const show = (id, on) => $(id).classList.toggle('hidden', !on);
+
+    // Same projection as the map, so "nearby" means nearby on the artwork,
+    // which is what a visitor sees. Distances are in map points and are
+    // never shown; they only order the list.
+    function mapPt(p) { return { x: (p.lng + 5.90) * 15.217, y: (55.40 - p.lat) * 20 }; }
+
+    function render(producer, all, profile) {
+      const pr = profile || {};
+      const visit = pr.visit || {};
+
+      // ── hero ──
+      $('name').textContent    = producer.name;
+      $('where').textContent   = producer.location || ('Co. ' + producer.county);
+      $('produce').textContent = producer.product || '';
+
+      const practices = String(producer.practice || '').split(',').map(s => s.trim()).filter(p => ['organic', 'regenerative'].includes(p));
+      $('pills').innerHTML =
+        '<span class="pill pill-featured"><span class="dot"></span>Provenance Featured</span>' +
+        practices.map(p => `<span class="pill pill-${p}">${p.charAt(0).toUpperCase() + p.slice(1)}, confirmed</span>`).join('') +
+        (pr.live ? '' : '<span class="pill pill-progress">Profile in progress</span>');
+
+      if (pr.hero && pr.hero.src) {
+        $('hero-img').innerHTML = `<img src="${esc(pr.hero.src)}" alt="${esc(pr.hero.alt || producer.name)}" />`;
+        show('hero-img', true);
+      }
+
+      const links = [];
+      if (producer.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(producer.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
+      if (producer.website) links.push(`<a href="${esc(producer.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
+      if (producer.directions) links.push(`<a href="${esc(producer.directions)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
+      $('links').innerHTML = links.join('');
+
+      // ── visit record ──
+      const rows = [];
+      if (visit.date) rows.push(['Visited', esc(visit.date)]);
+      rows.push(['Walked by', esc(visit.walked_by || 'Provenance')]);
+      if (practices.length) rows.push(['Practice', practices.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' and ') + '<small>Confirmed by the producer, not researched.</small>']);
+      if (visit.ground) rows.push(['Ground', esc(visit.ground)]);
+      if (producer.attributes && producer.attributes.length) rows.push(['Confirmed', esc(producer.attributes.join(', '))]);
+      if (visit.listed) rows.push(['Listed', esc(visit.listed)]);
+      $('record').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+
+      // ── the farm ──
+      if (producer.description) $('quote-text').textContent = producer.description;
+      show('quote', !!producer.description);
+      $('story').innerHTML = (pr.story || []).map(p => `<p>${esc(p)}</p>`).join('');
+
+      // ── the visit film ──
+      const film = pr.film || {};
+      if (film.url) {
+        const wrap = $('film-wrap');
+        wrap.className = 'film-wrap ' + (film.aspect === '9/16' ? 'r916' : 'r169');
+        wrap.innerHTML = `<iframe src="${esc(film.url)}" title="${esc(film.title || producer.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        show('film-section', true); show('film', true);
+      }
+
+      // ── what they grow ──
+      const products = (pr.products || []).filter(p => p && p.name);
+      if (products.length) {
+        $('products').innerHTML = products.map(p =>
+          `<div class="prod"><h3>${esc(p.name)}</h3>${p.note ? `<p>${esc(p.note)}</p>` : ''}${p.season ? `<span class="season">${esc(p.season)}</span>` : ''}</div>`
+        ).join('');
+        show('products-section', true);
+      }
+
+      // ── gallery: the same photos array the map card uses ──
+      const photos = (producer.photos || []).map(src => src.startsWith('http') || src.startsWith('/') ? src : '../' + src);
+      const captions = pr.captions || {};
+      if (photos.length) {
+        $('gallery').innerHTML = photos.map((src, i) => {
+          const cap = captions[(producer.photos || [])[i]] || '';
+          return `<figure data-i="${i}"><img src="${esc(src)}" alt="${esc(cap || producer.name)}" loading="lazy" />${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+        }).join('');
+        $('gallery').querySelectorAll('figure').forEach(f => f.addEventListener('click', () => openLightbox(+f.dataset.i)));
+        show('gallery-section', true); show('gallery', true);
+        lightboxPhotos = photos;
+      }
+
+      // ── where to buy ──
+      const buy = producer.where_to_buy || [];
+      if (buy.length) {
+        $('buy').innerHTML = buy.map(item => {
+          if (typeof item === 'string') return `<div class="buy-row"><div><strong>${esc(item)}</strong></div></div>`;
+          const name = `<strong>${esc(item.name)}</strong>${item.note ? `<span>${esc(item.note)}</span>` : ''}`;
+          return `<div class="buy-row"><div>${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener">${name}</a>` : name}</div>${item.when ? `<span class="when">${esc(item.when)}</span>` : ''}</div>`;
+        }).join('');
+        show('buy-section', true);
+      }
+
+      // ── seal ──
+      if (producer.seal_active && producer.seal_url) { $('seal-link').href = producer.seal_url; show('pv-seal', true); }
+
+      // ── nearby ──
+      const here = mapPt(producer);
+      const near = all.filter(p => p.id !== producer.id && p.lat && p.lng)
+        .map(p => { const q = mapPt(p); return { p, d: Math.hypot(q.x - here.x, q.y - here.y) }; })
+        .sort((a, b) => a.d - b.d).slice(0, 3);
+      const TIER = { discovered: ['Discovered', 'p-disc'], verified: ['Verified', 'p-ver'], featured: ['Featured', 'p-feat'] };
+      $('nearby').innerHTML = near.map(({ p }) => {
+        const [label, cls] = TIER[p.tier] || TIER.discovered;
+        return `<a class="rel-card" href="../?producer=${esc(p.id)}">
+          <div class="rel-top"><span class="p ${cls}"></span><span class="label">${esc(p.county)}</span></div>
+          <h3>${esc(p.name)}</h3><p>${esc(p.product || '')}</p><span class="tier">${label}</span></a>`;
+      }).join('');
+      show('nearby-section', near.length > 0);
+    }
+
+    // ── lightbox ──
+    let lightboxPhotos = [], lbIndex = 0;
+    function openLightbox(i) { lbIndex = i; showLb(); $('lightbox').classList.add('open'); }
+    function showLb() { $('lb-img').src = lightboxPhotos[lbIndex]; $('lb-count').textContent = (lbIndex + 1) + ' / ' + lightboxPhotos.length; }
+    $('lb-close').addEventListener('click', () => $('lightbox').classList.remove('open'));
+    $('lb-prev').addEventListener('click', () => { lbIndex = (lbIndex - 1 + lightboxPhotos.length) % lightboxPhotos.length; showLb(); });
+    $('lb-next').addEventListener('click', () => { lbIndex = (lbIndex + 1) % lightboxPhotos.length; showLb(); });
+    $('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) $('lightbox').classList.remove('open'); });
+    document.addEventListener('keydown', e => {
+      if (!$('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') $('lightbox').classList.remove('open');
+      if (e.key === 'ArrowLeft') $('lb-prev').click();
+      if (e.key === 'ArrowRight') $('lb-next').click();
+    });
+
+    // ── share ──
+    let shareToastTimer = null;
+    $('share-btn').addEventListener('click', async () => {
+      const name = $('name').textContent;
+      if (typeof gtag === 'function') gtag('event', PRODUCER_ID + '-share');
+      if (navigator.share) {
+        try { await navigator.share({ title: name + ' - Provenance', text: name + ' is a Provenance Featured farm.', url: PAGE_URL }); } catch (err) {}
+      } else {
+        try {
+          await navigator.clipboard.writeText(PAGE_URL);
+          const t = $('share-toast'); t.classList.add('visible');
+          clearTimeout(shareToastTimer); shareToastTimer = setTimeout(() => t.classList.remove('visible'), 2150);
+        } catch (err) {}
+      }
+    });
+
+    // ── load ──
+    // The service worker is cache-first for anything that is not a page, so
+    // both JSON files are fetched with a timestamp, the same as the map does.
+    const bust = '?v=' + Date.now();
+    Promise.all([
+      fetch('../producers.json' + bust, { cache: 'no-store' }).then(r => r.json()),
+      fetch('./profile.json' + bust, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
+    ]).then(([data, profile]) => {
+      const all = data.producers || [];
+      const producer = all.find(p => p.id === PRODUCER_ID);
+      if (producer) render(producer, all, profile);
+    }).catch(() => { /* the static hero still reads */ });
+  </script>
+</body>
+</html>
