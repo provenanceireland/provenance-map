@@ -188,10 +188,13 @@
     .gal { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 58px; }
     .gal figure { position: relative; margin: 0; border: 0.5px solid var(--hair); background: var(--surface); overflow: hidden; cursor: zoom-in; }
     .gal img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
+    /* Row one is a wide frame and a portrait beside it. 3:2 across four
+       columns and 3:4 across two come out the same height, so the row sits
+       level. Row two is three squares. */
     .gal figure:first-child { grid-column: span 4; }
     .gal figure:first-child img { aspect-ratio: 3/2; }
     .gal figure:nth-child(2) { grid-column: span 2; }
-    .gal figure:nth-child(2) img { aspect-ratio: 4/5; height: 100%; }
+    .gal figure:nth-child(2) img { aspect-ratio: 3/4; height: 100%; }
     .gal figure:nth-child(n+3) { grid-column: span 2; }
     .gal figcaption {
       position: absolute; left: 12px; bottom: 10px; right: 12px;
@@ -199,9 +202,11 @@
       text-transform: uppercase; color: rgba(232,222,200,0.75); text-shadow: 0 1px 6px rgba(0,0,0,0.8);
     }
     @media (max-width: 720px) {
+      /* Two columns: the wide frame on its own, then squares in pairs. */
       .gal { grid-template-columns: repeat(2, 1fr); }
       .gal figure:first-child { grid-column: span 2; }
       .gal figure:nth-child(2), .gal figure:nth-child(n+3) { grid-column: span 1; }
+      .gal figure:nth-child(2) img { aspect-ratio: 1/1; height: auto; }
     }
 
     /* ── lightbox ── */
@@ -479,12 +484,18 @@
       }
 
       // ── gallery: the same photos array the map card uses ──
-      const photos = (producer.photos || []).map(src => src.startsWith('http') || src.startsWith('/') ? src : '../' + src);
-      const captions = pr.captions || {};
+      // The photo the hero was cut from is left out here, so it is not shown
+      // twice. Captions and crop positions come from the profile, keyed by
+      // the same path the record uses.
+      const heroOf = (pr.hero && pr.hero.of) || '';
+      const meta = pr.gallery || {};
+      const keys = (producer.photos || []).filter(k => k !== heroOf);
+      const photos = keys.map(src => src.startsWith('http') || src.startsWith('/') ? src : '../' + src);
       if (photos.length) {
         $('gallery').innerHTML = photos.map((src, i) => {
-          const cap = captions[(producer.photos || [])[i]] || '';
-          return `<figure data-i="${i}"><img src="${esc(src)}" alt="${esc(cap || producer.name)}" loading="lazy" />${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+          const m = meta[keys[i]] || {};
+          const pos = m.position ? ` style="object-position:${esc(m.position)}"` : '';
+          return `<figure data-i="${i}"><img src="${esc(src)}" alt="${esc(m.caption || producer.name)}" loading="lazy"${pos} />${m.caption ? `<figcaption>${esc(m.caption)}</figcaption>` : ''}</figure>`;
         }).join('');
         $('gallery').querySelectorAll('figure').forEach(f => f.addEventListener('click', () => openLightbox(+f.dataset.i)));
         show('gallery-section', true); show('gallery', true);

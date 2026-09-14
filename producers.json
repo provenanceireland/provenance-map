@@ -235,6 +235,14 @@
       "product_type": ["vegetables", "beef", "lamb", "pork"],
       "description": "Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which which nurtures human health, community and biodiversity.",
       "photo_url": "skehanahill.png",
+      "photos": [
+        "skehanahill/garden.jpg",
+        "skehanahill/orchard.jpg",
+        "skehanahill/farmers.jpg",
+        "skehanahill/cattle.jpg",
+        "skehanahill/polytunnel.jpg",
+        "skehanahill/mist.jpg"
+      ],
       "map_link": null,
       "profile_slug": "skehanahill",
       "profile_live": false,
