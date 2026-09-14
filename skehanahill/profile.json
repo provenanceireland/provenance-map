@@ -4,8 +4,8 @@
 
   "visit": {
     "date": "26 August 2026",
-    "walked_by": "Provenance",
-    "ground": "A mixed holding outside Freshford. Market garden and polytunnel, an orchard, and cattle out on grass.",
+    "walked_by": "Darragh",
+    "ground": "An organic mixed farm outside Freshford. Beef cattle out on grass, lamb and pork off the same ground, with a market garden, a polytunnel and an orchard.",
     "listed": "Verified 9 August 2026, Featured August 2026"
   },
 
@@ -19,10 +19,14 @@
   "story": [],
 
   "products": [
-    { "name": "Organic vegetables", "note": "", "season": "" },
-    { "name": "Lamb",  "note": "", "season": "" },
-    { "name": "Beef",  "note": "", "season": "" },
-    { "name": "Pork",  "note": "", "season": "" }
+    { "name": "Beef", "note": "", "season": "" },
+    { "name": "Lamb", "note": "", "season": "" },
+    { "name": "Pork", "note": "", "season": "" },
+    { "name": "Organic vegetables", "note": "", "season": "" }
+  ],
+
+  "where_to_buy": [
+    { "name": "The farm shop", "note": "Skehana Hill, Freshford, Co. Kilkenny", "url": "https://maps.google.com/?q=R95+A0F6", "when": "Directions" }
   ],
 
   "photos": [

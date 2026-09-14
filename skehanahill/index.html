@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Skehana Hill - Provenance</title>
-  <meta name="description" content="Skehana Hill, Freshford, Co. Kilkenny. Organic vegetables, lamb, beef and pork. A Provenance Featured farm, visited and filmed by Provenance." />
+  <meta name="description" content="Skehana Hill, Freshford, Co. Kilkenny. Beef, lamb, pork and organic vegetables. A Provenance Featured farm, visited and filmed by Provenance." />
   <link rel="canonical" href="https://provenancemap.ie/skehanahill/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Provenance Map" />
   <meta property="og:title" content="Skehana Hill - Provenance Featured" />
-  <meta property="og:description" content="Organic vegetables, lamb, beef and pork from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
+  <meta property="og:description" content="Beef, lamb, pork and organic vegetables from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
   <meta property="og:url" content="https://provenancemap.ie/skehanahill/" />
   <meta property="og:image" content="https://provenancemap.ie/assets/og/skehana-hill.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Skehana Hill - Provenance Featured" />
-  <meta name="twitter:description" content="Organic vegetables, lamb, beef and pork from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
+  <meta name="twitter:description" content="Beef, lamb, pork and organic vegetables from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
   <meta name="twitter:image" content="https://provenancemap.ie/assets/og/skehana-hill.jpg" />
   <meta name="theme-color" content="#060807" />
   <link rel="icon" href="../icons/icon-192.png" />
@@ -308,7 +308,7 @@
         <div id="share-toast">Link copied</div>
       </div>
       <p class="where" id="where">Freshford, Co. Kilkenny</p>
-      <p class="produce" id="produce">Organic Vegetables, Lamb, Beef and Pork</p>
+      <p class="produce" id="produce">Beef, Lamb, Pork and Organic Vegetables</p>
       <div class="links" id="links"></div>
     </div>
   </div>
@@ -325,7 +325,7 @@
     <section>
       <div class="sec-head"><h2>The farm</h2><span class="rule"></span></div>
       <blockquote id="quote">
-        <span id="quote-text">Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which which nurtures human health, community and biodiversity.</span>
+        <span id="quote-text">Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which nurtures human health, community and biodiversity.</span>
         <cite>Skehana Hill, in their own words</cite>
       </blockquote>
       <div id="story"></div>
@@ -454,7 +454,7 @@
       const rows = [];
       if (visit.date) rows.push(['Visited', esc(visit.date)]);
       rows.push(['Walked by', esc(visit.walked_by || 'Provenance')]);
-      if (practices.length) rows.push(['Practice', practices.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' and ') + '<small>Confirmed by the producer, not researched.</small>']);
+      if (practices.length) rows.push(['Practice', practices.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' and ')]);
       if (visit.ground) rows.push(['Ground', esc(visit.ground)]);
       if (producer.attributes && producer.attributes.length) rows.push(['Confirmed', esc(producer.attributes.join(', '))]);
       if (visit.listed) rows.push(['Listed', esc(visit.listed)]);
@@ -499,7 +499,9 @@
       }
 
       // ── where to buy ──
-      const buy = producer.where_to_buy || [];
+      // The profile's list wins when it has one, so the page can carry the
+      // farm shop and its directions without putting either on the map card.
+      const buy = (pr.where_to_buy && pr.where_to_buy.length) ? pr.where_to_buy : (producer.where_to_buy || []);
       if (buy.length) {
         $('buy').innerHTML = buy.map(item => {
           if (typeof item === 'string') return `<div class="buy-row"><div><strong>${esc(item)}</strong></div></div>`;

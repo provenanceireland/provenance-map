@@ -231,9 +231,9 @@
       "lng": -7.403156557660718,
       "county": "Kilkenny",
       "location": "Freshford, Co. Kilkenny",
-      "product": "Organic Vegetables, Lamb, Beef and Pork",
-      "product_type": ["vegetables", "beef", "lamb", "pork"],
-      "description": "Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which which nurtures human health, community and biodiversity.",
+      "product": "Beef, Lamb, Pork and Organic Vegetables",
+      "product_type": ["beef", "lamb", "pork", "vegetables"],
+      "description": "Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which nurtures human health, community and biodiversity.",
       "photo_url": "skehanahill.png",
       "map_link": null,
       "profile_slug": "skehanahill",
@@ -245,7 +245,7 @@
       "seal_url": null,
       "where_to_buy": [],
       "farmers_market": false,
-      "farm_shop": false,
+      "farm_shop": true,
       "date_added": null
     },
     {
