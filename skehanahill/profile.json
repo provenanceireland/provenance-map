@@ -11,7 +11,6 @@
 
   "hero": {
     "src": "hero.jpg",
-    "of": "skehanahill/garden.jpg",
     "alt": "The market garden at Skehana Hill, brassicas and sunflowers under a grey August sky"
   },
 
@@ -26,12 +25,12 @@
     { "name": "Pork",  "note": "", "season": "" }
   ],
 
-  "gallery": {
-    "skehanahill/garden.jpg":     { "caption": "The market garden, brassicas and sunflowers", "position": "50% 55%" },
-    "skehanahill/orchard.jpg":    { "caption": "The orchard", "position": "50% 45%" },
-    "skehanahill/farmers.jpg":    { "caption": "The farmers, and the dog", "position": "50% 55%" },
-    "skehanahill/cattle.jpg":     { "caption": "The herd, lying up in wet grass", "position": "50% 50%" },
-    "skehanahill/polytunnel.jpg": { "caption": "The polytunnel and the yard", "position": "50% 48%" },
-    "skehanahill/mist.jpg":       { "caption": "The hill, in morning fog", "position": "50% 48%" }
-  }
+  "photos": [
+    { "src": "orchard.jpg",    "caption": "The orchard", "position": "50% 45%" },
+    { "src": "farmers.jpg",    "caption": "The farmers, and the dog", "position": "50% 55%" },
+    { "src": "garden.jpg",     "caption": "The market garden, brassicas and sunflowers", "position": "50% 55%" },
+    { "src": "cattle.jpg",     "caption": "The herd, lying up in wet grass", "position": "50% 50%" },
+    { "src": "polytunnel.jpg", "caption": "The polytunnel and the yard", "position": "50% 48%" },
+    { "src": "mist.jpg",       "caption": "The hill, in morning fog", "position": "50% 48%" }
+  ]
 }
