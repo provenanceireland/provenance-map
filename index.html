@@ -20,7 +20,7 @@
     gtag('config', 'G-Y56PR1JFH8');
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#060807" />
+  <meta name="theme-color" content="#1A1B18" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Provenance" />
@@ -35,7 +35,7 @@
     html, body {
       width: 100%; height: 100%;
       overflow: hidden;
-      background: #060807;
+      background: #1A1B18;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       color: #E8DEC8;
     }
@@ -84,7 +84,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(to bottom, rgba(6,8,7,0.90) 0%, rgba(6,8,7,0) 100%);
+      background: linear-gradient(to bottom, rgba(26,27,24,0.90) 0%, rgba(26,27,24,0) 100%);
       pointer-events: none;
     }
 
@@ -92,7 +92,7 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1.9rem;
       font-weight: 500;
-      color: #f8f8f3;
+      color: #2F5C3A;
       letter-spacing: 0.14em;
       line-height: 1;
     }
@@ -100,7 +100,7 @@
     #header p {
       font-size: 0.58rem;
       font-weight: 300;
-      color: #f8f8f3;
+      color: #45704E;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       margin-top: 5px;
@@ -218,7 +218,7 @@
       transition: background 0.3s ease;
     }
     #overlay.active {
-      background: rgba(6,8,7,0.62);
+      background: rgba(26,27,24,0.62);
       pointer-events: all;
     }
 
@@ -237,7 +237,7 @@
       gap: 5px;
       cursor: pointer;
       pointer-events: auto;
-      background: rgba(14,16,13,0.88);
+      background: rgba(34,35,32,0.88);
       border: 0.5px solid rgba(255,255,255,0.07);
       border-radius: 8px;
       backdrop-filter: blur(8px);
@@ -295,7 +295,7 @@
       position: fixed;
       inset: 0;
       z-index: 110;
-      background: rgba(6,8,7,0.97);
+      background: rgba(26,27,24,0.97);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -329,14 +329,14 @@
       letter-spacing: 0.5px;
       padding: 16px 0;
       text-decoration: none;
-      border-bottom: 0.5px solid rgba(196,164,74,0.15);
+      border-bottom: 0.5px solid rgba(69,112,78,0.15);
       width: 260px;
       text-align: center;
       transition: color 0.2s;
     }
 
     .menu-link:last-of-type { border-bottom: none; }
-    .menu-link:hover { color: #C4A44A; }
+    .menu-link:hover { color: #5A8C64; }
 
     .menu-tagline {
       position: absolute;
@@ -353,7 +353,7 @@
       top: calc(env(safe-area-inset-top, 20px) + 74px);
       bottom: 0; left: 0; right: 0;
       z-index: 30;
-      background: #0E100D;
+      background: #222320;
       border-radius: 18px 18px 0 0;
       border-top: 1px solid rgba(255,255,255,0.05);
       transform: translateY(100%);
@@ -362,18 +362,18 @@
       margin: 0 auto;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      scrollbar-color: #1a1c1a #0E100D;
+      scrollbar-color: #2E2F2B #222320;
     }
     /* Featured cards take a gold top edge and a faint bloom above it, so the
        card matches the gold pin the visitor just tapped. Scoped to featured
        only: every other tier keeps the plain white hairline. */
     #card.featured-card {
-      border-top-color: rgba(201,164,74,0.55);
-      box-shadow: 0 -1px 20px -7px rgba(201,154,56,0.45);
+      border-top-color: rgba(69,112,78,0.85);
+      box-shadow: 0 -1px 20px -7px rgba(69,112,78,0.45);
     }
     #card::-webkit-scrollbar { width: 8px; }
-    #card::-webkit-scrollbar-track { background: #0E100D; }
-    #card::-webkit-scrollbar-thumb { background: #1a1c1a; border-radius: 4px; }
+    #card::-webkit-scrollbar-track { background: #222320; }
+    #card::-webkit-scrollbar-thumb { background: #2E2F2B; border-radius: 4px; }
     #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
 
@@ -444,7 +444,7 @@
       position: absolute;
       left: 0; right: 0; bottom: 0;
       height: 45%;
-      background: linear-gradient(to top, rgba(6,8,7,0.60), rgba(6,8,7,0));
+      background: linear-gradient(to top, rgba(26,27,24,0.60), rgba(26,27,24,0));
       pointer-events: none;
       z-index: 1;
     }
@@ -455,7 +455,7 @@
       display: inline-flex; align-items: center; gap: 6px;
       padding: 6px 11px;
       border-radius: 20px;
-      background: rgba(6,8,7,0.72);
+      background: rgba(26,27,24,0.72);
       border: 1px solid rgba(255,255,255,0.14);
       color: #E8DEC8;
       font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
@@ -470,7 +470,7 @@
     /* ── LIGHTBOX / PHOTO VIEWER ── */
     #lightbox {
       position: fixed; inset: 0; z-index: 200;
-      background: rgba(6,8,7,0.97);
+      background: rgba(26,27,24,0.97);
       display: none;
       align-items: center; justify-content: center;
       backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
@@ -515,7 +515,7 @@
       z-index: 3;
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 0.95rem; letter-spacing: 0.1em; color: #E8DEC8;
-      background: rgba(14,16,13,0.7); padding: 4px 14px; border-radius: 20px;
+      background: rgba(34,35,32,0.7); padding: 4px 14px; border-radius: 20px;
     }
     @media (min-width: 601px) {
       #lightbox-img { max-width: 900px; max-height: 88vh; }
@@ -569,13 +569,13 @@
     .tier-pill + .tier-pill { margin-left: 5px; }
     .tier-pill-discovered   { background: rgba(42,90,56,0.14);   border: 1px solid rgba(42,90,56,0.85);   color: #4E8560; }
     .tier-pill-verified     { background: rgba(89,166,102,0.10); border: 1px solid rgba(89,166,102,0.55);  color: #59A666; }
-    .tier-pill-featured     { background: rgba(201,154,56,0.16); border: 1px solid rgba(205,160,67,0.85);  color: #D9AE55; }
+    .tier-pill-featured     { background: #2F5C3A;                 border: 1px solid #45704E;                color: #E8DEC8; }
     .tier-pill-seal-lite    { background: rgba(112,112,112,0.10);border: 1px solid rgba(140,140,140,0.55); color: #909090; }
     .tier-pill-seal-complete{ background: rgba(196,164,74,0.10); border: 1px solid rgba(196,164,74,0.55);  color: #C4A44A; }
     .tier-pill-market       { background: rgba(176,98,58,0.10);  border: 1px solid rgba(176,98,58,0.55);   color: #C07050; }
     /* Founder is deliberately richer than the muted gold accent used elsewhere —
        it is the one pill meant to look like actual gold. */
-    .tier-pill-founder      { background: rgba(214,175,60,0.20); border: 1px solid rgba(224,187,74,0.90);  color: #EFCB6B; }
+    .tier-pill-founder      { background: rgba(69,112,78,0.20); border: 1px solid rgba(90,140,100,0.90);  color: #7DB088; }
     /* ── PINS — GOLD (Provenance Visited) ── */
     .pin.gold .pin-dot,
     .pin.approved.gold .pin-dot {
@@ -679,7 +679,7 @@
       bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
       right: 16px;
       z-index: 25;
-      background: rgba(14,16,13,0.88);
+      background: rgba(34,35,32,0.88);
       border: 0.5px solid rgba(255,255,255,0.07);
       border-radius: 6px;
       padding: 5px 8px;
@@ -848,7 +848,7 @@
       font-size: 0.56rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #C4A44A;
+      color: #5A8C64;
       margin-bottom: 4px;
       display: block;
     }
@@ -864,7 +864,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .card-where-buy-item:last-child { border-bottom: none; }
-    .card-where-buy-item a { color: #C4A44A; text-decoration: none; }
+    .card-where-buy-item a { color: #5A8C64; text-decoration: none; }
     /* One entry spans the card rather than sitting in the left column */
     .card-where-buy-list.single { grid-template-columns: 1fr; }
     .card-where-buy-item a,
@@ -873,7 +873,7 @@
       font-size: 0.54rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #C4A44A;
+      color: #5A8C64;
       white-space: nowrap;
     }
     .card-where-buy-note { display: block; font-size: 0.64rem; color: #8C8259; margin-top: 1px; }
@@ -891,9 +891,9 @@
       text-transform: uppercase;
       padding: 3px 9px;
       border-radius: 20px;
-      background: rgba(196,164,74,0.08);
-      border: 1px solid rgba(196,164,74,0.25);
-      color: #C4A44A;
+      background: rgba(69,112,78,0.08);
+      border: 1px solid rgba(69,112,78,0.25);
+      color: #5A8C64;
     }
 
     #card-attributes {
@@ -935,22 +935,22 @@
        Deliberately inert: dashed border and a muted gold so it reads as
        pending rather than clickable. Becomes a real link when the page ships. */
     .card-action-progress {
-      background: rgba(196,164,74,0.04);
-      border: 1px dashed rgba(196,164,74,0.40);
-      color: #A08B4F;
+      background: rgba(69,112,78,0.04);
+      border: 1px dashed rgba(69,112,78,0.40);
+      color: #5A8C64;
       cursor: default;
     }
-    .card-action-progress:hover  { background: rgba(196,164,74,0.04); }
+    .card-action-progress:hover  { background: rgba(69,112,78,0.04); }
     .card-action-progress:active { transform: none; }
 
     /* The live Featured profile link. Same amber as the tier pill, solid
        border, so it reads as the one thing on the card worth pressing. */
     .card-action-featured {
-      background: rgba(196,164,74,0.10);
-      border: 1px solid rgba(217,174,85,0.70);
-      color: #D9AE55;
+      background: #2F5C3A;
+      border: 1px solid #45704E;
+      color: #E8DEC8;
     }
-    .card-action-featured:hover { background: rgba(196,164,74,0.18); }
+    .card-action-featured:hover { background: #35663F; }
 
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
     .card-confirmed {
@@ -998,11 +998,11 @@
     .card-action-seal:hover { background: rgba(196,164,74,0.14); }
     /* Founder — the one gold element on the card, so it is the richer gold */
     .card-action-founder {
-      background: rgba(214,175,60,0.14);
-      border: 1px solid rgba(224,187,74,0.75);
-      color: #EFCB6B;
+      background: rgba(69,112,78,0.14);
+      border: 1px solid rgba(90,140,100,0.75);
+      color: #7DB088;
     }
-    .card-action-founder:hover { background: rgba(214,175,60,0.22); }
+    .card-action-founder:hover { background: rgba(69,112,78,0.22); }
     .card-action-icons {
       display: flex;
       justify-content: center;
@@ -1038,15 +1038,15 @@
       opacity: 1;
       transition: color 0.2s;
     }
-    .card-share-icon:hover { color: #C4A44A; }
+    .card-share-icon:hover { color: #5A8C64; }
 
     /* ── SHARE TOAST ── */
     #share-toast-card {
       position: fixed;
       transform: translateX(-50%);
       z-index: 60;
-      background: #0E100D;
-      border: 1px solid rgba(196,164,74,0.35);
+      background: #222320;
+      border: 1px solid rgba(69,112,78,0.35);
       border-radius: 8px;
       padding: 10px 18px;
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -1152,7 +1152,7 @@
       width: 6px; height: 6px;
       border-radius: 50%;
       background: #4A8A55;
-      border: 1px solid rgba(6,8,7,0.9);
+      border: 1px solid rgba(26,27,24,0.9);
       box-shadow: 0 0 4px 1px rgba(74,138,85,0.6);
     }
 
@@ -1184,8 +1184,8 @@
       bottom: calc(env(safe-area-inset-bottom, 16px) + 22px);
       left: 16px;
       z-index: 25;
-      background: #0E100D;
-      border: 1px solid rgba(196,164,74,0.25);
+      background: #222320;
+      border: 1px solid rgba(69,112,78,0.25);
       border-radius: 8px;
       padding: 7px 13px;
       max-height: 40px;
@@ -1218,7 +1218,7 @@
       width: 44px; height: 44px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      background: rgba(14,16,13,0.88);
+      background: rgba(34,35,32,0.88);
       border: 0.5px solid rgba(255,255,255,0.07);
       border-radius: 8px;
       backdrop-filter: blur(8px);
@@ -1226,7 +1226,7 @@
       -webkit-tap-highlight-color: transparent;
       transition: border-color 0.2s;
     }
-    #filter-toggle.active { border-color: rgba(196,164,74,0.55); }
+    #filter-toggle.active { border-color: rgba(69,112,78,0.55); }
     #filter-toggle svg {
       width: 18px; height: 18px;
       stroke: #E8DEC8; fill: none;
@@ -1236,10 +1236,10 @@
       position: absolute;
       top: 7px; right: 7px;
       width: 13px; height: 13px;
-      background: #C4A44A;
+      background: #5A8C64;
       border-radius: 50%;
       font-size: 8px; font-weight: 700;
-      color: #060807;
+      color: #1A1B18;
       display: flex; align-items: center; justify-content: center;
     }
 
@@ -1248,7 +1248,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 108;
-      background: rgba(14,16,13,0.97);
+      background: rgba(34,35,32,0.97);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 0.5px solid rgba(255,255,255,0.07);
@@ -1278,7 +1278,7 @@
       font-size: 0.58rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #C4A44A;
+      color: #5A8C64;
       background: none; border: none;
       cursor: pointer; padding: 4px 0;
       opacity: 0.65;
@@ -1314,23 +1314,23 @@
       transition: border-color 0.15s;
     }
     #filter-search::placeholder { color: #504838; }
-    #filter-search:focus { border-color: rgba(196,164,74,0.4); }
+    #filter-search:focus { border-color: rgba(69,112,78,0.4); }
     #filter-search-btn {
       flex-shrink: 0;
-      background: rgba(196,164,74,0.12);
-      border: 0.5px solid rgba(196,164,74,0.35);
+      background: rgba(69,112,78,0.12);
+      border: 0.5px solid rgba(69,112,78,0.35);
       border-radius: 7px;
       padding: 0 14px;
       font-size: 0.58rem; font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #C4A44A;
+      color: #5A8C64;
       cursor: pointer;
       font-family: inherit;
       -webkit-tap-highlight-color: transparent;
       transition: background 0.15s, border-color 0.15s;
     }
-    #filter-search-btn:hover { background: rgba(196,164,74,0.2); border-color: rgba(196,164,74,0.6); }
+    #filter-search-btn:hover { background: rgba(69,112,78,0.2); border-color: rgba(69,112,78,0.6); }
 
     #filter-county {
       width: 100%;
@@ -1350,9 +1350,9 @@
       background-position: right 12px center;
       transition: border-color 0.15s;
     }
-    #filter-county option { background: #0E100D; color: #E8DEC8; }
+    #filter-county option { background: #222320; color: #E8DEC8; }
     #filter-county:focus,
-    #filter-county.active { border-color: rgba(196,164,74,0.4); }
+    #filter-county.active { border-color: rgba(69,112,78,0.4); }
 
     .filter-chips {
       display: flex; flex-wrap: wrap; gap: 6px;
@@ -1372,9 +1372,9 @@
       -webkit-tap-highlight-color: transparent;
     }
     .filter-chip.active, .tier-btn.active {
-      background: rgba(196,164,74,0.1);
-      border-color: rgba(196,164,74,0.5);
-      color: #C4A44A;
+      background: rgba(69,112,78,0.1);
+      border-color: rgba(69,112,78,0.5);
+      color: #5A8C64;
     }
     .filter-tiers { display: flex; flex-wrap: wrap; gap: 6px; }
 
@@ -1405,8 +1405,8 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 25;
-    background: rgba(14,16,13,0.94);
-    border: 1px solid rgba(196,164,74,0.30);
+    background: rgba(34,35,32,0.94);
+    border: 1px solid rgba(69,112,78,0.30);
     border-radius: 22px;
     padding: 9px 12px 9px 13px;
     display: flex; align-items: center; gap: 8px;
@@ -1419,7 +1419,7 @@
   #near-me-chip.visible { opacity: 1; pointer-events: auto; }
   #near-me-chip > svg {
     width: 13px; height: 13px;
-    stroke: #C4A44A; fill: none;
+    stroke: #5A8C64; fill: none;
     stroke-width: 1.6; stroke-linecap: round; flex-shrink: 0;
   }
   .nm-chip-text {
@@ -1443,7 +1443,7 @@
     bottom: calc(env(safe-area-inset-bottom, 16px) + 112px);
     left: 50%; transform: translateX(-50%);
     z-index: 50;
-    background: rgba(14,16,13,0.96); border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(34,35,32,0.96); border: 1px solid rgba(255,255,255,0.08);
     border-radius: 8px; padding: 10px 16px;
     font-size: 0.76rem; color: #E8DEC8; white-space: nowrap;
     opacity: 0; pointer-events: none; transition: opacity 0.3s;
@@ -1453,7 +1453,7 @@
 
   #near-me-panel {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
-    background: #0E100D; border-radius: 18px 18px 0 0;
+    background: #222320; border-radius: 18px 18px 0 0;
     border-top: 1px solid rgba(255,255,255,0.05);
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
@@ -1466,7 +1466,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 22px 14px;
     border-bottom: 1px solid rgba(255,255,255,0.04);
-    position: sticky; top: 0; background: #0E100D; z-index: 1;
+    position: sticky; top: 0; background: #222320; z-index: 1;
   }
   .nm-panel-title {
     font-family: 'Cormorant Garamond', Georgia, serif;
@@ -1494,7 +1494,7 @@
   .nm-list-info { display: flex; flex-direction: column; gap: 3px; }
   .nm-list-name { font-size: 0.92rem; color: #E8DEC8; font-family: 'Cormorant Garamond', Georgia, serif; }
   .nm-list-location { font-size: 0.60rem; letter-spacing: 0.1em; text-transform: uppercase; color: #504838; }
-  .nm-list-dist { font-size: 0.72rem; color: #C4A44A; letter-spacing: 0.05em; flex-shrink: 0; margin-left: 14px; }
+  .nm-list-dist { font-size: 0.72rem; color: #5A8C64; letter-spacing: 0.05em; flex-shrink: 0; margin-left: 14px; }
 
   .user-location-dot {
     position: absolute; transform: translate(-50%, -50%);
@@ -1573,7 +1573,7 @@
     </div>
     <div class="legend-item">
       <div class="legend-dot-wrap legend-dot-featured">
-        <div class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
+        <div class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(69,112,78,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
       </div>
       <div class="legend-text">
         <span>Featured producer</span>
@@ -1889,7 +1889,7 @@
       if (!panel) {
         panel = document.createElement('div');
         panel.id = 'pin-debug';
-        panel.style.cssText = 'position:fixed;left:8px;top:8px;z-index:9999;max-height:60vh;overflow:auto;background:rgba(6,8,7,.92);color:#E8DEC8;font:11px/1.45 monospace;padding:10px 12px;border:1px solid #4A8A55;border-radius:6px;white-space:pre;pointer-events:auto;';
+        panel.style.cssText = 'position:fixed;left:8px;top:8px;z-index:9999;max-height:60vh;overflow:auto;background:rgba(26,27,24,.92);color:#E8DEC8;font:11px/1.45 monospace;padding:10px 12px;border:1px solid #4A8A55;border-radius:6px;white-space:pre;pointer-events:auto;';
         document.body.appendChild(panel);
       }
       const only = (new URLSearchParams(location.search).get('ids') || '').split(',').map(s => s.trim()).filter(Boolean);
@@ -2787,7 +2787,7 @@
       ctx.clearRect(0, 0, vw, vh);
       ctx.beginPath();
       ctx.arc(px, py, 0.054 * rh, 0, 2 * Math.PI);
-      ctx.strokeStyle = 'rgba(196,164,74,0.25)';
+      ctx.strokeStyle = 'rgba(69,112,78,0.25)';
       ctx.lineWidth = 1;
       ctx.stroke();
       canvas.style.display = 'block';
