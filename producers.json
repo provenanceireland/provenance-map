@@ -244,7 +244,7 @@
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [
-        { "name": "The farm shop", "note": "Skehana Hill Farm Shop, Freshford, Co. Kilkenny", "url": "https://www.google.com/maps/dir/?api=1&destination=Skehana+Hill+Farm+Shop%2C+Freshford%2C+Co.+Kilkenny", "when": "Directions" }
+        { "name": "The farm shop", "note": "Skehana Hill Farm Shop, Freshford, Co. Kilkenny", "url": "https://www.google.com/maps/dir/?api=1&destination=52.732650886271735%2C-7.399929176327682", "when": "Directions" }
       ],
       "farmers_market": false,
       "farm_shop": true,
