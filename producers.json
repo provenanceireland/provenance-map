@@ -237,13 +237,15 @@
       "photo_url": "skehanahill.png",
       "map_link": null,
       "profile_slug": "skehanahill",
-      "profile_live": false,
+      "profile_live": true,
       "social_instagram": "skehanahill",
       "website": "https://skehanahill.ie",
       "attributes": [],
       "seal_active": false,
       "seal_url": null,
-      "where_to_buy": [],
+      "where_to_buy": [
+        { "name": "The farm shop", "note": "Skehana Hill, Freshford, Co. Kilkenny", "url": "https://maps.google.com/?q=R95+A0F6", "when": "Directions" }
+      ],
       "farmers_market": false,
       "farm_shop": true,
       "date_added": null

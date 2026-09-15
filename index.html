@@ -865,6 +865,18 @@
     }
     .card-where-buy-item:last-child { border-bottom: none; }
     .card-where-buy-item a { color: #C4A44A; text-decoration: none; }
+    /* One entry spans the card rather than sitting in the left column */
+    .card-where-buy-list.single { grid-template-columns: 1fr; }
+    .card-where-buy-item a,
+    .card-where-buy-name { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .card-where-buy-when {
+      font-size: 0.54rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C4A44A;
+      white-space: nowrap;
+    }
+    .card-where-buy-note { display: block; font-size: 0.64rem; color: #8C8259; margin-top: 1px; }
     /* Venue tags (farm shop, farmers market) */
     .card-venue-tags {
       display: flex;
@@ -2215,12 +2227,17 @@
         try {
           const items = JSON.parse(pin.dataset.whereToBuy);
           if (items.length) {
-            whereToBuyEl.innerHTML = `<span class="card-where-buy-label">Where to buy</span><div class="card-where-buy-list">` +
+            // Each entry is a string, or { name, url, note, when }. A url makes the
+            // name a link; `when` sits on the right of it (a day, or "Directions"
+            // for a maps link); `note` is a muted line under it, usually the address.
+            whereToBuyEl.innerHTML = `<span class="card-where-buy-label">Where to buy</span><div class="card-where-buy-list${items.length === 1 ? ' single' : ''}">` +
               items.map(item => {
                 if (typeof item === 'string') return `<div class="card-where-buy-item">${item}</div>`;
+                const when = item.when ? `<span class="card-where-buy-when">${item.when}</span>` : '';
+                const note = item.note ? `<span class="card-where-buy-note">${item.note}</span>` : '';
                 return `<div class="card-where-buy-item">${item.url
-                  ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}</a>`
-                  : item.name}</div>`;
+                  ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}${when}</a>`
+                  : `<span class="card-where-buy-name">${item.name}${when}</span>`}${note}</div>`;
               }).join('') + `</div>`;
             whereToBuyEl.classList.remove('hidden');
           } else { whereToBuyEl.classList.add('hidden'); }

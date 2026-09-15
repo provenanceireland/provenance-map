@@ -1,6 +1,6 @@
 {
     "id":  "skehana-hill",
-    "live":  false,
+    "live":  true,
     "visit":  {
                   "date":  "26 August 2026",
                   "walked_by":  "Darragh",
@@ -44,14 +44,6 @@
                          "season":  "Year round, with the tunnel"
                      }
                  ],
-    "where_to_buy":  [
-                         {
-                             "name":  "The farm shop",
-                             "note":  "Skehana Hill, Freshford, Co. Kilkenny",
-                             "url":  "https://maps.google.com/?q=R95+A0F6",
-                             "when":  "Directions"
-                         }
-                     ],
     "photos":  [
                    {
                        "src":  "orchard.jpg",
