@@ -373,10 +373,15 @@
   </div>
 
   <div class="map-section">
-    <!-- A still of the map as it is today, every pin where it sits. Rendered
-         by render-map-image.ps1 in the repo root; re-run it when pins move. -->
+    <!-- A still of the map as it is today, every pin where it sits. One per
+         device, because the map places pins differently in landscape and
+         portrait. Rendered by render-map-image.ps1 in the repo root; re-run
+         it for both devices when pins move. -->
     <div class="mini-map">
-      <img src="map-today.jpg" alt="The Provenance Map, with Skehana Hill's gold pin among the others" />
+      <picture>
+        <source media="(orientation: landscape)" srcset="map-pc.jpg" />
+        <img src="map-mobile.jpg" alt="The Provenance Map, with Skehana Hill's gold pin among the others" />
+      </picture>
     </div>
     <p class="map-line">Skehana Hill is a Provenance Featured farm<br>on the Provenance Map</p>
     <a href="../?producer=skehana-hill" class="map-btn">See on the map</a>
