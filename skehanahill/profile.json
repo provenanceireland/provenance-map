@@ -5,7 +5,7 @@
   "visit": {
     "date": "26 August 2026",
     "walked_by": "Darragh",
-    "ground": "An organic mixed farm outside Freshford. Beef cattle out on grass, lamb and pork off the same ground, with a market garden, a polytunnel and an orchard.",
+    "ground": "A little over 200 acres outside Freshford, farmed organically. Beef cattle on the lower half, sheep, a few pigs, about an acre of market garden with a polytunnel, and an orchard.",
     "listed": "Verified 9 August 2026, Featured August 2026"
   },
 
@@ -16,13 +16,18 @@
 
   "film": { "url": "", "aspect": "16/9", "title": "Skehana Hill, the Provenance visit" },
 
-  "story": [],
+  "story": [
+    "Skehana Hill is a little over 200 acres outside Freshford, farmed organically by Fintan White, and the cattle have the lower half of it. When Provenance walked it, in August fog, the herd was lying up in long grass: 15 cows with 15 calves at foot, four replacements and about ten more besides. The cows are continental crosses and a few Angus, put to an Angus bull, with a Shorthorn or two in the mix. The sires, Angus, Hereford and Shorthorn, are picked for one job, finishing on grass. The beef is grass fed and grass finished, no meal, and Fintan grazes tall in the autumn so the animals take seeds and forage as well as leaf, which he says shows in the fat.",
+    "Grazing is one day on a piece of ground, then a long rest. The cattle go on tight, trample what they don't eat, and move. At the bottom of the farm there is a bog on the river that runs into Freshford, and the cattle are fenced 25 metres back from the bank. The bog slows the water before it reaches the village, holds grasses and birds the rest of the farm doesn't, and in a dry August, when there is little grass anywhere else, it has plenty. The plan is the whole of September down there while the rest of the farm builds up, and a herd that stays out later into winter. More of the fertility lands on the field and less of it in the yard.",
+    "The sheep are finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn. Five Saddleback pigs were in a paddock that becomes next year's vegetable ground, on organic barley, wheat and peas, and windfalls from an orchard of ten or so apple varieties. About an acre is in beds and a polytunnel: tomatoes at peak harvest, salads under nets to keep the blackbirds off, three kales, purple sprouting broccoli, cauliflower, celery for the first time, and a tenth of the garden kept for experiments, which this year means soybeans and sweet potatoes. Wood chip paths, straw on the beds, compost at the start of the year, and the leafy crops get nothing more.",
+    "Fintan doesn't call the farm regenerative yet. He calls it a journey towards it, two steps forward and one back, observation and reaction. He will leave a field of thistles standing for the bees rather than burn the diesel to top them. His line on organic is the one worth keeping: to make an organic farm work in the long run, you almost have to be regenerative, because the only fertility you have is what you can find inside the farm gate. The cattle didn't get up when we walked in among them. That, he says, is what moving them every day does to a herd."
+  ],
 
   "products": [
-    { "name": "Beef", "note": "", "season": "" },
-    { "name": "Lamb", "note": "", "season": "" },
-    { "name": "Pork", "note": "", "season": "" },
-    { "name": "Organic vegetables", "note": "", "season": "" }
+    { "name": "Beef", "note": "Grass fed and grass finished, no meal. Angus, Hereford and Shorthorn sires on continental cross and Angus cows, chosen to finish on grass. Grazed tall in the autumn for the fat.", "season": "15 cows, calving to an Angus bull" },
+    { "name": "Lamb", "note": "Finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn.", "season": "Grass finished" },
+    { "name": "Pork", "note": "Saddleback pigs, a few at a time, on organic barley, wheat and peas and the orchard windfalls. Last winter's batch ran in the woods.", "season": "Small batches" },
+    { "name": "Organic vegetables", "note": "About an acre of beds and a polytunnel on a rotation: tomatoes, salads, three kales, purple sprouting broccoli, cauliflower, courgettes, pumpkins, alliums and roots. A corner for experiments, soybeans and sweet potato this year.", "season": "Year round, with the tunnel" }
   ],
 
   "where_to_buy": [
