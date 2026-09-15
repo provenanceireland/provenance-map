@@ -18,7 +18,7 @@
   <meta name="twitter:title" content="Skehana Hill - Provenance Featured" />
   <meta name="twitter:description" content="Beef, lamb, pork and organic vegetables from Freshford, Co. Kilkenny. Visited and filmed by Provenance." />
   <meta name="twitter:image" content="https://provenancemap.ie/assets/og/skehana-hill.jpg" />
-  <meta name="theme-color" content="#060807" />
+  <meta name="theme-color" content="#1A1B18" />
   <link rel="icon" href="../icons/icon-192.png" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y56PR1JFH8"></script>
@@ -33,196 +33,176 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet" />
 
   <style>
-    /* Featured profile page. Same ground and hairlines as the map; the type
-       is the carousel's, Playfair Display for headings, Inter for the small
-       caps, Source Serif 4 for the body, no italic anywhere. Text holds a
-       620px column; media breaks to 1040px. */
+    /* Featured profile page, set like the carousel plates: charcoal ground,
+       silver hairlines, Playfair Display headings in deep forest green,
+       Inter small caps in green, Source Serif 4 body in cream. No italic
+       anywhere. Text holds a 620px column; media breaks to 1040px. */
     :root {
-      --ground: #060807;
-      --surface: #0E100D;
-      --surface-2: #12150F;
-      --hair: rgba(30,58,40,0.28);
-      --hair-warm: rgba(196,164,74,0.22);
+      --ground: #1A1B18;
+      --ground-deep: #151614;
+      --surface: #222320;
+      --surface-2: #282925;
+      --hair: rgba(201,198,189,0.14);
+      --hair-strong: rgba(201,198,189,0.28);
       --cream: #E8DEC8;
-      --body: #B9B098;
-      --muted: #7C7359;
-      --faint: #504838;
-      --gold: #C4A44A;
-      --amber: #D9AE55;
-      --green: #4A8A55;
-      --green-pin: #59A666;
+      --cream-soft: #CFC7B3;
+      --silver: #C9C6BD;
+      --muted: #9A968B;
+      --faint: #7A766A;
+      --green-deep: #2F5C3A;
+      --green-head: #35663F;
+      --green: #45704E;
+      --green-light: #5A8C64;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { background: var(--ground); }
     body {
-      background: var(--ground); color: var(--body);
+      background: radial-gradient(ellipse 90% 60% at 50% 0%, #222320 0%, var(--ground) 55%, var(--ground-deep) 100%);
+      color: var(--cream);
       font-family: 'Source Serif 4', Georgia, serif; font-weight: 300;
       font-size: 17px; line-height: 1.72; -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
-    :focus-visible { outline: 1.5px solid var(--gold); outline-offset: 3px; }
+    :focus-visible { outline: 1.5px solid var(--green-light); outline-offset: 3px; }
     img { max-width: 100%; display: block; }
     .hidden { display: none !important; }
 
     .col  { max-width: 620px;  margin: 0 auto; padding: 0 24px; }
     .wide { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 
-    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; text-wrap: balance; color: var(--cream); }
-    h2 { font-size: 1.45rem; line-height: 1.2; }
-    h3 { font-size: 1.06rem; line-height: 1.3; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; text-wrap: balance; }
+    h1 { color: var(--green-deep); }
+    h2 { font-size: 1.85rem; line-height: 1.15; color: var(--green-head); }
+    h3 { font-size: 1.14rem; line-height: 1.3; color: var(--green-light); }
     p + p { margin-top: 1.05em; }
 
     .label {
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: #45704E;
+      font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--green);
     }
 
     /* ── site header ── */
     .site {
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 18px 24px; border-bottom: 0.5px solid var(--hair);
+      padding: 18px 24px; border-bottom: 1px solid var(--hair);
       max-width: 1040px; margin: 0 auto;
     }
-    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; letter-spacing: 0.14em; color: var(--cream); }
+    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; letter-spacing: 0.14em; color: var(--cream); }
     .back {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.62rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--faint); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
     }
-    .back:hover { color: var(--gold); }
+    .back:hover { color: var(--green-light); }
     .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
     /* ── hero ── */
     .hero { padding-top: 8px; }
     .hero-img { margin-bottom: 34px; }
-    .hero-img img { width: 100%; aspect-ratio: 3/2; object-fit: cover; border: 0.5px solid var(--hair); }
-    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif;
-      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
-    }
-    .pill-featured { border: 0.5px solid rgba(217,174,85,0.7); color: var(--amber); background: rgba(196,164,74,0.07); }
-    .pill-featured .dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: radial-gradient(circle at 34% 30%, #E8C670, #CDA043 48%, #A97C28);
-      box-shadow: 0 0 5px 1px rgba(201,154,56,0.5);
-    }
-    .pill-organic      { border: 0.5px solid rgba(74,138,85,0.6);  color: #6FA877; }
-    .pill-regenerative { border: 0.5px solid rgba(196,164,74,0.6); color: #C9AD5C; }
-    .pill-progress     { border: 0.5px dashed rgba(196,164,74,0.4); color: #A08B4F; }
+    .hero-img img { width: 100%; aspect-ratio: 3/2; object-fit: cover; border: 1px solid var(--hair); }
     .name-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; position: relative; }
-    h1.name { font-size: clamp(2.4rem, 6vw, 3.3rem); line-height: 1.06; margin-bottom: 12px; }
-    /* The place line in forest green, the same green as the carousel small
-       caps. Gold was too much orange under the gold pin and the gold card. */
-    .where { color: #45704E; font-size: 0.95rem; letter-spacing: 0.02em; }
-    .produce { margin-top: 6px; color: var(--muted); font-size: 0.95rem; }
-    .links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; }
+    h1.name { font-size: clamp(2.6rem, 6.5vw, 3.6rem); line-height: 1.06; margin-bottom: 10px; }
+    /* The place line: a lighter green than the headings, so it reads apart */
+    .where { color: var(--green-light); font-size: 1rem; letter-spacing: 0.02em; }
+    .produce { margin-top: 6px; color: var(--cream-soft); font-size: 1rem; }
+    /* Instagram and website as proper buttons, the carousel's bordered kind */
+    .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
     .links a {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.62rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+      display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px;
+      border: 1px solid rgba(69,112,78,0.85); background: rgba(69,112,78,0.06);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green-light); transition: background 0.2s, color 0.2s;
     }
-    .links a:hover { color: var(--gold); }
-    .links svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .links a:hover { background: rgba(69,112,78,0.16); color: var(--cream); }
+    .links svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
     .share-btn {
-      background: none; border: none; cursor: pointer; padding: 6px; margin-top: 14px;
-      color: #706050; flex-shrink: 0; transition: color 0.2s; -webkit-tap-highlight-color: transparent;
+      background: none; border: none; cursor: pointer; padding: 6px; margin-top: 16px;
+      color: var(--muted); flex-shrink: 0; transition: color 0.2s; -webkit-tap-highlight-color: transparent;
     }
-    .share-btn:hover { color: var(--gold); }
+    .share-btn:hover { color: var(--green-light); }
     .share-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; display: block; }
     #share-toast {
       position: absolute; top: calc(100% + 8px); right: 0;
-      background: var(--surface); border: 1px solid rgba(196,164,74,0.35); border-radius: 8px;
-      padding: 10px 18px; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--cream);
+      background: var(--surface); border: 1px solid var(--hair-strong); border-radius: 6px;
+      padding: 10px 18px; font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--cream);
       white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 5;
     }
     #share-toast.visible { opacity: 1; transition: opacity 0.15s; }
 
-    /* ── the visit record: the spine of a Featured page ── */
-    .record {
-      margin: 0 auto; border-top: 0.5px solid var(--hair-warm); border-bottom: 0.5px solid var(--hair-warm);
-      background: linear-gradient(180deg, rgba(196,164,74,0.035), transparent);
-    }
-    .record-inner { max-width: 620px; margin: 0 auto; padding: 26px 24px; }
-    .record dl { display: grid; grid-template-columns: 118px 1fr; gap: 10px 18px; margin-top: 14px; }
-    .record dt {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.6rem;
-      letter-spacing: 0.18em; text-transform: uppercase; color: #45704E; padding-top: 0.45em;
-    }
-    .record dd { color: var(--cream); font-size: 0.95rem; }
-    .record dd small { display: block; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
-
     /* ── sections ── */
     section { padding: 58px 0; }
-    section + section { border-top: 0.5px solid var(--hair); }
-    .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+    section + section { border-top: 1px solid var(--hair); }
+    .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
     .sec-head h2 { flex: none; }
-    .rule { flex: 1; height: 0.5px; background: var(--hair); }
+    .rule { flex: 1; height: 1px; background: var(--hair); }
+    .intro { color: var(--green-light); margin-bottom: 22px; }
 
+    /* Their own words, signed */
     blockquote {
-      margin: 0 0 26px; padding-left: 20px; border-left: 1px solid var(--hair-warm);
+      margin: 0 0 30px; padding-left: 22px; border-left: 1px solid var(--hair-strong);
       font-family: 'Playfair Display', Georgia, serif; font-weight: 400;
-      font-size: 1.22rem; line-height: 1.5; color: var(--cream);
+      font-size: 1.24rem; line-height: 1.5; color: var(--cream);
     }
     blockquote cite {
-      display: block; margin-top: 12px; font-family: 'Inter', Helvetica, Arial, sans-serif;
-      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); font-style: normal;
+      display: block; margin-top: 14px; font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); font-style: normal;
     }
 
-    /* ── film ── */
+    /* ── films: every one is vertical, so every frame is 9:16. A poster shows
+       until it is tapped; only then does the player load. ── */
     .film { margin: 0 auto 58px; }
-    .film-wrap { position: relative; width: 100%; background: var(--surface); border: 0.5px solid var(--hair); overflow: hidden; }
-    .film-wrap.r169 { aspect-ratio: 16/9; }
-    .film-wrap.r916 { aspect-ratio: 9/16; max-width: 420px; margin: 0 auto; }
+    .film-wrap {
+      position: relative; width: 100%; aspect-ratio: 9/16; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--hair);
+    }
+    .film .film-wrap { max-width: 420px; margin: 0 auto; }
+    .film-wrap img { width: 100%; height: 100%; object-fit: cover; }
     .film-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .film-face { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
+    .film-face::after {
+      content: ''; position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+      border-radius: 50%; border: 1px solid rgba(232,222,200,0.75); background: rgba(21,22,20,0.45);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23E8DEC8'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: 55% 50%; background-size: 30px;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    .film-face:hover::after { transform: scale(1.06); background-color: rgba(21,22,20,0.65); }
     .series { margin: 0 auto 58px; }
-    .series .label { margin-bottom: 14px; }
-    .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .series .label { margin-bottom: 16px; }
+    .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .series-grid figure { margin: 0; }
-    .series-grid figcaption { margin-top: 8px; font-family: 'Playfair Display', Georgia, serif; font-size: 1.02rem; color: var(--cream); }
-    @media (max-width: 720px) { .series-grid { grid-template-columns: 1fr; } }
+    .series-grid figcaption { margin-top: 10px; font-family: 'Playfair Display', Georgia, serif; font-size: 1.04rem; color: var(--green-light); }
+    @media (max-width: 720px) {
+      .series-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    }
 
     /* ── products ── */
-    .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--hair); border: 0.5px solid var(--hair); }
+    .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
     @media (max-width: 620px) { .products { grid-template-columns: 1fr; } }
-    .prod { background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 7px; }
-    .prod p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .prod { background: var(--surface); padding: 22px; display: flex; flex-direction: column; gap: 8px; }
+    .prod p { font-size: 0.92rem; color: var(--cream-soft); line-height: 1.6; }
     .prod .season {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.58rem;
-      letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); margin-top: auto; padding-top: 8px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.66rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); margin-top: auto; padding-top: 10px;
     }
 
-    /* ── gallery ── */
+    /* ── photos ── */
     .gal { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; margin-bottom: 58px; }
-    .gal figure { position: relative; margin: 0; border: 0.5px solid var(--hair); background: var(--surface); overflow: hidden; cursor: zoom-in; }
+    .gal figure { position: relative; margin: 0; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; cursor: zoom-in; }
     .gal img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
-    /* Row one is a wide frame and a portrait beside it. 3:2 across eight
-       columns and 3:4 across four come out the same height, so the row sits
-       level. Row two is four squares. */
     .gal figure:first-child { grid-column: span 8; }
     .gal figure:first-child img { aspect-ratio: 3/2; }
     .gal figure:nth-child(2) { grid-column: span 4; }
     .gal figure:nth-child(2) img { aspect-ratio: 3/4; height: 100%; }
     .gal figure:nth-child(n+3) { grid-column: span 3; }
-    .gal figcaption {
-      position: absolute; left: 12px; bottom: 10px; right: 12px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.58rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(232,222,200,0.75); text-shadow: 0 1px 6px rgba(0,0,0,0.8);
-    }
     @media (max-width: 720px) {
-      /* Every shot came off a phone in portrait, so on a phone they go back
-         to portrait: three pairs of 3:4 frames. */
       .gal { grid-template-columns: repeat(2, 1fr); }
       .gal figure, .gal figure:first-child, .gal figure:nth-child(2), .gal figure:nth-child(n+3) { grid-column: span 1; }
       .gal img, .gal figure:first-child img, .gal figure:nth-child(2) img { aspect-ratio: 3/4; height: auto; }
     }
 
     /* ── lightbox ── */
-    #lightbox {
-      position: fixed; inset: 0; background: rgba(6,8,7,0.96); z-index: 50;
-      display: none; align-items: center; justify-content: center;
-    }
+    #lightbox { position: fixed; inset: 0; background: rgba(21,22,20,0.96); z-index: 50; display: none; align-items: center; justify-content: center; }
     #lightbox.open { display: flex; }
     #lightbox img { max-width: min(92vw, 1100px); max-height: 88vh; object-fit: contain; }
     #lightbox button {
@@ -234,60 +214,79 @@
     #lb-next { right: 8px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; }
     #lb-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; }
 
-    /* ── where to buy ── */
-    .buy { border-top: 0.5px solid var(--hair); }
-    .buy-row {
-      display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline;
-      padding: 15px 0; border-bottom: 0.5px solid var(--hair);
+    /* ── where to buy, as a line of prose ── */
+    .buy p { font-size: 1.05rem; }
+    .buy a.dir {
+      display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green-light); transition: color 0.2s;
     }
-    .buy-row strong { font-weight: 400; color: var(--cream); font-size: 1rem; }
-    .buy-row a strong:hover { color: var(--gold); }
-    .buy-row span { display: block; color: var(--muted); font-size: 0.86rem; margin-top: 2px; }
-    .buy-row .when {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.62rem;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-align: right; white-space: nowrap;
-    }
+    .buy a.dir:hover { color: var(--cream); }
+    .buy a.dir svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
     /* ── nearby ── */
-    .rel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 0.5px solid var(--hair); margin-bottom: 58px; }
+    .rel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); margin-bottom: 58px; }
     @media (max-width: 720px) { .rel { grid-template-columns: 1fr; } }
-    .rel-card { background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 9px; transition: background 0.18s; }
+    .rel-card { background: var(--surface); padding: 22px; display: flex; flex-direction: column; gap: 9px; transition: background 0.18s; }
     .rel-card:hover { background: var(--surface-2); }
     .rel-top { display: flex; align-items: center; gap: 8px; }
     .p { border-radius: 50%; flex: none; }
-    .p-ver  { width: 9px; height: 9px; background: var(--green-pin); border: 1px solid rgba(248,248,243,0.6); box-shadow: 0 0 6px 2px rgba(89,166,102,0.5); }
+    .p-ver  { width: 9px; height: 9px; background: #59A666; border: 1px solid rgba(248,248,243,0.6); box-shadow: 0 0 6px 2px rgba(89,166,102,0.5); }
     .p-disc { width: 6px; height: 6px; background: #2A5A38; border: 1px solid rgba(232,222,200,0.75); }
     .p-feat { width: 9px; height: 9px; background: radial-gradient(circle at 34% 30%, #E8C670, #CDA043 48%, #A97C28); box-shadow: 0 0 6px 2px rgba(201,154,56,0.4); }
-    .rel-card h3 { font-size: 1.02rem; }
-    .rel-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
+    .rel-card h3 { font-size: 1.06rem; }
+    .rel-card p { font-size: 0.86rem; color: var(--cream-soft); line-height: 1.55; }
     .rel-card .tier {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.58rem;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: auto; padding-top: 8px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.58rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); margin-top: auto; padding-top: 8px;
     }
 
-    /* ── map link ── */
-    .map-section {
-      margin: 0 auto 36px; max-width: 620px; padding: 40px 24px; position: relative; overflow: hidden;
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-      background: var(--surface) url('../ireland-map.png.png') 60% 40% / cover no-repeat;
+    /* ── the visit record, last thing before the map ── */
+    .record { margin: 0 auto; border-top: 1px solid var(--hair-strong); border-bottom: 1px solid var(--hair-strong); }
+    .record-inner { max-width: 620px; margin: 0 auto; padding: 30px 24px; }
+    .record dl { display: grid; grid-template-columns: 118px 1fr; gap: 12px 18px; margin-top: 16px; }
+    .record dt {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.6rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); padding-top: 0.45em;
     }
-    .map-section::before { content: ''; position: absolute; inset: 0; background: rgba(6,8,7,0.74); }
-    .map-section > * { position: relative; z-index: 1; }
-    .map-pin { width: 9px; height: 9px; border-radius: 50%; margin: 0 auto 14px;
-      background: radial-gradient(circle at 34% 30%, #E8C670, #CDA043 48%, #A97C28);
-      box-shadow: 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.2); }
-    .map-line { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; color: var(--cream); line-height: 1.4; margin-bottom: 20px; }
+    .record dd { color: var(--cream); font-size: 0.98rem; }
+
+    /* ── the map, as it is today, with every pin where it sits ── */
+    .map-section { max-width: 620px; margin: 0 auto; padding: 58px 24px 24px; text-align: center; }
+    .mini-map { position: relative; width: 100%; aspect-ratio: 1/1; border: 1px solid var(--hair); overflow: hidden; background: #0B1A1E; }
+    .mini-map > img { width: 100%; height: 100%; object-fit: contain; }
+    .mini-map .mp {
+      position: absolute; border-radius: 50%; transform: translate(-50%, -50%);
+      width: 3.4px; height: 3.4px; background: #2A5A38; border: 0.6px solid rgba(232,222,200,0.75);
+      box-shadow: 0 0 2.5px 0.6px rgba(42,90,56,0.40);
+    }
+    .mini-map .mp.t-verified {
+      width: 5.2px; height: 5.2px; background: #59A666; border: 0.6px solid rgba(248,248,243,0.6);
+      box-shadow: 0 0 3.5px 1.2px rgba(89,166,102,0.73);
+    }
+    .mini-map .mp.t-featured {
+      width: 6.2px; height: 6.2px; border: none;
+      background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);
+      box-shadow: 0 0 0 0.6px rgba(201,154,56,0.55), 0 0 4px 1.2px rgba(201,154,56,0.45), 0 0 10px 3.5px rgba(201,154,56,0.20), inset 0 0 1px rgba(255,238,186,0.45);
+      z-index: 2;
+    }
+    .mini-map .mp.t-featured::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(214,132,52,0.20);
+      animation: breathe 4.5s ease-out infinite;
+    }
+    @keyframes breathe { 0% { transform: scale(1); opacity: 0.42; } 100% { transform: scale(2.8); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .mini-map .mp.t-featured::after { animation: none; } }
+    .map-line { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; line-height: 1.35; color: var(--green-head); margin: 26px 0 20px; }
     .map-btn {
-      display: inline-block; padding: 11px 28px; border: 0.5px solid rgba(196,164,74,0.5); border-radius: 4px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.62rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--gold); transition: background 0.2s;
+      display: inline-block; padding: 12px 26px; border: 1px solid rgba(69,112,78,0.85); background: rgba(69,112,78,0.06);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green-light); transition: background 0.2s, color 0.2s;
     }
-    .map-btn:hover { background: rgba(196,164,74,0.08); }
+    .map-btn:hover { background: rgba(69,112,78,0.16); color: var(--cream); }
 
-    footer { padding: 34px 24px 60px; text-align: center; }
-    footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--cream); letter-spacing: 0.14em; margin-bottom: 6px; }
-    footer .f-url { font-size: 11px; color: var(--faint); letter-spacing: 1px; margin-bottom: 10px; }
-    footer .f-tag { font-size: 11px; color: var(--faint); letter-spacing: 1px; }
+    footer { padding: 34px 24px 64px; text-align: center; }
+    footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--cream); letter-spacing: 0.14em; margin-bottom: 10px; }
+    footer .f-url { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.86rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-light); }
 
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -322,54 +321,43 @@
     <section>
       <blockquote id="quote">
         <span id="quote-text">Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which nurtures human health, community and biodiversity.</span>
-        <cite>Skehana Hill, in their own words</cite>
+        <cite id="quote-cite">Fintan and Liefe, Skehana Hill Farm</cite>
       </blockquote>
       <div id="story"></div>
     </section>
 
     <section id="film-section" class="hidden">
       <div class="sec-head"><h2>The visit</h2><span class="rule"></span></div>
-      <p id="film-intro">Filmed by Provenance on the farm.</p>
+      <p class="intro" id="film-intro">Filmed by Provenance on the farm.</p>
     </section>
   </div>
 
   <div class="wide film hidden" id="film">
-    <div class="film-wrap r169" id="film-wrap"></div>
+    <div class="film-wrap" id="film-wrap"></div>
   </div>
 
-  <!-- The visit in parts: the longer episodes, if the profile lists any. -->
   <div class="wide series hidden" id="series">
     <p class="label" id="series-label">The visit, in three parts</p>
     <div class="series-grid" id="series-grid"></div>
   </div>
 
-  <!-- Ask this farm. Mounts here, below the film, and renders nothing until
+  <!-- Ask this farm. Mounts here, below the films, and renders nothing until
        the chatbot exists. Keyed on data-producer. -->
   <div id="pv-chat" data-producer="skehana-hill" class="col hidden"></div>
 
   <div class="col">
-    <section id="products-section" class="hidden" style="border-top: 0.5px solid var(--hair)">
+    <section id="products-section" class="hidden">
       <div class="sec-head"><h2>What they grow</h2><span class="rule"></span></div>
-      <p style="margin-bottom: 22px">Only what comes off their own ground.</p>
       <div class="products" id="products"></div>
     </section>
 
     <section id="gallery-section" class="hidden">
-      <div class="sec-head"><h2>The gallery</h2><span class="rule"></span></div>
+      <div class="sec-head"><h2 id="gallery-title">Around the farm</h2><span class="rule"></span></div>
     </section>
   </div>
 
   <div class="wide">
     <div class="gal hidden" id="gallery"></div>
-  </div>
-
-  <!-- THE VISIT RECORD. Sits after the gallery, so the page opens on the
-       farm and closes on the facts. -->
-  <div class="record">
-    <div class="record-inner">
-      <p class="label">Visit record</p>
-      <dl id="record"></dl>
-    </div>
   </div>
 
   <div class="col">
@@ -385,9 +373,8 @@
       <p style="margin-top: 18px"><a class="map-btn" id="seal-link" href="#" target="_blank" rel="noopener">Scan the Seal</a></p>
     </section>
 
-    <section id="nearby-section" style="border-top: 0.5px solid var(--hair)">
+    <section id="nearby-section">
       <div class="sec-head"><h2>Nearby on the map</h2><span class="rule"></span></div>
-      <p style="margin-bottom: 22px">The closest producers to Skehana Hill, taken from the map itself.</p>
     </section>
   </div>
 
@@ -395,8 +382,19 @@
     <div class="rel" id="nearby"></div>
   </div>
 
+  <!-- THE VISIT RECORD. The last thing before the map: the page tells the
+       story first and states the facts at the end. -->
+  <div class="record">
+    <div class="record-inner">
+      <p class="label">Visit record</p>
+      <dl id="record"></dl>
+    </div>
+  </div>
+
   <div class="map-section">
-    <div class="map-pin"></div>
+    <div class="mini-map" id="mini-map">
+      <img src="../ireland-map.png.png" alt="The Provenance Map" />
+    </div>
     <p class="map-line">Skehana Hill is a Provenance Featured farm<br>on the Provenance Map</p>
     <a href="../?producer=skehana-hill" class="map-btn">See on the map</a>
   </div>
@@ -404,7 +402,6 @@
   <footer>
     <p class="f-logo">Provenance</p>
     <p class="f-url">provenancemap.ie/skehanahill</p>
-    <p class="f-tag">Every product. Named source. Full origin.</p>
   </footer>
 
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
@@ -430,22 +427,42 @@
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const show = (id, on) => $(id).classList.toggle('hidden', !on);
 
-    // Same projection as the map, so "nearby" means nearby on the artwork,
-    // which is what a visitor sees. Distances are in map points and are
-    // never shown; they only order the list.
-    function mapPt(p) { return { x: (p.lng + 5.90) * 15.217, y: (55.40 - p.lat) * 20 }; }
+    // The map's own projection. refX is 82 in landscape and 85 in portrait,
+    // the same split the map uses, and desktop overrides apply in landscape
+    // only when both are present, so the mini map matches what this device
+    // shows on the map itself.
+    const isLandscape = () => window.innerWidth > window.innerHeight;
+    function mapPt(p) {
+      const useDesktop = isLandscape() && p.lat_desktop != null && p.lng_desktop != null;
+      const lat = useDesktop ? p.lat_desktop : p.lat, lng = useDesktop ? p.lng_desktop : p.lng;
+      return { x: (isLandscape() ? 82 : 85) + (lng + 5.90) * 15.217, y: 10 + (55.40 - lat) * 20 };
+    }
 
+    // A poster that becomes the player when tapped. Nothing of YouTube's
+    // shows until then.
+    function filmFrame(f) {
+      const id = (f.url.match(/embed\/([A-Za-z0-9_-]+)/) || [])[1] || '';
+      const poster = f.poster ? `<img src="${esc(f.poster)}" alt="${esc(f.title || '')}" loading="lazy" />` : '';
+      return `<div class="film-wrap" data-id="${esc(id)}">${poster}<button class="film-face" type="button" aria-label="Play ${esc(f.title || 'the film')}"></button></div>`;
+    }
+    function armFilms(root) {
+      root.querySelectorAll('.film-wrap[data-id]').forEach(w => {
+        w.querySelector('.film-face').addEventListener('click', () => {
+          w.innerHTML = `<iframe src="https://www.youtube.com/embed/${w.dataset.id}?autoplay=1&rel=0&playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        });
+      });
+    }
+
+    let ALL = [];
     function render(producer, all, profile) {
       const pr = profile || {};
       const visit = pr.visit || {};
+      ALL = all;
 
       // ── hero ──
       $('name').textContent    = producer.name;
       $('where').textContent   = producer.location || ('Co. ' + producer.county);
       $('produce').textContent = producer.product || '';
-
-      // No pills in the hero. The tier and the practice are on the map card
-      // the visitor came from, and in the visit record below the gallery.
       const practices = String(producer.practice || '').split(',').map(s => s.trim()).filter(p => ['organic', 'regenerative'].includes(p));
 
       if (pr.hero && pr.hero.src) {
@@ -456,43 +473,29 @@
       const links = [];
       if (producer.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(producer.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
       if (producer.website) links.push(`<a href="${esc(producer.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
-      if (producer.directions) links.push(`<a href="${esc(producer.directions)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
       $('links').innerHTML = links.join('');
 
-      // ── visit record ──
-      const rows = [];
-      if (visit.date) rows.push(['Visited', esc(visit.date)]);
-      rows.push(['Walked by', esc(visit.walked_by || 'Provenance')]);
-      if (practices.length) rows.push(['Practice', practices.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' and ')]);
-      if (visit.ground) rows.push(['Ground', esc(visit.ground)]);
-      if (producer.attributes && producer.attributes.length) rows.push(['Confirmed', esc(producer.attributes.join(', '))]);
-      if (visit.listed) rows.push(['Listed', esc(visit.listed)]);
-      $('record').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
-
-      // ── the farm ──
+      // ── their own words, then the story ──
       if (producer.description) $('quote-text').textContent = producer.description;
+      if (pr.signed) $('quote-cite').textContent = pr.signed;
       show('quote', !!producer.description);
       $('story').innerHTML = (pr.story || []).map(p => `<p>${esc(p)}</p>`).join('');
 
-      // ── the visit film ──
+      // ── the films ──
       const film = pr.film || {};
       if (film.url) {
-        const wrap = $('film-wrap');
-        wrap.className = 'film-wrap ' + (film.aspect === '9/16' ? 'r916' : 'r169');
-        // rel=0 keeps other channels' videos out of the end screen. YouTube no
-        // longer lets an embed hide its own logo; only self-hosting does that.
-        const filmSrc = film.url + (film.url.includes('?') ? '&' : '?') + 'rel=0';
-        wrap.innerHTML = `<iframe src="${esc(filmSrc)}" title="${esc(film.title || producer.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        $('film-wrap').outerHTML = filmFrame(film);
+        if (pr.film_intro) $('film-intro').textContent = pr.film_intro;
         show('film-section', true); show('film', true);
+        armFilms($('film'));
       }
       const series = (pr.series || []).filter(s => s && s.url);
       if (series.length) {
         if (pr.series_label) $('series-label').textContent = pr.series_label;
-        $('series-grid').innerHTML = series.map(s =>
-          `<figure><div class="film-wrap ${s.aspect === '9/16' ? 'r916' : 'r169'}"><iframe src="${esc(s.url)}" title="${esc(s.title || producer.name)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>${s.title ? `<figcaption>${esc(s.title)}</figcaption>` : ''}</figure>`
-        ).join('');
+        $('series-grid').innerHTML = series.map(s => `<figure>${filmFrame(s)}${s.title ? `<figcaption>${esc(s.title)}</figcaption>` : ''}</figure>`).join('');
         show('series', true);
         if (!film.url) show('film-section', true);
+        armFilms($('series'));
       }
 
       // ── what they grow ──
@@ -504,30 +507,27 @@
         show('products-section', true);
       }
 
-      // ── gallery ──
-      // The photos live on this page only. The map card keeps its single
-      // logo; the gallery is one of the things the link to this page is for.
-      // Paths are relative to this folder.
+      // ── photos, no captions ──
       const photos = (pr.photos || []).filter(p => p && p.src);
       if (photos.length) {
+        if (pr.photos_title) $('gallery-title').textContent = pr.photos_title;
         $('gallery').innerHTML = photos.map((p, i) => {
           const pos = p.position ? ` style="object-position:${esc(p.position)}"` : '';
-          return `<figure data-i="${i}"><img src="${esc(p.src)}" alt="${esc(p.caption || producer.name)}" loading="lazy"${pos} />${p.caption ? `<figcaption>${esc(p.caption)}</figcaption>` : ''}</figure>`;
+          return `<figure data-i="${i}"><img src="${esc(p.src)}" alt="${esc(p.caption || producer.name)}" loading="lazy"${pos} /></figure>`;
         }).join('');
         $('gallery').querySelectorAll('figure').forEach(f => f.addEventListener('click', () => openLightbox(+f.dataset.i)));
         show('gallery-section', true); show('gallery', true);
         lightboxPhotos = photos.map(p => p.src);
       }
 
-      // ── where to buy ──
-      // The profile's list wins when it has one, so the page can carry the
-      // farm shop and its directions without putting either on the map card.
+      // ── where to buy, as a sentence ──
       const buy = (pr.where_to_buy && pr.where_to_buy.length) ? pr.where_to_buy : (producer.where_to_buy || []);
       if (buy.length) {
         $('buy').innerHTML = buy.map(item => {
-          if (typeof item === 'string') return `<div class="buy-row"><div><strong>${esc(item)}</strong></div></div>`;
-          const name = `<strong>${esc(item.name)}</strong>${item.note ? `<span>${esc(item.note)}</span>` : ''}`;
-          return `<div class="buy-row"><div>${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener">${name}</a>` : name}</div>${item.when ? `<span class="when">${esc(item.when)}</span>` : ''}</div>`;
+          if (typeof item === 'string') return `<p>${esc(item)}</p>`;
+          const line = [item.name, item.note].filter(Boolean).join(', ');
+          const dir = item.url ? `<a class="dir" href="${esc(item.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>${esc(item.when || 'Directions')}</a>` : '';
+          return `<p>${esc(line)}.</p>${dir}`;
         }).join('');
         show('buy-section', true);
       }
@@ -548,7 +548,35 @@
           <h3>${esc(p.name)}</h3><p>${esc(p.product || '')}</p><span class="tier">${label}</span></a>`;
       }).join('');
       show('nearby-section', near.length > 0);
+
+      // ── visit record ──
+      const rows = [];
+      if (visit.date) rows.push(['Visited', esc(visit.date)]);
+      rows.push(['Walked by', esc(visit.walked_by || 'Provenance')]);
+      if (practices.length) rows.push(['Practice', practices.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' and ')]);
+      if (visit.ground) rows.push(['Ground', esc(visit.ground)]);
+      if (producer.attributes && producer.attributes.length) rows.push(['Confirmed', esc(producer.attributes.join(', '))]);
+      if (visit.listed) rows.push(['Listed', esc(visit.listed)]);
+      $('record').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+
+      drawMiniMap();
     }
+
+    // ── the mini map: every pin, where it sits today ──
+    function drawMiniMap() {
+      const box = $('mini-map');
+      box.querySelectorAll('.mp').forEach(n => n.remove());
+      ALL.filter(p => p.lat && p.lng).forEach(p => {
+        const { x, y } = mapPt(p);
+        const d = document.createElement('span');
+        d.className = 'mp t-' + (p.tier || 'discovered');
+        d.style.left = x + '%'; d.style.top = y + '%';
+        if (p.id === PRODUCER_ID) d.title = p.name;
+        box.appendChild(d);
+      });
+    }
+    let miniTimer = null;
+    window.addEventListener('resize', () => { clearTimeout(miniTimer); miniTimer = setTimeout(drawMiniMap, 150); });
 
     // ── lightbox ──
     let lightboxPhotos = [], lbIndex = 0;

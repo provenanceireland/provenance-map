@@ -1,85 +1,54 @@
 {
-    "id":  "skehana-hill",
-    "live":  true,
-    "visit":  {
-                  "date":  "26 August 2026",
-                  "walked_by":  "Darragh",
-                  "ground":  "A little over 200 acres outside Freshford, farmed organically. Beef cattle on the lower half, sheep, a few pigs, about an acre of market garden with a polytunnel, and an orchard.",
-                  "listed":  "Verified 9 August 2026, Featured August 2026"
-              },
-    "hero":  {
-                 "src":  "hero.jpg",
-                 "alt":  "The market garden at Skehana Hill, brassicas and sunflowers under a grey August sky"
-             },
-    "film":  {
-                 "url":  "https://www.youtube.com/embed/pyMpz_Di-yc",
-                 "aspect":  "9/16",
-                 "title":  "Featured Producer Skehana Hill"
-             },
-    "series_label":  "The visit, in three parts",
-    "series":  [
-                   { "title":  "Episode 1: Greenhouse and Orchard", "url":  "https://www.youtube.com/embed/dRughUCOXUE", "aspect":  "16/9" },
-                   { "title":  "Episode 2: Pigs and Sheep",         "url":  "https://www.youtube.com/embed/EytKSs4CWQo", "aspect":  "16/9" },
-                   { "title":  "Episode 3: The Cattle",             "url":  "https://www.youtube.com/embed/E3PstwFZPII", "aspect":  "16/9" }
-               ],
-    "story":  [
-                  "Skehana Hill is a little over 200 acres outside Freshford. To the south a hill takes a little of the sun and gives shelter back, with an old hazel wood on its flank at the boundary. Fintan farms it organically, and the cattle have the lower half. The morning Provenance walked it the fog had not lifted, and the herd was lying up in long grass, calm enough that not one of them got up when we walked in among them. That, he says, is what moving them every day does.",
-                  "The beef is where the farm starts. The cows are a mix of continental crosses and Angus, and the calves are by an Angus bull, because Angus, Hereford and Shorthorn are the breeds that will finish on grass alone. Nothing here gets meal. The cattle go onto a piece of ground for a day, eat what they want and trample the rest, and then that ground is left alone for a long while to recover. In autumn Fintan lets the grass grow tall before they graze it, so they are taking in seed heads and forage as well as leaf, and he will tell you that is where the flavour in the fat comes from. At the bottom of the farm a bog along the river that runs into Freshford holds grass when the rest of the farm has none, and slows the water on its way to the village. The herd spends September down there, fenced well back from the bank, while the fields above build up for winter.",
-                  "The sheep are finished on grass as far as the year allows, with a little of the farm's own grain in the autumn. A few Saddleback pigs root through a paddock that will be next year's vegetable ground, fed on organic barley, wheat and peas and on windfalls carried up from the orchard, where the apples that drop, and the ones the birds have started on, are by Fintan's reckoning the sweetest. About an acre of beds and a polytunnel grow the vegetables: tomatoes, salads under nets against the blackbirds, kales and broccoli and cauliflower for the winter, courgettes and pumpkins, and a corner every year given over to something that might not work at all. This year it was soybeans and sweet potatoes, and both did. Straw goes on the beds, wood chip on the paths, compost once at the start of the year, and the soil under the straw is the loose, damp kind you can plant with your fingers.",
-                  "Fintan will not call the farm regenerative. He calls it a journey in that direction, two steps forward and one back, a matter of watching and reacting. He leaves the thistles standing in a field because on a sunny day they are covered in bees, and he is planting native trees in the field under the hill, where the animals will graze between them once they are tall enough. His reasoning is plain: an organic farm has to find its fertility inside its own gate, so in the long run it has no choice but to give back more than it takes. The food, he says, only ever had to be something he was happy to eat himself."
-              ],
-    "products":  [
-                     {
-                         "name":  "Beef",
-                         "note":  "Grass fed and grass finished, no meal. Angus, Hereford and Shorthorn sires on continental cross and Angus cows, chosen to finish on grass. Grazed tall in the autumn for the fat.",
-                         "season":  "Grass finished"
-                     },
-                     {
-                         "name":  "Lamb",
-                         "note":  "Finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn.",
-                         "season":  "Grass finished"
-                     },
-                     {
-                         "name":  "Pork",
-                         "note":  "Saddleback pigs, a few at a time, on organic barley, wheat and peas and the orchard windfalls. Last winter's batch ran in the woods.",
-                         "season":  "Small batches"
-                     },
-                     {
-                         "name":  "Organic vegetables",
-                         "note":  "About an acre of beds and a polytunnel on a rotation: tomatoes, salads, three kales, purple sprouting broccoli, cauliflower, courgettes, pumpkins, alliums and roots. A corner for experiments, soybeans and sweet potato this year.",
-                         "season":  "Year round, with the tunnel"
-                     }
-                 ],
-    "photos":  [
-                   {
-                       "src":  "orchard.jpg",
-                       "caption":  "The orchard",
-                       "position":  "50% 45%"
-                   },
-                   {
-                       "src":  "farmers.jpg",
-                       "caption":  "The farmers, and the dog",
-                       "position":  "50% 55%"
-                   },
-                   {
-                       "src":  "garden.jpg",
-                       "caption":  "The market garden, brassicas and sunflowers",
-                       "position":  "50% 55%"
-                   },
-                   {
-                       "src":  "cattle.jpg",
-                       "caption":  "The herd, lying up in wet grass",
-                       "position":  "50% 50%"
-                   },
-                   {
-                       "src":  "polytunnel.jpg",
-                       "caption":  "The polytunnel and the yard",
-                       "position":  "50% 48%"
-                   },
-                   {
-                       "src":  "mist.jpg",
-                       "caption":  "The hill, in morning fog",
-                       "position":  "50% 48%"
-                   }
-               ]
+  "id": "skehana-hill",
+  "live": true,
+
+  "signed": "Fintan and Liefe, Skehana Hill Farm",
+
+  "visit": {
+    "date": "26 August 2026",
+    "walked_by": "Darragh",
+    "ground": "A little over 200 acres outside Freshford, farmed organically. Cattle on the lower half, sheep and horses further up, a few pigs, the polytunnel, and an orchard.",
+    "listed": "Verified 9 August 2026, Featured August 2026"
+  },
+
+  "hero": {
+    "src": "hero.jpg",
+    "alt": "The market garden at Skehana Hill, brassicas and sunflowers under a grey August sky"
+  },
+
+  "film_intro": "Filmed by Provenance on the farm.",
+  "film": { "url": "https://www.youtube.com/embed/pyMpz_Di-yc", "poster": "film-short.jpg", "aspect": "9/16", "title": "Featured Producer Skehana Hill" },
+
+  "series_label": "The visit, in three parts",
+  "series": [
+    { "title": "Episode 1: Greenhouse and Orchard", "url": "https://www.youtube.com/embed/dRughUCOXUE", "poster": "film-ep1.jpg", "aspect": "9/16" },
+    { "title": "Episode 2: Pigs and Sheep",         "url": "https://www.youtube.com/embed/EytKSs4CWQo", "poster": "film-ep2.jpg", "aspect": "9/16" },
+    { "title": "Episode 3: The Cattle",             "url": "https://www.youtube.com/embed/E3PstwFZPII", "poster": "film-ep3.jpg", "aspect": "9/16" }
+  ],
+
+  "story": [
+    "Skehana Hill is a little over 200 acres outside Freshford, Co. Kilkenny, run by Fintan and his wife Liefe, who farm it organically. Darragh visited on a foggy August morning, with every animal on the farm out on the land.",
+    "The cattle are the first thing you notice. They live on natural pasture with room to roam, a mix of plants to graze and forage through, and the peace to get on with it. At the bottom of the farm, beside the river that runs into Freshford, the herd grazes a bog that holds all sorts of life, birds, bees and the plants that feed them, and that whole corner reads as a small conservation area that happens to have cows in it. Further up the fields, closer to the house, is an open, scenic stretch where the sheep and the horses are kept, along with any cattle that need recovery and space.",
+    "The polytunnel is one of the most impressive things on the farm. Out of a small space comes an amazing amount of healthy organic food, enough greens and vegetables to feed the town. And the orchard is the most special part of it: apple trees of many kinds, grown without pesticides or chemicals and in tune with everything around them, and so full of birds it could pass for a sanctuary.",
+    "Up towards the hill, the pigs and the sheep share the ground. The sheep had broken into the field we walked, a proper field with different grasses coming through it, and behind it a hazel wood, bordered by a planted woodland, where life flourishes. One sycamore stands alone in the field, the tree Fintan calls his favourite, and the sheep lie in under it. Beyond that it is trees and landscape as far as you can see. The pigs have a quiet spot of their own, a handful of them, fed on windfalls from the orchard and on the vegetables that will never make it to a shop. Every animal here eats well. The cattle are grass fed, and anything else that goes into an animal is local organic grain or the haylage cut off the farm's own fields.",
+    "There is a place on the farm for medicinal herbs, and below it the agroforestry, reached along an old road into Freshford that no longer exists, past the remnants of old walls and buildings. Native trees are going in among the grazing. It is a sanctuary of sorts, where a fox might cross in front of you, and there is no phone signal at all.",
+    "It is a beautiful place run by good people, in an old part of Ireland where the cinema still has its sign over the door and the church is the most important looking building in town. A part of Ireland that still feels like Ireland. Skehana Hill is the first Provenance Featured producer: the full filmed visit, the photographs, and this page."
+  ],
+
+  "products": [
+    { "name": "Beef", "note": "Grass fed and grass finished on the land, not in a shed. A mix of breeds: Angus, Hereford and Shorthorn bulls on continental cross cows.", "season": "Grass finished" },
+    { "name": "Lamb", "note": "Finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn.", "season": "Grass finished" },
+    { "name": "Pork", "note": "Just a couple of pigs, on organic barley, wheat and peas and the orchard windfalls. Last winter's batch ran in the woods.", "season": "Small batches" },
+    { "name": "Organic vegetables", "note": "Beds and a polytunnel on a rotation: tomatoes, salads, three kales, purple sprouting broccoli, cauliflower, courgettes, pumpkins, alliums and roots, and the Jerusalem artichokes that come back every year whether they are wanted or not. In among them, the puffballs and earthworms that say the soil is alive. A corner for experiments: soybeans and sweet potato this year.", "season": "Year round, with the tunnel" }
+  ],
+
+  "photos_title": "Around the farm",
+  "photos": [
+    { "src": "orchard.jpg",    "caption": "The orchard", "position": "50% 45%" },
+    { "src": "farmers.jpg",    "caption": "Fintan and Liefe, and the dog", "position": "50% 55%" },
+    { "src": "garden.jpg",     "caption": "The market garden", "position": "50% 55%" },
+    { "src": "cattle.jpg",     "caption": "The herd", "position": "50% 50%" },
+    { "src": "polytunnel.jpg", "caption": "The polytunnel and the yard", "position": "50% 48%" },
+    { "src": "mist.jpg",       "caption": "The hill in morning fog", "position": "50% 48%" }
+  ]
 }
