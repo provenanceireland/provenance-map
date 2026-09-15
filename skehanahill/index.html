@@ -111,7 +111,9 @@
     .pill-progress     { border: 0.5px dashed rgba(196,164,74,0.4); color: #A08B4F; }
     .name-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; position: relative; }
     h1.name { font-size: clamp(2.7rem, 7vw, 3.7rem); font-style: italic; line-height: 1.04; margin-bottom: 12px; }
-    .where { color: var(--gold); font-size: 0.95rem; letter-spacing: 0.02em; }
+    /* The place line in forest green, the same green as the carousel small
+       caps. Gold was too much orange under the gold pin and the gold card. */
+    .where { color: #45704E; font-size: 0.95rem; letter-spacing: 0.02em; }
     .produce { margin-top: 6px; color: var(--muted); font-size: 0.95rem; }
     .links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; }
     .links a {
@@ -138,7 +140,7 @@
 
     /* ── the visit record: the spine of a Featured page ── */
     .record {
-      margin: 44px auto 0; border-top: 0.5px solid var(--hair-warm); border-bottom: 0.5px solid var(--hair-warm);
+      margin: 0 auto; border-top: 0.5px solid var(--hair-warm); border-bottom: 0.5px solid var(--hair-warm);
       background: linear-gradient(180deg, rgba(196,164,74,0.035), transparent);
     }
     .record-inner { max-width: 620px; margin: 0 auto; padding: 26px 24px; }
@@ -302,10 +304,6 @@
   <div class="hero">
     <div class="wide hero-img hidden" id="hero-img"></div>
     <div class="col">
-      <div class="pills" id="pills">
-        <span class="pill pill-featured"><span class="dot"></span>Provenance Featured</span>
-        <span class="pill pill-organic">Organic, confirmed</span>
-      </div>
       <div class="name-row">
         <h1 class="name" id="name">Skehana Hill</h1>
         <button class="share-btn" id="share-btn" aria-label="Share this producer">
@@ -319,17 +317,8 @@
     </div>
   </div>
 
-  <!-- THE VISIT RECORD -->
-  <div class="record">
-    <div class="record-inner">
-      <p class="label">Visit record</p>
-      <dl id="record"></dl>
-    </div>
-  </div>
-
   <div class="col">
     <section>
-      <div class="sec-head"><h2>The farm</h2><span class="rule"></span></div>
       <blockquote id="quote">
         <span id="quote-text">Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which nurtures human health, community and biodiversity.</span>
         <cite>Skehana Hill, in their own words</cite>
@@ -373,8 +362,17 @@
     <div class="gal hidden" id="gallery"></div>
   </div>
 
+  <!-- THE VISIT RECORD. Sits after the gallery, so the page opens on the
+       farm and closes on the facts. -->
+  <div class="record">
+    <div class="record-inner">
+      <p class="label">Visit record</p>
+      <dl id="record"></dl>
+    </div>
+  </div>
+
   <div class="col">
-    <section id="buy-section" class="hidden" style="border-top: 0.5px solid var(--hair)">
+    <section id="buy-section" class="hidden" style="border-top: none">
       <div class="sec-head"><h2>Where to buy</h2><span class="rule"></span></div>
       <div class="buy" id="buy"></div>
     </section>
@@ -445,11 +443,9 @@
       $('where').textContent   = producer.location || ('Co. ' + producer.county);
       $('produce').textContent = producer.product || '';
 
+      // No pills in the hero. The tier and the practice are on the map card
+      // the visitor came from, and in the visit record below the gallery.
       const practices = String(producer.practice || '').split(',').map(s => s.trim()).filter(p => ['organic', 'regenerative'].includes(p));
-      $('pills').innerHTML =
-        '<span class="pill pill-featured"><span class="dot"></span>Provenance Featured</span>' +
-        practices.map(p => `<span class="pill pill-${p}">${p.charAt(0).toUpperCase() + p.slice(1)}, confirmed</span>`).join('') +
-        (pr.live ? '' : '<span class="pill pill-progress">Profile in progress</span>');
 
       if (pr.hero && pr.hero.src) {
         $('hero-img').innerHTML = `<img src="${esc(pr.hero.src)}" alt="${esc(pr.hero.alt || producer.name)}" />`;
@@ -482,7 +478,10 @@
       if (film.url) {
         const wrap = $('film-wrap');
         wrap.className = 'film-wrap ' + (film.aspect === '9/16' ? 'r916' : 'r169');
-        wrap.innerHTML = `<iframe src="${esc(film.url)}" title="${esc(film.title || producer.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        // rel=0 keeps other channels' videos out of the end screen. YouTube no
+        // longer lets an embed hide its own logo; only self-hosting does that.
+        const filmSrc = film.url + (film.url.includes('?') ? '&' : '?') + 'rel=0';
+        wrap.innerHTML = `<iframe src="${esc(filmSrc)}" title="${esc(film.title || producer.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         show('film-section', true); show('film', true);
       }
       const series = (pr.series || []).filter(s => s && s.url);
