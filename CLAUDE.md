@@ -65,6 +65,8 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 - Headings: Cormorant Garamond
 - Body: Source Serif 4
 
+**Featured profile pages are the exception** (decided 2026-09-15, Skehana Hill first): they are set like the carousel plates, not like the map. Charcoal ground `#1A1B18`, silver hairlines `rgba(201,198,189,0.14)`, Playfair Display for names, headings and pull quotes in deep forest green (`#2F5C3A` name, `#35663F` headings), upright throughout with no italic anywhere; Inter medium small caps in `#45704E`; Source Serif 4 body in cream `#E8DEC8`; the place line and buttons in a lighter green `#5A8C64` so they read apart. The map and its cards keep Cormorant.
+
 ## Producers
 
 `producers.json` is the source of truth for who is listed on the map. The Obsidian vault (`Provenance Map listings/<County>/<Producer>.md`) is the source of truth for producer detail. Never rely on a producer list written into this file.
