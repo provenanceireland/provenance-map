@@ -12,10 +12,16 @@
                  "alt":  "The market garden at Skehana Hill, brassicas and sunflowers under a grey August sky"
              },
     "film":  {
-                 "url":  "",
-                 "aspect":  "16/9",
-                 "title":  "Skehana Hill, the Provenance visit"
+                 "url":  "https://www.youtube.com/embed/pyMpz_Di-yc",
+                 "aspect":  "9/16",
+                 "title":  "Featured Producer Skehana Hill"
              },
+    "series_label":  "The visit, in three parts",
+    "series":  [
+                   { "title":  "Episode 1: Greenhouse and Orchard", "url":  "https://www.youtube.com/embed/dRughUCOXUE", "aspect":  "16/9" },
+                   { "title":  "Episode 2: Pigs and Sheep",         "url":  "https://www.youtube.com/embed/EytKSs4CWQo", "aspect":  "16/9" },
+                   { "title":  "Episode 3: The Cattle",             "url":  "https://www.youtube.com/embed/E3PstwFZPII", "aspect":  "16/9" }
+               ],
     "story":  [
                   "Skehana Hill is a little over 200 acres outside Freshford. To the south a hill takes a little of the sun and gives shelter back, with an old hazel wood on its flank at the boundary. Fintan farms it organically, and the cattle have the lower half. The morning Provenance walked it the fog had not lifted, and the herd was lying up in long grass, calm enough that not one of them got up when we walked in among them. That, he says, is what moving them every day does.",
                   "The beef is where the farm starts. The cows are a mix of continental crosses and Angus, and the calves are by an Angus bull, because Angus, Hereford and Shorthorn are the breeds that will finish on grass alone. Nothing here gets meal. The cattle go onto a piece of ground for a day, eat what they want and trample the rest, and then that ground is left alone for a long while to recover. In autumn Fintan lets the grass grow tall before they graze it, so they are taking in seed heads and forage as well as leaf, and he will tell you that is where the flavour in the fat comes from. At the bottom of the farm a bog along the river that runs into Freshford holds grass when the rest of the farm has none, and slows the water on its way to the village. The herd spends September down there, fenced well back from the bank, while the fields above build up for winter.",

@@ -173,6 +173,12 @@
     .film-wrap.r169 { aspect-ratio: 16/9; }
     .film-wrap.r916 { aspect-ratio: 9/16; max-width: 420px; margin: 0 auto; }
     .film-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .series { margin: 0 auto 58px; }
+    .series .label { margin-bottom: 14px; }
+    .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .series-grid figure { margin: 0; }
+    .series-grid figcaption { margin-top: 8px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.02rem; color: var(--cream); }
+    @media (max-width: 720px) { .series-grid { grid-template-columns: 1fr; } }
 
     /* ── products ── */
     .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--hair); border: 0.5px solid var(--hair); }
@@ -341,6 +347,12 @@
     <div class="film-wrap r169" id="film-wrap"></div>
   </div>
 
+  <!-- The visit in parts: the longer episodes, if the profile lists any. -->
+  <div class="wide series hidden" id="series">
+    <p class="label" id="series-label">The visit, in three parts</p>
+    <div class="series-grid" id="series-grid"></div>
+  </div>
+
   <!-- Ask this farm. Mounts here, below the film, and renders nothing until
        the chatbot exists. Keyed on data-producer. -->
   <div id="pv-chat" data-producer="skehana-hill" class="col hidden"></div>
@@ -472,6 +484,15 @@
         wrap.className = 'film-wrap ' + (film.aspect === '9/16' ? 'r916' : 'r169');
         wrap.innerHTML = `<iframe src="${esc(film.url)}" title="${esc(film.title || producer.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         show('film-section', true); show('film', true);
+      }
+      const series = (pr.series || []).filter(s => s && s.url);
+      if (series.length) {
+        if (pr.series_label) $('series-label').textContent = pr.series_label;
+        $('series-grid').innerHTML = series.map(s =>
+          `<figure><div class="film-wrap ${s.aspect === '9/16' ? 'r916' : 'r169'}"><iframe src="${esc(s.url)}" title="${esc(s.title || producer.name)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>${s.title ? `<figcaption>${esc(s.title)}</figcaption>` : ''}</figure>`
+        ).join('');
+        show('series', true);
+        if (!film.url) show('film-section', true);
       }
 
       // ── what they grow ──
