@@ -253,31 +253,10 @@
     }
     .record dd { color: var(--cream); font-size: 0.98rem; }
 
-    /* ── the map, as it is today, with every pin where it sits ── */
+    /* ── the map, as it is today ── */
     .map-section { max-width: 620px; margin: 0 auto; padding: 58px 24px 24px; text-align: center; }
     .mini-map { position: relative; width: 100%; aspect-ratio: 1/1; border: 1px solid var(--hair); overflow: hidden; background: #0B1A1E; }
-    .mini-map > img { width: 100%; height: 100%; object-fit: contain; }
-    .mini-map .mp {
-      position: absolute; border-radius: 50%; transform: translate(-50%, -50%);
-      width: 3.4px; height: 3.4px; background: #2A5A38; border: 0.6px solid rgba(232,222,200,0.75);
-      box-shadow: 0 0 2.5px 0.6px rgba(42,90,56,0.40);
-    }
-    .mini-map .mp.t-verified {
-      width: 5.2px; height: 5.2px; background: #59A666; border: 0.6px solid rgba(248,248,243,0.6);
-      box-shadow: 0 0 3.5px 1.2px rgba(89,166,102,0.73);
-    }
-    .mini-map .mp.t-featured {
-      width: 6.2px; height: 6.2px; border: none;
-      background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);
-      box-shadow: 0 0 0 0.6px rgba(201,154,56,0.55), 0 0 4px 1.2px rgba(201,154,56,0.45), 0 0 10px 3.5px rgba(201,154,56,0.20), inset 0 0 1px rgba(255,238,186,0.45);
-      z-index: 2;
-    }
-    .mini-map .mp.t-featured::after {
-      content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(214,132,52,0.20);
-      animation: breathe 4.5s ease-out infinite;
-    }
-    @keyframes breathe { 0% { transform: scale(1); opacity: 0.42; } 100% { transform: scale(2.8); opacity: 0; } }
-    @media (prefers-reduced-motion: reduce) { .mini-map .mp.t-featured::after { animation: none; } }
+    .mini-map img { width: 100%; height: 100%; object-fit: cover; }
     .map-line { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; line-height: 1.35; color: var(--green-head); margin: 26px 0 20px; }
     .map-btn {
       display: inline-block; padding: 12px 26px; border: 1px solid rgba(69,112,78,0.85); background: rgba(69,112,78,0.06);
@@ -394,8 +373,10 @@
   </div>
 
   <div class="map-section">
-    <div class="mini-map" id="mini-map">
-      <img src="../ireland-map.png.png" alt="The Provenance Map" />
+    <!-- A still of the map as it is today, every pin where it sits. Rendered
+         by render-map-image.ps1 in the repo root; re-run it when pins move. -->
+    <div class="mini-map">
+      <img src="map-today.jpg" alt="The Provenance Map, with Skehana Hill's gold pin among the others" />
     </div>
     <p class="map-line">Skehana Hill is a Provenance Featured farm<br>on the Provenance Map</p>
     <a href="../?producer=skehana-hill" class="map-btn">See on the map</a>
@@ -455,11 +436,9 @@
       });
     }
 
-    let ALL = [];
     function render(producer, all, profile) {
       const pr = profile || {};
       const visit = pr.visit || {};
-      ALL = all;
 
       // ── hero ──
       $('name').textContent    = producer.name;
@@ -560,25 +539,7 @@
       if (producer.attributes && producer.attributes.length) rows.push(['Confirmed', esc(producer.attributes.join(', '))]);
       if (visit.listed) rows.push(['Listed', esc(visit.listed)]);
       $('record').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
-
-      drawMiniMap();
     }
-
-    // ── the mini map: every pin, where it sits today ──
-    function drawMiniMap() {
-      const box = $('mini-map');
-      box.querySelectorAll('.mp').forEach(n => n.remove());
-      ALL.filter(p => p.lat && p.lng).forEach(p => {
-        const { x, y } = mapPt(p);
-        const d = document.createElement('span');
-        d.className = 'mp t-' + (p.tier || 'discovered');
-        d.style.left = x + '%'; d.style.top = y + '%';
-        if (p.id === PRODUCER_ID) d.title = p.name;
-        box.appendChild(d);
-      });
-    }
-    let miniTimer = null;
-    window.addEventListener('resize', () => { clearTimeout(miniTimer); miniTimer = setTimeout(drawMiniMap, 150); });
 
     // ── lightbox ──
     let lightboxPhotos = [], lbIndex = 0;
