@@ -323,7 +323,7 @@
 
   <div class="col">
     <section id="story-section" style="padding-top: 0">
-      <div class="sec-head"><h2 id="story-title">A morning at Skehana Hill</h2><span class="rule"></span></div>
+      <div class="sec-head hidden" id="story-head"><h2 id="story-title"></h2><span class="rule"></span></div>
       <div id="story"></div>
     </section>
 
@@ -467,7 +467,7 @@
       if (producer.description) $('quote-text').textContent = producer.description;
       if (pr.signed) $('quote-cite').textContent = pr.signed;
       show('quote', !!producer.description);
-      if (pr.story_title) $('story-title').textContent = pr.story_title;
+      if (pr.story_title) { $('story-title').textContent = pr.story_title; show('story-head', true); }
       $('story').innerHTML = (pr.story || []).map(p => `<p>${esc(p)}</p>`).join('');
 
       // ── the films ──
