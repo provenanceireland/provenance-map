@@ -57,7 +57,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { background: var(--ground); }
     body {
-      background: radial-gradient(ellipse 90% 60% at 50% 0%, #222320 0%, var(--ground) 55%, var(--ground-deep) 100%);
+      background: var(--ground);
       color: var(--cream);
       font-family: 'Source Serif 4', Georgia, serif; font-weight: 300;
       font-size: 17px; line-height: 1.72; -webkit-font-smoothing: antialiased;
@@ -87,10 +87,10 @@
       padding: 18px 24px; border-bottom: 1px solid var(--hair);
       max-width: 1040px; margin: 0 auto;
     }
-    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; letter-spacing: 0.14em; color: var(--cream); }
+    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; letter-spacing: 0.14em; color: var(--green); }
     .back {
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
+      text-transform: uppercase; color: var(--cream); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
     }
     .back:hover { color: var(--green-light); }
     .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
@@ -106,23 +106,18 @@
     .produce { margin-top: 6px; color: var(--cream-soft); font-size: 1rem; }
     /* Instagram and website as proper buttons, the carousel's bordered kind */
     .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-    .links a {
+    .links a, .links button {
       display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px;
-      border: 1px solid rgba(69,112,78,0.85); background: rgba(69,112,78,0.06);
+      border: 1px solid rgba(201,198,189,0.32); background: rgba(201,198,189,0.04); cursor: pointer;
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--green-light); transition: background 0.2s, color 0.2s;
+      text-transform: uppercase; color: var(--cream-soft); transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .links a:hover { background: rgba(69,112,78,0.16); color: var(--cream); }
+    .links a:hover, .links button:hover { background: rgba(201,198,189,0.10); color: var(--cream); border-color: rgba(201,198,189,0.5); }
     .links svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-    .share-btn {
-      background: none; border: none; cursor: pointer; padding: 6px; margin-top: 16px;
-      color: var(--muted); flex-shrink: 0; transition: color 0.2s; -webkit-tap-highlight-color: transparent;
-    }
-    .share-btn:hover { color: var(--green-light); }
-    .share-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; display: block; }
+    .links { position: relative; }
     #share-toast {
-      position: absolute; top: calc(100% + 8px); right: 0;
+      position: absolute; top: calc(100% + 8px); left: 0;
       background: var(--surface); border: 1px solid var(--hair-strong); border-radius: 6px;
       padding: 10px 18px; font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--cream);
       white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 5;
@@ -159,16 +154,15 @@
     .film-wrap img { width: 100%; height: 100%; object-fit: cover; }
     .film-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .film-face { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
-    /* A solid play button: a heavy ring with a big cream triangle in it */
+    /* A small play chip, charcoal with a grey-green mark, centred */
     .film-face::after {
-      content: ''; position: absolute; left: 50%; top: 50%; width: 112px; height: 112px; margin: -56px 0 0 -56px;
-      border-radius: 50%; border: 6px solid #E8DEC8; background: rgba(21,22,20,0.72);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 4v16l14-8z' fill='%23E8DEC8'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: 60% 50%; background-size: 66px;
-      box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+      content: ''; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px;
+      border-radius: 50%; border: 1px solid rgba(154,179,160,0.45); background: rgba(38,41,37,0.86);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6v12l10-6z' fill='%239AB3A0'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: 58% 50%; background-size: 24px;
       transition: transform 0.2s, background-color 0.2s;
     }
-    .film-face:hover::after { transform: scale(1.06); background-color: rgba(21,22,20,0.8); }
+    .film-face:hover::after { transform: scale(1.08); background-color: rgba(38,41,37,0.96); }
     .series { margin: 0 auto 58px; }
     .series .label { margin-bottom: 16px; }
     .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -218,13 +212,15 @@
 
     /* ── where to buy, as a line of prose ── */
     .buy p { font-size: 1.05rem; }
-    .buy a.dir {
-      display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.68rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--green-light); transition: color 0.2s;
+    .buy-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .buy a.dir, .buy a.contact {
+      display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px;
+      border: 1px solid rgba(201,198,189,0.32); background: rgba(201,198,189,0.04);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.78rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cream); transition: background 0.2s, border-color 0.2s;
     }
-    .buy a.dir:hover { color: var(--cream); }
-    .buy a.dir svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .buy a.dir:hover, .buy a.contact:hover { background: rgba(201,198,189,0.10); border-color: rgba(201,198,189,0.5); }
+    .buy a.dir svg, .buy a.contact svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
     /* ── nearby ── */
     .rel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); margin-bottom: 58px; }
@@ -259,15 +255,15 @@
     .mini-map img { width: 100%; height: 100%; object-fit: cover; }
     .map-line { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; line-height: 1.35; color: var(--green-head); margin: 26px 0 20px; }
     .map-btn {
-      display: inline-block; padding: 12px 26px; border: 1px solid rgba(69,112,78,0.85); background: rgba(69,112,78,0.06);
+      display: inline-block; padding: 12px 26px; border: 1px solid rgba(201,198,189,0.32); background: rgba(201,198,189,0.04);
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--green-light); transition: background 0.2s, color 0.2s;
+      text-transform: uppercase; color: var(--cream); transition: background 0.2s, border-color 0.2s;
     }
-    .map-btn:hover { background: rgba(69,112,78,0.16); color: var(--cream); }
+    .map-btn:hover { background: rgba(201,198,189,0.10); border-color: rgba(201,198,189,0.5); }
 
     footer { padding: 34px 24px 64px; text-align: center; }
-    footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--cream); letter-spacing: 0.14em; margin-bottom: 10px; }
-    footer .f-url { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.86rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-light); }
+    footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--green); letter-spacing: 0.14em; margin-bottom: 10px; }
+    footer .f-url { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.86rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); }
 
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -287,14 +283,10 @@
     <div class="col">
       <div class="name-row">
         <h1 class="name" id="name">Skehana Hill</h1>
-        <button class="share-btn" id="share-btn" aria-label="Share this producer">
-          <svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-        </button>
-        <div id="share-toast">Link copied</div>
       </div>
       <p class="where" id="where">Freshford, Co. Kilkenny</p>
       <p class="produce" id="produce">Beef, Lamb, Pork and Organic Vegetables</p>
-      <div class="links" id="links"></div>
+      <div class="links" id="links"><div id="share-toast">Link copied</div></div>
     </div>
   </div>
 
@@ -304,10 +296,9 @@
         <span id="quote-text">Skehana Hill Farm is an organic mixed farm who's focus is on farming in tune with nature in order to produce food which nurtures human health, community and biodiversity.</span>
         <cite id="quote-cite">Fintan and Liefe, Skehana Hill Farm</cite>
       </blockquote>
-      <div id="story"></div>
     </section>
 
-    <section id="film-section" class="hidden">
+    <section id="film-section" class="hidden" style="border-top: none; padding-top: 0">
       <div class="sec-head"><h2>The visit</h2><span class="rule"></span></div>
       <p class="intro" id="film-intro">Filmed by Provenance on the farm.</p>
     </section>
@@ -327,6 +318,10 @@
   <div id="pv-chat" data-producer="skehana-hill" class="col hidden"></div>
 
   <div class="col">
+    <section id="story-section" style="padding-top: 0">
+      <div id="story"></div>
+    </section>
+
     <section id="products-section" class="hidden">
       <div class="sec-head"><h2>What they grow</h2><span class="rule"></span></div>
       <div class="products" id="products"></div>
@@ -354,6 +349,18 @@
       <p style="margin-top: 18px"><a class="map-btn" id="seal-link" href="#" target="_blank" rel="noopener">Scan the Seal</a></p>
     </section>
 
+  </div>
+
+  <!-- THE VISIT RECORD. After the story and the shop, before the neighbours
+       and the map. -->
+  <div class="record">
+    <div class="record-inner">
+      <p class="label">Visit record</p>
+      <dl id="record"></dl>
+    </div>
+  </div>
+
+  <div class="col">
     <section id="nearby-section">
       <div class="sec-head"><h2>Nearby on the map</h2><span class="rule"></span></div>
     </section>
@@ -361,15 +368,6 @@
 
   <div class="wide">
     <div class="rel" id="nearby"></div>
-  </div>
-
-  <!-- THE VISIT RECORD. The last thing before the map: the page tells the
-       story first and states the facts at the end. -->
-  <div class="record">
-    <div class="record-inner">
-      <p class="label">Visit record</p>
-      <dl id="record"></dl>
-    </div>
   </div>
 
   <div class="map-section">
@@ -380,7 +378,7 @@
     <div class="mini-map">
       <img src="map.jpg" alt="The Provenance Map, with Skehana Hill's gold pin among the others" />
     </div>
-    <p class="map-line">Skehana Hill is a Provenance Featured farm<br>on the Provenance Map</p>
+    <p class="map-line">Skehana Hill is a Featured producer<br>on the Provenance Map</p>
     <a href="../?producer=skehana-hill" class="map-btn">See on the map</a>
   </div>
 
@@ -456,7 +454,9 @@
       const links = [];
       if (producer.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(producer.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
       if (producer.website) links.push(`<a href="${esc(producer.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
-      $('links').innerHTML = links.join('');
+      links.push(`<button type="button" id="share-btn" aria-label="Share this producer"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
+      $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
+      $('share-btn').addEventListener('click', shareProfile);
 
       // ── their own words, then the story ──
       if (producer.description) $('quote-text').textContent = producer.description;
@@ -506,11 +506,17 @@
       // ── where to buy, as a sentence ──
       const buy = (pr.where_to_buy && pr.where_to_buy.length) ? pr.where_to_buy : (producer.where_to_buy || []);
       if (buy.length) {
+        // Contact seller is the first layer of Provenance Connect. It is built
+        // here and stays off until the profile sets contact.enabled.
+        const contact = pr.contact || {};
+        const contactBtn = (contact.enabled && contact.url)
+          ? `<a class="contact" href="${esc(contact.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><polyline points="4 6 12 13 20 6"/></svg>${esc(contact.label || 'Contact seller')}</a>`
+          : '';
         $('buy').innerHTML = buy.map(item => {
           if (typeof item === 'string') return `<p>${esc(item)}</p>`;
           const line = [item.name, item.note].filter(Boolean).join(', ');
           const dir = item.url ? `<a class="dir" href="${esc(item.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>${esc(item.when || 'Directions')}</a>` : '';
-          return `<p>${esc(line)}.</p>${dir}`;
+          return `<p>${esc(line)}.</p>${(dir || contactBtn) ? `<div class="buy-actions">${dir}${contactBtn}</div>` : ''}`;
         }).join('');
         show('buy-section', true);
       }
@@ -560,7 +566,7 @@
 
     // ── share ──
     let shareToastTimer = null;
-    $('share-btn').addEventListener('click', async () => {
+    async function shareProfile() {
       const name = $('name').textContent;
       if (typeof gtag === 'function') gtag('event', PRODUCER_ID + '-share');
       if (navigator.share) {
@@ -572,7 +578,7 @@
           clearTimeout(shareToastTimer); shareToastTimer = setTimeout(() => t.classList.remove('visible'), 2150);
         } catch (err) {}
       }
-    });
+    }
 
     // ── load ──
     // The service worker is cache-first for anything that is not a page, so

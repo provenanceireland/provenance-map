@@ -7,7 +7,7 @@
   "visit": {
     "date": "26 August 2026",
     "walked_by": "Darragh",
-    "ground": "A little over 200 acres outside Freshford, farmed organically. Cattle on the lower half, sheep and horses further up, a few pigs, the polytunnel, and an orchard.",
+    "ground": "A little over 200 acres outside Freshford, farmed organically with regenerative practices. Cattle roam free on the lower part of the farm, sheep and horses graze closer to the polytunnels and the orchard, and a few pigs have the ground up towards the hill.",
     "listed": "Verified 9 August 2026, Featured August 2026"
   },
 
@@ -19,11 +19,13 @@
   "film_intro": "Filmed by Provenance on the farm.",
   "film": { "url": "https://www.youtube.com/embed/pyMpz_Di-yc", "poster": "film-short.jpg", "aspect": "9/16", "title": "Featured Producer Skehana Hill" },
 
+  "contact": { "enabled": false, "label": "Contact seller", "url": "" },
+
   "series_label": "The visit, in three parts",
   "series": [
-    { "title": "Episode 1: Greenhouse and Orchard", "url": "https://www.youtube.com/embed/dRughUCOXUE", "poster": "film-ep1.jpg", "aspect": "9/16" },
-    { "title": "Episode 2: Pigs and Sheep",         "url": "https://www.youtube.com/embed/EytKSs4CWQo", "poster": "film-ep2.jpg", "aspect": "9/16" },
-    { "title": "Episode 3: The Cattle",             "url": "https://www.youtube.com/embed/E3PstwFZPII", "poster": "film-ep3.jpg", "aspect": "9/16" }
+    { "title": "Episode 1: Greenhouse and Orchard", "url": "https://www.youtube.com/embed/dRughUCOXUE", "poster": "orchard.jpg", "aspect": "9/16" },
+    { "title": "Episode 2: Pigs and Sheep",         "url": "https://www.youtube.com/embed/EytKSs4CWQo", "poster": "farmers.jpg", "aspect": "9/16" },
+    { "title": "Episode 3: The Cattle",             "url": "https://www.youtube.com/embed/E3PstwFZPII", "poster": "cattle.jpg", "aspect": "9/16" }
   ],
 
   "story": [

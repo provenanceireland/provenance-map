@@ -569,7 +569,7 @@
     .tier-pill + .tier-pill { margin-left: 5px; }
     .tier-pill-discovered   { background: rgba(42,90,56,0.14);   border: 1px solid rgba(42,90,56,0.85);   color: #4E8560; }
     .tier-pill-verified     { background: rgba(89,166,102,0.10); border: 1px solid rgba(89,166,102,0.55);  color: #59A666; }
-    .tier-pill-featured     { background: #2F5C3A;                 border: 1px solid #45704E;                color: #E8DEC8; }
+    .tier-pill-featured     { background: #CDA043;                 border: 1px solid #A97C28;                color: #2F5C3A; }
     .tier-pill-seal-lite    { background: rgba(112,112,112,0.10);border: 1px solid rgba(140,140,140,0.55); color: #909090; }
     .tier-pill-seal-complete{ background: rgba(196,164,74,0.10); border: 1px solid rgba(196,164,74,0.55);  color: #C4A44A; }
     .tier-pill-market       { background: rgba(176,98,58,0.10);  border: 1px solid rgba(176,98,58,0.55);   color: #C07050; }
@@ -2305,6 +2305,9 @@
       if (pin.dataset.instagram) icons.push(`<a class="card-action-icon" href="https://www.instagram.com/${pin.dataset.instagram}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
       if (pin.dataset.website) icons.push(`<a class="card-action-icon" href="${pin.dataset.website}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       if (pin.dataset.directions) icons.push(`<a class="card-action-icon" href="${pin.dataset.directions}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
+      // The filmed visit: `video` on the record is the first episode on YouTube.
+      // Featured only in practice, since only a visited farm has one.
+      if (pin.dataset.video) icons.push(`<a class="card-action-icon" href="${pin.dataset.video}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor" stroke="none"/></svg>YouTube</a>`);
       // Share is a Provenance Verified (and above) benefit only
       const canShare = !isMarket && ['verified', 'featured', 'seal-lite', 'seal-complete'].includes(tierName);
       if (canShare) {
