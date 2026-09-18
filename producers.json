@@ -2810,6 +2810,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null
+    },
+    {
+      "id": "garryhinch-mushrooms",
+      "practice": "unspecified",
+      "name": "Garryhinch Mushrooms",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.14415532424484,
+      "lng": -7.2717539670497136,
+      "county": "Offaly",
+      "location": "Co. Offaly",
+      "product": "Exotic Mushrooms",
+      "product_type": ["mushrooms"],
+      "description": "Family-run organic mushroom farm operated by Joe and Dolores Gorman on the banks of the River Barrow. Over 30 years in mushroom farming. They grow Shiitake, King Oyster, Yellow Oyster, Grey Oyster, Maitake, Nameko, Lion's Mane and White Beech mushrooms on wooden blocks sourced from sustainably managed forests. No chemicals, fertilisers, pesticides or artificial inputs.",
+      "photo_url": "garryhinch.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": null
     }
   ]
 }
