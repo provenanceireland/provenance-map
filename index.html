@@ -1299,6 +1299,9 @@
     }
 
     @media (min-width: 769px) {
+      /* On a wide screen the artwork sits close under the wordmark, so the
+         wordmark rides a little higher. Phones keep their own padding. */
+      #header { padding-top: calc(env(safe-area-inset-top, 20px) + 18px); }
     }
 
     @media (max-width: 768px) {
