@@ -1193,10 +1193,13 @@
        gold reads as "there is something to watch here". */
     #pin-label .pl-film {
       display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 4px;
+      margin-top: 5px; padding: 4px 8px;
+      border: 1px solid rgba(205,160,67,0.55); border-radius: 4px;
       font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
       color: #CDA043;
+      pointer-events: auto; cursor: pointer;
     }
+    #pin-label .pl-film:hover { background: rgba(205,160,67,0.14); }
     #pin-label .pl-film::before {
       content: '';
       width: 0; height: 0;
@@ -2229,6 +2232,15 @@
     pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div><div class="pl-film">Watch the visit</div>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
+    pinLabel.querySelector('.pl-film').addEventListener('click', e => {
+      e.stopPropagation();
+      if (labelPin && labelPin.dataset.video) window.open(labelPin.dataset.video, '_blank', 'noopener');
+    });
+    const overLabel = (x, y) => {
+      if (!pinLabel.classList.contains('visible')) return false;
+      const r = pinLabel.getBoundingClientRect();
+      return x >= r.left - 8 && x <= r.right + 8 && y >= r.top - 8 && y <= r.bottom + 12;
+    };
 
     function pinNearestForLabel(cx, cy, reach) {
       let best = null, bestDist = Infinity;
@@ -2277,11 +2289,13 @@
         if (hoverRaf) return;
         hoverRaf = requestAnimationFrame(() => {
           hoverRaf = null;
+          if (overLabel(e.clientX, e.clientY)) return;
           const pin = pinNearestForLabel(e.clientX, e.clientY, 6);
           if (pin !== labelPin) showPinLabel(pin);
         });
       });
-      mapWrapEl.addEventListener('mouseleave', hidePinLabel);
+      mapWrapEl.addEventListener('mouseleave', e => { if (!overLabel(e.clientX, e.clientY)) hidePinLabel(); });
+      pinLabel.addEventListener('mouseleave', hidePinLabel);
     } else {
       let pressTimer = null, pressStart = null, suppressClick = false;
       mapWrapEl.addEventListener('touchstart', e => {
@@ -2298,7 +2312,11 @@
         const t = e.touches[0];
         if (pressStart && Math.hypot(t.clientX - pressStart.x, t.clientY - pressStart.y) > 8) { clearTimeout(pressTimer); }
       }, { passive: true });
-      const endPress = () => { clearTimeout(pressTimer); setTimeout(hidePinLabel, 900); };
+      const endPress = () => {
+        clearTimeout(pressTimer);
+        const hasFilm = labelPin && labelPin.dataset.video;
+        setTimeout(hidePinLabel, hasFilm ? 4000 : 900);
+      };
       mapWrapEl.addEventListener('touchend', endPress, { passive: true });
       mapWrapEl.addEventListener('touchcancel', endPress, { passive: true });
       mapWrapEl.addEventListener('contextmenu', e => { if (labelPin) e.preventDefault(); });
