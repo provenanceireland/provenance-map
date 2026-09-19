@@ -1189,6 +1189,24 @@
       margin-top: 3px;
     }
     #pin-label .pl-product.t-featured { color: #CDA043; }
+    /* A Featured pin with a film shows a small play mark in its label, so the
+       gold reads as "there is something to watch here". */
+    #pin-label .pl-film {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 4px;
+      font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: #CDA043;
+    }
+    #pin-label .pl-film::before {
+      content: '';
+      width: 0; height: 0;
+      border-left: 6px solid #CDA043;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+    /* And on hover the gold pin itself lifts a little, the only pin that does */
+    .pin.t-featured.hovered .pin-dot { transform: scale(1.35); transition: transform 0.2s; }
+    .pin.t-featured .pin-dot { transition: transform 0.2s; }
 
     /* ── ARRIVAL ── on first load the pins settle onto the island in a sweep
        from the north-west, about a second end to end, each one fading in and
@@ -2193,7 +2211,7 @@
     // does not open the card; the tap that follows still does.
     const pinLabel = document.createElement('div');
     pinLabel.id = 'pin-label';
-    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div>';
+    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div><div class="pl-film">Watch the visit</div>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
 
@@ -2221,12 +2239,19 @@
       prodEl.classList.toggle('t-featured', pin.dataset.tierName === 'featured');
       prodEl.style.display = product ? '' : 'none';
       pinLabel.querySelector('.pl-new').style.display = pin.classList.contains('is-new') ? '' : 'none';
+      pinLabel.querySelector('.pl-film').style.display = (pin.dataset.tierName === 'featured' && pin.dataset.video) ? '' : 'none';
       pinLabel.style.left = (r.left + r.width / 2) + 'px';
       pinLabel.style.top  = r.top + 'px';
       pinLabel.classList.add('visible');
+      if (labelPin && labelPin !== pin) labelPin.classList.remove('hovered');
+      pin.classList.add('hovered');
       labelPin = pin;
     }
-    function hidePinLabel() { pinLabel.classList.remove('visible'); labelPin = null; }
+    function hidePinLabel() {
+      pinLabel.classList.remove('visible');
+      if (labelPin) labelPin.classList.remove('hovered');
+      labelPin = null;
+    }
 
     const mapWrapEl = document.getElementById('map-wrap');
     const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
