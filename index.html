@@ -1204,9 +1204,24 @@
       border-top: 4px solid transparent;
       border-bottom: 4px solid transparent;
     }
-    /* And on hover the gold pin itself lifts a little, the only pin that does */
-    .pin.t-featured.hovered .pin-dot { transform: scale(1.35); transition: transform 0.2s; }
-    .pin.t-featured .pin-dot { transition: transform 0.2s; }
+    /* And on hover the gold pin itself grows and shows a play mark, the only
+       pin that changes under the pointer. The mark is drawn at the dot's own
+       scale and grows with it, so it stays crisp. */
+    .pin.t-featured .pin-dot { transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+    .pin.t-featured.hovered .pin-dot { transform: scale(2.3); z-index: 3; }
+    .pin.t-featured.hovered.has-film .pin-dot::after {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 0; height: 0;
+      border-left: 3.2px solid #2F5C3A;
+      border-top: 2.2px solid transparent;
+      border-bottom: 2.2px solid transparent;
+      transform: translate(-38%, -50%);
+      box-shadow: none;
+      border-radius: 0;
+      background: none;
+    }
 
     /* ── ARRIVAL ── on first load the pins settle onto the island in a sweep
        from the north-west, about a second end to end, each one fading in and
@@ -2103,7 +2118,7 @@
       if (p.social_instagram) div.dataset.instagram  = p.social_instagram;
       if (p.website)          div.dataset.website    = p.website;
       if (p.directions)       div.dataset.directions = p.directions;
-      if (p.video)       div.dataset.video       = p.video;
+      if (p.video)     { div.dataset.video       = p.video; div.classList.add('has-film'); }
       if (p.date_added)  div.dataset.listed      = p.date_added;
       if (p.seal_active) div.dataset.sealActive = 'true';
       if (p.seal_url)    div.dataset.sealUrl    = p.seal_url;
