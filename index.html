@@ -1190,6 +1190,19 @@
     }
     #pin-label .pl-product.t-featured { color: #CDA043; }
 
+    /* ── ARRIVAL ── on first load the pins settle onto the island in a sweep
+       from the north-west, about a second end to end, each one fading in and
+       easing down to size. Off for reduced motion. */
+    .pin.arrive { animation: pin-arrive-fade 0.55s ease-out both; animation-delay: var(--arrive, 0ms); }
+    .pin.arrive .pin-dot { animation: pin-arrive-dot 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--arrive, 0ms); }
+    .pin.arrive .pin-pulse { opacity: 0; }
+    @keyframes pin-arrive-fade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pin-arrive-dot { from { transform: scale(0.25); } 70% { transform: scale(1.18); } to { transform: scale(1); } }
+    @media (prefers-reduced-motion: reduce) {
+      .pin.arrive, .pin.arrive .pin-dot { animation: none !important; }
+      .pin.arrive .pin-pulse { opacity: 1; }
+    }
+
     /* Available now — bright green dot on top-right of pin */
     .pin.available-now .pin-dot::after {
       content: '';
@@ -2052,6 +2065,26 @@
         }
       });
       positionPins();
+      arrivePins();
+    }
+
+    // The arrival: order the pins as a sweep from the north-west corner of the
+    // island to the south-east and stagger them across about 900ms. Runs once,
+    // on first load. The class comes off afterwards so it never fights the tap
+    // animation on the dot.
+    function arrivePins() {
+      const pins = Array.from(document.querySelectorAll('.pin'));
+      if (!pins.length) return;
+      const ordered = pins.map(pin => {
+        const lat = parseFloat(pin.dataset.lat), lng = parseFloat(pin.dataset.lng);
+        return { pin, key: (55.40 - lat) * 20 + (lng + 5.90) * 15.217 * 0.35 };
+      }).sort((a, b) => a.key - b.key);
+      const span = 900, n = ordered.length;
+      ordered.forEach(({ pin }, i) => {
+        pin.style.setProperty('--arrive', Math.round(120 + (i / Math.max(1, n - 1)) * span) + 'ms');
+        pin.classList.add('arrive');
+      });
+      setTimeout(() => pins.forEach(pin => { pin.classList.remove('arrive'); pin.style.removeProperty('--arrive'); }), 120 + span + 700);
     }
 
     /* ── PIN HIT TESTING ──
