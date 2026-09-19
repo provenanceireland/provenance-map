@@ -61,7 +61,7 @@ The note keys have changed over time — accept both the current and older names
 | `photo` | `photo_url` (+ `photo_bg`) | logo only — see photo rule |
 | `Listed` | — | your tracking flag; write `Listed: Yes` back to the note after a successful sync (see last step) |
 
-Keep every other producers.json field at its template default (`badge`, `badge2`,
+Set `date_added` to today as `YYYY-MM-DD` on every **new** listing (the map rings the pin as New this week for seven days from it; leave it alone on an upgrade). Keep every other producers.json field at its template default (`badge`, `badge2`,
 `map_link`, `attributes: []`, `seal_active: false`, `where_to_buy: []`, etc.),
 or, for an update, leave existing values untouched unless the note changes them.
 

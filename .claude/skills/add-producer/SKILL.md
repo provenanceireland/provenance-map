@@ -90,11 +90,12 @@ entries.
   "where_to_buy": [],
   "farmers_market": false,
   "farm_shop": false,
-  "date_added": null
+  "date_added": "YYYY-MM-DD"
 }
 ```
 
 Field notes:
+- **`date_added`** — today, as `YYYY-MM-DD`, on every new listing. The map rings a pin as **New this week** for seven days from this date, so a null here means the listing never shows as new.
 - **`id`** — kebab-case of the name (`galtee-honey-farm`). Must be unique.
 - **`county`** — one of the 32 counties, matching the filter list in `index.html`.
 - **`location`** — human string shown on the card ("Ardee, Co. Louth"). Derive

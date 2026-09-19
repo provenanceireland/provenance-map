@@ -1203,6 +1203,37 @@
       .pin.arrive .pin-pulse { opacity: 1; }
     }
 
+    /* ── NEW THIS WEEK ── a pin listed in the last seven days wears a soft
+       cream ring that breathes outward, so the map visibly grows. Driven by
+       date_added on the record. Static ring for reduced motion. */
+    .pin.is-new .pin-dot::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      border: 1px solid rgba(232,222,200,0.85);
+      transform: translate(-50%, -50%) scale(1.6);
+      opacity: 0.7;
+      animation: pin-new-ring 2.6s ease-out infinite;
+      pointer-events: none;
+    }
+    @keyframes pin-new-ring {
+      0%   { transform: translate(-50%, -50%) scale(1.3); opacity: 0.85; }
+      70%  { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(1.8); opacity: 0.6; }
+    }
+    #pin-label .pl-new {
+      font-size: 0.5rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #E8DEC8;
+      margin-top: 4px;
+    }
+
     /* Available now — bright green dot on top-right of pin */
     .pin.available-now .pin-dot::after {
       content: '';
@@ -2059,9 +2090,10 @@
       document.querySelectorAll('.pin').forEach(pin => {
         const tier = parseInt(pin.dataset.tier || '0');
         if (tier > 0) pin.classList.add('tier-' + tier);
+        // New for seven days from date_added on the record.
         if (pin.dataset.listed) {
           const listed = new Date(pin.dataset.listed);
-          if (Date.now() - listed.getTime() < 24 * 60 * 60 * 1000) pin.classList.add('is-new');
+          if (!isNaN(listed) && Date.now() - listed.getTime() < 7 * 24 * 60 * 60 * 1000) pin.classList.add('is-new');
         }
       });
       positionPins();
@@ -2146,7 +2178,7 @@
     // does not open the card; the tap that follows still does.
     const pinLabel = document.createElement('div');
     pinLabel.id = 'pin-label';
-    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div>';
+    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
 
@@ -2173,6 +2205,7 @@
       prodEl.textContent = product;
       prodEl.classList.toggle('t-featured', pin.dataset.tierName === 'featured');
       prodEl.style.display = product ? '' : 'none';
+      pinLabel.querySelector('.pl-new').style.display = pin.classList.contains('is-new') ? '' : 'none';
       pinLabel.style.left = (r.left + r.width / 2) + 'px';
       pinLabel.style.top  = r.top + 'px';
       pinLabel.classList.add('visible');
