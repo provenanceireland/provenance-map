@@ -1144,6 +1144,52 @@
       100% { transform: translate(-50%,-50%) scale(4); opacity: 0; }
     }
 
+    /* ── PIN LABEL ── the name and product, shown above a pin on hover (mouse)
+       or on a long press (touch), so the map can be read without opening a
+       card for every dot. One element, moved to whichever pin is under the
+       pointer. */
+    #pin-label {
+      position: fixed;
+      z-index: 26;
+      transform: translate(-50%, calc(-100% - 14px));
+      background: rgba(34,35,32,0.95);
+      border: 1px solid rgba(201,198,189,0.18);
+      border-radius: 6px;
+      padding: 6px 11px 7px;
+      text-align: center;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    #pin-label.visible { opacity: 1; }
+    #pin-label::after {
+      content: '';
+      position: absolute;
+      left: 50%; bottom: -5px;
+      width: 8px; height: 8px;
+      transform: translateX(-50%) rotate(45deg);
+      background: rgba(34,35,32,0.95);
+      border-right: 1px solid rgba(201,198,189,0.18);
+      border-bottom: 1px solid rgba(201,198,189,0.18);
+    }
+    #pin-label .pl-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #E8DEC8;
+      line-height: 1.15;
+    }
+    #pin-label .pl-product {
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9A968B;
+      margin-top: 3px;
+    }
+    #pin-label .pl-product.t-featured { color: #CDA043; }
+
     /* Available now — bright green dot on top-right of pin */
     .pin.available-now .pin-dot::after {
       content: '';
@@ -2061,7 +2107,87 @@
       openCard(pin);
     }
 
+    // ── Pin label ──
+    // A mouse gets the label on hover, with a little more reach than a click
+    // so it is easy to catch. A finger gets it on a long press, and that press
+    // does not open the card; the tap that follows still does.
+    const pinLabel = document.createElement('div');
+    pinLabel.id = 'pin-label';
+    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div>';
+    document.body.appendChild(pinLabel);
+    let labelPin = null;
+
+    function pinNearestForLabel(cx, cy, reach) {
+      let best = null, bestDist = Infinity;
+      document.querySelectorAll('.pin').forEach(pin => {
+        const dot = pin.querySelector('.pin-dot');
+        if (!dot) return;
+        const r = dot.getBoundingClientRect();
+        if (!r.width) return;
+        if (pin.style.opacity && parseFloat(pin.style.opacity) < 0.9) return; // filtered out
+        const dist = Math.hypot(cx - (r.left + r.width / 2), cy - (r.top + r.height / 2));
+        if (dist <= r.width / 2 + reach && dist < bestDist) { bestDist = dist; best = pin; }
+      });
+      return best;
+    }
+    function showPinLabel(pin) {
+      if (!pin || card.classList.contains('open')) { hidePinLabel(); return; }
+      const dot = pin.querySelector('.pin-dot');
+      const r = dot.getBoundingClientRect();
+      pinLabel.querySelector('.pl-name').textContent = pin.dataset.name || '';
+      const product = pin.dataset.product || '';
+      const prodEl = pinLabel.querySelector('.pl-product');
+      prodEl.textContent = product;
+      prodEl.classList.toggle('t-featured', pin.dataset.tierName === 'featured');
+      prodEl.style.display = product ? '' : 'none';
+      pinLabel.style.left = (r.left + r.width / 2) + 'px';
+      pinLabel.style.top  = r.top + 'px';
+      pinLabel.classList.add('visible');
+      labelPin = pin;
+    }
+    function hidePinLabel() { pinLabel.classList.remove('visible'); labelPin = null; }
+
+    const mapWrapEl = document.getElementById('map-wrap');
+    const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+
+    if (!coarsePointer) {
+      let hoverRaf = null;
+      mapWrapEl.addEventListener('mousemove', e => {
+        if (hoverRaf) return;
+        hoverRaf = requestAnimationFrame(() => {
+          hoverRaf = null;
+          const pin = pinNearestForLabel(e.clientX, e.clientY, 6);
+          if (pin !== labelPin) showPinLabel(pin);
+        });
+      });
+      mapWrapEl.addEventListener('mouseleave', hidePinLabel);
+    } else {
+      let pressTimer = null, pressStart = null, suppressClick = false;
+      mapWrapEl.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        const t = e.touches[0];
+        pressStart = { x: t.clientX, y: t.clientY };
+        clearTimeout(pressTimer);
+        pressTimer = setTimeout(() => {
+          const pin = pinNearestForLabel(pressStart.x, pressStart.y, PIN_TAP_SLOP + 4);
+          if (pin) { showPinLabel(pin); suppressClick = true; }
+        }, 420);
+      }, { passive: true });
+      mapWrapEl.addEventListener('touchmove', e => {
+        const t = e.touches[0];
+        if (pressStart && Math.hypot(t.clientX - pressStart.x, t.clientY - pressStart.y) > 8) { clearTimeout(pressTimer); }
+      }, { passive: true });
+      const endPress = () => { clearTimeout(pressTimer); setTimeout(hidePinLabel, 900); };
+      mapWrapEl.addEventListener('touchend', endPress, { passive: true });
+      mapWrapEl.addEventListener('touchcancel', endPress, { passive: true });
+      mapWrapEl.addEventListener('contextmenu', e => { if (labelPin) e.preventDefault(); });
+      mapWrapEl.addEventListener('click', e => {
+        if (suppressClick) { suppressClick = false; e.stopImmediatePropagation(); e.preventDefault(); }
+      }, true);
+    }
+
     document.getElementById('map-wrap').addEventListener('click', e => {
+      hidePinLabel();
       const pin = pinNearestTo(e.clientX, e.clientY);
       if (pin) { e.stopPropagation(); tapPin(pin); }
     });
