@@ -1192,6 +1192,7 @@
     /* A Featured pin with a film shows a small play mark in its label, so the
        gold reads as "there is something to watch here". */
     #pin-label .pl-film {
+      text-decoration: none;
       display: inline-flex; align-items: center; gap: 5px;
       margin-top: 5px; padding: 4px 8px;
       border: 1px solid rgba(205,160,67,0.55); border-radius: 4px;
@@ -2229,13 +2230,12 @@
     // does not open the card; the tap that follows still does.
     const pinLabel = document.createElement('div');
     pinLabel.id = 'pin-label';
-    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div><div class="pl-film">Watch the visit</div>';
+    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div><a class="pl-film" href="#" target="_blank" rel="noopener">Watch the visit</a>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
-    pinLabel.querySelector('.pl-film').addEventListener('click', e => {
-      e.stopPropagation();
-      if (labelPin && labelPin.dataset.video) window.open(labelPin.dataset.video, '_blank', 'noopener');
-    });
+    // A real link, set to the pin's film when the label shows, so it opens
+    // the same way the card's YouTube button does, installed app included.
+    pinLabel.querySelector('.pl-film').addEventListener('click', e => e.stopPropagation());
     const overLabel = (x, y) => {
       if (!pinLabel.classList.contains('visible')) return false;
       const r = pinLabel.getBoundingClientRect();
@@ -2266,7 +2266,10 @@
       prodEl.classList.toggle('t-featured', pin.dataset.tierName === 'featured');
       prodEl.style.display = product ? '' : 'none';
       pinLabel.querySelector('.pl-new').style.display = pin.classList.contains('is-new') ? '' : 'none';
-      pinLabel.querySelector('.pl-film').style.display = (pin.dataset.tierName === 'featured' && pin.dataset.video) ? '' : 'none';
+      const filmEl = pinLabel.querySelector('.pl-film');
+      const hasFilm = pin.dataset.tierName === 'featured' && pin.dataset.video;
+      filmEl.style.display = hasFilm ? '' : 'none';
+      filmEl.href = hasFilm ? pin.dataset.video : '#';
       pinLabel.style.left = (r.left + r.width / 2) + 'px';
       pinLabel.style.top  = r.top + 'px';
       pinLabel.classList.add('visible');
@@ -2295,10 +2298,10 @@
         });
       });
       mapWrapEl.addEventListener('mouseleave', e => { if (!overLabel(e.clientX, e.clientY)) hidePinLabel(); });
-      pinLabel.addEventListener('mouseleave', hidePinLabel);
     } else {
       let pressTimer = null, pressStart = null, suppressClick = false;
       mapWrapEl.addEventListener('touchstart', e => {
+        suppressClick = false;
         if (e.touches.length !== 1) return;
         const t = e.touches[0];
         pressStart = { x: t.clientX, y: t.clientY };
