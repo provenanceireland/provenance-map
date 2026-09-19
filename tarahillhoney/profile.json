@@ -1,0 +1,33 @@
+{
+  "id": "tara-hill-honey",
+  "live": false,
+
+  "signed": "Tara Hill Honey",
+
+  "visit": {
+    "date": "",
+    "walked_by": "Darragh",
+    "ground": "",
+    "listed": "Verified 15 September 2026, Featured 19 September 2026"
+  },
+
+  "hero": { "src": "", "alt": "" },
+
+  "film_intro": "Filmed by Provenance on the farm.",
+  "film": { "url": "", "poster": "", "aspect": "9/16", "title": "" },
+
+  "contact": { "enabled": false, "label": "Contact seller", "url": "" },
+
+  "series_label": "The visit, in parts",
+  "series": [],
+
+  "story_title": "",
+  "story": [],
+
+  "products": [
+    { "name": "Raw Irish honey", "note": "", "season": "" }
+  ],
+
+  "photos_title": "Around the apiary",
+  "photos": []
+}
