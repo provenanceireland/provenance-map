@@ -1203,6 +1203,21 @@
       .pin.arrive .pin-pulse { opacity: 1; }
     }
 
+    /* ── FILTERING ── pins that fall outside a filter fade rather than snap,
+       and the ones that answer it give one slow pulse so the result lands as
+       a picture. The pulse is a one-shot on the dot. */
+    .pin { transition: opacity 0.35s ease; }
+    .pin .pin-dot.answer { animation: pin-answer 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    @keyframes pin-answer {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.7); }
+      100% { transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pin { transition: none; }
+      .pin .pin-dot.answer { animation: none; }
+    }
+
     /* ── NEW THIS WEEK ── a pin listed in the last seven days wears a soft
        cream ring that breathes outward, so the map visibly grows. Driven by
        date_added on the record. Static ring for reduced motion. */
@@ -2653,12 +2668,14 @@
       tiers: new Set()
     };
 
+    let lastAnswerKey = '';
     function applyFilters() {
       if (nearMe.active) return; // near-me controls pin opacity while mode is on
       const pins = document.querySelectorAll('.pin');
       const { search, county, productTypes, practices, attributes, tiers } = filterState;
       const hasFilters = search || county || productTypes.size || practices.size ||
                          attributes.size || tiers.size;
+      const matched = [];
 
       pins.forEach(pin => {
         if (!hasFilters) { pin.style.opacity = ''; return; }
@@ -2696,8 +2713,25 @@
           match = tiers.has(tierName);
         }
 
-        pin.style.opacity = match ? '' : '0.2';
+        pin.style.opacity = match ? '' : '0.25';
+        if (match) matched.push(pin);
       });
+
+      // One slow pulse on the pins that answer the filter, but only when the
+      // answer changes, so typing in the search box does not keep them bouncing.
+      const key = matched.map(p => p.dataset.name).join('|');
+      if (hasFilters && key !== lastAnswerKey && matched.length < pins.length) {
+        matched.forEach((pin, i) => {
+          const dot = pin.querySelector('.pin-dot');
+          if (!dot) return;
+          dot.classList.remove('answer');
+          void dot.offsetWidth;
+          dot.style.animationDelay = (i % 12) * 25 + 'ms';
+          dot.classList.add('answer');
+          dot.addEventListener('animationend', () => { dot.classList.remove('answer'); dot.style.animationDelay = ''; }, { once: true });
+        });
+      }
+      lastAnswerKey = hasFilters ? key : '';
 
       updateFilterBadge();
     }
