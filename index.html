@@ -1313,32 +1313,18 @@
 
     /* ── PROVENANCE COLLECTION ── a member of the Collection keeps its tier
        but wears the Collection pin: Featured-sized, a deep forest green bead
-       lit from the upper left like the gold one, a thin silver ring with a
-       fine beaded ring outside it, the nearest thing to a braid at this
-       size, and a soft silver glow. Set "collection": true on the record. */
+       lit from the upper left like the gold one, a thin bright silver ring,
+       and a soft silver glow. Set "collection": true on the record. */
     .pin.collection .pin-dot {
       width: 9.22px !important; height: 9.22px !important;
       background: radial-gradient(circle at 34% 30%, #4E8A5A 0%, #2F5C3A 52%, #1B3A24 100%) !important;
       border: none !important;
       box-shadow:
         inset 0 0 1.5px rgba(232,222,200,0.40),
-        0 0 0 1px rgba(214,211,202,0.95),
-        0 0 6px 2px rgba(201,198,189,0.38),
+        0 0 0 1.2px #DCD9D0,
+        0 0 6px 2px rgba(220,217,208,0.42),
         0 0 15px 5px rgba(201,198,189,0.14) !important;
       position: relative;
-    }
-    /* ::after, so the New this week ring on ::before can still sit on a
-       Collection pin. */
-    .pin.collection .pin-dot::after {
-      content: '';
-      position: absolute;
-      inset: -3.5px;
-      border-radius: 50%;
-      border: 1px dotted rgba(214,211,202,0.80);
-      background: none;
-      box-shadow: none;
-      width: auto; height: auto;
-      pointer-events: none;
     }
     @media (max-width: 768px) {
       .pin.collection .pin-dot { width: 9.10px !important; height: 9.10px !important; }
