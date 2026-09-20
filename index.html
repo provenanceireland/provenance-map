@@ -576,6 +576,8 @@
     /* Founder is deliberately richer than the muted gold accent used elsewhere —
        it is the one pill meant to look like actual gold. */
     .tier-pill-founder      { background: rgba(69,112,78,0.20); border: 1px solid rgba(90,140,100,0.90);  color: #7DB088; }
+    /* Provenance Collection — silver, to match the Collection pin. Sits beside the tier pill. */
+    .tier-pill-collection   { background: rgba(220,217,208,0.07); border: 1px solid rgba(220,217,208,0.75);  color: #DCD9D0; }
     /* ── PINS — GOLD (Provenance Visited) ── */
     .pin.gold .pin-dot,
     .pin.approved.gold .pin-dot {
@@ -2120,7 +2122,7 @@
       const classes = ['pin', 't-' + (p.tier || 'discovered')];
       if (p.pin_classes) classes.push(...p.pin_classes.trim().split(' ').filter(Boolean));
       if (p.available_now) classes.push('available-now');
-      if (p.collection)    classes.push('collection');   // a Provenance Collection member wears the Collection pin
+      if (p.collection)  { classes.push('collection'); div.dataset.collection = 'true'; }   // a Provenance Collection member wears the Collection pin
       div.className = classes.join(' ');
       div.dataset.lat = p.lat;
       div.dataset.lng = p.lng;
@@ -2389,6 +2391,8 @@
         // so the badge line stays a single tier statement.
         const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
+        // A Collection member carries a second, silver pill beside the tier.
+        if (pin.dataset.collection === 'true') badgeHTML += `<span class="tier-pill tier-pill-collection">Provenance Collection</span>`;
       }
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
