@@ -834,9 +834,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin: 4px 0 0;
-      padding-top: 12px;
-      border-top: 1px solid rgba(201,198,189,0.10);
+      margin: 2px 0 12px;
     }
     .card-product-tags:empty { display: none; }
     .product-tag {
@@ -1955,6 +1953,8 @@
       <p class="card-description hidden" id="card-description"></p>
       <p class="card-practice hidden" id="card-practice"></p>
       <div id="card-attributes" class="hidden"></div>
+      <!-- The produce tags: under the practice and attribute pills, above the links, on every card -->
+      <div id="card-product-tags" class="card-product-tags"></div>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
 
@@ -1974,8 +1974,7 @@
         <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Featured Profile In Progress</span>
         <a id="card-featured-link" class="card-action-btn card-action-featured hidden" href="#">Featured Profile</a>
         <a id="card-connect" class="card-action-btn card-action-connect hidden" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>
-        <!-- The produce tags sit under Connect, then where to buy, then the confirmed line -->
-        <div id="card-product-tags" class="card-product-tags"></div>
+        <!-- Where to buy sits under Connect, above the confirmed line -->
         <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
