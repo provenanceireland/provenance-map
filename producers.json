@@ -2871,6 +2871,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-09-19"
+    },
+    {
+      "id": "creag-ard-farm",
+      "practice": "unspecified",
+      "name": "Creag Ard Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.055726462369215,
+      "lng": -6.283189104955653,
+      "county": "Louth",
+      "location": "Riverstown, Co. Louth",
+      "product": "Lamb & Turkey",
+      "product_type": ["lamb", "poultry"],
+      "description": "An organic hill sheep farm on the Cooley Mountains at Riverstown, Co. Louth, run by Matthew and Clodagh McGreehan. The flock grazes the mountain, and each winter the farm rears organic free range turkeys for Christmas, sold locally around the Cooley peninsula.",
+      "photo_url": "creagard.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-09-21"
     }
   ]
 }
