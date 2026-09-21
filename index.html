@@ -879,6 +879,16 @@
       white-space: nowrap;
     }
     .card-where-buy-note { display: block; font-size: 0.64rem; color: #8C8259; margin-top: 1px; }
+    .card-actions .card-where-buy { margin: 4px 0 0; padding-top: 12px; border-top: 1px solid rgba(201,198,189,0.10); }
+    .card-actions .card-where-buy-item { font-size: 0.8rem; padding: 4px 0; }
+    .card-actions .card-where-buy-item a { color: #E8DEC8; }
+    .card-actions .card-where-buy-item a:hover { color: #5A8C64; }
+    .card-where-buy-arrow {
+      width: 18px; height: 18px; flex-shrink: 0;
+      stroke: #5A8C64; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .card-where-buy-item a:hover .card-where-buy-arrow { transform: translateX(3px); }
     /* Venue tags (farm shop, farmers market) */
     .card-venue-tags {
       display: flex;
@@ -1945,7 +1955,6 @@
       <p class="card-practice hidden" id="card-practice"></p>
       <div id="card-attributes" class="hidden"></div>
       <div class="card-action-icons" id="card-action-icons"></div>
-      <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
 
       <div id="card-market-info" class="hidden">
@@ -1964,6 +1973,8 @@
         <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Featured Profile In Progress</span>
         <a id="card-featured-link" class="card-action-btn card-action-featured hidden" href="#">Featured Profile</a>
         <a id="card-connect" class="card-action-btn card-action-connect hidden" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>
+        <!-- Where to buy sits with the actions, under Connect, above the confirmed line -->
+        <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
@@ -2564,10 +2575,13 @@
             whereToBuyEl.innerHTML = `<span class="card-where-buy-label">Where to buy</span><div class="card-where-buy-list${items.length === 1 ? ' single' : ''}">` +
               items.map(item => {
                 if (typeof item === 'string') return `<div class="card-where-buy-item">${item}</div>`;
-                const when = item.when ? `<span class="card-where-buy-when">${item.when}</span>` : '';
+                // With a url the whole row is the link and an arrow on the right says
+                // so; without one, `when` shows as text (a market day, say).
+                const arrow = `<svg class="card-where-buy-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+                const when = item.when && !item.url ? `<span class="card-where-buy-when">${item.when}</span>` : '';
                 const note = item.note ? `<span class="card-where-buy-note">${item.note}</span>` : '';
                 return `<div class="card-where-buy-item">${item.url
-                  ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}${when}</a>`
+                  ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}${arrow}</a>`
                   : `<span class="card-where-buy-name">${item.name}${when}</span>`}${note}</div>`;
               }).join('') + `</div>`;
             whereToBuyEl.classList.remove('hidden');

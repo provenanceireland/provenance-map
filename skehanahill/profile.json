@@ -38,9 +38,9 @@
 
   "products": [
     { "name": "Beef", "note": "Grass fed and grass finished on the land, not in a shed. A mix of breeds: Angus, Hereford and Shorthorn bulls on continental cross cows.", "season": "Grass finished" },
-    { "name": "Lamb", "note": "Finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn.", "season": "Grass finished" },
     { "name": "Pork", "note": "Just a couple of pigs, on organic barley, wheat and peas and the orchard windfalls. Last winter's batch ran in the woods.", "season": "Small batches" },
-    { "name": "Organic vegetables", "note": "Beds and a polytunnel on a rotation: tomatoes, salads, three kales, purple sprouting broccoli, cauliflower, courgettes, pumpkins, alliums and roots, and the Jerusalem artichokes that come back every year whether they are wanted or not. In among them, the puffballs and earthworms that say the soil is alive. A corner for experiments: soybeans and sweet potato this year.", "season": "Year round, with the tunnel" }
+    { "name": "Lamb", "note": "Finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn.", "season": "Grass finished" },
+    { "name": "Seasonal vegetables", "note": "Beds and a polytunnel on a rotation: tomatoes, salads, three kales, purple sprouting broccoli, cauliflower, courgettes, pumpkins, alliums and roots, and the Jerusalem artichokes that come back every year whether they are wanted or not. In among them, the puffballs and earthworms that say the soil is alive. A corner for experiments: soybeans and sweet potato this year.", "season": "Year round, with the tunnel" }
   ],
 
   "photos_title": "Around the farm",
