@@ -954,6 +954,20 @@
     }
     .card-action-featured:hover { background: #35663F; }
 
+    /* Connect: the first layer of Provenance Connect. Opens a WhatsApp chat
+       with the producer, with a line saying where the person found them.
+       Cream outline, so the deep green Featured Profile button stays the
+       one filled thing on the card. Shows only when the record carries a
+       whatsapp number. */
+    .card-action-connect {
+      background: rgba(201,198,189,0.05);
+      border: 1px solid rgba(201,198,189,0.45);
+      color: #E8DEC8;
+      gap: 8px;
+    }
+    .card-action-connect:hover { background: rgba(201,198,189,0.12); border-color: rgba(201,198,189,0.7); }
+    .card-action-connect svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
     .card-confirmed {
       display: flex;
@@ -1949,6 +1963,7 @@
         <a id="card-founder" class="card-action-btn card-action-founder hidden" href="#">Provenance Founder</a>
         <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Featured Profile In Progress</span>
         <a id="card-featured-link" class="card-action-btn card-action-featured hidden" href="#">Featured Profile</a>
+        <a id="card-connect" class="card-action-btn card-action-connect hidden" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
@@ -2154,6 +2169,7 @@
       if (p.map_link)    div.dataset.profile    = p.map_link;
       if (p.profile_slug) div.dataset.profileSlug = p.profile_slug;
       if (p.profile_live) div.dataset.profileLive = 'true';
+      if (p.whatsapp)     div.dataset.whatsapp    = p.whatsapp;
       if (p.where_to_buy && p.where_to_buy.length) div.dataset.whereToBuy = JSON.stringify(p.where_to_buy);
       if (p.farmers_market) div.dataset.farmersMarket = 'true';
       if (p.farm_shop)      div.dataset.farmShop      = 'true';
@@ -2376,6 +2392,17 @@
       'seal-complete': { label: 'Provenance Seal',      cls: 'tier-pill tier-pill-seal-complete' },
     };
 
+    function whatsappLink(number, name) {
+      if (!number) return '';
+      let digits = String(number).replace(/[^0-9+]/g, '');
+      if (digits.startsWith('+')) digits = digits.slice(1);
+      if (digits.startsWith('00')) digits = digits.slice(2);
+      if (digits.startsWith('0')) digits = '353' + digits.slice(1);
+      if (!/^\d{9,15}$/.test(digits)) return '';
+      const text = 'Hi, I found ' + (name || 'you') + ' on the Provenance Map.';
+      return 'https://wa.me/' + digits + '?text=' + encodeURIComponent(text);
+    }
+
     function openCard(pin) {
       const tierName = pin.dataset.tierName || 'discovered';
       const isMarket = pin.classList.contains('market');
@@ -2407,6 +2434,14 @@
       const featuredLink = document.getElementById('card-featured-link');
       if (profileLive) featuredLink.href = pin.dataset.profileSlug + '/';
       featuredLink.classList.toggle('hidden', !profileLive);
+
+      // ── Connect ── a WhatsApp chat with the producer, from the record's
+      // whatsapp number. Irish numbers are written as dialled (087...) and
+      // normalised to 353 for wa.me.
+      const connectEl = document.getElementById('card-connect');
+      const wa = whatsappLink(pin.dataset.whatsapp, pin.dataset.name);
+      if (wa) connectEl.href = wa;
+      connectEl.classList.toggle('hidden', !wa);
 
       // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;

@@ -19,8 +19,6 @@
   "film_intro": "Filmed by Provenance on the farm.",
   "film": { "url": "https://www.youtube.com/embed/pyMpz_Di-yc", "poster": "film-short.jpg", "aspect": "9/16", "title": "Featured Producer Skehana Hill" },
 
-  "contact": { "enabled": false, "label": "Contact seller", "url": "" },
-
   "series_label": "The visit, in three parts",
   "series": [
     { "title": "Episode 1: Greenhouse and Orchard", "url": "https://www.youtube.com/embed/dRughUCOXUE", "poster": "orchard.jpg", "aspect": "9/16" },
