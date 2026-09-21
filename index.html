@@ -2410,7 +2410,7 @@
       if (digits.startsWith('00')) digits = digits.slice(2);
       if (digits.startsWith('0')) digits = '353' + digits.slice(1);
       if (!/^\d{9,15}$/.test(digits)) return '';
-      const text = 'Hi, I found ' + (name || 'you') + ' on the Provenance Map.';
+      const text = 'Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.';
       return 'https://wa.me/' + digits + '?text=' + encodeURIComponent(text);
     }
 
