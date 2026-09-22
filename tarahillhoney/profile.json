@@ -35,10 +35,10 @@
 
   "photos_title": "Around the apiary",
   "photos": [
-    { "src": "orchard.jpg", "caption": "A hive in the apple trees", "position": "50% 50%" },
+    { "src": "solar.jpg",   "caption": "The panels, and more hives", "position": "50% 55%" },
     { "src": "shop.jpg",    "caption": "The shelves at the farm", "position": "50% 45%" },
+    { "src": "orchard.jpg", "caption": "A hive in the apple trees", "position": "50% 50%" },
     { "src": "apiary.jpg",  "caption": "The home apiary, under the forestry", "position": "50% 55%" },
-    { "src": "hives.jpg",   "caption": "Hives above the yard", "position": "50% 58%" },
-    { "src": "solar.jpg",   "caption": "The panels, and more hives", "position": "50% 55%" }
+    { "src": "hives.jpg",   "caption": "Hives above the yard", "position": "50% 58%" }
   ]
 }
