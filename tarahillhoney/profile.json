@@ -11,7 +11,7 @@
     "listed": "Verified 15 September 2026, Featured 19 September 2026"
   },
 
-  "hero": { "src": "", "alt": "" },
+  "hero": { "src": "hero.jpg", "alt": "The home apiary at Tara Hill, hives in long grass with the forestry on the hill behind" },
 
   "film_intro": "Filmed by Provenance on the farm.",
   "film": { "url": "", "poster": "", "aspect": "9/16", "title": "" },
@@ -22,20 +22,26 @@
   "story_title": "",
   "story": [
     "Tara Hill Honey is kept on the eastern slope of Tara Hill in north Wexford, with forestry on the doorstep and the sea at the back door. The family have been on this ground twenty-seven years, and everything happens on it. The bees are kept here, the honey is extracted here, and every jar is filled and labelled in the building beside the house. Darragh visited on a bright afternoon in September, which is the only weather anyone opens a hive in.",
-    "The bees are native Irish, the black bee, and they are bred here rather than bought in. The hill is the reason it works. There is no other beekeeper near enough to matter, so the queens mate with drones from these hives and the strain stays clean, which is harder to manage almost anywhere else in the country. Bees have been imported into Ireland since the 1920s and the borders are open, so nothing on earth stops a hundred queens travelling home in a bag. All you can do, he says, is keep the head down and do your own work. One thing is going the right way: beginners now ask for black bees by name, and a foreign bee is getting harder to sell.",
+    "The bees are native Irish, the black bee, and they are bred here rather than bought in. The hill is the reason it works. There is no other beekeeper near enough to matter, so the queens mate with drones from these hives and the strain stays clean, which is harder to manage almost anywhere else in the country. The conservation area signs on the wall of the shop say as much in two languages. Bees have been imported into Ireland since the 1920s and the borders are open, so nothing on earth stops a hundred queens travelling home in a bag. All you can do, he says, is keep the head down and do your own work. One thing is going the right way: beginners now ask for black bees by name, and a foreign bee is getting harder to sell.",
     "The honey follows the year rather than a recipe. Blackberry and clover come off the wildflowers around the coast, heather comes off the mountain the hives are carried to, ivy is the last crop in before winter, and there is a lime tree honey with one harvest in it and no second chance. The apiaries run out beyond Wexford into Wicklow and Dublin, ten or twelve hives to a site and then three miles on to the next, because three miles is the radius a bee will work and crowding them helps nobody.",
     "They have a line for the jar on the supermarket shelf at one ninety-nine: cheap honey isn't real, and real isn't cheap. He is not hard on the person buying it. A woman with a hundred and forty euro for the week's shopping and two children hanging off the trolley will take the cheap jar and think no more about it, and he does not blame her for that. It is a good deal easier to make the argument standing in a field in Wexford than it is to make it on a label.",
     "There are three generations of beekeeping behind these hives, and a fourth in training. His father kept bees, and his father before him. A daughter hopes to take it on. The bees put the children through college, a doctor and a teacher among them, and twenty-seven years in, the two of them can sit outside the shed on a fine afternoon and see what the work bought.",
-    "The rest of the place reads the same way. The sheds are purpose built for bees. Solar panels and three batteries run the yard, and the cardboard that comes in is shredded to pack the jars that go out. The apple trees give up a few trays and the rest is left where it falls for the birds, and for the foxes that come in for the sugar. A badger will chance a hive and take the stings for it. And the bee that the whole place is built around will fly on a wet day when nothing else will leave the hive, and live on less when it has to."
+    "The rest of the place reads the same way. The sheds are purpose built for bees. Solar panels and three batteries run the yard, and the cardboard that comes in is shredded to pack the jars that go out. The apple trees give up a few trays and the rest is left where it falls for the birds, and for the foxes that come in for the sugar. A badger will chance a hive and take the stings for it. The shelves inside carry the blossom, the heather and the raw ivy, alongside beeswax candles and pollen. And the bee that the whole place is built around will fly on a wet day when nothing else will leave the hive, and live on less when it has to."
   ],
 
   "products": [
-    { "name": "Blackberry and clover honey", "note": "The main crop, off the wildflowers along the coast around the hill. Raw and unpasteurised, like everything here.", "season": "Summer" },
+    { "name": "Blossom honey", "note": "The main crop, off the blackberry and clover and the wildflowers along the coast around the hill. Raw and unpasteurised, like everything here.", "season": "Summer" },
     { "name": "Heather honey", "note": "Off the mountain. The hives are carried up for it and carried back.", "season": "Late summer" },
     { "name": "Lime tree honey", "note": "Limited edition, and meant literally: one harvest in the year, and if it is missed there is no second one.", "season": "One harvest" },
     { "name": "Ivy honey", "note": "The last crop in before winter, when there is little else in flower.", "season": "Autumn" }
   ],
 
   "photos_title": "Around the apiary",
-  "photos": []
+  "photos": [
+    { "src": "orchard.jpg", "caption": "A hive in the apple trees", "position": "50% 50%" },
+    { "src": "shop.jpg",    "caption": "The shelves at the farm", "position": "50% 45%" },
+    { "src": "apiary.jpg",  "caption": "The home apiary, under the forestry", "position": "50% 55%" },
+    { "src": "hives.jpg",   "caption": "Hives above the yard", "position": "50% 58%" },
+    { "src": "solar.jpg",   "caption": "The panels, and more hives", "position": "50% 55%" }
+  ]
 }
