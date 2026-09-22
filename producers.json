@@ -2903,6 +2903,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-09-21"
+    },
+    {
+      "id": "garrai-mara",
+      "practice": "unspecified",
+      "name": "Garraí Mara",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.991503,
+      "lng": -7.57956,
+      "county": "Waterford",
+      "location": "Ring, Co. Waterford",
+      "product": "Organic Vegetables",
+      "product_type": ["vegetables"],
+      "description": "Organic vegetables grown by the sea at Ballycreen, Ring, near Dungarvan. Kale, salad mixes and seasonal veg, all certified organic. You can buy from the honesty box at the farm on Thursdays and Saturdays, or from Dun Artisan Bakery, The Country Store and Cass and Co in Dungarvan.",
+      "photo_url": "garraimara.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-09-22"
     }
   ]
 }
