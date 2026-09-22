@@ -347,7 +347,7 @@
     </section>
 
     <section id="products-section" class="hidden">
-      <div class="sec-head"><h2>What they grow</h2><span class="rule"></span></div>
+      <div class="sec-head"><h2 id="products-title">What they grow</h2><span class="rule"></span></div>
       <div class="products" id="products"></div>
     </section>
 
@@ -521,6 +521,7 @@
       // ── what they grow ──
       const products = (pr.products || []).filter(p => p && p.name);
       if (products.length) {
+        if (pr.products_title) $('products-title').textContent = pr.products_title;
         $('products').innerHTML = products.map(p =>
           `<div class="prod"><h3>${esc(p.name)}</h3>${p.note ? `<p>${esc(p.note)}</p>` : ''}${p.season ? `<span class="season">${esc(p.season)}</span>` : ''}</div>`
         ).join('');
