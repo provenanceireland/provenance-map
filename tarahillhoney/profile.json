@@ -30,7 +30,9 @@
     { "name": "Blossom honey", "note": "The main crop, off the blackberry and clover and the wildflowers along the coast around the hill. Raw and unpasteurised, like everything here.", "season": "Summer" },
     { "name": "Heather honey", "note": "Off the mountain. The hives are carried up for it and carried back.", "season": "Late summer" },
     { "name": "Lime tree honey", "note": "Limited edition, and meant literally: one harvest in the year, and if it is missed there is no second one.", "season": "One harvest" },
-    { "name": "Ivy honey", "note": "The last crop in before winter, when there is little else in flower.", "season": "Autumn" }
+    { "name": "Ivy honey", "note": "The last crop in before winter, when there is little else in flower.", "season": "Autumn" },
+    { "name": "Beeswax candles", "note": "Poured from the wax off their own hives, and sold from the shelves beside the honey.", "season": "Year round" },
+    { "name": "Propolis tincture", "note": "Made from the propolis the bees seal the hive with.", "season": "Year round" }
   ],
 
   "photos_title": "Around the apiary",
