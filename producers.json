@@ -1648,6 +1648,8 @@
       "badge2": null,
       "lat": 51.913836,
       "lng": -7.014684,
+      "lat_desktop": 51.913836,
+      "lng_desktop": -6.817536,
       "county": "Wexford",
       "location": "Hook Head, Co. Wexford",
       "product": "Oysters",
