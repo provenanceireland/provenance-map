@@ -274,6 +274,20 @@
     footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--green); letter-spacing: 0.14em; margin-bottom: 10px; }
     footer .f-url { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.86rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); }
 
+
+    /* ── PC WIDTH ── on a desktop screen the text column opens out to the
+       width of the hero, so the page reads as one block rather than a narrow
+       strip inside a wide frame. Phones and small tablets keep the narrow
+       measure. The closing map keeps its own width so it does not become a
+       giant square. */
+    @media (min-width: 900px) {
+      .col { max-width: 1040px; }
+      .record-inner { max-width: 1040px; }
+      .map-section { max-width: 1040px; }
+      .mini-map { max-width: 620px; margin-left: auto; margin-right: auto; }
+      .map-line, .map-section .map-btn { position: relative; }
+    }
+
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
