@@ -185,6 +185,32 @@
       font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); font-style: normal;
     }
 
+    /* ── Provenance Connect, layer two: what they have right now ──
+       Product names in the producer's own words. No quantities anywhere,
+       here or in the data. The update date is what makes "now" mean
+       something, so it is stated plainly rather than hidden. */
+    .connect-when {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 20px;
+    }
+    .connect-when.stale { color: var(--faint); }
+    .avail { list-style: none; margin: 0; }
+    .avail li { padding: 15px 0; border-bottom: 1px solid var(--hair); }
+    .avail li:last-child { border-bottom: none; }
+    .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
+    .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
+    .connect-cta { margin-top: 26px; }
+    .connect-cta a {
+      display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px;
+      background: var(--green-deep); border: 1px solid var(--green);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.74rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cream); transition: background 0.2s, border-color 0.2s;
+    }
+    .connect-cta a:hover { background: var(--green-head); border-color: var(--green-light); }
+    .connect-cta a svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .connect-cta p { margin-top: 12px; font-size: 0.88rem; color: var(--faint); }
+
     /* ── where to buy ── */
     .buy p { font-size: 1.05rem; }
     .buy-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
@@ -265,6 +291,14 @@
       <div class="attrs hidden" id="attrs"></div>
       <div class="links" id="links"><div id="share-toast">Link copied</div></div>
 
+      <!-- Provenance Connect: what they have right now, and the one button. -->
+      <section id="connect-section" class="hidden" style="border-top: none">
+        <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
+        <p class="connect-when" id="connect-when"></p>
+        <ul class="avail" id="avail"></ul>
+        <div class="connect-cta" id="connect-cta"></div>
+      </section>
+
       <section id="words-section" class="hidden">
         <div class="sec-head"><h2>In their words</h2><span class="rule"></span></div>
         <blockquote><span id="words"></span><cite id="words-cite"></cite></blockquote>
@@ -313,6 +347,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
+  <script src="../connect.js?v=1"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -407,6 +442,21 @@
       $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
       if ($('share-btn')) $('share-btn').addEventListener('click', () => shareProfile(p.name));
 
+      // ── Provenance Connect: what they have now ──
+      const cs = connectState(p);
+      if (cs) {
+        $('connect-head').textContent = cs.heading;
+        $('connect-when').textContent = cs.when;
+        $('connect-when').classList.toggle('stale', !cs.fresh);
+        $('avail').innerHTML = connectListHTML(cs.items, esc);
+        if (cs.channel) {
+          $('connect-cta').innerHTML =
+            `<a href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>` +
+            `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
+        }
+        show('connect-section', true);
+      }
+
       // ── their own words ──
       if (p.description) {
         $('words').textContent = p.description;
@@ -479,9 +529,13 @@
       }
     }
 
-    fetch('../producers.json?v=' + Date.now(), { cache: 'no-store' })
-      .then(r => r.json())
-      .then(data => {
+    // The live availability sheet is loaded alongside the producers, and a
+    // failure there is silent: the record's own connect block renders instead.
+    Promise.all([
+      fetch('../producers.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()),
+      connectLoadLive()
+    ])
+      .then(([data]) => {
         const all = data.producers || [];
         const p = all.find(x => x.id === ID);
         if (!p) { show('missing', true); return; }

@@ -219,6 +219,32 @@
     #lb-next { right: 8px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; }
     #lb-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; }
 
+    /* ── Provenance Connect, layer two: what they have right now. Product
+       names in the producer's own words, no quantities anywhere. The update
+       date is stated plainly, because it is the only thing that makes "now"
+       mean anything once stock counts are off the table. ── */
+    .connect-when {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 20px;
+    }
+    .connect-when.stale { color: var(--faint); }
+    .avail { list-style: none; margin: 0; }
+    .avail li { padding: 15px 0; border-bottom: 1px solid var(--hair); }
+    .avail li:last-child { border-bottom: none; }
+    .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
+    .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
+    .connect-cta { margin-top: 26px; }
+    .connect-cta a {
+      display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px;
+      background: var(--green-deep); border: 1px solid var(--green);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.74rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cream); transition: background 0.2s, border-color 0.2s;
+    }
+    .connect-cta a:hover { background: var(--green-head); border-color: var(--green-light); }
+    .connect-cta a svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .connect-cta p { margin-top: 12px; font-size: 0.88rem; color: var(--faint); }
+
     /* ── where to buy, as a line of prose ── */
     .buy p { font-size: 1.05rem; }
     .buy-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
@@ -321,6 +347,14 @@
       </blockquote>
     </section>
 
+    <!-- Provenance Connect: what they have right now, and the one button. -->
+    <section id="connect-section" class="hidden">
+      <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
+      <p class="connect-when" id="connect-when"></p>
+      <ul class="avail" id="avail"></ul>
+      <div class="connect-cta" id="connect-cta"></div>
+    </section>
+
     <section id="film-section" class="hidden" style="border-top: none; padding-top: 0">
       <div class="sec-head"><h2>The visit</h2><span class="rule"></span></div>
       <p class="intro" id="film-intro">Filmed by Provenance on the farm.</p>
@@ -419,6 +453,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
+  <script src="../connect.js?v=1"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.
@@ -500,6 +535,21 @@
       show('quote', !!producer.description);
       if (pr.story_title) { $('story-title').textContent = pr.story_title; show('story-head', true); }
       $('story').innerHTML = (pr.story || []).map(p => `<p>${esc(p)}</p>`).join('');
+
+      // ── Provenance Connect: what they have now ──
+      const cs = connectState(producer);
+      if (cs) {
+        $('connect-head').textContent = cs.heading;
+        $('connect-when').textContent = cs.when;
+        $('connect-when').classList.toggle('stale', !cs.fresh);
+        $('avail').innerHTML = connectListHTML(cs.items, esc);
+        if (cs.channel) {
+          $('connect-cta').innerHTML =
+            `<a href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>` +
+            `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
+        }
+        show('connect-section', true);
+      }
 
       // ── the films ──
       const film = pr.film || {};
@@ -618,7 +668,8 @@
     const bust = '?v=' + Date.now();
     Promise.all([
       fetch('../producers.json' + bust, { cache: 'no-store' }).then(r => r.json()),
-      fetch('./profile.json' + bust, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
+      fetch('./profile.json' + bust, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null),
+      connectLoadLive()
     ]).then(([data, profile]) => {
       const all = data.producers || [];
       const producer = all.find(p => p.id === PRODUCER_ID);

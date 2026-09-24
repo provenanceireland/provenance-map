@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Update availability - Provenance</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#1A1B18" />
+  <link rel="icon" href="../../icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* The producer's own editor. One job: change the list of what they have
+       and publish it, in seconds. No quantity field exists anywhere on this
+       page, by design.
+
+       Where it saves: a Google Form, which appends a row to a Google Sheet,
+       which every profile page reads on load. Provenance runs no backend and
+       this page holds no credentials. Until that Form exists
+       (connect-source.json is empty), Save falls back to handing over the
+       exact text to send to Provenance — it never pretends to have published. */
+    :root {
+      --ground: #1A1B18; --surface: #222320; --surface-2: #282925;
+      --hair: rgba(201,198,189,0.14); --hair-strong: rgba(201,198,189,0.28);
+      --cream: #E8DEC8; --cream-soft: #CFC7B3; --muted: #9A968B; --faint: #7A766A;
+      --green-deep: #2F5C3A; --green-head: #35663F; --green: #45704E; --green-light: #5A8C64;
+      --warn: #C4A44A;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--ground); }
+    body {
+      background: var(--ground); color: var(--cream);
+      font-family: 'Source Serif 4', Georgia, serif; font-weight: 300;
+      font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 1.5px solid var(--green-light); outline-offset: 3px; }
+    .hidden { display: none !important; }
+    .col { max-width: 620px; margin: 0 auto; padding: 0 24px; }
+
+    h1, h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
+    h1 { font-size: clamp(2rem, 5vw, 2.6rem); line-height: 1.1; color: var(--green-deep); }
+    h2 { font-size: 1.3rem; color: var(--green-head); }
+    .label {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green);
+    }
+
+    .site {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 18px 24px; border-bottom: 1px solid var(--hair); max-width: 620px; margin: 0 auto;
+    }
+    .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; letter-spacing: 0.14em; color: var(--green); }
+    .site .label { color: var(--cream-soft); }
+
+    .head { padding: 40px 0 6px; }
+    .farm { color: var(--green-light); font-size: 1rem; margin-top: 8px; }
+    .lede { color: var(--cream-soft); margin-top: 18px; }
+
+    /* ── the list ── */
+    .list { margin: 32px 0 0; list-style: none; border-top: 1px solid var(--hair); }
+    .list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--hair);
+    }
+    .list .txt { flex: 1; min-width: 0; }
+    .list .n { font-family: 'Playfair Display', Georgia, serif; font-size: 1.18rem; line-height: 1.3; color: var(--cream); word-break: break-word; }
+    .list .o { display: block; margin-top: 3px; font-size: 0.9rem; color: var(--cream-soft); }
+    .list .rm {
+      flex: none; background: none; border: 1px solid rgba(201,198,189,0.28); cursor: pointer;
+      color: var(--muted); width: 34px; height: 34px; font-size: 1.1rem; line-height: 1;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .list .rm:hover { color: #D98A6A; border-color: rgba(217,138,106,0.6); }
+    .empty { padding: 26px 0; color: var(--faint); border-bottom: 1px solid var(--hair); }
+
+    /* ── add ── */
+    .add { margin-top: 26px; display: grid; gap: 10px; }
+    .add input {
+      width: 100%; padding: 13px 15px; background: var(--surface);
+      border: 1px solid rgba(201,198,189,0.28); color: var(--cream);
+      font-family: 'Source Serif 4', Georgia, serif; font-size: 1.02rem;
+    }
+    .add input::placeholder { color: var(--faint); }
+    .add .hint { font-size: 0.86rem; color: var(--faint); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 24px; cursor: pointer;
+      border: 1px solid rgba(201,198,189,0.32); background: rgba(201,198,189,0.04);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn:hover { background: rgba(201,198,189,0.10); border-color: rgba(201,198,189,0.5); }
+    .btn-go { background: var(--green-deep); border-color: var(--green); }
+    .btn-go:hover { background: var(--green-head); border-color: var(--green-light); }
+    .btn:disabled { opacity: 0.45; cursor: default; }
+    .add .btn { justify-self: start; }
+
+    /* ── publish ── */
+    .publish { margin: 40px 0 0; padding-top: 30px; border-top: 1px solid var(--hair-strong); }
+    .publish .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .status { margin-top: 16px; font-size: 0.95rem; }
+    .status.ok { color: var(--green-light); }
+    .status.work { color: var(--cream-soft); }
+    .status.warn { color: var(--warn); }
+    .note { margin-top: 14px; font-size: 0.9rem; color: var(--faint); }
+
+    /* Shown when there is no Form yet: the honest fallback. */
+    .manual { margin-top: 22px; }
+    .manual textarea {
+      width: 100%; min-height: 150px; margin-top: 10px; padding: 14px;
+      background: var(--surface); border: 1px solid rgba(201,198,189,0.28); color: var(--cream);
+      font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.84rem; line-height: 1.55;
+    }
+    footer { padding: 46px 24px 64px; text-align: center; }
+    footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--green); letter-spacing: 0.14em; }
+    #gone { padding: 90px 24px; text-align: center; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <a class="logo" href="../../">Provenance</a>
+    <span class="label">Update availability</span>
+  </header>
+
+  <main id="app" class="col hidden">
+    <div class="head">
+      <p class="label">Provenance Connect</p>
+      <h1>What do you have?</h1>
+      <p class="farm" id="farm"></p>
+      <p class="lede">Add what you have right now. Take a line off when it is gone.
+        No weights, no counts, no numbers — just what a customer can get from you today.</p>
+    </div>
+
+    <ul class="list" id="list"></ul>
+
+    <div class="add">
+      <input type="text" id="in-name" placeholder="Ling heather honey" autocomplete="off" enterkeyhint="done" />
+      <input type="text" id="in-note" placeholder="A note, if you want one. Ready Friday." autocomplete="off" enterkeyhint="done" />
+      <p class="hint">The name is all that is needed. The note is optional.</p>
+      <button type="button" class="btn" id="add">Add produce</button>
+    </div>
+
+    <div class="publish">
+      <h2>Publish</h2>
+      <p class="note" id="publish-what"></p>
+      <div class="row">
+        <button type="button" class="btn btn-go" id="save">Save and publish</button>
+        <a class="btn" id="view" href="#" target="_blank" rel="noopener">View my page</a>
+      </div>
+      <p class="status" id="status"></p>
+
+      <div class="manual hidden" id="manual">
+        <p class="label">Send this to Provenance</p>
+        <textarea id="manual-text" readonly></textarea>
+        <div class="row">
+          <button type="button" class="btn" id="copy">Copy the list</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="gone" class="hidden">
+    <h1>Nothing to edit</h1>
+    <p class="lede">This link is missing its farm. Ask Provenance for a fresh one.</p>
+  </div>
+
+  <footer><p class="f-logo">Provenance</p></footer>
+
+  <script src="../../connect.js?v=1"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const ID = new URLSearchParams(location.search).get('id') || '';
+
+    let items = [];      // the working list
+    let producer = null;
+    const DRAFT = 'pv-connect-draft-' + ID;
+
+    function draw() {
+      const el = $('list');
+      if (!items.length) {
+        el.innerHTML = '<li class="empty">Nothing listed yet. Add the first thing below.</li>';
+      } else {
+        el.innerHTML = items.map((a, i) =>
+          `<li><span class="txt"><span class="n">${esc(a.name)}</span>${a.note ? `<span class="o">${esc(a.note)}</span>` : ''}</span>
+             <button type="button" class="rm" data-i="${i}" aria-label="Remove ${esc(a.name)}">&times;</button></li>`).join('');
+        el.querySelectorAll('.rm').forEach(b => b.addEventListener('click', () => {
+          items.splice(+b.dataset.i, 1); keep(); draw();
+        }));
+      }
+      $('manual-text').value = connectToText(items);
+    }
+
+    // Every change is kept on this device straight away, so a half-finished
+    // list is never lost to a closed tab. It is not published by this.
+    function keep() {
+      try { localStorage.setItem(DRAFT, JSON.stringify(items)); } catch (e) {}
+      $('status').textContent = '';
+      $('status').className = 'status';
+    }
+
+    function add() {
+      const name = $('in-name').value.trim();
+      if (!name) { $('in-name').focus(); return; }
+      const note = $('in-note').value.trim();
+      items.push(note ? { name, note } : { name });
+      $('in-name').value = ''; $('in-note').value = '';
+      keep(); draw(); $('in-name').focus();
+    }
+    $('add').addEventListener('click', add);
+    ['in-name', 'in-note'].forEach(id => $(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); add(); }
+    }));
+
+    $('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(connectToText(items));
+        $('status').textContent = 'Copied. Send that to Provenance and it goes up on your page.';
+        $('status').className = 'status ok';
+      } catch (e) {
+        $('manual-text').select();
+      }
+    });
+
+    // Saving posts to the Google Form, which appends a row to the Sheet that
+    // every profile page reads. The post is opaque by necessity (a form POST
+    // across origins cannot be read back), so success is confirmed the only
+    // honest way available: by re-reading the Sheet and looking for the list.
+    async function save() {
+      const src = await connectLoadSource();
+      const ready = src && src.form_id && src.fields && src.fields.farm && src.fields.available;
+      if (!ready) {
+        $('status').textContent = 'There is no form connected yet, so this cannot publish itself. Copy the list below and send it to Provenance.';
+        $('status').className = 'status warn';
+        $('manual').classList.remove('hidden');
+        return;
+      }
+      $('save').disabled = true;
+      $('status').textContent = 'Saving…';
+      $('status').className = 'status work';
+
+      const body = new FormData();
+      body.append(src.fields.farm, ID);
+      body.append(src.fields.available, connectToText(items));
+      try {
+        await fetch('https://docs.google.com/forms/d/e/' + encodeURIComponent(src.form_id) + '/formResponse',
+          { method: 'POST', mode: 'no-cors', body });
+      } catch (e) { /* opaque either way */ }
+
+      // Give the Sheet a moment, then check it actually landed.
+      const want = connectToText(items).trim();
+      let seen = false;
+      for (let tries = 0; tries < 4 && !seen; tries++) {
+        await new Promise(r => setTimeout(r, 1500));
+        CONNECT_SOURCE = src;
+        const live = await connectLoadLive();
+        const row = live[ID];
+        if (row && connectToText(row.available).trim() === want) seen = true;
+      }
+      $('save').disabled = false;
+      if (seen) {
+        $('status').textContent = 'Published. It is on your page now.';
+        $('status').className = 'status ok';
+        try { localStorage.removeItem(DRAFT); } catch (e) {}
+      } else {
+        $('status').textContent = 'Sent, but it has not shown up on the sheet yet. Give it a minute and reload your page. If it stays missing, send the list to Provenance instead.';
+        $('status').className = 'status warn';
+        $('manual').classList.remove('hidden');
+      }
+    }
+    $('save').addEventListener('click', save);
+
+    Promise.all([
+      fetch('../../producers.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()),
+      connectLoadLive(),
+      connectLoadSource()
+    ]).then(([data, live, src]) => {
+      const all = data.producers || [];
+      producer = all.find(p => p.id === ID);
+      if (!producer) { $('gone').classList.remove('hidden'); return; }
+
+      $('farm').textContent = producer.name + ' — ' + (producer.location || ('Co. ' + producer.county));
+      document.title = 'Update availability — ' + producer.name;
+      $('view').href = (producer.profile_slug && producer.profile_live)
+        ? '../../' + producer.profile_slug + '/'
+        : '../?id=' + encodeURIComponent(producer.id);
+
+      // What is on screen, in order of trust: an unsent draft from this
+      // device, then the live sheet, then the record.
+      let draft = null;
+      try { const raw = localStorage.getItem(DRAFT); if (raw) draft = JSON.parse(raw); } catch (e) {}
+      const fromLive = (live[ID] && live[ID].available) || null;
+      const fromRec = (producer.connect && producer.connect.available) || null;
+      items = (draft && draft.length ? draft : (fromLive || fromRec || [])).filter(a => a && a.name);
+
+      const ready = src && src.form_id && src.fields && src.fields.farm && src.fields.available;
+      $('publish-what').textContent = ready
+        ? 'Saving puts this straight on your page on the Provenance Map. Nobody has to approve it.'
+        : 'Publishing is not connected yet. Save will give you the list to send to Provenance, who will put it up.';
+      if (!ready) $('manual').classList.remove('hidden');
+      if (draft && draft.length) {
+        $('status').textContent = 'Picking up where you left off. This has not been published yet.';
+        $('status').className = 'status work';
+      }
+
+      $('app').classList.remove('hidden');
+      draw();
+    }).catch(() => { $('gone').classList.remove('hidden'); });
+  </script>
+</body>
+</html>

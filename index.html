@@ -998,6 +998,28 @@
       transition: transform 0.2s;
     }
     .card-where-buy-item a:hover .card-where-buy-arrow { transform: translateX(3px); }
+    /* Provenance Connect on the card: a quiet line naming what they have, and
+       nothing more. The full list with its notes lives on the profile page —
+       the card's job is to send people there, and it was only just stripped of
+       four rows of pills for being cluttered. */
+    .card-avail { margin: 2px 0 12px; }
+    .card-avail .ca-label {
+      display: block;
+      font-size: 0.56rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #59A666;
+      margin-bottom: 4px;
+    }
+    .card-avail .ca-label.stale { color: #504838; }
+    .card-avail .ca-list { font-size: 0.8rem; color: #E8DEC8; line-height: 1.55; }
+    .card-avail .ca-list span + span::before {
+      content: '·';
+      margin: 0 8px;
+      color: rgba(232,222,200,0.30);
+    }
+
     /* Venue tags (farm shop, farmers market) — the same quiet line as the
        rest, no boxes. */
     .card-venue-tags {
@@ -2081,6 +2103,8 @@
       <div id="card-product-tags" class="card-product-tags"></div>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
+      <!-- Provenance Connect: what they have right now, named but not listed out -->
+      <div id="card-avail" class="card-avail hidden"></div>
 
       <div id="card-market-info" class="hidden">
         <div class="card-hours hidden" id="card-hours-row">
@@ -2122,6 +2146,7 @@
     <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
   </div>
 
+  <script src="connect.js?v=1"></script>
   <script>
     const mapImg = document.getElementById('map-img');
 
@@ -2612,6 +2637,21 @@
         `<span class="product-tag">${PRODUCT_TAG_LABELS[t] || (t.charAt(0).toUpperCase() + t.slice(1))}</span>`
       ).join('');
 
+      // ── Provenance Connect: what they have right now ──
+      // Names only on the card; the notes and the button live on the profile.
+      const availEl = document.getElementById('card-avail');
+      const rec = PRODUCER_BY_ID[pin.dataset.id];
+      const cs = rec ? connectState(rec) : null;
+      if (cs) {
+        availEl.innerHTML =
+          `<span class="ca-label${cs.fresh ? '' : ' stale'}">${cs.fresh ? 'Available now' : 'Last listed'}</span>` +
+          `<span class="ca-list">${cs.items.map(a => `<span>${escHtml(a.name)}</span>`).join('')}</span>`;
+        availEl.classList.remove('hidden');
+      } else {
+        availEl.classList.add('hidden');
+        availEl.innerHTML = '';
+      }
+
       // ── Attributes ──
       const attrsEl = document.getElementById('card-attributes');
       if (pin.dataset.attributes) {
@@ -2887,10 +2927,14 @@
       .then(data => {
         const container = document.getElementById('pins');
         data.producers.forEach(p => container.appendChild(renderPin(p)));
+        data.producers.forEach(p => { PRODUCER_BY_ID[p.id] = p; });
         initPins();
         animateCounter(data.producers.length);
         hideEmptyChips(); // must run after pins exist — chips are driven by live data
         buildMenu(data.producers); // must run after the chips, which name the categories
+        // The live availability sheet. Nothing waits on it: a card opened
+        // before it lands falls back to the record's own connect block.
+        connectLoadLive();
 
         // Deep link: /?producer=slug opens that producer's card
         const targetSlug = new URLSearchParams(location.search).get('producer');
@@ -3129,6 +3173,9 @@
        profile page. Everything is built from producers.json, so a new
        listing appears in here the moment it appears on the map. */
     let MENU_PRODUCERS = [];
+    // The card is built from pin datasets, but Connect needs the whole record,
+    // so the records are kept by id at load.
+    const PRODUCER_BY_ID = {};
     const escHtml = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
     // Where a producer's profile lives. A Featured farm with a live page of

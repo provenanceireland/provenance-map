@@ -69,6 +69,18 @@
     .row h2 a:hover { color: var(--green-light); }
     .row .where { color: var(--green-light); font-size: 0.92rem; margin-top: 3px; }
     .row .what { color: var(--cream-soft); font-size: 0.92rem; }
+    /* What they have right now. Names only, middot separated, the same quiet
+       line the map card uses. */
+    .avail-line { margin-top: 9px; font-size: 0.9rem; color: var(--cream); line-height: 1.55; }
+    .avail-label {
+      display: block; margin-bottom: 2px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
+      font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: #59A666;
+    }
+    .avail-label.stale { color: var(--faint); }
+    .avail-line span + span::before { content: '·'; margin: 0 8px; color: rgba(201,198,189,0.30); }
+    .avail-line .avail-label + span::before { content: none; margin: 0; }
+
     /* The tier states itself as text, the same as the map card. No boxes. */
     .row .tags { margin-top: 9px; }
     .pill {
@@ -134,6 +146,7 @@
     <p class="f-url">provenancemap.ie/connect</p>
   </footer>
 
+  <script src="../connect.js?v=1"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -151,9 +164,11 @@
 
     const TIER = { featured: 'Provenance Featured', verified: 'Provenance Highlighted', discovered: 'Discovered Producer' };
 
-    fetch('../producers.json?v=' + Date.now(), { cache: 'no-store' })
-      .then(r => r.json())
-      .then(data => {
+    Promise.all([
+      fetch('../producers.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()),
+      connectLoadLive()
+    ])
+      .then(([data]) => {
         const members = (data.producers || [])
           .map(p => ({ p, wa: whatsappLink(p.whatsapp) }))
           .filter(m => m.wa)
@@ -167,11 +182,18 @@
           const pills = `<span class="pill pill-${esc(tier)}">${TIER[tier] || TIER.discovered}</span>` +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const nameLink = p.profile_live && p.profile_slug ? `../${esc(p.profile_slug)}/` : `../?producer=${esc(p.id)}`;
+          // What they have right now, named only. The list with its notes is
+          // on their profile page.
+          const cs = connectState(p);
+          const avail = cs
+            ? `<p class="avail-line"><span class="avail-label${cs.fresh ? '' : ' stale'}">${cs.fresh ? 'Available now' : 'Last listed'}</span>${cs.items.map(a => `<span>${esc(a.name)}</span>`).join('')}</p>`
+            : '';
           return `<div class="row">
             <div>
               <h2><a href="${nameLink}">${esc(p.name)}</a></h2>
               <p class="where">${esc(p.location || ('Co. ' + p.county))}</p>
               <p class="what">${esc(p.product || '')}</p>
+              ${avail}
               <div class="tags">${pills}</div>
             </div>
             <a class="connect" href="${esc(wa)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>

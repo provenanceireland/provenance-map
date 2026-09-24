@@ -248,6 +248,18 @@
       "where_to_buy": [
         { "name": "Farm Shop", "note": "Skehana Hill, Freshford, Co. Kilkenny", "url": "https://www.google.com/maps/dir/?api=1&destination=52.732650886271735%2C-7.399929176327682", "when": "Directions" }
       ],
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "087 947 8954" },
+        "updated": "2026-09-24",
+        "available": [
+          { "name": "Organic grass-fed beef", "note": "Boxes to order from the farm shop" },
+          { "name": "Organic pork", "note": "Small batches" },
+          { "name": "Organic lamb" },
+          { "name": "Seasonal vegetables", "note": "Kales, purple sprouting broccoli, courgettes and roots" }
+        ],
+        "plus": {}
+      },
       "farmers_market": false,
       "farm_shop": true,
       "date_added": null

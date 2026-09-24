@@ -45,6 +45,71 @@ Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, 
 
 The Connect listing page follows the same rule. Anything new that wants to label a producer gets a line of type, not a pill.
 
+### Provenance Connect, layer two — availability
+
+Built 2026-09-24. **What a producer currently has, in their own words.** The
+governing rule: *what do you have*, never *how many do you have*. There is no
+quantity field in the UI or in the data, deliberately, and none is to be added
+— a note like "boxes to order" is prose, not a number.
+
+On the record:
+
+```json
+"connect": {
+  "active": true,
+  "channel": { "type": "whatsapp", "value": "087 947 8954" },
+  "updated": "2026-09-24",
+  "available": [
+    { "name": "Organic grass-fed beef", "note": "Boxes to order from the farm shop" },
+    { "name": "Organic lamb" }
+  ],
+  "plus": {}
+}
+```
+
+`available[].name` is free text, **not** a `product_type` slug — a producer can
+write *Ling heather honey* and it shows exactly that. The slugs stay as they
+are, for the filters and the menu. `channel.type` is `whatsapp` | `website` |
+`phone` | `email`, and a bare `whatsapp` field on the record still works as the
+fallback from layer one. `plus: {}` is the whole of the Connect Plus
+groundwork: one empty key nothing reads.
+
+**Two sources, live one first.** `connect.js` (shared by every surface, loaded
+with `?v=N` because the worker is cache-first for non-pages) reads a published
+Google Sheet fed by a Google Form, and falls back to the record's `connect`
+block when the Sheet is unconfigured or unreachable. Newest row per farm wins;
+Form responses are append-only, so an edit is a new row and a removal is a
+shorter list. A Google outage degrades to the record, never to a broken page.
+**Provenance runs no backend and no page holds a credential.** The Sheet and
+Form ids live in `connect-source.json` — see `CONNECT-SETUP.md`, which is the
+ten-minute recipe and is **not done yet**.
+
+**`updated` is what replaces stock counts.** It is always on screen. Past
+`CONNECT_FRESH_DAYS` (21, one constant in `connect.js`) the heading softens
+from *Available now* to *Last listed* in muted grey. A list is only as
+trustworthy as its date, so the date is never hidden.
+
+**The producer's editor** is `/producer/edit/?id=<slug>` — our own UI, not a
+Google Form: add a line, remove a line, Save. It posts to the Form and then
+**confirms by re-reading the Sheet**, because a cross-origin form post cannot
+be read back and "Published" must mean the row was actually seen. With no Form
+configured it says so plainly and hands over the list to send to Provenance; it
+never fakes a save. Drafts are kept in the producer's own browser so a closed
+tab loses nothing, and the page says they are unpublished. The page is
+`noindex` and unlinked: the URL is the key, so hand it out deliberately.
+
+**Where it shows:** the full list with notes and the one button on the profile
+pages (both the bespoke Featured pages and `/producer/`); names only, as a
+quiet middot line, on the map card and on `/connect/`. The card's job is still
+to send people to the profile — do not grow it.
+
+**No commission, ever.** Provenance takes no part in the order; the button goes
+straight to the producer's chosen channel. The commercial model is a monthly
+producer subscription. Still open, and needing a decision: which tiers may use
+Connect (availability is a producer-authored claim, which argues for
+Highlighted as the floor, and nothing enforces a tier yet), and whether that
+subscription is self-service, which this file currently says no paid step is.
+
 ### Navigation and profile pages
 
 **The menu is three panels deep** (built 2026-09-24). Root: Provenance Connect, **Producers**, About Provenance, List Your Farm. Producers opens the produce categories; a category opens the farms in it, A–Z, each with its tier shown as the pin itself rather than as a word. A row goes to that producer's **profile page**, never back to their card on the map.

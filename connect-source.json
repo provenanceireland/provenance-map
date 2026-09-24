@@ -1,0 +1,12 @@
+{
+  "_comment": "Provenance Connect layer two, the live source. Empty ids mean no Sheet yet, which is a normal state: profile pages fall back to the connect object on each producers.json record. Fill these in from the Google Form and Sheet and producer editing goes live with no code change. See CONNECT-SETUP.md.",
+
+  "sheet_id": "",
+  "sheet_name": "Form responses 1",
+
+  "form_id": "",
+  "fields": {
+    "farm": "",
+    "available": ""
+  }
+}
