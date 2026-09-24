@@ -195,8 +195,19 @@
       color: var(--green); margin-bottom: 20px;
     }
     .connect-when.stale { color: var(--faint); }
+    .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
     .avail { list-style: none; margin: 0; }
-    .avail li { padding: 15px 0; border-bottom: 1px solid var(--hair); }
+    .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+    .avail .a-photo { flex: none; }
+    .avail .a-photo img { width: 96px; height: 96px; object-fit: cover; border: 1px solid var(--hair); background: var(--surface); }
+    .avail .a-txt { flex: 1; min-width: 0; }
+    .avail .a-opts {
+      display: block; margin-top: 9px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
+    }
+    .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
     .avail li:last-child { border-bottom: none; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
@@ -294,6 +305,7 @@
       <!-- Provenance Connect: what they have right now, and the one button. -->
       <section id="connect-section" class="hidden" style="border-top: none">
         <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
+        <p class="connect-intro hidden" id="connect-intro"></p>
         <p class="connect-when" id="connect-when"></p>
         <ul class="avail" id="avail"></ul>
         <div class="connect-cta" id="connect-cta"></div>
@@ -347,7 +359,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=1"></script>
+  <script src="../connect.js?v=2"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -377,8 +389,8 @@
 
     const TIER = {
       'discovered':    { label: 'Discovered Producer',    cls: 'tier-mark-discovered',    dot: 'p-disc', short: 'Discovered' },
-      'verified':      { label: 'Provenance Highlighted', cls: 'tier-mark-verified',      dot: 'p-ver',  short: 'Highlighted' },
-      'featured':      { label: 'Provenance Featured',    cls: 'tier-mark-featured',      dot: 'p-feat', short: 'Featured' },
+      'verified':      { label: 'Discovered Producer',    cls: 'tier-mark-verified',      dot: 'p-ver',  short: 'Discovered' },
+      'featured':      { label: 'Provenance Highlighted', cls: 'tier-mark-featured',      dot: 'p-feat', short: 'Highlighted' },
       'seal-lite':     { label: 'Seal Lite',              cls: 'tier-mark-seal-lite',     dot: 'p-feat', short: 'Seal Lite' },
       'seal-complete': { label: 'Provenance Seal',        cls: 'tier-mark-seal-complete', dot: 'p-feat', short: 'Seal' }
     };
@@ -446,6 +458,7 @@
       const cs = connectState(p);
       if (cs) {
         $('connect-head').textContent = cs.heading;
+        if (cs.intro) { $('connect-intro').textContent = cs.intro; show('connect-intro', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
         $('avail').innerHTML = connectListHTML(cs.items, esc);

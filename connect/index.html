@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Provenance Connect</title>
-  <meta name="description" content="The conversation at the farm gate. Every producer on the Provenance Map you can message directly, one tap to a WhatsApp chat with the person who made your food." />
+  <meta name="description" content="Buy direct from Irish farms. Beef by the quarter, half or whole animal for the freezer, or individual cuts. What each farm has right now, and how to reach them." />
   <link rel="canonical" href="https://provenancemap.ie/connect/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Provenance Map" />
-  <meta property="og:title" content="Provenance Connect" />
-  <meta property="og:description" content="Every producer on the Provenance Map you can message directly." />
+  <meta property="og:title" content="Provenance Connect - buy direct from the farm" />
+  <meta property="og:description" content="Beef by the quarter, half or whole animal, or individual cuts. What each farm has right now, and how to reach them." />
   <meta property="og:url" content="https://provenancemap.ie/connect/" />
   <meta name="theme-color" content="#1A1B18" />
   <link rel="icon" href="../icons/icon-192.png" />
@@ -60,26 +60,44 @@
     .hero p { max-width: 560px; color: var(--cream-soft); }
     .count { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-top: 22px; }
 
+    /* Each farm is a small profile, not a button on a line: who they are,
+       what they have, the brackets it is sold in, and the way through to
+       their full page. */
     .list { display: flex; flex-direction: column; border-top: 1px solid var(--hair); margin-bottom: 64px; }
-    .row {
-      display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center;
-      padding: 22px 0; border-bottom: 1px solid var(--hair);
+    .row { padding: 30px 0 26px; border-bottom: 1px solid var(--hair); }
+    .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
+    .row-intro { margin-top: 16px; color: var(--cream-soft); }
+    .row-more { margin-top: 18px; }
+    .row-more a {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-light);
     }
+    .row-more a:hover { color: var(--cream); }
+    .avail { list-style: none; margin: 14px 0 0; }
+    .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+    .avail li:last-child { border-bottom: none; padding-bottom: 0; }
+    .avail .a-photo { flex: none; }
+    .avail .a-photo img { width: 96px; height: 96px; object-fit: cover; border: 1px solid var(--hair); background: var(--surface); }
+    .avail .a-txt { flex: 1; min-width: 0; }
+    .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
+    .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
+    .avail .a-opts {
+      display: block; margin-top: 9px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
+    }
+    .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
     .row h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.35rem; line-height: 1.2; color: var(--cream); }
     .row h2 a:hover { color: var(--green-light); }
     .row .where { color: var(--green-light); font-size: 0.92rem; margin-top: 3px; }
     .row .what { color: var(--cream-soft); font-size: 0.92rem; }
-    /* What they have right now. Names only, middot separated, the same quiet
-       line the map card uses. */
-    .avail-line { margin-top: 9px; font-size: 0.9rem; color: var(--cream); line-height: 1.55; }
     .avail-label {
-      display: block; margin-bottom: 2px;
+      display: block; margin-top: 22px;
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
-      font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: #59A666;
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #59A666;
     }
     .avail-label.stale { color: var(--faint); }
-    .avail-line span + span::before { content: '·'; margin: 0 8px; color: rgba(201,198,189,0.30); }
-    .avail-line .avail-label + span::before { content: none; margin: 0; }
 
     /* The tier states itself as text, the same as the map card. No boxes. */
     .row .tags { margin-top: 9px; }
@@ -100,8 +118,12 @@
     }
     .connect:hover { background: var(--green-head); border-color: var(--green-light); }
     .connect svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    /* No channel on file yet: their page is the way through, so the button
+       stays but stops pretending to be a chat. */
+    .connect.quiet { background: rgba(201,198,189,0.04); border-color: rgba(201,198,189,0.32); color: var(--cream-soft); }
+    .connect.quiet:hover { background: rgba(201,198,189,0.10); border-color: rgba(201,198,189,0.5); color: var(--cream); }
     @media (max-width: 520px) {
-      .row { grid-template-columns: 1fr; }
+      .row-head { grid-template-columns: 1fr; }
       .connect { justify-content: center; }
     }
 
@@ -125,19 +147,20 @@
   <div class="col">
     <div class="hero">
       <p class="label">Provenance Connect</p>
-      <h1>Producers you can message directly</h1>
-      <p>The map pin is the farm gate. This is the conversation at it. Every producer here has opened a line to the people who eat their food. One tap and you are talking to the person who grew it, reared it or made it: what is ready this week, what is coming, and how to get it.</p>
+      <h1>Buy direct from the farm</h1>
+      <p>What these farms have right now, and how to get it. Beef by the quarter, the half or the whole animal for the freezer, or individual cuts if that suits you better. You message the farm, you agree it with them, you collect.</p>
+      <p>Provenance takes no cut and handles no money. The list is the producer's own and they change it themselves.</p>
       <p class="count" id="count"></p>
     </div>
 
     <div class="list" id="list"></div>
-    <p class="empty hidden" id="empty">No producers have opened a line yet.</p>
+    <p class="empty hidden" id="empty">No farms are listing yet.</p>
 
     <div class="how">
       <p class="label" style="margin-bottom: 14px">How it works</p>
-      <p>A producer joins Connect by giving Provenance one WhatsApp number. It becomes a Connect button on their map card and a place on this list. The button opens the chat.</p>
-      <p>Your message goes straight to the farm. Nobody at Provenance reads it, and nobody stands between you and the person who made your food. That is the whole point.</p>
-      <p>Producing food in Ireland and want a line of your own? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask for Connect.</p>
+      <p>Each farm keeps a list of what they have. Not a shop and not a stock count: product names, updated when the year turns over or an animal goes. The date it was last touched is on every list, so you can see how current it is.</p>
+      <p>A quarter is roughly a freezer drawer, a half fills a chest freezer, a whole animal is usually split between households. The farm will tell you weights, price and hanging time. That conversation is theirs, not ours.</p>
+      <p>Farming in Ireland and want to be on this? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
     </div>
   </div>
 
@@ -146,57 +169,58 @@
     <p class="f-url">provenancemap.ie/connect</p>
   </footer>
 
-  <script src="../connect.js?v=1"></script>
+  <script src="../connect.js?v=2"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-    // Same rule as the map: Irish numbers written as dialled, normalised to 353.
-    function whatsappLink(number) {
-      if (!number) return '';
-      let digits = String(number).replace(/[^0-9+]/g, '');
-      if (digits.startsWith('+')) digits = digits.slice(1);
-      if (digits.startsWith('00')) digits = digits.slice(2);
-      if (digits.startsWith('0')) digits = '353' + digits.slice(1);
-      if (!/^\d{9,15}$/.test(digits)) return '';
-      return 'https://wa.me/' + digits + '?text=' + encodeURIComponent('Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.');
-    }
+    const TIER = { featured: 'Provenance Highlighted', verified: 'Discovered Producer', discovered: 'Discovered Producer' };
 
-    const TIER = { featured: 'Provenance Featured', verified: 'Provenance Highlighted', discovered: 'Discovered Producer' };
+    // Where a producer's own page lives.
+    function profileUrl(p) {
+      if (p.profile_slug && p.profile_live) return '../' + encodeURIComponent(p.profile_slug) + '/';
+      if (p.map_link) return '../' + p.map_link;
+      return '../producer/?id=' + encodeURIComponent(p.id);
+    }
 
     Promise.all([
       fetch('../producers.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()),
       connectLoadLive()
     ])
       .then(([data]) => {
+        // Membership is the connect block, not a bare whatsapp number: a farm
+        // can be listing produce before it has a channel on file.
         const members = (data.producers || [])
-          .map(p => ({ p, wa: whatsappLink(p.whatsapp) }))
-          .filter(m => m.wa)
+          .map(p => ({ p, cs: connectState(p) }))
+          .filter(m => m.cs)
           .sort((a, b) => (a.p.county || '').localeCompare(b.p.county || '') || a.p.name.localeCompare(b.p.name));
 
-        $('count').textContent = members.length === 1 ? '1 producer' : members.length + ' producers';
+        $('count').textContent = (members.length === 1 ? '1 farm' : members.length + ' farms') + ' listing';
         if (!members.length) { $('empty').classList.remove('hidden'); return; }
 
-        $('list').innerHTML = members.map(({ p, wa }) => {
+        $('list').innerHTML = members.map(({ p, cs }) => {
           const tier = p.tier || 'discovered';
           const pills = `<span class="pill pill-${esc(tier)}">${TIER[tier] || TIER.discovered}</span>` +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
-          const nameLink = p.profile_live && p.profile_slug ? `../${esc(p.profile_slug)}/` : `../?producer=${esc(p.id)}`;
-          // What they have right now, named only. The list with its notes is
-          // on their profile page.
-          const cs = connectState(p);
-          const avail = cs
-            ? `<p class="avail-line"><span class="avail-label${cs.fresh ? '' : ' stale'}">${cs.fresh ? 'Available now' : 'Last listed'}</span>${cs.items.map(a => `<span>${esc(a.name)}</span>`).join('')}</p>`
-            : '';
+          const url = profileUrl(p);
+          // The one button, wherever the producer pointed it. With no channel
+          // on file their page is the way through instead of a dead end.
+          const cta = cs.channel
+            ? `<a class="connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`
+            : `<a class="connect quiet" href="${esc(url)}">See the farm</a>`;
           return `<div class="row">
-            <div>
-              <h2><a href="${nameLink}">${esc(p.name)}</a></h2>
-              <p class="where">${esc(p.location || ('Co. ' + p.county))}</p>
-              <p class="what">${esc(p.product || '')}</p>
-              ${avail}
-              <div class="tags">${pills}</div>
+            <div class="row-head">
+              <div>
+                <h2><a href="${esc(url)}">${esc(p.name)}</a></h2>
+                <p class="where">${esc(p.location || ('Co. ' + p.county))}</p>
+                <div class="tags">${pills}</div>
+              </div>
+              ${cta}
             </div>
-            <a class="connect" href="${esc(wa)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>
+            ${cs.intro ? `<p class="row-intro">${esc(cs.intro)}</p>` : ''}
+            <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
+            <ul class="avail">${connectListHTML(cs.items, esc)}</ul>
+            <p class="row-more"><a href="${esc(url)}">Everything about ${esc(p.name)}</a></p>
           </div>`;
         }).join('');
       })

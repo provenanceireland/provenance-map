@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Tara Hill Honey - Provenance</title>
-  <meta name="description" content="Tara Hill Honey, Tara Hill, Co. Wexford. Raw Irish honey from native Irish bees on the eastern slopes of Tara Hill. A Provenance Featured producer, visited and filmed by Provenance." />
+  <meta name="description" content="Tara Hill Honey, Tara Hill, Co. Wexford. Raw Irish honey from native Irish bees on the eastern slopes of Tara Hill. A Provenance Highlighted producer, visited and filmed by Provenance." />
   <link rel="canonical" href="https://provenancemap.ie/tarahillhoney/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Provenance Map" />
-  <meta property="og:title" content="Tara Hill Honey - Provenance Featured" />
+  <meta property="og:title" content="Tara Hill Honey - Provenance Highlighted" />
   <meta property="og:description" content="Raw Irish honey from native Irish bees on Tara Hill, Co. Wexford. Visited and filmed by Provenance." />
   <meta property="og:url" content="https://provenancemap.ie/tarahillhoney/" />
   <meta property="og:image" content="https://provenancemap.ie/assets/og/tara-hill-honey.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tara Hill Honey - Provenance Featured" />
+  <meta name="twitter:title" content="Tara Hill Honey - Provenance Highlighted" />
   <meta name="twitter:description" content="Raw Irish honey from native Irish bees on Tara Hill, Co. Wexford. Visited and filmed by Provenance." />
   <meta name="twitter:image" content="https://provenancemap.ie/assets/og/tara-hill-honey.jpg" />
   <meta name="theme-color" content="#1A1B18" />
@@ -229,8 +229,19 @@
       color: var(--green); margin-bottom: 20px;
     }
     .connect-when.stale { color: var(--faint); }
+    .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
     .avail { list-style: none; margin: 0; }
-    .avail li { padding: 15px 0; border-bottom: 1px solid var(--hair); }
+    .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+    .avail .a-photo { flex: none; }
+    .avail .a-photo img { width: 96px; height: 96px; object-fit: cover; border: 1px solid var(--hair); background: var(--surface); }
+    .avail .a-txt { flex: 1; min-width: 0; }
+    .avail .a-opts {
+      display: block; margin-top: 9px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
+    }
+    .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
     .avail li:last-child { border-bottom: none; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
@@ -350,6 +361,7 @@
     <!-- Provenance Connect: what they have right now, and the one button. -->
     <section id="connect-section" class="hidden">
       <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
+      <p class="connect-intro hidden" id="connect-intro"></p>
       <p class="connect-when" id="connect-when"></p>
       <ul class="avail" id="avail"></ul>
       <div class="connect-cta" id="connect-cta"></div>
@@ -436,7 +448,7 @@
     <div class="mini-map">
       <img src="map.jpg" alt="The Provenance Map, with Tara Hill Honey's gold pin among the others" />
     </div>
-    <p class="map-line">Tara Hill Honey is a<br>Featured producer on<br>The Provenance Map</p>
+    <p class="map-line">Tara Hill Honey is a<br>Highlighted producer on<br>The Provenance Map</p>
     <a href="../?producer=tara-hill-honey" class="map-btn">See on the map</a>
   </div>
 
@@ -453,7 +465,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=1"></script>
+  <script src="../connect.js?v=2"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.
@@ -540,6 +552,7 @@
       const cs = connectState(producer);
       if (cs) {
         $('connect-head').textContent = cs.heading;
+        if (cs.intro) { $('connect-intro').textContent = cs.intro; show('connect-intro', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
         $('avail').innerHTML = connectListHTML(cs.items, esc);
@@ -611,7 +624,7 @@
       const near = all.filter(p => p.id !== producer.id && p.lat && p.lng)
         .map(p => { const q = mapPt(p); return { p, d: Math.hypot(q.x - here.x, q.y - here.y) }; })
         .sort((a, b) => a.d - b.d).slice(0, 3);
-      const TIER = { discovered: ['Discovered', 'p-disc'], verified: ['Highlighted', 'p-ver'], featured: ['Featured', 'p-feat'] };
+      const TIER = { discovered: ['Discovered', 'p-disc'], verified: ['Discovered', 'p-ver'], featured: ['Highlighted', 'p-feat'] };
       $('nearby').innerHTML = near.map(({ p }) => {
         const [label, cls] = TIER[p.tier] || TIER.discovered;
         return `<a class="rel-card" href="../?producer=${esc(p.id)}">
@@ -652,7 +665,7 @@
       const name = $('name').textContent;
       if (typeof gtag === 'function') gtag('event', PRODUCER_ID + '-share');
       if (navigator.share) {
-        try { await navigator.share({ title: name + ' - Provenance', text: name + ' is a Provenance Featured farm.', url: PAGE_URL }); } catch (err) {}
+        try { await navigator.share({ title: name + ' - Provenance', text: name + ' is a Provenance Highlighted farm.', url: PAGE_URL }); } catch (err) {}
       } else {
         try {
           await navigator.clipboard.writeText(PAGE_URL);

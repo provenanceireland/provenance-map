@@ -252,11 +252,31 @@
         "active": true,
         "channel": { "type": "whatsapp", "value": "087 947 8954" },
         "updated": "2026-09-24",
+        "intro": "Organic beef, pork and lamb off the farm at Freshford, and whatever is cut from the market garden that week. Boxes made up to order.",
         "available": [
-          { "name": "Organic grass-fed beef", "note": "Boxes to order from the farm shop" },
-          { "name": "Organic pork", "note": "Small batches" },
-          { "name": "Organic lamb" },
-          { "name": "Seasonal vegetables", "note": "Kales, purple sprouting broccoli, courgettes and roots" }
+          {
+            "name": "Organic grass-fed beef",
+            "note": "Angus, Hereford and Shorthorn bulls on continental cross cows. Grass fed and grass finished on the land, not in a shed.",
+            "options": ["Quarter", "Half", "Whole", "Individual cuts"],
+            "photo": ""
+          },
+          {
+            "name": "Organic pork",
+            "note": "A couple of pigs at a time, on organic barley, wheat and peas and the windfalls out of the orchard.",
+            "options": ["Half", "Whole", "Individual cuts"],
+            "photo": ""
+          },
+          {
+            "name": "Organic lamb",
+            "note": "Finished on grass as far as the year allows, with a little of the farm's own barley and wheat in the autumn.",
+            "options": ["Half", "Whole", "Individual cuts"],
+            "photo": ""
+          },
+          {
+            "name": "Seasonal vegetables",
+            "note": "Whatever is ready in the beds and the polytunnel: three kales, purple sprouting broccoli, courgettes, alliums and roots.",
+            "photo": ""
+          }
         ],
         "plus": {}
       },
@@ -2656,6 +2676,21 @@
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "" },
+        "updated": "2026-09-24",
+        "intro": "Beef boxes direct from the farm at Castletown. Every bit of the feed is grown on the place, bar the nuts for vitamins.",
+        "available": [
+          {
+            "name": "Grass-fed beef",
+            "note": "Grass fed through the summer. Through the winter, the farm's own grass silage, whole crop peas and barley, kale and home-rolled barley.",
+            "options": ["Quarter", "Half", "Whole", "Beef box"],
+            "photo": ""
+          }
+        ],
+        "plus": {}
+      },
       "farmers_market": false,
       "farm_shop": false,
       "date_added": null

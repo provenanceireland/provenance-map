@@ -69,11 +69,24 @@ function connectFor(producer) {
   var live = CONNECT_LIVE[producer.id];
   var base = producer.connect || null;
   if (live && live.available && live.available.length) {
+    // The sheet carries names and notes. The buying options and the produce
+    // photos stay on the record, matched back by name, because a producer
+    // types a list in a box and does not re-type those every week.
+    var keep = {};
+    ((base && base.available) || []).forEach(function (a) {
+      if (a && a.name) keep[String(a.name).toLowerCase().trim()] = a;
+    });
+    var merged = live.available.map(function (a) {
+      var was = keep[String(a.name).toLowerCase().trim()];
+      if (!was) return a;
+      return { name: a.name, note: a.note || was.note, options: was.options, photo: was.photo };
+    });
     return {
       active: true,
       channel: (base && base.channel) || (producer.whatsapp ? { type: 'whatsapp', value: producer.whatsapp } : null),
       updated: live.updated,
-      available: live.available,
+      intro: (base && base.intro) || '',
+      available: merged,
       plus: (base && base.plus) || {},
       source: 'live'
     };
@@ -101,6 +114,7 @@ function connectState(producer) {
     updated: c.updated || '',
     when: connectWhen(days, c.updated),
     heading: fresh ? 'Available now' : 'Last listed',
+    intro: c.intro || '',
     channel: connectChannel(producer, c),
     source: c.source
   };
@@ -215,7 +229,11 @@ function connectStamp(cell) {
   return isNaN(d.getTime()) ? null : d.getTime();
 }
 
-/* Shared markup for the list. Each page brings its own CSS. */
+/* Shared markup for the list. Each page brings its own CSS.
+   An item can carry `options` — the brackets an animal is sold in, quarter,
+   half, whole or individual cuts — and a `photo`, which is a path from the
+   site root so it resolves the same from any page depth. Both are optional
+   and absent for most produce. */
 function connectListHTML(items, escFn) {
   var e = escFn || function (s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -223,8 +241,13 @@ function connectListHTML(items, escFn) {
     });
   };
   return items.map(function (a) {
-    return '<li><span class="a-name">' + e(a.name) + '</span>' +
-      (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') + '</li>';
+    var opts = (a.options || []).filter(Boolean);
+    var photo = a.photo ? '<span class="a-photo"><img src="' + e(a.photo) + '" alt="' + e(a.name) + '" loading="lazy" /></span>' : '';
+    return '<li>' + photo + '<span class="a-txt">' +
+      '<span class="a-name">' + e(a.name) + '</span>' +
+      (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') +
+      (opts.length ? '<span class="a-opts">' + opts.map(function (o) { return '<span>' + e(o) + '</span>'; }).join('') + '</span>' : '') +
+      '</span></li>';
   }).join('');
 }
 

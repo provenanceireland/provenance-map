@@ -953,6 +953,32 @@
       margin: 0 9px;
       color: rgba(90,140,100,0.45);
     }
+
+    /* A farm with a long produce list, or a long list of confirmed
+       attributes, used to push everything else off the card. Both lines now
+       stop at two and offer the rest, on a finger the same as on a mouse. */
+    .clamped {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .more-btn {
+      display: block;
+      margin-top: 5px;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #5A8C64;
+      transition: color 0.2s;
+    }
+    .more-btn:hover { color: #E8DEC8; }
     /* Where to buy */
     .card-where-buy { margin-bottom: 10px; }
     .card-where-buy-label {
@@ -1342,25 +1368,21 @@
       margin-top: 3px;
     }
     #pin-label .pl-product.t-featured { color: #CDA043; }
-    /* A Featured pin with a film shows a small play mark in its label, so the
-       gold reads as "there is something to watch here". */
-    #pin-label .pl-film {
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 5px; padding: 4px 8px;
-      border: 1px solid rgba(205,160,67,0.55); border-radius: 4px;
-      font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
-      color: #CDA043;
-      pointer-events: auto; cursor: pointer;
+    /* The county, so two farms with similar names can be told apart without
+       opening either card. */
+    #pin-label .pl-county {
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5A8C64;
+      margin-top: 4px;
     }
-    #pin-label .pl-film:hover { background: rgba(205,160,67,0.14); }
-    #pin-label .pl-film::before {
-      content: '';
-      width: 0; height: 0;
-      border-left: 6px solid #CDA043;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-    }
+    /* The label carries no clickable anything. It used to hold a "Watch the
+       visit" button with pointer-events: auto, which sat directly over the
+       pin above and swallowed the hover on the way past — the label caught
+       on certain pins and would not let go. The film is on the card and on
+       the profile page instead. Nothing in here is interactive now, so the
+       pointer passes straight through. */
     /* And on hover the gold pin itself grows and shows a play mark, the only
        pin that changes under the pointer. The mark is drawn at the dot's own
        scale and grows with it, so it stays crisp. */
@@ -1864,7 +1886,10 @@
       <!-- <a href="provenance-seal.html" class="menu-link">The Provenance Seal</a> -->
       <a href="connect/" class="menu-link">Provenance Connect</a>
       <button type="button" class="menu-link menu-into" data-open="menu-cats">Producers</button>
-      <a href="about.html" class="menu-link">About Provenance</a>
+      <!-- About Provenance pulled 2026-09-24 while the page is rewritten.
+           The page itself is untouched at /about.html; put this line back to
+           restore it. -->
+      <!-- <a href="about.html" class="menu-link">About Provenance</a> -->
       <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
     </div>
 
@@ -1903,7 +1928,7 @@
         <div class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></div>
       </div>
       <div class="legend-text">
-        <span>Highlighted producer</span>
+        <span>Confirmed producer</span>
         <span class="legend-desc">Details confirmed by the producer</span>
       </div>
     </div>
@@ -1912,7 +1937,7 @@
         <div class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(69,112,78,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
       </div>
       <div class="legend-text">
-        <span>Featured producer</span>
+        <span>Highlighted producer</span>
         <span class="legend-desc">Visited and filmed by Provenance</span>
       </div>
     </div>
@@ -2059,8 +2084,8 @@
       <span class="filter-label">Tier</span>
       <div class="filter-tiers">
         <button class="tier-btn" data-tier="discovered">Discovered</button>
-        <button class="tier-btn" data-tier="verified">Highlighted</button>
-        <button class="tier-btn" data-tier="featured">Featured</button>
+        <button class="tier-btn" data-tier="verified">Confirmed</button>
+        <button class="tier-btn" data-tier="featured">Highlighted</button>
         <button class="tier-btn" data-tier="seal-lite">Seal Lite</button>
         <button class="tier-btn" data-tier="seal-complete">Seal Complete</button>
       </div>
@@ -2119,8 +2144,8 @@
       <div class="card-actions">
         <a id="card-seal" class="card-action-btn card-action-seal hidden" href="#" target="_blank" rel="noopener">Scan the Seal</a>
         <a id="card-founder" class="card-action-btn card-action-founder hidden" href="#">Provenance Founder</a>
-        <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Featured Profile In Progress</span>
-        <a id="card-featured-link" class="card-action-btn card-action-featured hidden" href="#">Featured Profile</a>
+        <span id="card-featured-progress" class="card-action-btn card-action-progress hidden" aria-disabled="true">Highlighted Profile In Progress</span>
+        <a id="card-featured-link" class="card-action-btn card-action-featured hidden" href="#">Highlighted Profile</a>
         <a id="card-connect" class="card-action-btn card-action-connect hidden" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>
         <!-- Where to buy sits under Connect, above the confirmed line -->
         <div id="card-where-to-buy" class="card-where-buy hidden"></div>
@@ -2146,7 +2171,7 @@
     <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
   </div>
 
-  <script src="connect.js?v=1"></script>
+  <script src="connect.js?v=2"></script>
   <script>
     const mapImg = document.getElementById('map-img');
 
@@ -2432,12 +2457,9 @@
     // does not open the card; the tap that follows still does.
     const pinLabel = document.createElement('div');
     pinLabel.id = 'pin-label';
-    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-new">New this week</div><a class="pl-film" href="#" target="_blank" rel="noopener">Watch the visit</a>';
+    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-county"></div><div class="pl-new">New this week</div>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
-    // A real link, set to the pin's film when the label shows, so it opens
-    // the same way the card's YouTube button does, installed app included.
-    pinLabel.querySelector('.pl-film').addEventListener('click', e => e.stopPropagation());
     const overLabel = (x, y) => {
       if (!pinLabel.classList.contains('visible')) return false;
       const r = pinLabel.getBoundingClientRect();
@@ -2467,11 +2489,12 @@
       prodEl.textContent = product;
       prodEl.classList.toggle('t-featured', pin.dataset.tierName === 'featured');
       prodEl.style.display = product ? '' : 'none';
+      // The county sits at the foot of the label, with New this week under it.
+      const county = pin.dataset.county || '';
+      const countyEl = pinLabel.querySelector('.pl-county');
+      countyEl.textContent = county ? 'Co. ' + county.replace(/^Co\.?\s+/i, '') : '';
+      countyEl.style.display = county ? '' : 'none';
       pinLabel.querySelector('.pl-new').style.display = pin.classList.contains('is-new') ? '' : 'none';
-      const filmEl = pinLabel.querySelector('.pl-film');
-      const hasFilm = pin.dataset.tierName === 'featured' && pin.dataset.video;
-      filmEl.style.display = hasFilm ? '' : 'none';
-      filmEl.href = hasFilm ? pin.dataset.video : '#';
       pinLabel.style.left = (r.left + r.width / 2) + 'px';
       pinLabel.style.top  = r.top + 'px';
       pinLabel.classList.add('visible');
@@ -2547,8 +2570,8 @@
 
     const TIER_PILL_MAP = {
       'discovered':    { label: 'Discovered Producer',    cls: 'tier-mark tier-mark-discovered' },
-      'verified':      { label: 'Provenance Highlighted', cls: 'tier-mark tier-mark-verified' },
-      'featured':      { label: 'Provenance Featured',    cls: 'tier-mark tier-mark-featured' },
+      'verified':      { label: 'Discovered Producer',    cls: 'tier-mark tier-mark-verified' },
+      'featured':      { label: 'Provenance Highlighted', cls: 'tier-mark tier-mark-featured' },
       'seal-lite':     { label: 'Seal Lite',              cls: 'tier-mark tier-mark-seal-lite' },
       'seal-complete': { label: 'Provenance Seal',        cls: 'tier-mark tier-mark-seal-complete' },
     };
@@ -2562,6 +2585,32 @@
       if (!/^\d{9,15}$/.test(digits)) return '';
       const text = 'Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.';
       return 'https://wa.me/' + digits + '?text=' + encodeURIComponent(text);
+    }
+
+    /* Clamp a line to two and hang the rest off a toggle, but only when it
+       really does overflow — most producers list three or four things and
+       should never see a control. The button is a sibling, so it is not
+       swallowed by the clamp it controls. */
+    function clampLine(el) {
+      if (!el) return;
+      const old = el.parentNode.querySelector('.more-btn[data-for="' + el.id + '"]');
+      if (old) old.remove();
+      el.classList.remove('clamped');
+      if (!el.textContent.trim()) return;
+      requestAnimationFrame(() => {
+        el.classList.add('clamped');
+        if (el.scrollHeight <= el.clientHeight + 1) { el.classList.remove('clamped'); return; }
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'more-btn';
+        btn.dataset.for = el.id;
+        btn.textContent = 'Show all';
+        btn.addEventListener('click', () => {
+          const open = el.classList.toggle('clamped');
+          btn.textContent = open ? 'Show all' : 'Show less';
+        });
+        el.parentNode.insertBefore(btn, el.nextSibling);
+      });
     }
 
     function openCard(pin) {
@@ -2637,6 +2686,11 @@
         `<span class="product-tag">${PRODUCT_TAG_LABELS[t] || (t.charAt(0).toUpperCase() + t.slice(1))}</span>`
       ).join('');
 
+      // A long line is clamped to two lines with the rest behind a toggle.
+      // Whether it actually overflows can only be known once it is laid out,
+      // so the check runs on the next frame.
+      clampLine(tagsEl);
+
       // ── Provenance Connect: what they have right now ──
       // Names only on the card; the notes and the button live on the profile.
       const availEl = document.getElementById('card-avail');
@@ -2662,6 +2716,7 @@
       } else {
         attrsEl.classList.add('hidden');
       }
+      clampLine(attrsEl);
 
       // ── "Confirmed by <farm>" — Verified producers only ──
       const confirmedEl = document.getElementById('card-confirmed');
