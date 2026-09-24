@@ -335,8 +335,16 @@
       transition: color 0.2s;
     }
 
-    .menu-link:last-of-type { border-bottom: none; }
+    .menu-link:last-child { border-bottom: none; }
     .menu-link:hover { color: #5A8C64; }
+    /* "Producers" opens a panel rather than a page, so it is a button wearing
+       the same clothes as the links beside it. */
+    .menu-into {
+      background: none;
+      border: none;
+      border-bottom: 0.5px solid rgba(69,112,78,0.15);
+      cursor: pointer;
+    }
 
     .menu-tagline {
       position: absolute;
@@ -346,6 +354,91 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
+
+    /* ── MENU PANELS ── one shows at a time. The root stays centred the way it
+       always was; a list panel pins to the top and scrolls, because a category
+       can run to thirty farms. */
+    .menu-panel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .menu-panel.active { display: flex; }
+
+    #menu-overlay.browsing {
+      justify-content: flex-start;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: calc(env(safe-area-inset-top, 20px) + 78px) 0 64px;
+    }
+    #menu-overlay.browsing .menu-tagline { display: none; }
+
+    .menu-back {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #5A8C64;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .menu-back::before { content: '\2039'; font-size: 1.3rem; line-height: 0.6; }
+    .menu-back:hover { color: #E8DEC8; }
+
+    .menu-head {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #E8DEC8;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .menu-rows { width: min(460px, 86vw); }
+    .menu-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      padding: 12px 2px;
+      background: none;
+      border: none;
+      border-bottom: 0.5px solid rgba(69,112,78,0.15);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 21px;
+      color: #E8DEC8;
+      text-align: left;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .menu-row:last-child { border-bottom: none; }
+    .menu-row:hover { color: #5A8C64; }
+    .menu-row .m-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .menu-row .m-meta {
+      margin-left: auto;
+      padding-left: 12px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #504838;
+      white-space: nowrap;
+    }
+    /* The tier, shown as the pin itself rather than as a word. */
+    .menu-row .m-dot { flex: none; border-radius: 50%; }
+    .m-dot-disc { width: 6px;   height: 6px;   background: #2A5A38; border: 1px solid rgba(232,222,200,0.65); }
+    .m-dot-ver  { width: 8px;   height: 8px;   background: #59A666; box-shadow: 0 0 5px 1px rgba(89,166,102,0.45); }
+    .m-dot-feat { width: 9px;   height: 9px;   background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%); box-shadow: 0 0 5px 1px rgba(201,154,56,0.45); }
 
     /* ── CARD ── */
     #card {
@@ -1739,13 +1832,32 @@
   </div>
 
   <!-- MENU OVERLAY -->
+  <!-- Three panels deep: the root, the produce categories, and the producers
+       in one category. A producer row goes to that producer's own profile
+       page, never back to their card on the map. -->
   <div id="menu-overlay">
-    <p class="menu-logo">Provenance</p>
-    <!-- Provenance Seal section hidden for now — restore by uncommenting this line -->
-    <!-- <a href="provenance-seal.html" class="menu-link">The Provenance Seal</a> -->
-    <a href="connect/" class="menu-link">Provenance Connect</a>
-    <a href="about.html" class="menu-link">About Provenance</a>
-    <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
+    <div class="menu-panel active" id="menu-root">
+      <p class="menu-logo">Provenance</p>
+      <!-- Provenance Seal section hidden for now — restore by uncommenting this line -->
+      <!-- <a href="provenance-seal.html" class="menu-link">The Provenance Seal</a> -->
+      <a href="connect/" class="menu-link">Provenance Connect</a>
+      <button type="button" class="menu-link menu-into" data-open="menu-cats">Producers</button>
+      <a href="about.html" class="menu-link">About Provenance</a>
+      <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
+    </div>
+
+    <div class="menu-panel" id="menu-cats">
+      <button type="button" class="menu-back" data-open="menu-root">Menu</button>
+      <p class="menu-head">Producers</p>
+      <div class="menu-rows" id="menu-cat-rows"></div>
+    </div>
+
+    <div class="menu-panel" id="menu-list">
+      <button type="button" class="menu-back" data-open="menu-cats">Producers</button>
+      <p class="menu-head" id="menu-list-head"></p>
+      <div class="menu-rows" id="menu-list-rows"></div>
+    </div>
+
     <p class="menu-tagline">provenancemap.ie</p>
   </div>
 
@@ -2778,6 +2890,7 @@
         initPins();
         animateCounter(data.producers.length);
         hideEmptyChips(); // must run after pins exist — chips are driven by live data
+        buildMenu(data.producers); // must run after the chips, which name the categories
 
         // Deep link: /?producer=slug opens that producer's card
         const targetSlug = new URLSearchParams(location.search).get('producer');
@@ -3006,7 +3119,77 @@
       const btn = document.getElementById('menu-btn');
       const overlay = document.getElementById('menu-overlay');
       btn.classList.toggle('open');
-      overlay.classList.toggle('open');
+      const nowOpen = overlay.classList.toggle('open');
+      // Always reopen at the root, never three panels deep from last time.
+      if (!nowOpen) menuPanel('menu-root');
+    }
+
+    /* ── THE PRODUCERS MENU ──────────────────────────────────────
+       Root -> categories -> the farms in one category -> that farm's own
+       profile page. Everything is built from producers.json, so a new
+       listing appears in here the moment it appears on the map. */
+    let MENU_PRODUCERS = [];
+    const escHtml = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    // Where a producer's profile lives. A Featured farm with a live page of
+    // its own, or a Founder with a built page, goes there; everyone else gets
+    // the shared profile page, which renders their record at their tier.
+    function profileUrl(p) {
+      if (p.profile_slug && p.profile_live) return p.profile_slug + '/';
+      if (p.map_link) return p.map_link;
+      return 'producer/?id=' + encodeURIComponent(p.id);
+    }
+
+    function menuPanel(id) {
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.toggle('active', p.id === id));
+      const overlay = document.getElementById('menu-overlay');
+      overlay.classList.toggle('browsing', id !== 'menu-root');
+      overlay.scrollTop = 0;
+    }
+    document.querySelectorAll('#menu-overlay [data-open]').forEach(b =>
+      b.addEventListener('click', () => menuPanel(b.dataset.open)));
+
+    function buildMenu(list) {
+      MENU_PRODUCERS = list;
+      // The category names and their order come from the map's own filter
+      // chips, so the menu and the filters can never disagree about what a
+      // category is called or what order it belongs in.
+      const order = [], labels = {};
+      document.querySelectorAll('.filter-chip[data-type]').forEach(c => {
+        order.push(c.dataset.type);
+        labels[c.dataset.type] = c.textContent.trim();
+      });
+      const counts = {};
+      list.forEach(p => (p.product_type || []).forEach(t => { counts[t] = (counts[t] || 0) + 1; }));
+      // A produce type with no chip of its own still earns a row here.
+      Object.keys(counts).sort().forEach(t => { if (order.indexOf(t) === -1) order.push(t); });
+
+      const rows = [`<button type="button" class="menu-row" data-cat="*"><span class="m-name">All producers</span><span class="m-meta">${list.length}</span></button>`];
+      order.forEach(t => {
+        if (!counts[t]) return; // an empty category is hidden, the way an empty chip is
+        const label = labels[t] || (t.charAt(0).toUpperCase() + t.slice(1));
+        rows.push(`<button type="button" class="menu-row" data-cat="${escHtml(t)}"><span class="m-name">${escHtml(label)}</span><span class="m-meta">${counts[t]}</span></button>`);
+      });
+
+      const el = document.getElementById('menu-cat-rows');
+      el.innerHTML = rows.join('');
+      el.querySelectorAll('[data-cat]').forEach(b =>
+        b.addEventListener('click', () => openCategory(b.dataset.cat, b.querySelector('.m-name').textContent)));
+    }
+
+    function openCategory(cat, label) {
+      const DOT = { discovered: 'm-dot-disc', verified: 'm-dot-ver', featured: 'm-dot-feat',
+                    'seal-lite': 'm-dot-feat', 'seal-complete': 'm-dot-feat' };
+      const list = (cat === '*' ? MENU_PRODUCERS : MENU_PRODUCERS.filter(p => (p.product_type || []).indexOf(cat) !== -1))
+        .slice().sort((a, b) => String(a.name).localeCompare(String(b.name)));
+      document.getElementById('menu-list-head').textContent = label;
+      document.getElementById('menu-list-rows').innerHTML = list.map(p =>
+        `<a class="menu-row" href="${escHtml(profileUrl(p))}">
+           <span class="m-dot ${DOT[p.tier] || DOT.discovered}"></span>
+           <span class="m-name">${escHtml(p.name)}</span>
+           <span class="m-meta">${escHtml(p.county || '')}</span>
+         </a>`).join('');
+      menuPanel('menu-list');
     }
 
     /* ── SHARE ─────────────────────────────────────────────────── */
