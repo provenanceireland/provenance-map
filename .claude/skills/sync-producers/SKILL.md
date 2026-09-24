@@ -3,9 +3,9 @@ name: sync-producers
 description: >-
   Add or upgrade producers from the user's Obsidian vault. Two triggers:
   "Add producer: [Name]" — reads the Obsidian note and adds them to the map
-  (Verified if all details are complete, Discovered otherwise).
+  (Highlighted if all details are complete, Discovered otherwise).
   "Upgrade producer: [Name]" — reads the Obsidian note and upgrades an existing
-  Discovered producer to Verified. Also triggers on "sync from Obsidian",
+  Discovered producer to Highlighted. Also triggers on "sync from Obsidian",
   "sync any updated producers", or an `obsidian://` link. Reads the note(s), maps
   the front matter to producers.json, applies the tier / practice / photo rules,
   bumps the service-worker cache, commits and pushes, and confirms the deploy.
@@ -16,8 +16,14 @@ description: >-
 The user keeps one Markdown note per producer in their Obsidian vault. This skill
 turns those notes into live map changes. It handles two cases:
 
-- **"Add producer: [Name]"** — the note's `id` (kebab-case of `name`) isn't in `producers.json` yet. If every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list them as **Verified** even on first add. Otherwise list as **Discovered**.
-- **"Upgrade producer: [Name]"** — the `id` already exists in `producers.json` (usually as Discovered). Update it to **Verified** (`tier: verified`), applying the latest note fields (description, practice, photo, attributes, etc.). This is the explicit verification command.
+> **The free confirmed tier is called Highlighted** (renamed from Verified on
+> 2026-09-24). **The slug did not change:** write `"tier": "verified"` in
+> `producers.json`. The Obsidian notes still say `tier: Verified` in their front
+> matter and that keeps working; `Highlighted` in a note means the same thing.
+> Highlighted is the word for the user and for any copy, `verified` for the data.
+
+- **"Add producer: [Name]"** — the note's `id` (kebab-case of `name`) isn't in `producers.json` yet. If every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list them as **Highlighted** even on first add. Otherwise list as **Discovered**.
+- **"Upgrade producer: [Name]"** — the `id` already exists in `producers.json` (usually as Discovered). Update it to **Highlighted** (`tier: verified`), applying the latest note fields (description, practice, photo, attributes, etc.). This is the explicit verification command.
 
 ## Where the notes live
 
@@ -52,7 +58,7 @@ The note keys have changed over time — accept both the current and older names
 | `Eircode` | (nothing, by default) | use it to sanity-check the town and county. It becomes a `directions` link **only when the user asks** — see the Directions rule below |
 | `county` | `county` | one of the 32 counties |
 | `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng` |
-| `tier` | `tier` | `Discovered`→`discovered`, `Verified`→`verified` (see gating below) |
+| `tier` | `tier` | `Discovered`→`discovered`, `Verified` or `Highlighted`→`verified` (see gating below) |
 | `practice` | `practice` | see the **practice gating** rule |
 | `practice_confirmed` | (gate) | see below |
 | `instagram` | `social_instagram` | **null unless tier is Featured+** (see gating) |
@@ -94,7 +100,7 @@ the other in the same edit.
 Only the ones ticked on the note go into the array, in the order above. They
 render as small pills under the practice line.
 
-**Attributes are Verified-only, the same as practice.** Never put an attribute on
+**Attributes are Highlighted-only, the same as practice.** Never put an attribute on
 a `discovered` producer, and never infer one from research, a website or a farm's
 own marketing. An attribute pill reads as a claim Provenance stands over, and the
 only thing that earns that is the producer ticking the box on the verify form.
@@ -112,11 +118,11 @@ bug to work around.
 ## The rules that are easy to get wrong
 
 - **Tier depends on the command and completeness.**
-  - **"Add producer"** — if every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list as **Verified** on first add. If any of those is blank/missing, list as **Discovered**. (`instagram`, `website`, `Email`, `Attributes`, `Eircode` are optional and don't count toward completeness.)
+  - **"Add producer"** — if every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list as **Highlighted** on first add. If any of those is blank/missing, list as **Discovered**. (`instagram`, `website`, `Email`, `Attributes`, `Eircode` are optional and don't count toward completeness.)
   - **"Upgrade producer"** → always sets `tier: verified`. This is the explicit verification command for existing Discovered producers.
-- **Tier gating (what the free tiers may show).** Discovered and Verified are both
+- **Tier gating (what the free tiers may show).** Discovered and Highlighted are both
   free and show only: name, county/town, product, tier badge, description, the
-  single **logo**, and — for Verified — a confirmed practice pill. They must NOT
+  single **logo**, and — for Highlighted — a confirmed practice pill. They must NOT
   carry Instagram, website, where-to-buy, a photo gallery, or a visit video.
   So for `discovered`/`verified`, set `social_instagram: null`, `website: null`,
   `where_to_buy: []`, and no `photos` array — even if the note fills them in.
@@ -142,11 +148,11 @@ bug to work around.
   side by side.
 - **Single card image.** Every tier gets **one** image (`photo_url`) — a logo is
   ideal, but a single representative photo (e.g. a farm shot) is also fine on
-  Discovered and Verified. Check the image (Read it): if it's a logo on a
+  Discovered and Highlighted. Check the image (Read it): if it's a logo on a
   white/transparent background add `"photo_bg": "white"`; a photo or a logo with
   its own solid background omits `photo_bg`. What stays Featured-only is the
   multi-image **gallery** (`photos` array) — never add a `photos` array to a
-  Discovered/Verified record. If there's no image at all, set `photo_url: null`.
+  Discovered/Highlighted record. If there's no image at all, set `photo_url: null`.
 - **Only list what they produce themselves.** A producer is listed for the food
   they grow, raise or make on their own ground — never for what they buy in,
   butcher or resell. Check the research before writing `product` and
@@ -196,7 +202,7 @@ note is not a request for one. Leave the `directions` field off the record, say
 in your report that you held it and that the Eircode is on file, and add it
 later if they say so.
 
-This was the default for Verified until September 2026 and was flipped after the
+This was the default for Highlighted until September 2026 and was flipped after the
 user removed it from six producers in a row. The reason is that most of these
 Eircodes are a family home, not a shop. A Directions button invites a stranger
 to drive to a farmer's house, and only the producer can decide they want that.
@@ -218,7 +224,7 @@ alone. Removing one is a per-producer request, not a sweep.
 
 ## Verification updates specifically
 
-A verification usually means the note changed `tier` to `Verified`, filled in
+A verification usually means the note changed `tier` to `Verified` (or `Highlighted`), filled in
 `practice` + `practice_confirmed: true`, and improved the description. Apply those
 (tier → `verified`, set the confirmed practice pill, use the description as
 written, set the town) and keep Instagram/website/where-to-buy null — those stay

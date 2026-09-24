@@ -147,7 +147,7 @@
       return 'https://wa.me/' + digits + '?text=' + encodeURIComponent('Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.');
     }
 
-    const TIER = { featured: 'Provenance Featured', verified: 'Provenance Verified', discovered: 'Discovered Producer' };
+    const TIER = { featured: 'Provenance Featured', verified: 'Provenance Highlighted', discovered: 'Discovered Producer' };
 
     fetch('../producers.json?v=' + Date.now(), { cache: 'no-store' })
       .then(r => r.json())

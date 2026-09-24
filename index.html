@@ -1757,7 +1757,7 @@
         <div class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></div>
       </div>
       <div class="legend-text">
-        <span>Verified producer</span>
+        <span>Highlighted producer</span>
         <span class="legend-desc">Details confirmed by the producer</span>
       </div>
     </div>
@@ -1913,7 +1913,7 @@
       <span class="filter-label">Tier</span>
       <div class="filter-tiers">
         <button class="tier-btn" data-tier="discovered">Discovered</button>
-        <button class="tier-btn" data-tier="verified">Verified</button>
+        <button class="tier-btn" data-tier="verified">Highlighted</button>
         <button class="tier-btn" data-tier="featured">Featured</button>
         <button class="tier-btn" data-tier="seal-lite">Seal Lite</button>
         <button class="tier-btn" data-tier="seal-complete">Seal Complete</button>
@@ -2398,7 +2398,7 @@
 
     const TIER_PILL_MAP = {
       'discovered':    { label: 'Discovered Producer',  cls: 'tier-pill tier-pill-discovered' },
-      'verified':      { label: 'Provenance Verified',  cls: 'tier-pill tier-pill-verified' },
+      'verified':      { label: 'Provenance Highlighted',  cls: 'tier-pill tier-pill-verified' },
       'featured':      { label: 'Provenance Featured',  cls: 'tier-pill tier-pill-featured' },
       'seal-lite':     { label: 'Seal Lite',            cls: 'tier-pill tier-pill-seal-lite' },
       'seal-complete': { label: 'Provenance Seal',      cls: 'tier-pill tier-pill-seal-complete' },
@@ -3009,7 +3009,7 @@
         ? 'https://provenancemap.ie/share/' + slug + '.html'
         : 'https://provenancemap.ie/';
       const verified = (pin.dataset.tierName || 'discovered') !== 'discovered';
-      const text = `${name} is ${verified ? 'a verified' : 'an'} Irish ${product} producer in ${county}. Found on the Provenance Map.`;
+      const text = `${name} is ${verified ? 'a highlighted' : 'an'} Irish ${product} producer in ${county}. Found on the Provenance Map.`;
 
       // Share counter — separate from card/page view counts
       if (typeof gtag === 'function' && slug) gtag('event', slug + '-share');

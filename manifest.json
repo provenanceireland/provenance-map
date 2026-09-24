@@ -1,7 +1,7 @@
 {
   "name": "Provenance",
   "short_name": "Provenance",
-  "description": "Real food. Named source. Verified producer.",
+  "description": "Real food. Named source. Highlighted producer.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

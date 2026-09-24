@@ -561,7 +561,7 @@
       const near = all.filter(p => p.id !== producer.id && p.lat && p.lng)
         .map(p => { const q = mapPt(p); return { p, d: Math.hypot(q.x - here.x, q.y - here.y) }; })
         .sort((a, b) => a.d - b.d).slice(0, 3);
-      const TIER = { discovered: ['Discovered', 'p-disc'], verified: ['Verified', 'p-ver'], featured: ['Featured', 'p-feat'] };
+      const TIER = { discovered: ['Discovered', 'p-disc'], verified: ['Highlighted', 'p-ver'], featured: ['Featured', 'p-feat'] };
       $('nearby').innerHTML = near.map(({ p }) => {
         const [label, cls] = TIER[p.tier] || TIER.discovered;
         return `<a class="rel-card" href="../?producer=${esc(p.id)}">

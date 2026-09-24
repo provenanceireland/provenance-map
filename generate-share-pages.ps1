@@ -1,5 +1,5 @@
 # generate-share-pages.ps1
-# Generates /share/<slug>.html stub pages for all Provenance Verified (and above) producers.
+# Generates /share/<slug>.html stub pages for all Provenance Highlighted (and above) producers.
 # Each stub carries the producer's Open Graph tags so shared links preview with their
 # photo and name in WhatsApp/iMessage/etc., then redirects to the map with their card open.
 #
@@ -56,7 +56,7 @@ foreach ($p in $data.producers) {
     $slug  = $p.id
     $name  = $p.name
     $county = if ($p.county) { $p.county } else { 'Ireland' }
-    $desc  = if ($p.description) { $p.description } else { "$name is a verified Irish producer in Co. $county. Found on the Provenance Map." }
+    $desc  = if ($p.description) { $p.description } else { "$name is a highlighted Irish producer in Co. $county. Found on the Provenance Map." }
     $desc  = $desc -replace '"', '&quot;'
     $mapUrl  = "https://provenancemap.ie/?producer=$slug"
     $stubUrl = "https://provenancemap.ie/share/$slug.html"
