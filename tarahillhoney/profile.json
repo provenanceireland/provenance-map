@@ -14,7 +14,7 @@
   "hero": { "src": "hero.jpg", "alt": "The home apiary at Tara Hill, hives in long grass with the forestry on the hill behind" },
 
   "film_intro": "Filmed by Provenance on the farm.",
-  "film": { "url": "", "poster": "", "aspect": "9/16", "title": "" },
+  "film": { "url": "https://www.youtube.com/embed/2iR4jiOgfmE", "poster": "film-short.jpg", "aspect": "9/16", "title": "Tara Hill Honey, Co. Wexford" },
 
   "series_label": "The visit, in parts",
   "series": [],
