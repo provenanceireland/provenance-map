@@ -554,30 +554,44 @@
       padding: 14px 22px calc(env(safe-area-inset-bottom, 16px) + 18px);
     }
 
-    /* Tier pills — hollow/outline style */
-    .tier-pill {
-      display: inline-flex;
+    /* Tier mark — the card's opening statement, set as text rather than a
+       badge. The bordered pills that used to sit here stacked up with the
+       attribute and produce pills and read as four rows of bubbles; the tier
+       now states itself in its own colour and a hairline carries the eye
+       across to the edge of the card, the way the section rules do on the
+       profile pages. Two marks (tier + Collection) are divided by a hairline,
+       not by a second box. */
+    #card-badge {
+      display: flex;
       align-items: center;
-      border-radius: 20px;
-      padding: 3px 11px;
+      gap: 12px;
+      margin-bottom: 11px;
+    }
+    #card-badge:empty { display: none; }
+    .tier-mark {
       font-size: 0.58rem;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      white-space: nowrap;
+      line-height: 1;
     }
-    .tier-pill + .tier-pill { margin-left: 5px; }
-    .tier-pill-discovered   { background: rgba(42,90,56,0.14);   border: 1px solid rgba(42,90,56,0.85);   color: #4E8560; }
-    .tier-pill-verified     { background: rgba(89,166,102,0.10); border: 1px solid rgba(89,166,102,0.55);  color: #59A666; }
-    .tier-pill-featured     { background: #CDA043;                 border: 1px solid #A97C28;                color: #2F5C3A; }
-    .tier-pill-seal-lite    { background: rgba(112,112,112,0.10);border: 1px solid rgba(140,140,140,0.55); color: #909090; }
-    .tier-pill-seal-complete{ background: rgba(196,164,74,0.10); border: 1px solid rgba(196,164,74,0.55);  color: #C4A44A; }
-    .tier-pill-market       { background: rgba(176,98,58,0.10);  border: 1px solid rgba(176,98,58,0.55);   color: #C07050; }
-    /* Founder is deliberately richer than the muted gold accent used elsewhere —
-       it is the one pill meant to look like actual gold. */
-    .tier-pill-founder      { background: rgba(69,112,78,0.20); border: 1px solid rgba(90,140,100,0.90);  color: #7DB088; }
-    /* Provenance Collection — silver, to match the Collection pin. Sits beside the tier pill. */
-    .tier-pill-collection   { background: rgba(220,217,208,0.07); border: 1px solid rgba(220,217,208,0.75);  color: #DCD9D0; }
+    .tier-mark + .tier-mark {
+      padding-left: 12px;
+      border-left: 1px solid rgba(232,222,200,0.20);
+    }
+    .tier-rule { flex: 1; height: 1px; background: rgba(232,222,200,0.10); }
+    .tier-mark-discovered    { color: #4E8560; }
+    .tier-mark-verified      { color: #59A666; }
+    /* The lifted amber the spec always called for. As a solid gold block it
+       had to carry dark text; as type it can be the real colour. */
+    .tier-mark-featured      { color: #D9AE55; }
+    .tier-mark-seal-lite     { color: #909090; }
+    .tier-mark-seal-complete { color: #C4A44A; }
+    .tier-mark-market        { color: #C07050; }
+    .tier-mark-founder       { color: #7DB088; }
+    /* Provenance Collection — silver, to match the Collection pin. */
+    .tier-mark-collection    { color: #DCD9D0; }
     /* ── PINS — GOLD (Provenance Visited) ── */
     .pin.gold .pin-dot,
     .pin.approved.gold .pin-dot {
@@ -829,20 +843,22 @@
     .practice-pill.practice-regenerative { color: #C4A44A; }
     .practice-pill.practice-organic      { color: #4A8A55; }
 
-    /* Product type — bold small-caps label */
+    /* What they produce. Green, so it reads apart from the confirmed
+       attributes directly above it, which are the same size and shape. */
     .card-product-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #5A8C64;
+      line-height: 1.75;
       margin: 2px 0 12px;
     }
     .card-product-tags:empty { display: none; }
-    .product-tag {
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #A89A82;
+    .product-tag + .product-tag::before {
+      content: '·';
+      margin: 0 9px;
+      color: rgba(90,140,100,0.45);
     }
     /* Where to buy */
     .card-where-buy { margin-bottom: 10px; }
@@ -889,44 +905,40 @@
       transition: transform 0.2s;
     }
     .card-where-buy-item a:hover .card-where-buy-arrow { transform: translateX(3px); }
-    /* Venue tags (farm shop, farmers market) */
+    /* Venue tags (farm shop, farmers market) — the same quiet line as the
+       rest, no boxes. */
     .card-venue-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 14px;
-    }
-    .venue-tag {
       font-size: 0.55rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 20px;
-      background: rgba(69,112,78,0.08);
-      border: 1px solid rgba(69,112,78,0.25);
       color: #5A8C64;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .venue-tag + .venue-tag::before {
+      content: '·';
+      margin: 0 9px;
+      color: rgba(90,140,100,0.45);
     }
 
+    /* What the producer has confirmed. A quiet caption line under the practice
+       statement, separated by middots — the words are the point, the boxes
+       never were. */
     #card-attributes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 2px;
-      margin-bottom: 10px;
-    }
-    .badge-attr {
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.55rem;
+      font-size: 0.56rem;
       font-weight: 500;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: #A89A82;
-      background: rgba(232,222,200,0.05);
-      border: 1px solid rgba(232,222,200,0.15);
-      border-radius: 999px;
-      padding: 3px 9px;
+      line-height: 1.75;
+      margin-top: 2px;
+      margin-bottom: 11px;
+    }
+    .badge-attr + .badge-attr::before {
+      content: '·';
+      margin: 0 9px;
+      color: rgba(232,222,200,0.30);
     }
     .card-description {
       font-size: 0.82rem;
@@ -2397,11 +2409,11 @@
     const PRODUCT_TAG_LABELS = { salt: 'Sea Salt' };
 
     const TIER_PILL_MAP = {
-      'discovered':    { label: 'Discovered Producer',  cls: 'tier-pill tier-pill-discovered' },
-      'verified':      { label: 'Provenance Highlighted',  cls: 'tier-pill tier-pill-verified' },
-      'featured':      { label: 'Provenance Featured',  cls: 'tier-pill tier-pill-featured' },
-      'seal-lite':     { label: 'Seal Lite',            cls: 'tier-pill tier-pill-seal-lite' },
-      'seal-complete': { label: 'Provenance Seal',      cls: 'tier-pill tier-pill-seal-complete' },
+      'discovered':    { label: 'Discovered Producer',    cls: 'tier-mark tier-mark-discovered' },
+      'verified':      { label: 'Provenance Highlighted', cls: 'tier-mark tier-mark-verified' },
+      'featured':      { label: 'Provenance Featured',    cls: 'tier-mark tier-mark-featured' },
+      'seal-lite':     { label: 'Seal Lite',              cls: 'tier-mark tier-mark-seal-lite' },
+      'seal-complete': { label: 'Provenance Seal',        cls: 'tier-mark tier-mark-seal-complete' },
     };
 
     function whatsappLink(number, name) {
@@ -2424,15 +2436,18 @@
       // ── Tier badge ──
       let badgeHTML = '';
       if (isMarket) {
-        badgeHTML = `<span class="tier-pill tier-pill-market">Farmers Market</span>`;
+        badgeHTML = `<span class="tier-mark tier-mark-market">Farmers Market</span>`;
       } else {
-        // Tier pill only. Founders get a button at the foot of the card instead,
-        // so the badge line stays a single tier statement.
+        // The tier states itself, in its own colour. Founders get a button at
+        // the foot of the card instead, so this line stays a single statement.
         const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
-        // A Collection member carries a second, silver pill beside the tier.
-        if (pin.dataset.collection === 'true') badgeHTML += `<span class="tier-pill tier-pill-collection">Provenance Collection</span>`;
+        // A Collection member carries a second, silver mark beside the tier,
+        // divided by a hairline rather than boxed off on its own.
+        if (pin.dataset.collection === 'true') badgeHTML += `<span class="tier-mark tier-mark-collection">Provenance Collection</span>`;
       }
+      // The hairline runs from the last mark to the edge of the card.
+      badgeHTML += '<span class="tier-rule"></span>';
       document.getElementById('card-badge').innerHTML = badgeHTML;
 
       // ── Featured profile pill ──

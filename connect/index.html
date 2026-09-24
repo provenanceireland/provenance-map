@@ -69,15 +69,17 @@
     .row h2 a:hover { color: var(--green-light); }
     .row .where { color: var(--green-light); font-size: 0.92rem; margin-top: 3px; }
     .row .what { color: var(--cream-soft); font-size: 0.92rem; }
-    .row .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    /* The tier states itself as text, the same as the map card. No boxes. */
+    .row .tags { margin-top: 9px; }
     .pill {
-      display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 20px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
     }
-    .pill-featured   { background: #CDA043; border: 1px solid #A97C28; color: #2F5C3A; }
-    .pill-verified   { border: 1px solid rgba(89,166,102,0.55); color: #59A666; }
-    .pill-discovered { border: 1px solid rgba(42,90,56,0.85); color: #4E8560; }
-    .pill-collection { border: 1px solid rgba(220,217,208,0.75); color: #DCD9D0; }
+    .pill + .pill { margin-left: 11px; padding-left: 11px; border-left: 1px solid rgba(201,198,189,0.20); }
+    .pill-featured   { color: #D9AE55; }
+    .pill-verified   { color: #59A666; }
+    .pill-discovered { color: #4E8560; }
+    .pill-collection { color: #DCD9D0; }
     .connect {
       display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px;
       background: var(--green-deep); border: 1px solid var(--green);
