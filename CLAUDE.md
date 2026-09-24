@@ -34,6 +34,35 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 > **Implementation note:** the code ships tiers `discovered`, `verified`, `featured`, `seal-lite`, `seal-complete`. The gold **Featured** pin was wired in on 2026-08-24 with Skehana Hill as the first producer on it. The pin carries a very faint orange pulse (added 2026-08-24) plus a soft gold glow. Featured's card unlocks (gallery, Instagram, website, where-to-buy, filmed visit) are **not** wired in yet: Skehana Hill's card carries the tier pill, a gold top edge on the card itself (#card.featured-card), their Instagram and website, and an inert Featured Profile In Progress pill between the links and the confirmed line. **The profile page exists** (built 2026-09-14) at `provenancemap.ie/skehanahill`, served from `/skehanahill/index.html`; the public slug lives in a `profile_slug` field on the record, never in the `id`. Facts on the page come from `producers.json` (so card and page cannot drift; `where_to_buy` feeds both), visit content from `/<slug>/profile.json` (visit date, hero, film, story, product notes, and the `photos` gallery with captions and crop positions). **The map card never carries the photo gallery.** Decided 2026-09-14: the card keeps its single logo, the tier pill, the practice pill and the links, and its job is to send people to the profile page, which is where the photos live. So a Featured record has no `photos` array; the card's thumbnail strip and lightbox stay in the code but nothing feeds them. `profile_live: true` on the record swaps the card's inert "Featured Profile In Progress" span for the real link (`#card-featured-link`) and drops the page's own "Profile in progress" pill; **Skehana Hill went live on 2026-09-15.** The visit date is the line the tier stands on: a page does not go live without one. The card's where-to-buy entries are `{ name, url, note, when }`: the name links to `url`, `when` sits on the right (a day, or "Directions" for a maps link), `note` is a muted line under it, and a single entry spans the card. A second Featured producer is a copy of the folder with `PRODUCER_ID` and `PAGE_URL` changed and its own `profile.json`. **Provenance Connect, layer one (2026-09-21):** a `whatsapp` number on the record (written as dialled, `087...`; normalised to `353` for `wa.me`) puts a **Connect** button on the map card beside Featured Profile and a filled Connect button at the head of the profile page's link row; both open a WhatsApp chat prefilled with "Hi, I found <name> on the Provenance Map." An empty or missing number shows nothing. **Provenance Collection** membership is `"collection": true` on the record: the pin keeps its Highlighted green and size and takes a thin bright silver ring `#DCD9D0` and a soft silver glow in place of the white ring and green glow and the card carries a silver "Provenance Collection" pill beside the tier pill; the tier itself is unchanged. First member: Galtee Honey Farm, 2026-09-19. Saltrock renders on `verified` (green) with its logo as the single card image; its former gallery/IG/website/where-to-buy were removed from its record when it moved to Highlighted. `photo_url` is the single card image (a logo is preferred, but one representative photo is acceptable on any tier); only the multi-image `photos` gallery is Featured-only. Pin size is not affected by farming practice — organic/regenerative shows via the card practice pill only, never by enlarging the pin.
 - **Farmers Market:** Terracotta — `#B0623A`, 5.95px dot (4.25px on mobile), no border, terracotta glow. Completely different card layout showing hours and a producer list. Currently: Gorey Farmers Market (Saturday 10am–2pm). Add `class="pin market"` and `data-category="market"` to the pin.
 
+### The card states things, it does not badge them
+
+Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, Collection, confirmed attributes, produce, venue — and they read as chrome rather than as content. They are all text now, no borders and no backgrounds:
+
+- **The tier** (`.tier-mark`) is one line of letterspaced small caps in the tier's own colour, and a hairline (`.tier-rule`) runs from it to the edge of the card. A second mark (Collection, Founder) is divided from the first by a vertical hairline, never boxed off on its own. Featured finally uses `#D9AE55`, the lifted amber this file always specified — as a solid gold block it had to carry dark text instead.
+- **The practice line** was already set this way (Cormorant italic with a leaf or sprout icon, in the practice colour) and is unchanged. It is the warmest thing on the card and the hierarchy is built around it.
+- **Confirmed attributes** (`.badge-attr`) are a quiet middot-separated line in muted cream under the practice.
+- **Produce and venue tags** are the same line in green, so they read apart from the attributes directly above them.
+
+The Connect listing page follows the same rule. Anything new that wants to label a producer gets a line of type, not a pill.
+
+### Navigation and profile pages
+
+**The menu is three panels deep** (built 2026-09-24). Root: Provenance Connect, **Producers**, About Provenance, List Your Farm. Producers opens the produce categories; a category opens the farms in it, A–Z, each with its tier shown as the pin itself rather than as a word. A row goes to that producer's **profile page**, never back to their card on the map.
+
+The category names and their order are read from the map's own filter chips at load, so the menu and the filters cannot disagree about what a category is called, and a category with no producers hides exactly the way an empty chip does. Everything is built from `producers.json`, so a new listing appears in the menu the moment it appears on the map.
+
+**Every producer has a profile page, at every tier.** Where it lives:
+
+| The record has | The profile is at |
+|---|---|
+| `profile_slug` + `profile_live` | `/<profile_slug>/` — the bespoke Featured page (Skehana Hill, Tara Hill Honey) |
+| `map_link` | that path — the built Founder pages (Newbard, Staffords, Saltrock) |
+| neither | `/producer/?id=<id>` — the shared page |
+
+`profileUrl()` implements that rule and exists in both `index.html` and `/producer/index.html`. The shared page redirects to a bespoke one if it is ever reached by a stale link, so a producer can never be shown a lesser page than they have earned.
+
+`/producer/index.html` is set in the **Featured pages' language** (charcoal, Playfair, forest green, no italic), not the map's, because it is a profile page. It shows only what the record can honestly carry: a Discovered farm gets what its card has, Highlighted adds the practice and the attributes they confirmed, and Instagram, website and where-to-buy are gated to Featured **in the page code as well as in the data**, so a stray field on a free record can never put a paid benefit on a free page. The single card image is contained rather than cropped, since it is usually a logo, and `photo_bg: "white"` gives it a white ground to sit on.
+
 ### Consumer Model (B2C, Freemium)
 
 - Free forever: basic map discovery
