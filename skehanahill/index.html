@@ -241,6 +241,11 @@
       font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
     }
     .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    .avail .a-fulfil {
+      display: block; margin-top: 7px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
+    }
     @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
     .avail li:last-child { border-bottom: none; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
@@ -465,7 +470,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=3"></script>
+  <script src="../connect.js?v=4"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.

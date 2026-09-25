@@ -302,9 +302,15 @@ function connectStamp(cell) {
 
 /* Shared markup for the list. Each page brings its own CSS.
    An item can carry `options` — the brackets an animal is sold in, quarter,
-   half, whole or individual cuts — and a `photo`, which is a path from the
-   site root so it resolves the same from any page depth. Both are optional
-   and absent for most produce. */
+   half, whole or individual cuts — a `fulfilment` line saying how it is
+   actually got (collection, delivery, and what delivery costs), and a
+   `photo`, which is a path from the site root so it resolves the same from
+   any page depth. All three are optional.
+
+   `fulfilment` exists because carriage does not scale down: a courier charges
+   the same to move one steak as a box, so a farm can post a box and cannot
+   post a steak. Saying so per item is the difference between the page being
+   useful and the page being wrong. */
 function connectListHTML(items, escFn) {
   var e = escFn || function (s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -318,6 +324,7 @@ function connectListHTML(items, escFn) {
       '<span class="a-name">' + e(a.name) + '</span>' +
       (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') +
       (opts.length ? '<span class="a-opts">' + opts.map(function (o) { return '<span>' + e(o) + '</span>'; }).join('') + '</span>' : '') +
+      (a.fulfilment ? '<span class="a-fulfil">' + e(a.fulfilment) + '</span>' : '') +
       '</span></li>';
   }).join('');
 }

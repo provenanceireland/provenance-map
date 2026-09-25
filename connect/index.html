@@ -83,6 +83,11 @@
       font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
     }
     .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    .avail .a-fulfil {
+      display: block; margin-top: 7px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
+    }
     @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
     .row h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 1.35rem; line-height: 1.2; color: var(--cream); }
     .row h2 a:hover { color: var(--green-light); }
@@ -151,7 +156,7 @@
     <div class="hero">
       <p class="label">Provenance Connect</p>
       <h1>Buy direct from the farm</h1>
-      <p>Order directly from the farmer. No middleman. You choose the cut, you choose the size, and have it delivered to your home.</p>
+      <p>Order directly from the farmer. No middleman. You choose the cut, you choose the size, then collect it from the farm or have it delivered.</p>
       <p>The list is provided by the producers and updated frequently. If you have a question for them, click Connect.</p>
       <p class="count" id="count"></p>
     </div>
@@ -163,6 +168,7 @@
       <p class="label" style="margin-bottom: 14px">How it works</p>
       <p>Each farm keeps a list of what they have. Not a shop and not a stock count: product names, updated when the year turns over or an animal goes. The date it was last touched is on every list, so you can see how current it is.</p>
       <p>A quarter is roughly a freezer drawer, a half fills a chest freezer, a whole animal is usually split between households. The farm will tell you weights, price and hanging time. That conversation is theirs, not ours.</p>
+      <p>Collection or delivery is set per item, and it is on every line. A courier charges much the same to move one steak as a full box, so most farms will post you a box and ask you to call for a single cut. That is not a farm being difficult, it is carriage not scaling down.</p>
       <p>Farming in Ireland and want to be on this? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
     </div>
   </div>
@@ -172,7 +178,7 @@
     <p class="f-url">provenancemap.ie/connect</p>
   </footer>
 
-  <script src="../connect.js?v=3"></script>
+  <script src="../connect.js?v=4"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
