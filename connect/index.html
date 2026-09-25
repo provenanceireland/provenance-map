@@ -67,12 +67,8 @@
     .row { padding: 30px 0 26px; border-bottom: 1px solid var(--hair); }
     .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
     .row-intro { margin-top: 16px; color: var(--cream-soft); }
-    .row-more { margin-top: 18px; }
-    .row-more a {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-light);
-    }
-    .row-more a:hover { color: var(--cream); }
+    /* Connect on the left, the farm's own page on the right, on every row. */
+    .row-actions { display: flex; gap: 10px; align-items: center; }
     .avail { list-style: none; margin: 14px 0 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
     .avail li:last-child { border-bottom: none; padding-bottom: 0; }
@@ -118,13 +114,20 @@
     }
     .connect:hover { background: var(--green-head); border-color: var(--green-light); }
     .connect svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    /* No channel on file yet: their page is the way through, so the button
-       stays but stops pretending to be a chat. */
+    /* The second button: their own page, quieter than Connect. */
     .connect.quiet { background: rgba(201,198,189,0.04); border-color: rgba(201,198,189,0.32); color: var(--cream-soft); }
     .connect.quiet:hover { background: rgba(201,198,189,0.10); border-color: rgba(201,198,189,0.5); color: var(--cream); }
+    /* No channel on file yet. The slot is held so the row keeps its shape,
+       but it is a span, not a link: nothing to press until the number lands. */
+    .connect.pending {
+      background: rgba(201,198,189,0.02); border-color: rgba(201,198,189,0.14);
+      color: var(--faint); cursor: default;
+    }
+    .connect.pending svg { opacity: 0.5; }
     @media (max-width: 520px) {
       .row-head { grid-template-columns: 1fr; }
-      .connect { justify-content: center; }
+      .row-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .connect { justify-content: center; padding: 12px 10px; }
     }
 
     .empty { color: var(--muted); padding: 40px 0; }
@@ -148,8 +151,8 @@
     <div class="hero">
       <p class="label">Provenance Connect</p>
       <h1>Buy direct from the farm</h1>
-      <p>What these farms have right now, and how to get it. Beef by the quarter, the half or the whole animal for the freezer, or individual cuts if that suits you better. You message the farm, you agree it with them, you collect.</p>
-      <p>Provenance takes no cut and handles no money. The list is the producer's own and they change it themselves.</p>
+      <p>What these farms have right now, and how to get it. Beef by the quarter, the half or the whole animal for the freezer, or individual cuts if that suits you better.</p>
+      <p>The list is the producer's own and they change it themselves.</p>
       <p class="count" id="count"></p>
     </div>
 
@@ -203,11 +206,13 @@
           const pills = `<span class="pill pill-${esc(tier)}">${TIER[tier] || TIER.discovered}</span>` +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const url = profileUrl(p);
-          // The one button, wherever the producer pointed it. With no channel
-          // on file their page is the way through instead of a dead end.
-          const cta = cs.channel
+          // Two buttons on every farm: Connect on the left, their own page on
+          // the right. A farm with no channel on file yet keeps the Connect
+          // slot, greyed and inert, so the row does not change shape when the
+          // number lands — but it is never a live button that goes nowhere.
+          const connectBtn = cs.channel
             ? `<a class="connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`
-            : `<a class="connect quiet" href="${esc(url)}">See the farm</a>`;
+            : `<span class="connect pending" aria-disabled="true" title="Not open yet">${CONNECT_ICON}Connect</span>`;
           return `<div class="row">
             <div class="row-head">
               <div>
@@ -215,12 +220,14 @@
                 <p class="where">${esc(p.location || ('Co. ' + p.county))}</p>
                 <div class="tags">${pills}</div>
               </div>
-              ${cta}
+              <div class="row-actions">
+                ${connectBtn}
+                <a class="connect quiet" href="${esc(url)}">See the farm</a>
+              </div>
             </div>
             ${cs.intro ? `<p class="row-intro">${esc(cs.intro)}</p>` : ''}
             <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
             <ul class="avail">${connectListHTML(cs.items, esc)}</ul>
-            <p class="row-more"><a href="${esc(url)}">Everything about ${esc(p.name)}</a></p>
           </div>`;
         }).join('');
       })
