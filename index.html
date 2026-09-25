@@ -2171,7 +2171,7 @@
     <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
   </div>
 
-  <script src="connect.js?v=2"></script>
+  <script src="connect.js?v=3"></script>
   <script>
     const mapImg = document.getElementById('map-img');
 
@@ -2647,6 +2647,10 @@
       const featuredLink = document.getElementById('card-featured-link');
       if (profileLive) featuredLink.href = pin.dataset.profileSlug + '/';
       featuredLink.classList.toggle('hidden', !profileLive);
+      featuredLink.onclick = () => {
+        const r = PRODUCER_BY_ID[pin.dataset.id];
+        if (r) pvTrack('profile_click', pvProducer(r, { surface: 'map_card' }));
+      };
 
       // ── Connect ── a WhatsApp chat with the producer, from the record's
       // whatsapp number. Irish numbers are written as dialled (087...) and
@@ -2655,6 +2659,10 @@
       const wa = whatsappLink(pin.dataset.whatsapp, pin.dataset.name);
       if (wa) connectEl.href = wa;
       connectEl.classList.toggle('hidden', !wa);
+      connectEl.onclick = () => {
+        const r = PRODUCER_BY_ID[pin.dataset.id];
+        if (r) pvTrack('connect_click', pvProducer(r, { surface: 'map_card', channel: 'whatsapp' }));
+      };
 
       // ── Name + location ──
       document.getElementById('card-name').textContent     = pin.dataset.name;
@@ -2696,7 +2704,13 @@
       const availEl = document.getElementById('card-avail');
       const rec = PRODUCER_BY_ID[pin.dataset.id];
       const cs = rec ? connectState(rec) : null;
+      // Opening a card is the denominator for everything else: how many
+      // people looked, against how many went on to Connect.
+      if (rec) pvTrack('card_open', pvProducer(rec, { has_availability: !!cs }));
       if (cs) {
+        pvTrack('availability_shown', pvProducer(rec, {
+          surface: 'map_card', items: cs.items.length, fresh: cs.fresh
+        }));
         availEl.innerHTML =
           `<span class="ca-label${cs.fresh ? '' : ' stale'}">${cs.fresh ? 'Available now' : 'Last listed'}</span>` +
           `<span class="ca-list">${cs.items.map(a => `<span>${escHtml(a.name)}</span>`).join('')}</span>`;
@@ -3311,8 +3325,9 @@
       const verified = (pin.dataset.tierName || 'discovered') !== 'discovered';
       const text = `${name} is ${verified ? 'a highlighted' : 'an'} Irish ${product} producer in ${county}. Found on the Provenance Map.`;
 
-      // Share counter — separate from card/page view counts
-      if (typeof gtag === 'function' && slug) gtag('event', slug + '-share');
+      // One event name, the producer in a parameter. It used to be one event
+      // name per producer, which walks into GA4's 500-name ceiling.
+      if (slug) pvTrack('share', pvProducer(PRODUCER_BY_ID[slug] || { id: slug, name, county }, { surface: 'map_card' }));
 
       if (navigator.share) {
         try {

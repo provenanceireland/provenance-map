@@ -465,7 +465,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=2"></script>
+  <script src="../connect.js?v=3"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.
@@ -475,7 +475,7 @@
     // The QR sticker prints this URL with ?src=qr, so a scan in a shop stays
     // separable from a visit that came through the map or a shared link.
     const SRC = new URLSearchParams(location.search).get('src');
-    if (SRC === 'qr' && typeof gtag === 'function') gtag('event', PRODUCER_ID + '-qr');
+    if (SRC === 'qr') pvTrack('qr_scan', { producer: PRODUCER_ID, surface: 'featured_profile' });
 
     const $ = id => document.getElementById(id);
     // Irish numbers are written as dialled (087...) and normalised to 353 for wa.me.
@@ -539,6 +539,9 @@
       if (producer.website) links.push(`<a href="${esc(producer.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       links.push(`<button type="button" id="share-btn" class="share" aria-label="Share this producer"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
       $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
+      const heroConnect = $('links').querySelector('a.connect');
+      if (heroConnect) heroConnect.addEventListener('click', () =>
+        pvTrack('connect_click', pvProducer(producer, { surface: 'featured_hero', channel: 'whatsapp' })));
       $('share-btn').addEventListener('click', shareProfile);
 
       // ── their own words, then the story ──
@@ -548,9 +551,14 @@
       if (pr.story_title) { $('story-title').textContent = pr.story_title; show('story-head', true); }
       $('story').innerHTML = (pr.story || []).map(p => `<p>${esc(p)}</p>`).join('');
 
+      pvTrack('profile_view', pvProducer(producer, { surface: 'featured_profile' }));
+
       // ── Provenance Connect: what they have now ──
       const cs = connectState(producer);
       if (cs) {
+        pvTrack('availability_shown', pvProducer(producer, {
+          surface: 'featured_profile', items: cs.items.length, fresh: cs.fresh
+        }));
         $('connect-head').textContent = cs.heading;
         if (cs.intro) { $('connect-intro').textContent = cs.intro; show('connect-intro', true); }
         $('connect-when').textContent = cs.when;
@@ -560,6 +568,8 @@
           $('connect-cta').innerHTML =
             `<a href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>` +
             `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
+          $('connect-cta').querySelector('a').addEventListener('click', () =>
+            pvTrack('connect_click', pvProducer(producer, { surface: 'featured_profile', channel: cs.channel.kind })));
         }
         show('connect-section', true);
       }
@@ -663,7 +673,7 @@
     let shareToastTimer = null;
     async function shareProfile() {
       const name = $('name').textContent;
-      if (typeof gtag === 'function') gtag('event', PRODUCER_ID + '-share');
+      pvTrack('share', { producer: PRODUCER_ID, producer_name: name, surface: 'featured_profile' });
       if (navigator.share) {
         try { await navigator.share({ title: name + ' - Provenance', text: name + ' is a Provenance Highlighted farm.', url: PAGE_URL }); } catch (err) {}
       } else {

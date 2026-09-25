@@ -486,7 +486,9 @@
     let shareToastTimer = null;
     document.getElementById('share-btn').addEventListener('click', async () => {
       // Share counter — separate from page view counts
-      if (typeof gtag === 'function') gtag('event', SHARE.slug + '-share');
+      // One event name, the producer in a parameter — GA4 caps an account at
+      // 500 distinct event names and a name per producer walks into it.
+      if (typeof gtag === 'function') gtag('event', 'share', { producer: SHARE.slug, surface: 'founder_page' });
       if (navigator.share) {
         try {
           await navigator.share({ title: SHARE.name + ' — Provenance Map', text: SHARE.text, url: SHARE.url });

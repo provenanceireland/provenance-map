@@ -32,6 +32,77 @@ var CONNECT_FRESH_DAYS = 21;
 var CONNECT_SOURCE = null;   // connect-source.json, once fetched
 var CONNECT_LIVE = {};       // { producerId: { available, updated } }
 
+/* ── analytics ───────────────────────────────────────────────────────────
+   One funnel for every event on the map, so the tool can be swapped without
+   touching a single call site. Three destinations, all optional:
+
+     1. GA4, when gtag is on the page.
+     2. window.PV_TRACK, if a page defines one. The hook for any other
+        script — Plausible, Fathom, a tag manager, anything.
+     3. events_endpoint in connect-source.json, posted with sendBeacon. Point
+        it at a Google Apps Script web app and Provenance owns its own event
+        log in a Sheet, the same shape as the availability one, with no
+        backend to run.
+
+   Event NAMES are fixed and few; the producer goes in a PARAMETER. The old
+   pattern here was gtag('event', slug + '-share'), one event name per farm,
+   which walks straight into GA4's 500-name ceiling at 106 producers and
+   climbing. Nothing here carries anything personal: an id, a tier, a county,
+   a surface. */
+var PV_EVENT_QUEUE = [];
+var PV_ENDPOINT_READY = false;
+
+function pvTrack(name, params) {
+  var p = {};
+  for (var k in (params || {})) {
+    if (!Object.prototype.hasOwnProperty.call(params, k)) continue;
+    var v = params[k];
+    if (v === null || v === undefined || v === '') continue;
+    p[k] = (typeof v === 'boolean') ? (v ? 'yes' : 'no') : v;
+  }
+  if (typeof gtag === 'function') { try { gtag('event', name, p); } catch (e) {} }
+  if (typeof window.PV_TRACK === 'function') { try { window.PV_TRACK(name, p); } catch (e) {} }
+  pvBeacon(name, p);
+}
+
+function pvBeacon(name, p) {
+  if (!PV_ENDPOINT_READY) {
+    if (PV_EVENT_QUEUE.length < 40) PV_EVENT_QUEUE.push([name, p]);
+    connectLoadSource().then(pvFlush);
+    return;
+  }
+  var url = CONNECT_SOURCE && CONNECT_SOURCE.events_endpoint;
+  if (!url) return;
+  var body = JSON.stringify({ event: name, at: new Date().toISOString(), page: location.pathname, params: p });
+  try {
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(url, new Blob([body], { type: 'text/plain;charset=UTF-8' }));
+    } else {
+      fetch(url, { method: 'POST', mode: 'no-cors', keepalive: true, body: body });
+    }
+  } catch (e) { /* an event is never worth an error on the page */ }
+}
+
+function pvFlush() {
+  if (PV_ENDPOINT_READY) return;
+  PV_ENDPOINT_READY = true;
+  var q = PV_EVENT_QUEUE; PV_EVENT_QUEUE = [];
+  q.forEach(function (e) { pvBeacon(e[0], e[1]); });
+}
+
+/* The shape every producer event carries, so reports can be sliced the same
+   way whatever the surface. */
+function pvProducer(p, extra) {
+  var o = {
+    producer: (p && p.id) || '',
+    producer_name: (p && p.name) || '',
+    tier: (p && p.tier) || 'discovered',
+    county: (p && p.county) || ''
+  };
+  for (var k in (extra || {})) if (Object.prototype.hasOwnProperty.call(extra, k)) o[k] = extra[k];
+  return o;
+}
+
 /* Irish numbers are written as dialled (087...) and normalised to 353. */
 function connectWhatsapp(number, name) {
   if (!number) return '';

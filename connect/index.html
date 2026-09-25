@@ -172,7 +172,7 @@
     <p class="f-url">provenancemap.ie/connect</p>
   </footer>
 
-  <script src="../connect.js?v=2"></script>
+  <script src="../connect.js?v=3"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -199,6 +199,9 @@
           .sort((a, b) => (a.p.county || '').localeCompare(b.p.county || '') || a.p.name.localeCompare(b.p.name));
 
         $('count').textContent = (members.length === 1 ? '1 farm' : members.length + ' farms') + ' listing';
+        // How many people reach Provenance Connect at all, and how many farms
+        // they saw when they did.
+        pvTrack('connect_page_view', { farms: members.length });
         if (!members.length) { $('empty').classList.remove('hidden'); return; }
 
         $('list').innerHTML = members.map(({ p, cs }) => {
@@ -230,6 +233,23 @@
             <ul class="avail">${connectListHTML(cs.items, esc)}</ul>
           </div>`;
         }).join('');
+
+        // The two buttons on each row, tracked by producer rather than by a
+        // per-producer event name.
+        const byId = {};
+        members.forEach(({ p }) => { byId[p.id] = p; });
+        Array.from($('list').children).forEach((row, i) => {
+          const { p, cs } = members[i];
+          const live = row.querySelector('a.connect:not(.quiet)');
+          if (live) live.addEventListener('click', () =>
+            pvTrack('connect_click', pvProducer(p, { surface: 'connect_page', channel: cs.channel ? cs.channel.kind : '' })));
+          const farm = row.querySelector('a.connect.quiet');
+          if (farm) farm.addEventListener('click', () =>
+            pvTrack('see_farm_click', pvProducer(p, { surface: 'connect_page' })));
+          pvTrack('availability_shown', pvProducer(p, {
+            surface: 'connect_page', items: cs.items.length, fresh: cs.fresh
+          }));
+        });
       })
       .catch(() => { $('empty').textContent = 'The list could not be loaded. Try again in a moment.'; $('empty').classList.remove('hidden'); });
   </script>

@@ -7,6 +7,16 @@
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#1A1B18" />
   <link rel="icon" href="../../icons/icon-192.png" />
+  <!-- Google tag (gtag.js). Here so that how often producers actually update
+       their list can be counted, which is the number that says whether
+       Connect is working at all. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y56PR1JFH8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y56PR1JFH8');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet" />
@@ -172,7 +182,7 @@
 
   <footer><p class="f-logo">Provenance</p></footer>
 
-  <script src="../../connect.js?v=2"></script>
+  <script src="../../connect.js?v=3"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -264,6 +274,7 @@
         if (row && connectToText(row.available).trim() === want) seen = true;
       }
       $('save').disabled = false;
+      pvTrack('availability_saved', { producer: ID, items: items.length, published: seen });
       if (seen) {
         $('status').textContent = 'Published. It is on your page now.';
         $('status').className = 'status ok';

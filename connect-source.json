@@ -8,5 +8,8 @@
   "fields": {
     "farm": "",
     "available": ""
-  }
+  },
+
+  "_events": "Optional. A URL that every tracked event is posted to with sendBeacon, on top of GA4. Point it at a Google Apps Script web app to keep an event log in a Sheet that Provenance owns. Empty means GA4 only. See CONNECT-ANALYTICS.md.",
+  "events_endpoint": ""
 }
