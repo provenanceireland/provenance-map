@@ -64,7 +64,9 @@
        what they have, the brackets it is sold in, and the way through to
        their full page. */
     .list { display: flex; flex-direction: column; border-top: 1px solid var(--hair); margin-bottom: 64px; }
-    .row { padding: 30px 0 26px; border-bottom: 1px solid var(--hair); }
+    /* Each row is an anchor, so a profile's Connect button lands on that
+       farm rather than at the top of the list. */
+    .row { padding: 30px 0 26px; border-bottom: 1px solid var(--hair); scroll-margin-top: 20px; }
     .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
     .row-intro { margin-top: 16px; color: var(--cream-soft); }
     /* How this farm handles collection and delivery, said once for the whole
@@ -239,7 +241,7 @@
           const orderBtn = cs.order
             ? `<a class="connect order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`
             : `<span class="connect pending" aria-disabled="true" title="Not open yet">Order</span>`;
-          return `<div class="row">
+          return `<div class="row" id="${esc(p.id)}">
             <div class="row-head">
               <div>
                 <h2><a href="${esc(url)}">${esc(p.name)}</a></h2>
@@ -278,6 +280,12 @@
             surface: 'connect_page', items: cs.items.length, fresh: cs.fresh
           }));
         });
+
+        // Arriving from a profile's Connect button, land on that farm's row.
+        if (location.hash) {
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (target) target.scrollIntoView();
+        }
       })
       .catch(() => { $('empty').textContent = 'The list could not be loaded. Try again in a moment.'; $('empty').classList.remove('hidden'); });
   </script>

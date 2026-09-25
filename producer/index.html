@@ -455,8 +455,10 @@
 
       // ── buttons ──
       const links = [];
-      const wa = whatsappLink(p.whatsapp, p.name);
-      if (wa) links.push(`<a class="connect" href="${esc(wa)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>Connect</a>`);
+      // The hero Connect is navigation, not a chat: it sends people to the
+      // Connect layer, where the farm's list, the Order button and the real
+      // messaging button live. No message icon here, for that reason.
+      if (connectState(p)) links.push(`<a class="connect" href="../connect/#${esc(p.id)}">Connect</a>`);
       if (paid && p.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(p.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
       if (paid && p.website) links.push(`<a href="${esc(p.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       if (p.directions) links.push(`<a href="${esc(p.directions)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
