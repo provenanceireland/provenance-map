@@ -1024,28 +1024,6 @@
       transition: transform 0.2s;
     }
     .card-where-buy-item a:hover .card-where-buy-arrow { transform: translateX(3px); }
-    /* Provenance Connect on the card: a quiet line naming what they have, and
-       nothing more. The full list with its notes lives on the profile page —
-       the card's job is to send people there, and it was only just stripped of
-       four rows of pills for being cluttered. */
-    .card-avail { margin: 2px 0 12px; }
-    .card-avail .ca-label {
-      display: block;
-      font-size: 0.56rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #59A666;
-      margin-bottom: 4px;
-    }
-    .card-avail .ca-label.stale { color: #504838; }
-    .card-avail .ca-list { display: block; font-size: 0.8rem; color: #E8DEC8; line-height: 1.55; }
-    .card-avail .ca-list span + span::before {
-      content: '·';
-      margin: 0 8px;
-      color: rgba(232,222,200,0.30);
-    }
-
     /* Venue tags (farm shop, farmers market) — the same quiet line as the
        rest, no boxes. */
     .card-venue-tags {
@@ -2128,8 +2106,6 @@
       <div id="card-product-tags" class="card-product-tags"></div>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
-      <!-- Provenance Connect: what they have right now, named but not listed out -->
-      <div id="card-avail" class="card-avail hidden"></div>
 
       <div id="card-market-info" class="hidden">
         <div class="card-hours hidden" id="card-hours-row">
@@ -2701,28 +2677,12 @@
       // so the check runs on the next frame.
       clampLine(tagsEl);
 
-      // ── Provenance Connect: what they have right now ──
-      // Names only on the card; the notes and the button live on the profile.
-      const availEl = document.getElementById('card-avail');
-      const cs = rec ? connectState(rec) : null;
-      // Opening a card is the denominator for everything else: how many
+      // The card no longer lists what a farm has. It carries the Connect
+      // button and that is the whole job: the list, its dates and its terms
+      // are on the Connect layer, where there is room to read them.
+      // Opening a card is still the denominator for everything else: how many
       // people looked, against how many went on to Connect.
-      if (rec) pvTrack('card_open', pvProducer(rec, { has_availability: !!cs }));
-      if (cs) {
-        pvTrack('availability_shown', pvProducer(rec, {
-          surface: 'map_card', items: cs.items.length, fresh: cs.fresh
-        }));
-        availEl.innerHTML =
-          `<span class="ca-label${cs.fresh ? '' : ' stale'}">${cs.fresh ? 'Available now' : 'Last listed'}</span>` +
-          `<span class="ca-list" id="card-avail-list">${cs.items.map(a => `<span>${escHtml(a.name)}</span>`).join('')}</span>`;
-        availEl.classList.remove('hidden');
-        // A farm listing every cut off the animal would otherwise fill the
-        // card with names. Two lines, and the rest behind the toggle.
-        clampLine(document.getElementById('card-avail-list'));
-      } else {
-        availEl.classList.add('hidden');
-        availEl.innerHTML = '';
-      }
+      if (rec) pvTrack('card_open', pvProducer(rec, { has_availability: !!(rec && connectState(rec)) }));
 
       // ── Attributes ──
       const attrsEl = document.getElementById('card-attributes');
