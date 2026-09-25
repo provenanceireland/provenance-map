@@ -2656,7 +2656,7 @@
       "id": "rathphelan-farm",
       "practice": "regenerative",
       "name": "Rathphelan Farm",
-      "tier": "verified",
+      "tier": "featured",
       "pin_classes": "",
       "badge": null,
       "badge2": null,
@@ -2679,15 +2679,28 @@
       "connect": {
         "active": true,
         "channel": { "type": "whatsapp", "value": "" },
-        "updated": "2026-09-24",
-        "intro": "Beef boxes direct from the farm at Castletown. Every bit of the feed is grown on the place, bar the nuts for vitamins.",
+        "updated": "2026-09-25",
+        "intro": "Beef boxes and individual cuts, direct from the farm at Castletown. Every bit of the feed is grown on the place, bar the nuts for vitamins.",
         "available": [
           {
-            "name": "Grass-fed beef",
-            "note": "Grass fed through the summer. Through the winter, the farm's own grass silage, whole crop peas and barley, kale and home-rolled barley.",
+            "name": "Grass-fed beef, by the animal",
+            "note": "Grass fed through the summer. Through the winter, the farm's own grass silage, whole crop peas and barley, kale and home-rolled barley. Cut and bagged to order for the freezer.",
             "options": ["Quarter", "Half", "Whole", "Beef box"],
             "photo": ""
-          }
+          },
+          { "name": "T-bone steak", "note": "Striploin one side of the bone, fillet the other.", "photo": "/produce/rathphelan-farm/t-bone-steak.jpg" },
+          { "name": "Bone-in rib eye steak", "note": "Rib eye left on the bone.", "photo": "/produce/rathphelan-farm/bone-in-rib-eye.jpg" },
+          { "name": "Sirloin steak", "note": "Off the loin, cut thick.", "photo": "/produce/rathphelan-farm/sirloin-steak.jpg" },
+          { "name": "Striploin steak", "note": "The steak most people mean by steak.", "photo": "/produce/rathphelan-farm/striploin-steak.jpg" },
+          { "name": "Fillet steak", "note": "The tenderest thing on the animal.", "photo": "/produce/rathphelan-farm/fillet-steak.jpg" },
+          { "name": "Chuck steak", "note": "Off the shoulder. Good in a pan, better braised.", "photo": "/produce/rathphelan-farm/chuck-steak.jpg" },
+          { "name": "Housekeeper's cut", "note": "A butcher's cut, rarely on a supermarket shelf.", "photo": "/produce/rathphelan-farm/housekeepers-cut.jpg" },
+          { "name": "Rib roast", "note": "A roasting joint off the rib.", "photo": "/produce/rathphelan-farm/rib-roast.jpg" },
+          { "name": "Round roast", "note": "A lean roasting joint off the hind quarter.", "photo": "/produce/rathphelan-farm/round-roast.jpg" },
+          { "name": "Brisket", "note": "Off the breast, rolled and tied. A long slow cook.", "photo": "/produce/rathphelan-farm/brisket.jpg" },
+          { "name": "Beef short ribs", "note": "Rib on the bone. Braise them.", "photo": "/produce/rathphelan-farm/short-ribs.jpg" },
+          { "name": "Beef stew", "note": "Cut and bagged for the pot.", "photo": "/produce/rathphelan-farm/beef-stew.jpg" },
+          { "name": "Steak mince", "note": "Minced from steak.", "photo": "/produce/rathphelan-farm/steak-mince.jpg" }
         ],
         "plus": {}
       },

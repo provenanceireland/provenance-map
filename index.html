@@ -1039,7 +1039,7 @@
       margin-bottom: 4px;
     }
     .card-avail .ca-label.stale { color: #504838; }
-    .card-avail .ca-list { font-size: 0.8rem; color: #E8DEC8; line-height: 1.55; }
+    .card-avail .ca-list { display: block; font-size: 0.8rem; color: #E8DEC8; line-height: 1.55; }
     .card-avail .ca-list span + span::before {
       content: '·';
       margin: 0 8px;
@@ -2713,8 +2713,11 @@
         }));
         availEl.innerHTML =
           `<span class="ca-label${cs.fresh ? '' : ' stale'}">${cs.fresh ? 'Available now' : 'Last listed'}</span>` +
-          `<span class="ca-list">${cs.items.map(a => `<span>${escHtml(a.name)}</span>`).join('')}</span>`;
+          `<span class="ca-list" id="card-avail-list">${cs.items.map(a => `<span>${escHtml(a.name)}</span>`).join('')}</span>`;
         availEl.classList.remove('hidden');
+        // A farm listing every cut off the animal would otherwise fill the
+        // card with names. Two lines, and the rest behind the toggle.
+        clampLine(document.getElementById('card-avail-list'));
       } else {
         availEl.classList.add('hidden');
         availEl.innerHTML = '';
