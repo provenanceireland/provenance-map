@@ -252,7 +252,8 @@
         "active": true,
         "channel": { "type": "whatsapp", "value": "087 947 8954" },
         "updated": "2026-09-24",
-        "intro": "Organic beef, pork and lamb off the farm at Freshford, and whatever is cut from the market garden that week. Boxes made up to order.",
+        "intro": "Organic beef, pork and lamb from the farm at Freshford, and fresh produce from the polytunnel and the orchard. Boxes made up to order.",
+        "terms": "Boxes and whole animals to order. Single cuts and vegetables are collection from the farm shop.",
         "available": [
           {
             "name": "Organic grass-fed beef",
@@ -2680,42 +2681,40 @@
         "active": true,
         "channel": { "type": "whatsapp", "value": "" },
         "updated": "2026-09-25",
-        "intro": "Beef direct from the farm at Castletown, by the box or by the animal. Every bit of the feed is grown on the place, bar the nuts for vitamins. Single cuts are collection only: a courier charges the same to move one steak as a full box, so posting a single steak makes no sense for anyone.",
+        "intro": "Beef reared on their own farm at Castletown, sold by the box or by the animal. Every bit of the feed is grown on the place, bar some nuts bought in locally for vitamins.",
+        "terms": "Boxes and whole animals: collection, or delivery for €12. Single cuts: collection only.",
         "available": [
           {
             "name": "Quarter, half or whole heifer",
-            "note": "Grass fed through the summer. Through the winter, the farm's own grass silage, whole crop peas and barley, kale and home-rolled barley. Cut, bagged and labelled to order for the freezer.",
+            "note": "Grass fed for as much of the year as the weather allows. Through the winter, silage made on the farm, with whole crop peas, barley and kale grown there too. Cut, bagged and labelled to order for the freezer.",
             "options": ["Quarter", "Half", "Whole"],
-            "fulfilment": "Collection, or delivery for €12",
             "photo": ""
           },
           {
             "name": "Beef box, 5kg",
-            "note": "The smaller box, weighted to steaks and mince rather than the slow-cooking cuts.",
-            "fulfilment": "Collection, or delivery for €12",
+            "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts.",
             "photo": ""
           },
           {
             "name": "Beef box, 8kg",
-            "note": "The same idea with more in it. Steaks and mince to the front.",
-            "fulfilment": "Collection, or delivery for €12",
+            "note": "The same idea with more in it, plus some of the classic slow-cooking cuts.",
             "photo": ""
           },
-          { "name": "T-bone steak", "note": "Striploin one side of the bone, fillet the other.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/t-bone-steak.jpg" },
-          { "name": "Bone-in rib eye steak", "note": "Rib eye left on the bone.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/bone-in-rib-eye.jpg" },
-          { "name": "Sirloin steak", "note": "Off the loin, cut thick.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/sirloin-steak.jpg" },
-          { "name": "Striploin steak", "note": "The steak most people mean by steak.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/striploin-steak.jpg" },
-          { "name": "Fillet steak", "note": "The tenderest thing on the animal.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/fillet-steak.jpg" },
-          { "name": "Round steak", "note": "Off the hind quarter, lean and cut thin.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/round-steak.jpg" },
-          { "name": "Chuck steak", "note": "Off the shoulder. Good in a pan, better braised.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/chuck-steak.jpg" },
-          { "name": "Housekeeper's cut", "note": "A butcher's cut, rarely on a supermarket shelf.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/housekeepers-cut.jpg" },
-          { "name": "Steak burgers", "note": "Made up from the steak mince, two to a pack.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/steak-burgers.jpg" },
-          { "name": "Steak mince", "note": "Minced from steak.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/steak-mince.jpg" },
-          { "name": "Rib roast", "note": "A roasting joint off the rib.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/rib-roast.jpg" },
-          { "name": "Round roast", "note": "A lean roasting joint off the hind quarter.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/round-roast.jpg" },
-          { "name": "Brisket", "note": "Off the breast, rolled and tied. A long slow cook.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/brisket.jpg" },
-          { "name": "Beef short ribs", "note": "Rib on the bone. Braise them.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/short-ribs.jpg" },
-          { "name": "Beef stew", "note": "Cut and bagged for the pot.", "fulfilment": "Collection only", "photo": "/produce/rathphelan-farm/beef-stew.jpg" }
+          { "name": "T-bone steak", "note": "Striploin one side of the bone, fillet the other.", "photo": "/produce/rathphelan-farm/t-bone-steak.jpg" },
+          { "name": "Bone-in rib eye steak", "note": "Rib eye left on the bone.", "photo": "/produce/rathphelan-farm/bone-in-rib-eye.jpg" },
+          { "name": "Sirloin steak", "note": "Off the loin, cut thick.", "photo": "/produce/rathphelan-farm/sirloin-steak.jpg" },
+          { "name": "Striploin steak", "note": "The steak most people mean by steak.", "photo": "/produce/rathphelan-farm/striploin-steak.jpg" },
+          { "name": "Fillet steak", "note": "The tenderest thing on the animal.", "photo": "/produce/rathphelan-farm/fillet-steak.jpg" },
+          { "name": "Round steak", "note": "Off the hind quarter, lean and cut thin.", "photo": "/produce/rathphelan-farm/round-steak.jpg" },
+          { "name": "Chuck steak", "note": "Off the shoulder. Good in a pan, better braised.", "photo": "/produce/rathphelan-farm/chuck-steak.jpg" },
+          { "name": "Housekeeper's cut", "note": "A butcher's cut, rarely on a supermarket shelf.", "photo": "/produce/rathphelan-farm/housekeepers-cut.jpg" },
+          { "name": "Steak burgers", "note": "Made up from the steak mince, two to a pack.", "photo": "/produce/rathphelan-farm/steak-burgers.jpg" },
+          { "name": "Steak mince", "note": "Minced from steak.", "photo": "/produce/rathphelan-farm/steak-mince.jpg" },
+          { "name": "Rib roast", "note": "A roasting joint off the rib.", "photo": "/produce/rathphelan-farm/rib-roast.jpg" },
+          { "name": "Round roast", "note": "A lean roasting joint off the hind quarter.", "photo": "/produce/rathphelan-farm/round-roast.jpg" },
+          { "name": "Brisket", "note": "Off the breast, rolled and tied. A long slow cook.", "photo": "/produce/rathphelan-farm/brisket.jpg" },
+          { "name": "Beef short ribs", "note": "Rib on the bone. Braise them.", "photo": "/produce/rathphelan-farm/short-ribs.jpg" },
+          { "name": "Beef stew", "note": "Cut and bagged for the pot.", "photo": "/produce/rathphelan-farm/beef-stew.jpg" }
         ],
         "plus": {}
       },

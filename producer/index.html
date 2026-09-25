@@ -196,6 +196,7 @@
     }
     .connect-when.stale { color: var(--faint); }
     .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
+    .connect-terms { margin-bottom: 20px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
     .avail { list-style: none; margin: 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
     .avail .a-photo { flex: none; }
@@ -311,6 +312,7 @@
       <section id="connect-section" class="hidden" style="border-top: none">
         <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
         <p class="connect-intro hidden" id="connect-intro"></p>
+        <p class="connect-terms hidden" id="connect-terms"></p>
         <p class="connect-when" id="connect-when"></p>
         <ul class="avail" id="avail"></ul>
         <div class="connect-cta" id="connect-cta"></div>
@@ -348,6 +350,9 @@
     <div class="wide"><div class="rel hidden" id="nearby"></div></div>
 
     <div class="close-section">
+      <p class="hidden" id="own-page-wrap" style="margin-bottom: 24px">
+        <a class="map-btn" id="own-page" href="#"></a>
+      </p>
       <p class="map-line" id="map-line"></p>
       <a href="../" class="map-btn" id="see-map">See on the map</a>
     </div>
@@ -364,7 +369,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=4"></script>
+  <script src="../connect.js?v=5"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -471,6 +476,7 @@
         }));
         $('connect-head').textContent = cs.heading;
         if (cs.intro) { $('connect-intro').textContent = cs.intro; show('connect-intro', true); }
+        if (cs.terms) { $('connect-terms').textContent = cs.terms; show('connect-terms', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
         $('avail').innerHTML = connectListHTML(cs.items, esc);
@@ -529,6 +535,16 @@
         show('nearby-section', true); show('nearby', true);
       }
 
+      // A farm with a filmed page of its own gets a way through to it, rather
+      // than this page quietly redirecting there.
+      const own = (p.profile_slug && p.profile_live) ? '../' + encodeURIComponent(p.profile_slug) + '/'
+                : (p.map_link ? '../' + p.map_link : '');
+      if (own) {
+        $('own-page').href = own;
+        $('own-page').textContent = 'The full ' + esc(p.name) + ' profile';
+        show('own-page-wrap', true);
+      }
+
       $('map-line').innerHTML = esc(p.name) + ' is a<br>' + tier.short + ' producer on<br>The Provenance Map';
       show('page', true);
     }
@@ -566,10 +582,11 @@
         const all = data.producers || [];
         const p = all.find(x => x.id === ID);
         if (!p) { show('missing', true); return; }
-        // A producer with a page of their own never renders here, even if
-        // something links to this URL.
-        const own = profileUrl(p);
-        if (own !== './?id=' + encodeURIComponent(p.id)) { location.replace(own); return; }
+        // This page renders every producer, including the ones with a bespoke
+        // page of their own. It used to redirect to that page; it does not
+        // now, because Connect sends everyone to the same kind of profile and
+        // a redirect made two farms behave differently for no good reason.
+        // The richer page is offered as a link instead, further down.
         render(p, all);
       })
       .catch(() => show('missing', true));

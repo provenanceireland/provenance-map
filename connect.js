@@ -186,9 +186,24 @@ function connectState(producer) {
     when: connectWhen(days, c.updated),
     heading: fresh ? 'Available now' : 'Last listed',
     intro: c.intro || '',
+    /* How collection and delivery work at this farm, said once. It used to
+       hang off every item, which meant reading "collection only" fifteen
+       times down a list of cuts. Per-item `fulfilment` survives for the
+       genuine exception. */
+    terms: c.terms || '',
     channel: connectChannel(producer, c),
+    /* The second button. Connect is a conversation; Order is wherever the
+       farm actually takes money, which is their own shop, never ours. */
+    order: connectOrder(producer, c),
     source: c.source
   };
+}
+
+function connectOrder(producer, c) {
+  c = c || {};
+  var url = c.order_url || producer.website || '';
+  if (!url) return null;
+  return { url: url, label: c.order_label || 'Order' };
 }
 
 /* The one button, pointing wherever the producer chose. */

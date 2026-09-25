@@ -230,6 +230,7 @@
     }
     .connect-when.stale { color: var(--faint); }
     .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
+    .connect-terms { margin-bottom: 20px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
     .avail { list-style: none; margin: 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
     .avail .a-photo { flex: none; }
@@ -367,6 +368,7 @@
     <section id="connect-section" class="hidden">
       <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
       <p class="connect-intro hidden" id="connect-intro"></p>
+      <p class="connect-terms hidden" id="connect-terms"></p>
       <p class="connect-when" id="connect-when"></p>
       <ul class="avail" id="avail"></ul>
       <div class="connect-cta" id="connect-cta"></div>
@@ -470,7 +472,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=4"></script>
+  <script src="../connect.js?v=5"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.
@@ -566,6 +568,7 @@
         }));
         $('connect-head').textContent = cs.heading;
         if (cs.intro) { $('connect-intro').textContent = cs.intro; show('connect-intro', true); }
+        if (cs.terms) { $('connect-terms').textContent = cs.terms; show('connect-terms', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
         $('avail').innerHTML = connectListHTML(cs.items, esc);
