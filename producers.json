@@ -254,6 +254,7 @@
         "updated": "2026-09-24",
         "intro": "Organic beef, pork and lamb from the farm at Freshford, and fresh produce from the polytunnel and the orchard. Boxes made up to order.",
         "terms": "Boxes and whole animals to order. Single cuts and vegetables are collection from the farm shop.",
+        "order_url": "https://skehanahill.ie/beef/",
         "available": [
           {
             "name": "Organic grass-fed beef",
