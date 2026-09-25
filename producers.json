@@ -2673,7 +2673,7 @@
       "photo_bg": "white",
       "map_link": null,
       "social_instagram": null,
-      "website": null,
+      "website": "https://www.rathphelanfarm.ie",
       "attributes": ["Grass Fed"],
       "seal_active": false,
       "seal_url": null,
@@ -2684,6 +2684,7 @@
         "updated": "2026-09-25",
         "intro": "Beef reared on their own farm at Castletown, sold by the box or by the animal. Every bit of the feed is grown on the place, bar some nuts bought in locally for vitamins.",
         "terms": "Boxes and whole animals: collection, or delivery for €12. Single cuts: collection only.",
+        "order_url": "https://www.rathphelanfarm.ie/pages/shop",
         "available": [
           {
             "name": "Quarter, half or whole heifer",
