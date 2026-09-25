@@ -217,7 +217,8 @@
     .avail li:last-child { border-bottom: none; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
-    .connect-cta { margin-top: 26px; }
+    /* Connect and Order together, the same pair the Connect page carries. */
+    .connect-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
     .connect-cta a {
       display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px;
       background: var(--green-deep); border: 1px solid var(--green);
@@ -226,7 +227,7 @@
     }
     .connect-cta a:hover { background: var(--green-head); border-color: var(--green-light); }
     .connect-cta a svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .connect-cta p { margin-top: 12px; font-size: 0.88rem; color: var(--faint); }
+    .connect-cta p { flex-basis: 100%; margin-top: 4px; font-size: 0.88rem; color: var(--faint); }
 
     /* ── where to buy ── */
     .buy p { font-size: 1.05rem; }
@@ -480,12 +481,21 @@
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
         $('avail').innerHTML = connectListHTML(cs.items, esc);
-        if (cs.channel) {
-          $('connect-cta').innerHTML =
-            `<a href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>` +
+        // Connect for the conversation, Order for the farm's own shop — the
+        // same pair the Connect page carries, so a visitor who arrives here
+        // from "See the farm" is not sent back to place an order.
+        const cta = [];
+        if (cs.channel) cta.push(`<a class="cta-connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`);
+        if (cs.order) cta.push(`<a class="cta-order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`);
+        if (cta.length) {
+          $('connect-cta').innerHTML = cta.join('') +
             `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
-          $('connect-cta').querySelector('a').addEventListener('click', () =>
+          const cBtn = $('connect-cta').querySelector('.cta-connect');
+          if (cBtn) cBtn.addEventListener('click', () =>
             pvTrack('connect_click', pvProducer(p, { surface: 'shared_profile', channel: cs.channel.kind })));
+          const oBtn = $('connect-cta').querySelector('.cta-order');
+          if (oBtn) oBtn.addEventListener('click', () =>
+            pvTrack('order_click', pvProducer(p, { surface: 'shared_profile' })));
         }
         show('connect-section', true);
       }
