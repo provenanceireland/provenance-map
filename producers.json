@@ -2672,6 +2672,7 @@
       "photo_url": "rathphelan.jpg",
       "photo_bg": "white",
       "map_link": null,
+      "whatsapp": "083 434 8763",
       "social_instagram": null,
       "website": "https://www.rathphelanfarm.ie",
       "attributes": ["Grass Fed"],
@@ -2680,7 +2681,7 @@
       "where_to_buy": [],
       "connect": {
         "active": true,
-        "channel": { "type": "whatsapp", "value": "" },
+        "channel": { "type": "whatsapp", "value": "083 434 8763" },
         "updated": "2026-09-25",
         "intro": "Beef reared on their own farm at Castletown, sold by the box or by the animal. Every bit of the feed is grown on the place, bar some nuts bought in locally for vitamins.",
         "terms": "Boxes and whole animals: collection, or delivery for €12. Single cuts: collection only.",
