@@ -78,12 +78,12 @@
     /* Connect and Order do the same job - they get you to the farm - so they
        look alike. See the farm is a different job and looks different. */
     .row-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-end; }
+    /* No produce photographs here. This page is the directory of farms and
+       what they have; the pictures are on the farm's own page. */
     .avail { list-style: none; margin: 14px 0 0; }
-    .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+    .avail li { padding: 15px 0; border-bottom: 1px solid var(--hair); }
     .avail li:last-child { border-bottom: none; padding-bottom: 0; }
-    .avail .a-photo { flex: none; }
-    .avail .a-photo img { width: 96px; height: 96px; object-fit: cover; border: 1px solid var(--hair); background: var(--surface); }
-    .avail .a-txt { flex: 1; min-width: 0; }
+    .avail .a-txt { display: block; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
     .avail .a-opts {
@@ -97,7 +97,6 @@
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
       font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
     }
-    @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
     /* The farm's name is the loudest thing in its row. */
     .row h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(1.9rem, 5vw, 2.4rem); line-height: 1.08; color: var(--cream); }
     .row h2 a:hover { color: var(--green-light); }
@@ -192,7 +191,7 @@
     <p class="f-url">provenancemap.ie/connect</p>
   </footer>
 
-  <script src="../connect.js?v=5"></script>
+  <script src="../connect.js?v=6"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -257,7 +256,7 @@
             ${cs.intro ? `<p class="row-intro">${esc(cs.intro)}</p>` : ''}
             ${cs.terms ? `<p class="row-terms">${esc(cs.terms)}</p>` : ''}
             <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
-            <ul class="avail">${connectListHTML(cs.items, esc)}</ul>
+            <ul class="avail">${connectListHTML(cs.items, esc, { photos: false })}</ul>
           </div>`;
         }).join('');
 

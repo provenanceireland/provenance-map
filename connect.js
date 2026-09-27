@@ -326,15 +326,20 @@ function connectStamp(cell) {
    the same to move one steak as a box, so a farm can post a box and cannot
    post a steak. Saying so per item is the difference between the page being
    useful and the page being wrong. */
-function connectListHTML(items, escFn) {
+function connectListHTML(items, escFn, opt) {
   var e = escFn || function (s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
     });
   };
+  /* The Connect page passes { photos: false }: it is a directory of farms and
+     what they have, and the produce photographs belong on the farm's own page
+     where there is room for them. Not rendered rather than hidden, so nothing
+     is downloaded to be thrown away. */
+  var withPhotos = !(opt && opt.photos === false);
   return items.map(function (a) {
     var opts = (a.options || []).filter(Boolean);
-    var photo = a.photo ? '<span class="a-photo"><img src="' + e(a.photo) + '" alt="' + e(a.name) + '" loading="lazy" /></span>' : '';
+    var photo = (withPhotos && a.photo) ? '<span class="a-photo"><img src="' + e(a.photo) + '" alt="' + e(a.name) + '" loading="lazy" /></span>' : '';
     return '<li>' + photo + '<span class="a-txt">' +
       '<span class="a-name">' + e(a.name) + '</span>' +
       (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') +
