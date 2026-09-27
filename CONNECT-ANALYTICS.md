@@ -29,7 +29,9 @@ Swapping analytics tool is one function, not thirty call sites.
 | `card_open` | A producer's card opens on the map | producer set, `has_availability` |
 | `profile_view` | Any producer profile page loads | producer set, `surface` |
 | `availability_shown` | A Connect list is rendered anywhere | producer set, `surface`, `items`, `fresh` |
-| `connect_click` | The Connect button is pressed | producer set, `surface`, `channel` |
+| `connect_click` | **The WhatsApp button is pressed** | producer set, `surface`, `channel` |
+| `order_click` | **The Order button is pressed** — off to the farm's own shop | producer set, `surface` |
+| `connect_layer_click` | A Connect button that is navigation, not a chat: the map card and the profile hero | producer set, `surface` |
 | `profile_click` | The Highlighted Profile button on a card | producer set, `surface` |
 | `see_farm_click` | "See the farm" on `/connect/` | producer set, `surface` |
 | `share` | A producer is shared | producer set, `surface` |
@@ -92,18 +94,50 @@ GA4 is fine for counts but it is not yours and it is awkward to put a number in
 front of a producer. For that, set `events_endpoint` in `connect-source.json`
 and every event is also posted as JSON to that URL with `sendBeacon`.
 
-The cheapest thing that works, and the same shape as the availability Sheet:
+The cheapest thing that works, and the same shape as the availability Sheet.
+**New Google Sheet → Extensions → Apps Script**, and paste this in whole:
 
-1. New Google Sheet, **Extensions → Apps Script**.
-2. A `doPost(e)` that appends `JSON.parse(e.postData.contents)` as a row.
-3. **Deploy → New deployment → Web app**, execute as you, access **Anyone**.
-4. Paste the `/exec` URL into `events_endpoint`, commit, push.
+```javascript
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('events') || ss.insertSheet('events');
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['at', 'event', 'producer', 'producer name',
+                     'tier', 'county', 'surface', 'channel', 'page']);
+  }
+  var d = {};
+  try { d = JSON.parse(e.postData.contents); } catch (err) {}
+  var p = d.params || {};
+  sheet.appendRow([
+    d.at || new Date().toISOString(),
+    d.event || '',
+    p.producer || '',
+    p.producer_name || '',
+    p.tier || '',
+    p.county || '',
+    p.surface || '',
+    p.channel || '',
+    d.page || ''
+  ]);
+  return ContentService.createTextOutput('ok');
+}
+```
 
-Then a producer's numbers are a filter on a Sheet, and a monthly line for them
-is a formula rather than an export. No backend, same trade as the availability
-Sheet: it is Google's, and it is free.
+Then **Deploy → New deployment → Web app**, execute as **you**, access
+**Anyone**. Copy the `/exec` URL into `events_endpoint` in
+`connect-source.json`, commit, push. Every click starts landing as a row.
 
-The payload is `{ event, at, page, params }`.
+`sendBeacon` posts as `text/plain`, which is why the script reads
+`e.postData.contents` and parses it itself rather than using `e.parameter`.
+
+**Reading it.** Insert → Pivot table on the `events` sheet: **producer** as
+rows, **event** as columns, COUNTA of `at` as values. That is one grid showing,
+per farm, how many opened the card, how many went to Connect, how many pressed
+WhatsApp and how many pressed Order. Add **surface** as a second row field to
+see which page did the work.
+
+That grid is the thing to put in front of a producer at the end of a month, and
+it is a filter on a spreadsheet rather than an export from someone else's tool.
 
 ## What is deliberately not here
 
