@@ -108,6 +108,13 @@
       font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #59A666;
     }
     .avail-label.stale { color: var(--faint); }
+    /* What this page is not showing, and where it is. */
+    .avail-more { margin-top: 14px; }
+    .avail-more a {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-light);
+    }
+    .avail-more a:hover { color: var(--cream); }
 
     /* The tier states itself as text, the same as the map card. No boxes. */
     .row .tags { margin-top: 9px; }
@@ -229,6 +236,15 @@
           const pills = `<span class="pill pill-${esc(tier)}">${TIER[tier] || TIER.discovered}</span>` +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const url = profileUrl(p);
+          // This page carries the headline offers — the boxes and the whole
+          // animal. An item marked profile_only, which for a beef farm means
+          // every single cut, is held back for the farm's own page, where the
+          // photographs are. The count is shown rather than the items quietly
+          // disappearing. If a farm marked everything that way, show it all
+          // rather than an empty list.
+          let shown = cs.items.filter(a => !a.profile_only);
+          if (!shown.length) shown = cs.items;
+          const held = cs.items.length - shown.length;
           // Three buttons. Connect is the conversation, Order is the farm's
           // own shop, and both get you to the producer, so they match. See the
           // farm does a different job and is dressed differently. A farm with
@@ -256,7 +272,8 @@
             ${cs.intro ? `<p class="row-intro">${esc(cs.intro)}</p>` : ''}
             ${cs.terms ? `<p class="row-terms">${esc(cs.terms)}</p>` : ''}
             <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
-            <ul class="avail">${connectListHTML(cs.items, esc, { photos: false })}</ul>
+            <ul class="avail">${connectListHTML(shown, esc, { photos: false })}</ul>
+            ${held ? `<p class="avail-more"><a href="${esc(url)}">and ${held} individual cut${held === 1 ? '' : 's'} on their page</a></p>` : ''}
           </div>`;
         }).join('');
 
