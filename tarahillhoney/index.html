@@ -118,6 +118,25 @@
        carries a whatsapp number. */
     .links a.connect { background: var(--green-deep); border-color: var(--green); color: var(--cream); }
     .links a.connect:hover { background: var(--green-head); border-color: var(--green-light); color: var(--cream); }
+    /* Provenance Connect at the top of the page: the one filled thing in the
+       hero, for any farm with a Connect list. It jumps to that list further
+       down, which is where the message and Order buttons live. */
+    .connect-hero {
+      display: flex; align-items: center; gap: 16px; max-width: 460px; margin-top: 28px; padding: 16px 20px;
+      background: var(--green-deep); border: 1px solid var(--green); color: var(--cream);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .connect-hero:hover { background: var(--green-head); border-color: var(--green-light); }
+    .connect-hero svg { flex: none; width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .connect-hero .ch-text { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .connect-hero .ch-label {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.74rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .connect-hero .ch-sub { font-size: 0.92rem; line-height: 1.45; color: var(--cream-soft); }
+    .connect-hero .ch-arrow { width: 18px; height: 18px; opacity: 0.75; }
+    .connect-hero + .links { margin-top: 18px; }
+    #connect-section { scroll-margin-top: 24px; }
     .links button.share {
       flex-basis: 100%; justify-content: flex-start; padding: 6px 0 0; border: 0; background: none;
       color: var(--cream-soft); letter-spacing: 0.2em;
@@ -353,6 +372,7 @@
       </div>
       <p class="where" id="where">Tara Hill, Co. Wexford</p>
       <p class="produce" id="produce">Raw Irish Honey</p>
+      <a class="connect-hero hidden" id="connect-hero" href="#connect-section"></a>
       <div class="links" id="links"><div id="share-toast">Link copied</div></div>
     </div>
   </div>
@@ -540,18 +560,26 @@
         show('hero-img', true);
       }
 
+      // The hero Connect is navigation, not a chat: it jumps to the farm's
+      // list on this page, where the real messaging and Order buttons live.
+      if (connectState(producer)) {
+        const hc = $('connect-hero');
+        hc.innerHTML = `${CONNECT_ICON}<span class="ch-text"><span class="ch-label">Connect with the farm</span>` +
+          `<span class="ch-sub">What they have now, and a direct line to order.</span></span>` +
+          `<svg class="ch-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
+        hc.addEventListener('click', e => {
+          e.preventDefault();
+          $('connect-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          pvTrack('connect_layer_click', pvProducer(producer, { surface: 'featured_hero' }));
+        });
+        show('connect-hero', true);
+      }
+
       const links = [];
-      // The hero Connect is navigation, not a chat: it sends people to the
-      // Connect layer, where the farm's list, the Order button and the real
-      // messaging button live. No message icon here, for that reason.
-      if (connectState(producer)) links.push(`<a class="connect" href="../connect/#${esc(producer.id)}">Connect</a>`);
       if (producer.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(producer.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
       if (producer.website) links.push(`<a href="${esc(producer.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       links.push(`<button type="button" id="share-btn" class="share" aria-label="Share this producer"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
       $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
-      const heroConnect = $('links').querySelector('a.connect');
-      if (heroConnect) heroConnect.addEventListener('click', () =>
-        pvTrack('connect_layer_click', pvProducer(producer, { surface: 'featured_hero' })));
       $('share-btn').addEventListener('click', shareProfile);
 
       // ── their own words, then the story ──

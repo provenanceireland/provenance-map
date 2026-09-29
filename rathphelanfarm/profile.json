@@ -1,0 +1,42 @@
+{
+  "id": "rathphelan-farm",
+  "live": false,
+
+  "signed": "Rathphelan Farm",
+
+  "visit": {
+    "date": "",
+    "walked_by": "Darragh",
+    "ground": "160 acres outside Castletown in Laois, bordered by the railway line. Good tillage ground at the top of the farm, running down into wet, peaty bog land at the back. About a third tillage, a third silage and a third grazing.",
+    "listed": "Highlighted 2026, Featured 25 September 2026"
+  },
+
+  "film_intro": "Filmed by Provenance on the farm.",
+  "film": {},
+
+  "series_label": "The visit, in parts",
+  "series": [],
+
+  "story_title": "",
+  "story": [
+    "Rathphelan Farm is 160 acres outside Castletown in Laois, bought by his great grandmother in the early 1900s and farmed by every generation since. He works it now with his father, the man who taught him everything and who he says he could do nothing here without. His wife runs the beef boxes and the website. In his words, he makes the beef and she sells it.",
+    "It is a mixed farm, about a third tillage, a third silage and a third grazing, and nearly everything the cattle eat is grown on it. Barley is harvested at the end of August, and the grain goes through a roller that he built over one winter with his father and his uncle, because cattle cannot digest the husk whole. The silage is cut three times a year: grass first, then grass with whole crop peas and barley, then a last cut of grass that the two of them do on their own. The only feed bought in is a nut from the mill down the road, for the vitamins, and the farm sells grain back to that same mill and straw to a neighbour.",
+    "The grazing is run on a tight rotation. Each field is split in three, the cattle get three days in each part, and there are seven fields to a round, so no piece of ground sees them again for twenty one days. When the barley comes off, turnips go in, and kale is sown at the end of August. Over the winter the cattle strip graze them a metre a day behind an electric wire, working across the field towards the house. Another cover crop holds the soil over the winter, fixes nitrogen, and whatever is not eaten by March is mulched back in.",
+    "He is straight about what the farm is. It is not organic, and some fertiliser goes on, because the back of the farm is bog, the same bog the family once cut turf on, and it will not grow enough without help. Slurry and dung go back on the fields, and the reseeding, about a tenth of the farm each year, is going in with white clover, and red clover in the silage ground, so that each year it needs a little less. A five acre field is sown with bird seed every May and left alone, as his father has done for ten years, and there are hawks and kestrels over it now.",
+    "The herd is Limousin and Charolais, around a hundred on the grass in summer and closer to two hundred through the winter, bought in from the same ten or so farmers they have dealt with for years. The next step is to breed their own: thirty Hereford heifers this November, in calf by January, with the first calves next autumn. Most of the cattle still go to the factory and are exported, the one part of the chain they have no say over. The beef boxes are how they keep some of it here, so the people who eat it know where it was reared.",
+    "The farm keeps its old machines running. There is a 1970s tractor that he and his father argue about selling every year and never do, one a neighbour left to his father in his will, and two old Volvos, one of them bought for scrap and rebuilt by his father and his uncle. His grandmother's garden is still here, with the trees she planted and the apple trees at the top, and it is where he was married. As he put it, if you are throwing something away on a farm, you are not thinking."
+  ],
+
+  "products_title": "What the cattle eat",
+  "products": [
+    { "name": "Grass and clover", "note": "Grazed on a twenty one day rotation, each field split in three. Reseeded a tenth at a time, with more clover each year.", "season": "Spring to autumn" },
+    { "name": "Silage", "note": "Three cuts off their own ground: grass, then grass with whole crop peas and barley, then grass again. Mixed on the farm and fed through the winter.", "season": "Winter" },
+    { "name": "Home rolled barley", "note": "Grown here, harvested in late August and rolled in the yard on a roller they built themselves. Added as the cattle come in for finishing.", "season": "Winter" },
+    { "name": "Kale", "note": "Sown after the barley and strip grazed a metre a day, or brought into the yard and mixed with the silage.", "season": "November to January" },
+    { "name": "Turnips", "note": "Sown in early September straight after the barley, and grazed from the first of January across the field towards the house.", "season": "January on" },
+    { "name": "Nuts from the local mill", "note": "The one thing bought in, for the vitamins. The mill is down the road.", "season": "Year round" }
+  ],
+
+  "photos_title": "Around the farm",
+  "photos": []
+}
