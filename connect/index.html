@@ -84,6 +84,14 @@
        farm rather than at the top of the list. */
     .row { padding: 30px 0 26px; border-bottom: 1px solid var(--hair); scroll-margin-top: 20px; }
     .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
+    /* The way through to a Highlighted farm's own built page. A line, not a
+       button: it is somewhere to go afterwards, not a thing to do here. */
+    .row-own { margin-top: 14px; }
+    .row-own a {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: #D9AE55;
+    }
+    .row-own a:hover { color: var(--cream); }
     .row-intro { margin-top: 16px; color: var(--cream-soft); }
     /* How this farm handles collection and delivery, said once for the whole
        list rather than repeated down every cut. */
@@ -215,7 +223,7 @@
     <p class="f-url">provenancemap.ie/connect</p>
   </footer>
 
-  <script src="../connect.js?v=8"></script>
+  <script src="../connect.js?v=7"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -273,6 +281,14 @@
           const orderBtn = cs.order
             ? `<a class="connect order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`
             : `<span class="connect pending" aria-disabled="true" title="Not open yet">Order</span>`;
+          // A Highlighted farm that has its own built page gets a quiet way
+          // through to it. Deliberately a line of type rather than a fourth
+          // button: the three buttons are the things to do here, and the
+          // filmed page is somewhere to go afterwards. Only shows when the
+          // page is actually live, so it can never be a dead link.
+          const ownPage = (p.tier === 'featured' && p.profile_slug && p.profile_live)
+            ? `../${encodeURIComponent(p.profile_slug)}/`
+            : (p.map_link ? '../' + p.map_link : '');
           return `<div class="row" id="${esc(p.id)}">
             <div class="row-head">
               <div>
@@ -286,6 +302,7 @@
                 <a class="connect quiet" href="${esc(url)}">See the farm</a>
               </div>
             </div>
+            ${ownPage ? `<p class="row-own"><a href="${esc(ownPage)}">View their Highlighted profile</a></p>` : ''}
             ${cs.intro ? `<p class="row-intro">${esc(cs.intro)}</p>` : ''}
             ${cs.terms ? `<p class="row-terms">${esc(cs.terms)}</p>` : ''}
             <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
@@ -307,6 +324,9 @@
           const order = row.querySelector('a.connect.order');
           if (order) order.addEventListener('click', () =>
             pvTrack('order_click', pvProducer(p, { surface: 'connect_page' })));
+          const own = row.querySelector('.row-own a');
+          if (own) own.addEventListener('click', () =>
+            pvTrack('profile_click', pvProducer(p, { surface: 'connect_page' })));
           const farm = row.querySelector('a.connect.quiet');
           if (farm) farm.addEventListener('click', () =>
             pvTrack('see_farm_click', pvProducer(p, { surface: 'connect_page' })));

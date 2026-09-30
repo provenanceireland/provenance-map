@@ -57,15 +57,73 @@ On the record:
 ```json
 "connect": {
   "active": true,
-  "channel": { "type": "whatsapp", "value": "087 947 8954" },
-  "updated": "2026-09-24",
+  "channel": { "type": "whatsapp", "value": "083 434 8763" },
+  "order_url": "https://www.rathphelanfarm.ie/pages/shop",
+  "updated": "2026-09-25",
+  "intro": "One or two sentences: who they are and what they sell, in their terms.",
+  "terms": "How collection and delivery work here, said once for the whole list.",
+  "source": "Only when the list was not submitted by the farm. See below.",
+  "groups": [
+    { "name": "Monthly subscription", "note": "A standing order, billed monthly." },
+    { "name": "Boxes", "note": "One-off boxes, made up off their own cattle." },
+    { "name": "Individual cuts", "match": "profile_only",
+      "note": "Collection only. Not available to order for delivery." }
+  ],
   "available": [
-    { "name": "Organic grass-fed beef", "note": "Boxes to order from the farm shop" },
-    { "name": "Organic lamb" }
+    { "name": "Beef box, 5kg", "group": "Boxes",
+      "note": "Steaks and mince rather than the slow-cooking cuts." },
+    { "name": "Quarter, half or whole heifer", "group": "Boxes",
+      "note": "Cut, bagged and labelled to order for the freezer.",
+      "options": ["Quarter", "Half", "Whole"] },
+    { "name": "T-bone steak", "note": "Striploin one side of the bone, fillet the other.",
+      "profile_only": true, "photo": "/produce/rathphelan-farm/t-bone-steak.jpg" }
   ],
   "plus": {}
 }
 ```
+
+**Every item gets a plain line.** `note` says what the thing actually is — for
+a cut, where it comes off the animal and how it cooks, in a few words. Not
+flavour writing: *"Picanha: the rump cap, fat left on"*, not *"reflecting the
+depth of flavour that comes from heritage breeding"*. Box contents come off the
+farm's own shop, never invented.
+
+**`groups` give the list its headings**, so a reader can tell a standing order
+from a one-off box from a single cut. A group takes its items either by name
+(`"group": "Boxes"` on the item) or by a `match` rule — `profile_only` for the
+detail a farm keeps on its own page, `listed` for what the directory carries —
+which saves putting a line on forty items when the split already exists. A
+group's own `note` is where a rule that applies to just those items goes, right
+on top of them rather than once at the top of the page where it is read and
+forgotten. Ungrouped items fall through to one plain list, and a farm with no
+groups renders exactly as before.
+
+**`options`** are the brackets a thing is sold in (Quarter, Half, Whole).
+**`fulfilment`** is a per-item exception to `terms` and is rarely needed;
+`terms` said once beat it repeated down fifteen cuts.
+
+**Three buttons, and they mean different things.** **Connect** opens the chat,
+**Order** goes to the farm's own shop (`order_url`, falling back to the
+record's `website`), and both get you to the producer so they look alike.
+**See the farm** always goes to `/producer/?id=<id>` — the shared profile, even
+for a farm with a bespoke page — so every farm on Connect lands a visitor on
+the same kind of page. It is bordered rather than filled, because it is a
+different job. A farm with no channel or no shop on file keeps the slot as a
+greyed, inert `<span>`, so the row does not change shape when the detail
+arrives and there is never a live button that goes nowhere.
+
+**A Highlighted farm with its own built page gets a quiet line** under the
+buttons, "View their Highlighted profile", in the Featured amber. A line and
+not a fourth button: the buttons are what to do here, the filmed page is
+somewhere to go afterwards. It only renders when `profile_live` is true.
+
+**Connect on the map card and on a profile hero is navigation, not a chat.**
+Both are the plain word with no message icon, pointing at
+`/connect/#<producer-id>` — every row on the Connect page is an anchor. The
+button showing depends on the farm being on Connect at all, not on a `whatsapp`
+number existing, so it can never land on a row that is not there. The
+messaging button with the icon lives on `/connect/` and in the availability
+block of a profile.
 
 **Numbers outside the Republic go in international form.** `connectWhatsapp`
 normalises a dialled number, and a leading zero is not always Irish: the map
@@ -120,10 +178,31 @@ never fakes a save. Drafts are kept in the producer's own browser so a closed
 tab loses nothing, and the page says they are unpublished. The page is
 `noindex` and unlinked: the URL is the key, so hand it out deliberately.
 
-**Where it shows:** the full list with notes and the one button on the profile
-pages (both the bespoke Featured pages and `/producer/`); names only, as a
-quiet middot line, on the map card and on `/connect/`. The card's job is still
-to send people to the profile — do not grow it.
+**Where it shows.** Three surfaces, each carrying a different amount:
+
+| Surface | What it carries |
+|---|---|
+| The profile pages (`/producer/` and the bespoke Featured ones) | Everything: every item including `profile_only` ones, grouped, **with the produce photographs**, and the Connect + Order buttons |
+| `/connect/` | The headline offers only — `profile_only` items are held back — **with no photographs**, plus a line saying how many cuts are on the farm's page |
+| The map card | **Nothing.** Availability came off the card on 2026-09-24. It carries the Connect button and that is the whole job |
+
+Photographs are *not rendered* on `/connect/` rather than hidden with CSS
+(`connectListHTML(items, esc, { photos: false })`), so a phone does not
+download a megabyte of cut photos to sit in 96px squares. The card's job is to
+send people to Connect or to the profile — **do not grow it**.
+
+**The Connect page has its own link preview.** `assets/og/connect.jpg`, 1200x630,
+built by a script in the profile pages' language. Without an `og:image` WhatsApp
+renders a bare link, which is what it did until 2026-09-30. Any new shareable
+page needs the full set: `og:image` plus its width, height and type, and the
+`twitter:card` block, all with **absolute** URLs.
+
+**Analytics are wired through one funnel** — `pvTrack()` in `connect.js`, never
+`gtag` directly. `connect_click` is the WhatsApp press, `order_click` the shop,
+`connect_layer_click` the navigation ones, and each carries the producer, tier,
+county and surface. Event names stay few and the producer goes in a parameter:
+GA4 caps an account at 500 distinct event names. Full table in
+`CONNECT-ANALYTICS.md`.
 
 **Produce photos** live at `/produce/<producer-id>/<cut>.jpg`, referenced from
 the record as a path from the site root (`/produce/...`) so it resolves the same
