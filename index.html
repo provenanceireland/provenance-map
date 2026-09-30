@@ -1525,6 +1525,42 @@
     }
 
     .hidden { display: none !important; }
+
+    /* ── CONNECT ── in the top right corner, stacked under the filter button,
+       so it is in front of someone the moment the map opens. Filled green
+       rather than the chrome's dark translucent, because this is the one thing
+       on the map that leads somewhere to buy, and the word carries it without
+       an icon — the same rule as every other Connect that is navigation.
+       z-index sits with the legend and the counter, not with the menu and
+       filter buttons, so the filter panel covers it when it slides down. */
+    #connect-fab {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 20px) + 83px);
+      right: 16px;
+      z-index: 25;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(47,92,58,0.92);
+      border: 0.5px solid rgba(90,140,100,0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #E8DEC8;
+      text-decoration: none;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    #connect-fab:hover {
+      background: rgba(53,102,63,0.96);
+      border-color: #5A8C64;
+    }
+
     /* ── FILTER TOGGLE ── */
     #filter-toggle {
       position: fixed;
@@ -1970,6 +2006,11 @@
       <line x1="7" y1="13.5" x2="11" y2="13.5"/>
     </svg>
   </div>
+
+  <!-- Provenance Connect, in the corner and there on load. The word on its
+       own, the same as every other Connect that is navigation rather than a
+       chat. -->
+  <a id="connect-fab" href="connect/" aria-label="Provenance Connect, buy direct from the farm">Connect</a>
 
   <!-- FILTER PANEL -->
   <div id="filter-panel">
@@ -3191,6 +3232,11 @@
         applyFilters();
       });
     });
+
+    // The corner Connect button. Counted separately from the card's, so the
+    // map's own doorway into Connect can be told from a producer's.
+    document.getElementById('connect-fab').addEventListener('click', () =>
+      pvTrack('connect_layer_click', { surface: 'map_home' }));
 
     function toggleMenu() {
       const btn = document.getElementById('menu-btn');
