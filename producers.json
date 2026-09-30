@@ -3090,6 +3090,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-09-22"
+    },
+    {
+      "id": "lisnahay-farm-meats",
+      "practice": "unspecified",
+      "name": "Lisnahay Farm Meats",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.8994,
+      "lng": -5.8639,
+      "county": "Antrim",
+      "location": "Ballygally, Co. Antrim",
+      "product": "Grass-Fed Beef & Lamb",
+      "product_type": ["beef", "lamb"],
+      "description": "Lisnahay Farm Meats is run by fourth generation farmers outside Ballygally, on the Antrim coast. Grass fed beef and lamb, slow matured and butchered locally, sold as individual cuts and meat boxes.",
+      "photo_url": "lisnahay.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-09-30"
     }
   ]
 }
