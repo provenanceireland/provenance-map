@@ -336,7 +336,6 @@
       <div class="practice hidden" id="practice"></div>
       <div class="attrs hidden" id="attrs"></div>
       <a class="connect-hero hidden" id="connect-hero" href="#connect-section"></a>
-      <div class="links" id="links"><div id="share-toast">Link copied</div></div>
 
       <!-- Provenance Connect: what they have right now, and the one button. -->
       <section id="connect-section" class="hidden" style="border-top: none">
@@ -364,6 +363,12 @@
         <p>This producer carries a Provenance Seal product. Its batch documentation is public.</p>
         <p style="margin-top: 18px"><a class="map-btn" id="seal-link" href="#" target="_blank" rel="noopener">Scan the Seal</a></p>
       </section>
+
+      <section id="elsewhere-section" class="hidden">
+        <div class="sec-head"><h2>Elsewhere</h2><span class="rule"></span></div>
+        <div class="links" id="links"><div id="share-toast">Link copied</div></div>
+      </section>
+
     </div>
 
     <div class="record">
@@ -508,6 +513,7 @@
       // Share is a Highlighted (and above) benefit, the same as on the card.
       if (p.tier !== 'discovered') links.push(`<button type="button" id="share-btn" class="share"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
       $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
+      show('elsewhere-section', links.length > 0);
       if ($('share-btn')) $('share-btn').addEventListener('click', () => shareProfile(p.name));
 
       // Every profile view, whatever the tier, with the producer as a

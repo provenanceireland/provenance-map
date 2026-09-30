@@ -382,7 +382,6 @@
       <p class="where" id="where">Tara Hill, Co. Wexford</p>
       <p class="produce" id="produce">Raw Irish Honey</p>
       <a class="connect-hero hidden" id="connect-hero" href="#connect-section"></a>
-      <div class="links" id="links"><div id="share-toast">Link copied</div></div>
     </div>
   </div>
 
@@ -455,6 +454,11 @@
       <div class="sec-head"><h2>The Seal</h2><span class="rule"></span></div>
       <p>This producer carries a Provenance Seal product. Its batch documentation is public.</p>
       <p style="margin-top: 18px"><a class="map-btn" id="seal-link" href="#" target="_blank" rel="noopener">Scan the Seal</a></p>
+    </section>
+
+    <section id="elsewhere-section" class="hidden">
+      <div class="sec-head"><h2>Elsewhere</h2><span class="rule"></span></div>
+      <div class="links" id="links"><div id="share-toast">Link copied</div></div>
     </section>
 
   </div>
@@ -593,6 +597,7 @@
       if (producer.website) links.push(`<a href="${esc(producer.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
       links.push(`<button type="button" id="share-btn" class="share" aria-label="Share this producer"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
       $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
+      show('elsewhere-section', links.length > 0);
       $('share-btn').addEventListener('click', shareProfile);
 
       // ── their own words, then the story ──
