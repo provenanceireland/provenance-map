@@ -1223,9 +1223,12 @@
         "terms": "Doorstep delivery across Northern Ireland, £6 on orders over £30. Free collection from The Beef Barn at the farm, open daily 8am to 10pm. Belfast collection through Indie Füde on selected dates. Order by Tuesday for Thursday delivery.",
         "groups": [
           {
-            "name": "Boxes and subscriptions",
-            "match": "listed",
-            "note": "Order these from their shop, or message the farm."
+            "name": "Monthly subscription",
+            "note": "A standing order, billed monthly and cancel any time."
+          },
+          {
+            "name": "Boxes",
+            "note": "One-off boxes, made up off their own cattle."
           },
           {
             "name": "Individual cuts",
@@ -1237,34 +1240,36 @@
         "available": [
           {
             "name": "The Moilie monthly box",
+            "group": "Monthly subscription",
             "note": "A box of their own beef every month, delivered across Northern Ireland, with a standing saving on each one.",
             "photo": ""
           },
           {
             "name": "Tasting Pack",
-            "note": "Steaks, roast, burgers, sausages and mince, each cut reflecting the depth of flavour that comes from heritage breeding, Atlantic grass and patient farming.",
+            "group": "Boxes",
+            "note": "Steaks, a roast, burgers, sausages and mince.",
             "photo": ""
           },
-          { "name": "Everyday Box", "photo": "" },
-          { "name": "Slow Cook Favourites", "photo": "" },
-          { "name": "Weekend Treat", "photo": "" },
-          { "name": "Grill Feast", "photo": "" },
-          { "name": "Fillet steaks", "profile_only": true, "photo": "/produce/moyletra-moileds/fillet-steaks.jpg" },
-          { "name": "Sirloin steaks", "profile_only": true, "photo": "/produce/moyletra-moileds/sirloin-steaks.jpg" },
-          { "name": "Chump steak", "profile_only": true, "photo": "/produce/moyletra-moileds/chump-steak.jpg" },
-          { "name": "Picanha", "profile_only": true, "photo": "/produce/moyletra-moileds/picanha.jpg" },
-          { "name": "Sirloin tri-tip", "profile_only": true, "photo": "/produce/moyletra-moileds/sirloin-tri-tip.jpg" },
+          { "name": "Everyday Box", "group": "Boxes", "note": "Chump steak, burgers, sausages and mince.", "photo": "" },
+          { "name": "Slow Cook Favourites", "group": "Boxes", "note": "A roasting joint, steak, mince and diced beef.", "photo": "" },
+          { "name": "Weekend Treat", "group": "Boxes", "note": "Fillet steaks, sirloin steaks and burgers.", "photo": "" },
+          { "name": "Grill Feast", "group": "Boxes", "note": "Tomahawk steak, sirloin steaks, burgers and sausages.", "photo": "" },
+          { "name": "Fillet steaks", "note": "The tenderest cut, off the loin.", "profile_only": true, "photo": "/produce/moyletra-moileds/fillet-steaks.jpg" },
+          { "name": "Sirloin steaks", "note": "Off the loin, cut thick.", "profile_only": true, "photo": "/produce/moyletra-moileds/sirloin-steaks.jpg" },
+          { "name": "Chump steak", "note": "Off the rump end of the loin.", "profile_only": true, "photo": "/produce/moyletra-moileds/chump-steak.jpg" },
+          { "name": "Picanha", "note": "The rump cap, fat left on.", "profile_only": true, "photo": "/produce/moyletra-moileds/picanha.jpg" },
+          { "name": "Sirloin tri-tip", "note": "A small triangular cut off the bottom of the sirloin.", "profile_only": true, "photo": "/produce/moyletra-moileds/sirloin-tri-tip.jpg" },
           { "name": "Thor's Hammer", "note": "The shin bone left long, for a very slow cook.", "profile_only": true, "photo": "/produce/moyletra-moileds/thors-hammer.jpg" },
-          { "name": "Topside roast", "profile_only": true, "photo": "/produce/moyletra-moileds/topside-roast.jpg" },
-          { "name": "Silverside roast", "profile_only": true, "photo": "/produce/moyletra-moileds/silverside-roast.jpg" },
-          { "name": "Chuck roast", "profile_only": true, "photo": "/produce/moyletra-moileds/chuck-roast.jpg" },
-          { "name": "Short ribs", "profile_only": true, "photo": "/produce/moyletra-moileds/short-ribs.jpg" },
-          { "name": "Beef shin", "profile_only": true, "photo": "/produce/moyletra-moileds/beef-shin.jpg" },
-          { "name": "Braising steak", "profile_only": true, "photo": "/produce/moyletra-moileds/braising-steak.jpg" },
-          { "name": "6oz Moilie burgers", "profile_only": true, "photo": "/produce/moyletra-moileds/moilie-burgers.jpg" },
+          { "name": "Topside roast", "note": "Lean roasting joint off the inner hind leg.", "profile_only": true, "photo": "/produce/moyletra-moileds/topside-roast.jpg" },
+          { "name": "Silverside roast", "note": "Lean roasting joint off the outer hind leg.", "profile_only": true, "photo": "/produce/moyletra-moileds/silverside-roast.jpg" },
+          { "name": "Chuck roast", "note": "Off the shoulder, for slow roasting.", "profile_only": true, "photo": "/produce/moyletra-moileds/chuck-roast.jpg" },
+          { "name": "Short ribs", "note": "Rib on the bone, for braising.", "profile_only": true, "photo": "/produce/moyletra-moileds/short-ribs.jpg" },
+          { "name": "Beef shin", "note": "Off the foreleg. A long slow cook.", "profile_only": true, "photo": "/produce/moyletra-moileds/beef-shin.jpg" },
+          { "name": "Braising steak", "note": "Cut for the pot, cooked slowly.", "profile_only": true, "photo": "/produce/moyletra-moileds/braising-steak.jpg" },
+          { "name": "6oz Moilie burgers", "note": "Six ounce burgers off their own beef.", "profile_only": true, "photo": "/produce/moyletra-moileds/moilie-burgers.jpg" },
           { "name": "Beef sausages", "note": "Six to a pack.", "profile_only": true, "photo": "/produce/moyletra-moileds/beef-sausages.jpg" },
-          { "name": "Butcher's mince", "profile_only": true, "photo": "/produce/moyletra-moileds/butchers-mince.jpg" },
-          { "name": "Beef pieces", "profile_only": true, "photo": "/produce/moyletra-moileds/beef-pieces.jpg" },
+          { "name": "Butcher's mince", "note": "Coarse minced beef.", "profile_only": true, "photo": "/produce/moyletra-moileds/butchers-mince.jpg" },
+          { "name": "Beef pieces", "note": "Diced beef for stews.", "profile_only": true, "photo": "/produce/moyletra-moileds/beef-pieces.jpg" },
           {
             "name": "Bóshaille® Cured Irish Moiled Beef",
             "note": "Their own trademark and their own cattle, cured in small batches for them by Curly Pigs in Co. Fermanagh.",
