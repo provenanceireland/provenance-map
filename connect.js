@@ -52,6 +52,35 @@ var CONNECT_LIVE = {};       // { producerId: { available, updated } }
 var PV_EVENT_QUEUE = [];
 var PV_ENDPOINT_READY = false;
 
+/* ── the two buttons that matter get a named event each ──────────────────
+   GA4 will not break an event down by a parameter until that parameter is
+   registered as a custom dimension in the property's admin, and that is a
+   thing only the account owner can do. Until it is done, `producer` is
+   collected but invisible: the report says "order_click 43" and will not say
+   for whom.
+
+   The one dimension that splits in every GA4 report with no setup at all is
+   the event NAME. So the two commercial buttons — the WhatsApp press and the
+   Order press — fire a SECOND event carrying the producer in its name, e.g.
+   `order_click_rathphelan_farm`. Those appear in Reports → Engagement →
+   Events on their own, immediately, with no configuration.
+
+   Deliberately only these two. The pattern is what blows GA4's 500-event-name
+   ceiling if applied to everything, which is the bug this file already fixed
+   once. Two names per Connect producer leaves room for roughly 240 farms on
+   Connect before the cap is in sight, and registering the custom dimensions
+   removes the need for these entirely. */
+var PV_NAMED_PER_PRODUCER = { connect_click: 1, order_click: 1 };
+
+function pvEventName(name, producer) {
+  return (name + '_' + String(producer || ''))
+    .replace(/[^A-Za-z0-9]+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/_$/, '')
+    .toLowerCase()
+    .slice(0, 40);            // GA4 caps an event name at 40 characters
+}
+
 function pvTrack(name, params) {
   var p = {};
   for (var k in (params || {})) {
@@ -60,8 +89,16 @@ function pvTrack(name, params) {
     if (v === null || v === undefined || v === '') continue;
     p[k] = (typeof v === 'boolean') ? (v ? 'yes' : 'no') : v;
   }
-  if (typeof gtag === 'function') { try { gtag('event', name, p); } catch (e) {} }
+  if (typeof gtag === 'function') {
+    try { gtag('event', name, p); } catch (e) {}
+    // The same press, named for the farm, so it is readable without setup.
+    if (PV_NAMED_PER_PRODUCER[name] && p.producer) {
+      try { gtag('event', pvEventName(name, p.producer), p); } catch (e) {}
+    }
+  }
   if (typeof window.PV_TRACK === 'function') { try { window.PV_TRACK(name, p); } catch (e) {} }
+  // Not duplicated to the beacon: the raw log has the producer in its own
+  // column already, and a second row would double every count.
   pvBeacon(name, p);
 }
 

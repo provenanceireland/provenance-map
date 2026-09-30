@@ -61,14 +61,41 @@ And the ones that make those numbers mean something:
 - **Is the producer keeping it current**: `availability_saved` per producer per
   month, against the *Last listed* state a stale list falls into after 21 days.
 
+## Per producer, per button, with no GA4 setup
+
+The two commercial buttons also fire a **second event named for the farm**, so
+they are readable in GA4 the moment they happen, with nothing configured:
+
+```
+connect_click_skehana_hill        order_click_skehana_hill
+connect_click_rathphelan_farm     order_click_rathphelan_farm
+```
+
+**Reports → Engagement → Events.** The list shows every one with its count.
+That is the answer to "how many people pressed Order for Rathphelan" with no
+admin work at all. To add the page, open **Explore → Free form**, drag in
+**Event name** and **Page path and screen class** as rows — both are collected
+by GA4 automatically and need no registering.
+
+This is deliberately limited to `connect_click` and `order_click`. A name per
+producer per event is what blows GA4's 500-event-name ceiling, which this file
+fixed once already; two names per Connect farm leaves room for roughly 240
+farms before that is in sight. Every other event keeps the producer in a
+parameter. The names are lower-cased, non-alphanumerics become underscores,
+and they are cut to GA4's 40-character limit — checked against all 106 current
+ids, no collisions.
+
 ## Reading it in GA4
 
 Events appear in **Reports → Engagement → Events** within a few minutes, and
 in **Realtime** immediately.
 
-**One setup step, and it matters.** GA4 will not let you *break down* by a
-custom parameter until you register it. Go to **Admin → Custom definitions →
-Create custom dimension** and add one for each, scope **Event**:
+**The better way, and it takes five minutes.** The named events above work
+with no setup, but they cannot be sliced — you get a count per farm and that is
+all. Registering the parameters turns every event into something you can filter
+and cross-tabulate: Order presses by county, Connect rate by tier, which
+surface does the work. Go to **Admin → Custom definitions → Create custom
+dimension** and add one for each, scope **Event**:
 
 | Dimension name | Event parameter |
 |---|---|
