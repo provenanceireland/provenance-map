@@ -251,6 +251,14 @@
     .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
     .connect-terms { margin-bottom: 20px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
     .avail-source { margin-top: 14px; font-size: 0.86rem; color: var(--faint); }
+    /* Groups inside the availability list. */
+    .avail-group + .avail-group { margin-top: 30px; }
+    .avail-group-name {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
+      font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream);
+    }
+    .avail-group-note { margin-top: 6px; font-size: 0.92rem; color: var(--green-light); }
+    .avail-group .avail { margin-top: 8px; }
     .avail { list-style: none; margin: 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
     .avail .a-photo { flex: none; }
@@ -272,7 +280,7 @@
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
     /* Connect and Order together, the same pair the Connect page carries. */
-    .connect-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .connect-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; scroll-margin-top: 28px; }
     .connect-cta a {
       display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px;
       background: var(--green-deep); border: 1px solid var(--green);
@@ -392,7 +400,7 @@
       <p class="connect-intro hidden" id="connect-intro"></p>
       <p class="connect-terms hidden" id="connect-terms"></p>
       <p class="connect-when" id="connect-when"></p>
-      <ul class="avail" id="avail"></ul>
+      <div id="avail"></div>
       <p class="avail-source hidden" id="connect-source"></p>
       <div class="connect-cta" id="connect-cta"></div>
     </section>
@@ -495,7 +503,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=7"></script>
+  <script src="../connect.js?v=8"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.
@@ -571,7 +579,10 @@
           `<svg class="ch-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
         hc.addEventListener('click', e => {
           e.preventDefault();
-          $('connect-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // All the way to the Connect and Order buttons at the foot of the
+          // list, not the top of the section - landing on the heading of a
+          // twenty-item list barely moves the screen.
+          $('connect-cta').scrollIntoView({ behavior: 'smooth', block: 'center' });
           pvTrack('connect_layer_click', pvProducer(producer, { surface: 'featured_hero' }));
         });
         show('connect-hero', true);
@@ -604,7 +615,7 @@
         if (cs.terms) { $('connect-terms').textContent = cs.terms; show('connect-terms', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
-        $('avail').innerHTML = connectListHTML(cs.items, esc);
+        $('avail').innerHTML = connectGroupedHTML(cs.items, cs.groups, esc);
         if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
         // Connect for the conversation, Order for the farm's own shop.
         const cta = [];

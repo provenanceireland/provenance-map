@@ -1219,9 +1219,20 @@
         "active": true,
         "channel": { "type": "whatsapp", "value": "+44 7775 810253" },
         "updated": "2026-09-30",
-        "source": "Listed from their own shop at moilies.com. Not yet submitted by the farm.",
         "intro": "Pedigree Irish Moiled beef from David and Sandra Scott's farm at Garvagh, slow grown on pasture. Boxes, a monthly subscription and the full range of cuts, all off their own certified Irish Moiled cattle.",
         "terms": "Doorstep delivery across Northern Ireland, £6 on orders over £30. Free collection from The Beef Barn at the farm, open daily 8am to 10pm. Belfast collection through Indie Füde on selected dates. Order by Tuesday for Thursday delivery.",
+        "groups": [
+          {
+            "name": "Boxes and subscriptions",
+            "match": "listed",
+            "note": "Order these from their shop, or message the farm."
+          },
+          {
+            "name": "Individual cuts",
+            "match": "profile_only",
+            "note": "Collection from The Beef Barn only. Single cuts are not available to order for delivery."
+          }
+        ],
         "order_url": "https://www.moilies.com/collections/shop-all",
         "available": [
           {
@@ -2737,6 +2748,18 @@
         "intro": "Beef reared on their own farm at Castletown, sold by the box or by the animal. Every bit of the feed is grown on the place, bar some nuts bought in locally for vitamins.",
         "terms": "Boxes and whole animals: collection, or delivery for €12. Single cuts: collection only.",
         "order_url": "https://www.rathphelanfarm.ie/pages/shop",
+        "groups": [
+          {
+            "name": "Boxes and whole animals",
+            "match": "listed",
+            "note": "Order these from their shop, or message the farm."
+          },
+          {
+            "name": "Individual cuts",
+            "match": "profile_only",
+            "note": "Collection from the farm only. Single cuts are not available to order for delivery."
+          }
+        ],
         "available": [
           {
             "name": "Quarter, half or whole heifer",

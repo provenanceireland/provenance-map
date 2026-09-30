@@ -244,6 +244,13 @@ function connectState(producer) {
        from a producer's own shop has to say so rather than borrow the
        credibility of a submission that never happened. */
     source: c.source || '',
+    /* Headings inside the list, each with a line of its own. A beef farm
+       sells two quite different things - a box you can order and a cut you
+       have to call out for - and running them together as one list of
+       twenty-three items says neither clearly. [{ name, note }], and an item
+       joins one with `group: "<name>"`. A farm with no groups renders as one
+       plain list, which is most of them. */
+    groups: (c.groups || []).filter(function (g) { return g && g.name; }),
     channel: connectChannel(producer, c),
     /* The second button. Connect is a conversation; Order is wherever the
        farm actually takes money, which is their own shop, never ours. */
@@ -400,6 +407,42 @@ function connectListHTML(items, escFn, opt) {
       (a.fulfilment ? '<span class="a-fulfil">' + e(a.fulfilment) + '</span>' : '') +
       '</span></li>';
   }).join('');
+}
+
+/* The list, split under its groups. Each group gets a heading and its own
+   line — which is where "these cuts are collection only, not to order" gets
+   said, right on top of the cuts rather than once at the top of the page
+   where it is read and forgotten. Items with no group, or a farm with no
+   groups at all, fall through to one plain list. */
+function connectGroupedHTML(items, groups, escFn, opt) {
+  var e = escFn || function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
+    });
+  };
+  if (!groups || !groups.length) return '<ul class="avail">' + connectListHTML(items, e, opt) + '</ul>';
+  var html = '', used = {};
+  groups.forEach(function (g) {
+    /* A group takes its items either by naming them (`group` on the item) or
+       by a `match` rule, which saves putting a line on all forty-odd items
+       when the split is the one that already exists: `profile_only` is the
+       detail a farm keeps on its own page, `listed` is what the directory
+       carries. */
+    var mine = (g.match === 'profile_only')
+      ? items.filter(function (a) { return !!a.profile_only; })
+      : (g.match === 'listed')
+        ? items.filter(function (a) { return !a.profile_only; })
+        : items.filter(function (a) { return a.group === g.name; });
+    if (!mine.length) return;
+    mine.forEach(function (a) { used[a.name] = true; });
+    html += '<div class="avail-group">' +
+      '<p class="avail-group-name">' + e(g.name) + '</p>' +
+      (g.note ? '<p class="avail-group-note">' + e(g.note) + '</p>' : '') +
+      '<ul class="avail">' + connectListHTML(mine, e, opt) + '</ul></div>';
+  });
+  var rest = items.filter(function (a) { return !used[a.name]; });
+  if (rest.length) html += '<ul class="avail">' + connectListHTML(rest, e, opt) + '</ul>';
+  return html;
 }
 
 var CONNECT_ICON = '<svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>';
