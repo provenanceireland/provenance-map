@@ -1259,9 +1259,7 @@
             "note": "Their own trademark and their own cattle, cured in small batches for them by Curly Pigs in Co. Fermanagh.",
             "profile_only": true,
             "photo": ""
-          },
-          { "name": "Beef tallow", "note": "Rendered from their own cattle.", "profile_only": true, "photo": "" },
-          { "name": "Evening Meadow tallow candle", "note": "Poured from the same tallow.", "profile_only": true, "photo": "" }
+          }
         ],
         "plus": {}
       },
