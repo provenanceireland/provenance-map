@@ -109,6 +109,7 @@
     }
     .avail-label.stale { color: var(--faint); }
     /* What this page is not showing, and where it is. */
+    .avail-source { margin-top: 12px; font-size: 0.86rem; color: var(--faint); }
     .avail-more { margin-top: 14px; }
     .avail-more a {
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
@@ -273,6 +274,7 @@
             ${cs.terms ? `<p class="row-terms">${esc(cs.terms)}</p>` : ''}
             <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
             <ul class="avail">${connectListHTML(shown, esc, { photos: false })}</ul>
+            ${cs.source ? `<p class="avail-source">${esc(cs.source)}</p>` : ''}
             ${held ? `<p class="avail-more"><a href="${esc(url)}">and ${held} individual cut${held === 1 ? '' : 's'} on their page</a></p>` : ''}
           </div>`;
         }).join('');

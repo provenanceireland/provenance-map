@@ -140,13 +140,24 @@ function pvProducer(p, extra) {
   return o;
 }
 
-/* Irish numbers are written as dialled (087...) and normalised to 353. */
+/* Numbers are written as dialled and normalised to an international form.
+   The map covers all thirty-two counties, so a leading zero is not always
+   Irish: a Republic mobile dialled is 08x plus seven digits, ten in all, while
+   a UK one is 07 plus nine, eleven in all. That length is the reliable tell,
+   and without it a Derry or Antrim number would be silently turned into a
+   Republic number that does not exist. Anything already written in
+   international form (+44..., +353..., 00353...) is left as it is, which is
+   the safest way to record a number from outside the Republic. */
 function connectWhatsapp(number, name) {
   if (!number) return '';
   var d = String(number).replace(/[^0-9+]/g, '');
+  var explicit = d.charAt(0) === '+' || d.slice(0, 2) === '00';
   if (d.charAt(0) === '+') d = d.slice(1);
   if (d.slice(0, 2) === '00') d = d.slice(2);
-  if (d.charAt(0) === '0') d = '353' + d.slice(1);
+  if (!explicit && d.charAt(0) === '0') {
+    if (d.length === 11 && d.slice(0, 2) === '07') d = '44' + d.slice(1);
+    else d = '353' + d.slice(1);
+  }
   if (!/^\d{9,15}$/.test(d)) return '';
   return 'https://wa.me/' + d + '?text=' + encodeURIComponent(
     'Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.');
@@ -228,6 +239,11 @@ function connectState(producer) {
        times down a list of cuts. Per-item `fulfilment` survives for the
        genuine exception. */
     terms: c.terms || '',
+    /* Where the list came from, when it did not come from the farm. The page
+       tells people each farm submits its own list weekly, so a list built
+       from a producer's own shop has to say so rather than borrow the
+       credibility of a submission that never happened. */
+    source: c.source || '',
     channel: connectChannel(producer, c),
     /* The second button. Connect is a conversation; Order is wherever the
        farm actually takes money, which is their own shop, never ours. */

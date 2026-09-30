@@ -67,6 +67,28 @@ On the record:
 }
 ```
 
+**Numbers outside the Republic go in international form.** `connectWhatsapp`
+normalises a dialled number, and a leading zero is not always Irish: the map
+covers all thirty-two counties. A Republic mobile dialled is ten digits
+(`087...`), a UK one eleven (`07...`), and that length is the tell the code
+uses. Anything written with `+` or `00` is left alone, so **a Northern Ireland
+number is written `+44 7775 810253`** rather than `07775 810253`. Before this
+was handled, a Derry number became a Republic number that does not exist.
+
+**A list that did not come from the farm says so.** The Connect page tells
+people each farm submits its own list weekly. A `source` line on the connect
+block renders under the list and is for exactly the case where that is not
+true yet — Moyletra Moileds was built from their own shop at moilies.com, and
+the line says so. Do not populate a `connect` block from research and leave
+this empty; the `updated` date would be borrowing credibility from a
+submission that never happened.
+
+**`profile_only: true`** on an item holds it back from the `/connect/`
+directory and keeps it on the farm's own page. The directory carries the
+headline offers — boxes, the whole animal, a subscription — and a line saying
+how many cuts are on the farm's page. Rathphelan Farm has fifteen marked,
+Moyletra Moileds nineteen.
+
 `available[].name` is free text, **not** a `product_type` slug — a producer can
 write *Ling heather honey* and it shows exactly that. The slugs stay as they
 are, for the filters and the menu. `channel.type` is `whatsapp` | `website` |

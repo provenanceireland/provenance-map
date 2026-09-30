@@ -250,6 +250,7 @@
     .connect-when.stale { color: var(--faint); }
     .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
     .connect-terms { margin-bottom: 20px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
+    .avail-source { margin-top: 14px; font-size: 0.86rem; color: var(--faint); }
     .avail { list-style: none; margin: 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
     .avail .a-photo { flex: none; }
@@ -392,6 +393,7 @@
       <p class="connect-terms hidden" id="connect-terms"></p>
       <p class="connect-when" id="connect-when"></p>
       <ul class="avail" id="avail"></ul>
+      <p class="avail-source hidden" id="connect-source"></p>
       <div class="connect-cta" id="connect-cta"></div>
     </section>
 
@@ -603,6 +605,7 @@
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
         $('avail').innerHTML = connectListHTML(cs.items, esc);
+        if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
         // Connect for the conversation, Order for the farm's own shop.
         const cta = [];
         if (cs.channel) cta.push(`<a class="cta-connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`);
