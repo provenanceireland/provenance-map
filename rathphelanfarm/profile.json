@@ -38,5 +38,17 @@
   ],
 
   "photos_title": "Around the farm",
-  "photos": []
+  "photos": [
+    { "src": "herd-close.jpg", "caption": "The herd, come up to see who it is", "position": "50% 47%" },
+    { "src": "herd.jpg",       "caption": "Grazing, with the railway line behind", "position": "50% 52%" },
+    { "src": "lane.jpg",       "caption": "The lane down through the grazing", "position": "50% 60%" },
+    { "src": "tree.jpg",       "caption": "A cover crop coming on after the barley", "position": "50% 55%" },
+    { "src": "bird-cover.jpg", "caption": "The bird cover, sown every May and left alone", "position": "50% 62%" },
+    { "src": "barley.jpg",     "caption": "This year's barley in the shed, walled in with straw", "position": "50% 58%" },
+    { "src": "straw.jpg",      "caption": "Straw for bedding, and the feeder", "position": "50% 58%" },
+    { "src": "silage.jpg",     "caption": "The silage pit under its tyres", "position": "50% 52%" },
+    { "src": "tractor.jpg",    "caption": "The John Deere in the shed", "position": "50% 55%" },
+    { "src": "machines.jpg",   "caption": "An older John Deere, the loader and the cultivator", "position": "50% 52%" },
+    { "src": "collie.jpg",     "caption": "The collie", "position": "50% 50%" }
+  ]
 }
