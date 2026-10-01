@@ -228,7 +228,7 @@
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-    const TIER = { featured: 'Provenance Highlighted', verified: 'Discovered Producer', discovered: 'Discovered Producer' };
+    const TIER = { featured: 'Provenance Highlighted', verified: 'Provenance Verified', discovered: 'Discovered Producer' };
 
     // "See the farm" always goes to the shared profile page, even for a farm
     // that has a bespoke one of its own. Every farm on Connect should land a

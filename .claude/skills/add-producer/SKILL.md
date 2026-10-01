@@ -7,7 +7,7 @@ description: >-
   producer" — usually giving a name, product, coordinates, county and maybe an
   Instagram handle or website. Handles the producers.json entry, tier rules,
   photo wiring, a drafted description, the service-worker cache bump, the
-  git commit + push, and (for Highlighted) the share-stub generation. Trigger this
+  git commit + push, and (for Verified) the share-stub generation. Trigger this
   even if the user only pastes the raw details without saying "skill".
 ---
 
@@ -17,10 +17,12 @@ This repo is a PWA on GitHub Pages. Producers are pins on the map, rendered from
 `producers.json`. Adding one is a fixed sequence with a few rules that are easy
 to get wrong (tier → Instagram, cache bump, push). Follow the steps below.
 
-> **The free confirmed tier is called Highlighted** (renamed from Verified on
-> 2026-09-24). **The slug did not change:** write `"tier": "verified"` in
-> `producers.json`, as always. Highlighted is the word for the user and for any
-> copy; `verified` is the word for the data. The user may still say either.
+> **The free confirmed tier is called Verified** (restored 2026-10-01, see
+> CLAUDE.md). Write `"tier": "verified"` in `producers.json`. **Highlighted is
+> the gold paid tier** (`"tier": "featured"`), never the free one. A producer is
+> Verified only when they submitted their own details on the verify form; if the
+> note was built from research, a website or Instagram, stop and say so instead
+> of upgrading.
 
 ## What the user gives you
 
@@ -40,7 +42,7 @@ page is generated.
 | User says | `tier` value | Instagram? | Share stub? |
 |-----------|-------------|-----------|-------------|
 | "free listing", "discovered", or unspecified | `"discovered"` | **No** | No |
-| "highlighted", "Provenance Highlighted" (and "verified", the old name) | `"verified"` | Yes | Yes (Step 6) |
+| "verified", "Provenance Verified" | `"verified"` | Yes | Yes (Step 6) |
 | "seal", "Provenance Seal" | `"seal-lite"` or `"seal-complete"` | Yes | Yes |
 
 **The most-missed rule: Discovered/free producers do NOT get an Instagram link.**
@@ -110,14 +112,14 @@ Field notes:
   `drinks, eggs, salt, meat, cheese, seeds, oats, chicken, produce`. Reuse an
   existing one; only invent a new slug if nothing fits.
 - **`social_instagram` / `website`** — `null` for discovered/free (Step 1). For
-  Highlighted+, set the handle (no `@`, no URL — just `saltrockfarm`) / full URL.
+  Verified+, set the handle (no `@`, no URL — just `saltrockfarm`) / full URL.
 - **`photo_url`** — see Step 4. `null` if no photo yet (card shows a placeholder).
 
 ## Step 4 — Wire the photo
 
 **The rule: every producer's single card image (`photo_url`) is their LOGO.**
 Farm/produce photography (the `photos` gallery) is a paid Featured-tier benefit
-— never attach farm images to a Discovered or Highlighted listing, even if the
+— never attach farm images to a Discovered or Verified listing, even if the
 user supplies them. If only farm photos are available and no logo, set
 `photo_url: null` (placeholder shows) and note it to the user.
 
@@ -141,7 +143,7 @@ Open `service-worker.js` and increment the version by one:
 users keep serving the old cached app until the version changes, so a skipped
 bump means the new pin silently doesn't appear for them.
 
-## Step 6 — (Highlighted+ only) generate the share stub
+## Step 6 — (Verified+ only) generate the share stub
 
 If the tier is `verified`, `seal-lite`, or `seal-complete`, run the share-page
 generator so the producer gets a shareable link with a correct social preview:
