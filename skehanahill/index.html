@@ -293,6 +293,7 @@
 
     /* ── where to buy, as a line of prose ── */
     .buy p { font-size: 1.05rem; }
+    .buy-item + .buy-item { margin-top: 28px; padding-top: 26px; border-top: 1px solid var(--hair); }
     .buy-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
     .buy a.dir, .buy a.contact {
       display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px;
@@ -381,7 +382,7 @@
       </div>
       <p class="where" id="where">Freshford, Co. Kilkenny</p>
       <p class="produce" id="produce">Beef, Pork, Lamb and Seasonal Vegetables</p>
-      <a class="connect-hero hidden" id="connect-hero" href="#connect-section"></a>
+      <a class="connect-hero hidden" id="connect-hero" href="#"></a>
     </div>
   </div>
 
@@ -393,16 +394,6 @@
       </blockquote>
     </section>
 
-    <!-- Provenance Connect: what they have right now, and the one button. -->
-    <section id="connect-section" class="hidden">
-      <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
-      <p class="connect-intro hidden" id="connect-intro"></p>
-      <p class="connect-terms hidden" id="connect-terms"></p>
-      <p class="connect-when" id="connect-when"></p>
-      <div id="avail"></div>
-      <p class="avail-source hidden" id="connect-source"></p>
-      <div class="connect-cta" id="connect-cta"></div>
-    </section>
 
     <section id="film-section" class="hidden" style="border-top: none; padding-top: 0">
       <div class="sec-head"><h2>The visit</h2><span class="rule"></span></div>
@@ -573,21 +564,19 @@
         show('hero-img', true);
       }
 
-      // The hero Connect is navigation, not a chat: it jumps to the farm's
-      // list on this page, where the real messaging and Order buttons live.
-      if (connectState(producer)) {
+      // Two profiles per farm. This one is the Highlighted profile: the visit,
+      // the story, the photos. What they have to sell right now lives on their
+      // Connect profile, /producer/?id=<id>, and the hero button goes there.
+      const connectPage = '../producer/?id=' + encodeURIComponent(producer.id);
+      const onConnect = !!connectState(producer);
+      if (onConnect) {
         const hc = $('connect-hero');
+        hc.href = connectPage;
         hc.innerHTML = `${CONNECT_ICON}<span class="ch-text"><span class="ch-label">Connect with the farm</span>` +
-          `<span class="ch-sub">What they have now, and a direct line to order.</span></span>` +
-          `<svg class="ch-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
-        hc.addEventListener('click', e => {
-          e.preventDefault();
-          // All the way to the Connect and Order buttons at the foot of the
-          // list, not the top of the section - landing on the heading of a
-          // twenty-item list barely moves the screen.
-          $('connect-cta').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          pvTrack('connect_layer_click', pvProducer(producer, { surface: 'featured_hero' }));
-        });
+          `<span class="ch-sub">What they have now, and how to order it.</span></span>` +
+          `<svg class="ch-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>`;
+        hc.addEventListener('click', () =>
+          pvTrack('see_farm_click', pvProducer(producer, { surface: 'featured_hero' })));
         show('connect-hero', true);
       }
 
@@ -607,36 +596,6 @@
       $('story').innerHTML = (pr.story || []).map(p => `<p>${esc(p)}</p>`).join('');
 
       pvTrack('profile_view', pvProducer(producer, { surface: 'featured_profile' }));
-
-      // ── Provenance Connect: what they have now ──
-      const cs = connectState(producer);
-      if (cs) {
-        pvTrack('availability_shown', pvProducer(producer, {
-          surface: 'featured_profile', items: cs.items.length, fresh: cs.fresh
-        }));
-        $('connect-head').textContent = cs.heading;
-        if (cs.intro) { $('connect-intro').textContent = cs.intro; show('connect-intro', true); }
-        if (cs.terms) { $('connect-terms').textContent = cs.terms; show('connect-terms', true); }
-        $('connect-when').textContent = cs.when;
-        $('connect-when').classList.toggle('stale', !cs.fresh);
-        $('avail').innerHTML = connectGroupedHTML(cs.items, cs.groups, esc);
-        if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
-        // Connect for the conversation, Order for the farm's own shop.
-        const cta = [];
-        if (cs.channel) cta.push(`<a class="cta-connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`);
-        if (cs.order) cta.push(`<a class="cta-order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`);
-        if (cta.length) {
-          $('connect-cta').innerHTML = cta.join('') +
-            `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
-          const cBtn = $('connect-cta').querySelector('.cta-connect');
-          if (cBtn) cBtn.addEventListener('click', () =>
-            pvTrack('connect_click', pvProducer(producer, { surface: 'featured_profile', channel: cs.channel.kind })));
-          const oBtn = $('connect-cta').querySelector('.cta-order');
-          if (oBtn) oBtn.addEventListener('click', () =>
-            pvTrack('order_click', pvProducer(producer, { surface: 'featured_profile' })));
-        }
-        show('connect-section', true);
-      }
 
       // ── the films ──
       const film = pr.film || {};
@@ -679,14 +638,24 @@
       }
 
       // ── where to buy, as a sentence ──
+      // Provenance Connect leads the list when the farm is on it, pointing at
+      // their Connect profile. Then the places on the record: farm shop,
+      // markets, stockists.
       const buy = (pr.where_to_buy && pr.where_to_buy.length) ? pr.where_to_buy : (producer.where_to_buy || []);
-      if (buy.length) {
-        $('buy').innerHTML = buy.map(item => {
-          if (typeof item === 'string') return `<p>${esc(item)}</p>`;
-          const line = [item.name, item.note].filter(Boolean).join(', ');
-          const dir = item.url ? `<a class="dir" href="${esc(item.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>${esc(item.when || 'Directions')}</a>` : '';
-          return `<p>${esc(line)}.</p>${dir ? `<div class="buy-actions">${dir}</div>` : ''}`;
-        }).join('');
+      const buyItems = [];
+      if (onConnect) buyItems.push(`<div class="buy-item"><p>Provenance Connect, what they have now and how to order it.</p>` +
+        `<div class="buy-actions"><a class="contact" id="buy-connect" href="${esc(connectPage)}">${CONNECT_ICON}Connect</a></div></div>`);
+      buy.forEach(item => {
+        if (typeof item === 'string') { buyItems.push(`<div class="buy-item"><p>${esc(item)}</p></div>`); return; }
+        const line = [item.name, item.note].filter(Boolean).join(', ');
+        const dir = item.url ? `<a class="dir" href="${esc(item.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>${esc(item.when || 'Directions')}</a>` : '';
+        buyItems.push(`<div class="buy-item"><p>${esc(line)}.</p>${dir ? `<div class="buy-actions">${dir}</div>` : ''}</div>`);
+      });
+      if (buyItems.length) {
+        $('buy').innerHTML = buyItems.join('');
+        const bc = $('buy-connect');
+        if (bc) bc.addEventListener('click', () =>
+          pvTrack('see_farm_click', pvProducer(producer, { surface: 'featured_where_to_buy' })));
         show('buy-section', true);
       }
 
