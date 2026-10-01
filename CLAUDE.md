@@ -118,12 +118,20 @@ not a fourth button: the buttons are what to do here, the filmed page is
 somewhere to go afterwards. It only renders when `profile_live` is true.
 
 **Connect on the map card and on a profile hero is navigation, not a chat.**
-Both are the plain word with no message icon, pointing at
-`/connect/#<producer-id>` — every row on the Connect page is an anchor. The
-button showing depends on the farm being on Connect at all, not on a `whatsapp`
-number existing, so it can never land on a row that is not there. The
-messaging button with the icon lives on `/connect/` and in the availability
-block of a profile.
+Both are the plain word with no message icon, and neither opens WhatsApp. They
+go to different places on purpose:
+
+| Pressed on | Goes to | Why |
+|---|---|---|
+| The map card | `/producer/?id=<id>` — that farm's See the farm page | From a pin you want *that* producer, not a list of everyone. Their page carries the full list, the terms and the Connect and Order buttons, so nothing is lost by skipping the directory |
+| A profile hero | `/connect/#<producer-id>` | You are already on the farm's page; the useful move is out to the layer, landing on their row. Every row on `/connect/` is an anchor |
+
+Either button shows when the farm is **on Connect at all**, not when a
+`whatsapp` number happens to be on the record, so neither can land somewhere
+that is not there. The messaging button with the icon lives on `/connect/` and
+in the availability block of a profile. The card's press is tracked as
+`see_farm_click` — named for where it lands, so it sits alongside the same
+press on `/connect/` rather than inventing a second event for one button.
 
 **Numbers outside the Republic go in international form.** `connectWhatsapp`
 normalises a dialled number, and a leading zero is not always Irish: the map

@@ -2670,17 +2670,20 @@
       // ── Connect ── a WhatsApp chat with the producer, from the record's
       // whatsapp number. Irish numbers are written as dialled (087...) and
       // normalised to 353 for wa.me.
-      // Connect on the card sends people to the Connect layer, where the
-      // farm's list, its collection and delivery terms, the Order button and
-      // the messaging button all are. It shows when the farm is actually on
-      // Connect, rather than when a whatsapp number happens to be on the
-      // record, so it can never point at a row that does not exist.
+      // Connect on the card goes to this farm's own See the farm page, not to
+      // the Connect directory: from a pin you want that producer, not a list
+      // of everyone. Their page carries the full list, the terms, and the
+      // Connect and Order buttons, so nothing is lost by skipping the
+      // directory. It shows when the farm is actually on Connect, rather than
+      // when a whatsapp number happens to be on the record.
       const connectEl = document.getElementById('card-connect');
       const onConnect = !!(rec && connectState(rec));
-      if (onConnect) connectEl.href = 'connect/#' + encodeURIComponent(rec.id);
+      if (onConnect) connectEl.href = 'producer/?id=' + encodeURIComponent(rec.id);
       connectEl.classList.toggle('hidden', !onConnect);
       connectEl.onclick = () => {
-        if (rec) pvTrack('connect_layer_click', pvProducer(rec, { surface: 'map_card' }));
+        // Named for where it lands, so it sits alongside the same press on
+        // /connect/ rather than inventing a second event for one button.
+        if (rec) pvTrack('see_farm_click', pvProducer(rec, { surface: 'map_card' }));
       };
 
       // ── Name + location ──
