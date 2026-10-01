@@ -124,7 +124,7 @@ go to different places on purpose:
 | Pressed on | Goes to | Why |
 |---|---|---|
 | The map card | `/producer/?id=<id>` — that farm's See the farm page | From a pin you want *that* producer, not a list of everyone. Their page carries the full list, the terms and the Connect and Order buttons, so nothing is lost by skipping the directory |
-| A Highlighted profile hero, or its Where to buy | `/producer/?id=<id>` — the Connect profile | Two profiles per farm (2026-10-01): the Highlighted profile at `/<slug>/` is the visit (film, story, what they grow, photos, where to buy) and carries no availability list; the Connect profile is where the list, terms and Connect and Order buttons live. Where to buy leads with a Provenance Connect entry above the farm shop |
+| A Highlighted profile hero | `#connect-section` on the same page | Settled by the user on 2026-10-01; do not change it without asking. The Highlighted profile at `/<slug>/` runs: hero (name, place, produce, a small Connect with the farm button, then Instagram, website and share), quote, film, story, what they grow, Around the farm, **Available now** (list, Connect and Order), **Where to buy** (Connect beside the farm shop Directions; "Direct from the farm" when nowhere is on file), visit record. The Connect profile at `/producer/?id=<id>` carries the same list |
 
 Either button shows when the farm is **on Connect at all**, not when a
 `whatsapp` number happens to be on the record, so neither can land somewhere
