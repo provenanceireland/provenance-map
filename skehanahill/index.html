@@ -266,6 +266,15 @@
       font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
     }
     .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    /* Sold out: said plainly, and the row quietened rather than hidden, so the
+       full range a farm produces still reads while today's gap is honest. */
+    .avail .a-out {
+      margin-left: 10px; vertical-align: 2px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
+      font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint);
+    }
+    .avail li.is-out .a-name { color: var(--muted); }
+    .avail li.is-out .a-photo img { opacity: 0.45; }
     .avail .a-fulfil {
       display: block; margin-top: 7px;
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
@@ -501,7 +510,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=7"></script>
+  <script src="../connect.js?v=8"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.

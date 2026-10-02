@@ -400,8 +400,14 @@ function connectListHTML(items, escFn, opt) {
   return items.map(function (a) {
     var opts = (a.options || []).filter(Boolean);
     var photo = (withPhotos && a.photo) ? '<span class="a-photo"><img src="' + e(a.photo) + '" alt="' + e(a.name) + '" loading="lazy" /></span>' : '';
-    return '<li>' + photo + '<span class="a-txt">' +
-      '<span class="a-name">' + e(a.name) + '</span>' +
+    /* `sold_out` is a yes or no, never a number, so it does not reopen the
+       counting the whole layer is built to avoid. It lets a farm show the full
+       range it produces while being straight about what is off today, which
+       matters most for the farms that sell by the animal and go quiet between
+       batches. */
+    var out = a.sold_out ? '<span class="a-out">Sold out</span>' : '';
+    return '<li' + (a.sold_out ? ' class="is-out"' : '') + '>' + photo + '<span class="a-txt">' +
+      '<span class="a-name">' + e(a.name) + '</span>' + out +
       (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') +
       (opts.length ? '<span class="a-opts">' + opts.map(function (o) { return '<span>' + e(o) + '</span>'; }).join('') + '</span>' : '') +
       (a.fulfilment ? '<span class="a-fulfil">' + e(a.fulfilment) + '</span>' : '') +
