@@ -3146,6 +3146,56 @@
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "+44 7564 327429" },
+        "order_url": "https://lisnahayfarmmeats.com/collections/all",
+        "updated": "2026-10-02",
+        "source": "Listed from their own shop at lisnahayfarmmeats.com.",
+        "intro": "Fourth generation farmers outside Ballygally on the Antrim coast. Grass fed beef and lamb, slow matured and butchered locally, sold by the cut, in bundles, or as a quarter or half animal for the freezer.",
+        "terms": "Free local delivery on orders over £40. Beef boxes are collected from the farm or delivered locally. Bulk beef runs four to five weeks from ordering, with a deposit up front and the balance settled on collection once the animal is weighed.",
+        "groups": [
+          {
+            "name": "Bulk beef and bundles",
+            "match": "listed",
+            "note": "Order these from their shop, or message the farm."
+          },
+          {
+            "name": "Individual cuts",
+            "match": "profile_only",
+            "note": "Sold by the cut from their own shop."
+          }
+        ],
+        "available": [
+          {
+            "name": "Half beef box",
+            "note": "Half an animal, cut and packed to order. A deposit secures it and the balance is settled on collection, once the animal is weighed. Four to five weeks from ordering.",
+            "photo": ""
+          },
+          {
+            "name": "Quarter beef box",
+            "note": "Roughly 35 to 45kg: steak pieces, mince, ribeye, roasts, braising steak and the rest of the quarter. A deposit secures it, the balance settled on collection. Four to five weeks from ordering.",
+            "photo": ""
+          },
+          { "name": "Beef Bundle, Feast Box", "photo": "" },
+          { "name": "Beef Bundle, Family Favourites", "photo": "" },
+          { "name": "Farmer's Selection", "photo": "" },
+          { "name": "Saver pack, beef", "photo": "" },
+          { "name": "Flat iron steak", "note": "Off the shoulder blade. Quick and hot.", "profile_only": true, "photo": "" },
+          { "name": "Frying steak", "note": "Thin cut, for the pan.", "profile_only": true, "photo": "" },
+          { "name": "Braising steak", "note": "A long slow cook.", "profile_only": true, "photo": "" },
+          { "name": "Chuck", "note": "Off the shoulder. Better braised than fried.", "profile_only": true, "photo": "" },
+          { "name": "Beef sausages", "note": "Made up from their own beef.", "profile_only": true, "photo": "" },
+          { "name": "Leg of lamb on the bone", "note": "The whole leg, bone in, for roasting.", "profile_only": true, "photo": "" },
+          { "name": "Leg of lamb, boned and rolled", "note": "The same leg, boned and tied, easier to carve.", "profile_only": true, "photo": "" },
+          { "name": "Rack of lamb", "note": "The best end, trimmed.", "profile_only": true, "photo": "" },
+          { "name": "Lamb loin chops", "note": "Off the loin, cut thick.", "profile_only": true, "photo": "" },
+          { "name": "Lamb shoulder chops", "note": "Off the shoulder, with more fat through them.", "profile_only": true, "photo": "" },
+          { "name": "Lamb shanks", "note": "Bone in. Braise them long and low.", "profile_only": true, "photo": "" },
+          { "name": "Diced lamb shoulder", "note": "Cut and bagged for the pot, 500g.", "profile_only": true, "photo": "" }
+        ],
+        "plus": {}
+      },
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-09-30"
