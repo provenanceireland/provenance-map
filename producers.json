@@ -3218,6 +3218,35 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-09-30"
+    },
+    {
+      "id": "donegal-dexter",
+      "practice": "conventional",
+      "name": "Donegal Dexter",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 55.006458661084736,
+      "lng": -7.753507797940236,
+      "lat_desktop": 55.006458661084736,
+      "lng_desktop": -7.556507797940236,
+      "county": "Donegal",
+      "location": "Letterkenny, Co. Donegal",
+      "product": "Dexter Beef",
+      "product_type": ["beef"],
+      "description": "We’re Patrick and Kevin Harley, and on our farm here in Letterkenny we rear pedigree Dexter cattle on a traditional grass-based system. Our cattle spend as much of the year as possible outdoors, grazing our fields on a natural mix of grasses. Our beef is sold through Donegal Dexter, a farmer to customer collective that helps us keep the supply chain short and sell our beef directly to customers.",
+      "photo_url": "donegaldexter.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Native / rare breed"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-03"
     }
   ]
 }
