@@ -76,82 +76,27 @@
     .hero p { max-width: 560px; color: var(--cream-soft); }
     .count { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-top: 22px; }
 
-    /* Each farm is a small profile, not a button on a line: who they are,
-       what they have, the brackets it is sold in, and the way through to
-       their full page. */
+    /* The list is a directory, not a stack of small profiles: a visitor
+       scrolls it once and picks a farm. Everything a farm has to say about
+       what they have, how they sell it and what it looks like is behind
+       See the farm. */
     .list { display: flex; flex-direction: column; border-top: 1px solid var(--hair); margin-bottom: 64px; }
     /* Each row is an anchor, so a profile's Connect button lands on that
        farm rather than at the top of the list. */
-    .row { padding: 30px 0 26px; border-bottom: 1px solid var(--hair); scroll-margin-top: 20px; }
-    .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
-    /* The way through to a Highlighted farm's own built page. A line, not a
-       button: it is somewhere to go afterwards, not a thing to do here. */
-    .row-own { margin-top: 14px; }
-    .row-own a {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: #D9AE55;
-    }
-    .row-own a:hover { color: var(--cream); }
-    .row-intro { margin-top: 16px; color: var(--cream-soft); }
-    /* How this farm handles collection and delivery, said once for the whole
-       list rather than repeated down every cut. */
-    .row-terms {
-      margin-top: 14px; padding-left: 16px; border-left: 2px solid var(--green);
-      font-size: 0.95rem; color: var(--cream);
-    }
+    .row { padding: 20px 0 18px; border-bottom: 1px solid var(--hair); scroll-margin-top: 20px; }
+    .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
     /* Connect and Order do the same job - they get you to the farm - so they
        look alike. See the farm is a different job and looks different. */
-    .row-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-end; }
-    /* No produce photographs here. This page is the directory of farms and
-       what they have; the pictures are on the farm's own page. */
-    .avail { list-style: none; margin: 14px 0 0; }
-    .avail li { padding: 15px 0; border-bottom: 1px solid var(--hair); }
-    .avail li:last-child { border-bottom: none; padding-bottom: 0; }
-    .avail .a-txt { display: block; }
-    .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
-    .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
-    .avail .a-opts {
-      display: block; margin-top: 9px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-light);
-    }
-    .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
-    /* Sold out: said plainly, and the row quietened rather than hidden, so the
-       full range a farm produces still reads while today's gap is honest. */
-    .avail .a-out {
-      margin-left: 10px; vertical-align: 2px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
-      font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint);
-    }
-    .avail li.is-out .a-name { color: var(--muted); }
-    .avail li.is-out .a-photo img { opacity: 0.45; }
-    .avail .a-fulfil {
-      display: block; margin-top: 7px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
-    }
-    /* The farm's name is the loudest thing in its row. */
-    .row h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(1.9rem, 5vw, 2.4rem); line-height: 1.08; color: var(--cream); }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; justify-content: flex-end; }
+    /* The farm's name is the loudest thing in its row, but the row has to
+       stay one line's worth of height, so it is smaller than it was when
+       each row carried a whole list under it. */
+    .row h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(1.55rem, 4.2vw, 1.95rem); line-height: 1.1; color: var(--cream); }
     .row h2 a:hover { color: var(--green-light); }
-    .row .where { color: var(--green-light); font-size: 1.12rem; margin-top: 6px; }
-    .row .what { color: var(--cream-soft); font-size: 0.92rem; }
-    .avail-label {
-      display: block; margin-top: 22px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
-      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #59A666;
-    }
-    .avail-label.stale { color: var(--faint); }
-    /* What this page is not showing, and where it is. */
-    .avail-source { margin-top: 12px; font-size: 0.86rem; color: var(--faint); }
-    .avail-more { margin-top: 14px; }
-    .avail-more a {
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-light);
-    }
-    .avail-more a:hover { color: var(--cream); }
+    .row .where { color: var(--green-light); font-size: 1.02rem; margin-top: 3px; }
 
     /* The tier states itself as text, the same as the map card. No boxes. */
-    .row .tags { margin-top: 9px; }
+    .row .tags { margin-top: 6px; }
     .pill {
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
       font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
@@ -162,9 +107,9 @@
     .pill-discovered { color: #4E8560; }
     .pill-collection { color: #DCD9D0; }
     .connect {
-      display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px;
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 17px;
       background: var(--green-deep); border: 1px solid var(--green);
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.7rem; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--cream); transition: background 0.2s, border-color 0.2s; white-space: nowrap;
     }
     .connect:hover { background: var(--green-head); border-color: var(--green-light); }
@@ -184,9 +129,12 @@
     }
     .connect.pending svg { opacity: 0.5; }
     @media (max-width: 520px) {
-      .row-head { grid-template-columns: 1fr; }
-      .row-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-      .connect { justify-content: center; padding: 12px 10px; }
+      .row-head { grid-template-columns: 1fr; gap: 12px; }
+      /* Three columns, not two: the three buttons sit on one line so a farm
+         is one thumb's worth of screen and the list stays one scroll. */
+      .row-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; justify-content: stretch; }
+      .connect { justify-content: center; padding: 11px 4px; font-size: 0.58rem; letter-spacing: 0.08em; gap: 5px; }
+      .connect svg { width: 13px; height: 13px; }
     }
 
     .empty { color: var(--muted); padding: 40px 0; }
@@ -220,7 +168,7 @@
 
     <div class="how">
       <p class="label" style="margin-bottom: 14px">How it works</p>
-      <p>Each farm tells Provenance every week what they have available. The date they last did it sits at the top of their list, so you can see for yourself how current it is.</p>
+      <p>Each farm tells Provenance every week what they have available. Press <strong>See the farm</strong> for that farm's list, along with the date they last sent it, so you can see for yourself how current it is.</p>
       <p>Click <strong>Connect</strong> to talk directly to the producer, or <strong>Order</strong> to place your order in their own shop. Thinking about a quarter, a half or a whole animal? Message them. They will tell you weights, price and when it will be ready.</p>
       <p>Collection and delivery are both available. Delivery is by courier, in a chilled box, to your door, and the farm charges for it. A courier costs much the same to move one steak as a full box, so single cuts are usually collection.</p>
       <p>Farming in Ireland and want to be on this? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
@@ -252,12 +200,19 @@
       connectLoadLive()
     ])
       .then(([data]) => {
+        // These four lead the list, in this order, at the user's direction.
+        // Anything not named here falls in behind them by county, then name.
+        const FIRST = ['rathphelan-farm', 'moyletra-moileds', 'skehana-hill', 'lisnahay-farm-meats'];
+        const rank = p => { const i = FIRST.indexOf(p.id); return i === -1 ? FIRST.length : i; };
+
         // Membership is the connect block, not a bare whatsapp number: a farm
         // can be listing produce before it has a channel on file.
         const members = (data.producers || [])
           .map(p => ({ p, cs: connectState(p) }))
           .filter(m => m.cs)
-          .sort((a, b) => (a.p.county || '').localeCompare(b.p.county || '') || a.p.name.localeCompare(b.p.name));
+          .sort((a, b) => rank(a.p) - rank(b.p) ||
+                          (a.p.county || '').localeCompare(b.p.county || '') ||
+                          a.p.name.localeCompare(b.p.name));
 
         $('count').textContent = (members.length === 1 ? '1 farm' : members.length + ' farms') + ' listing';
         // How many people reach Provenance Connect at all, and how many farms
@@ -270,15 +225,6 @@
           const pills = `<span class="pill pill-${esc(tier)}">${TIER[tier] || TIER.discovered}</span>` +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const url = profileUrl(p);
-          // This page carries the headline offers — the boxes and the whole
-          // animal. An item marked profile_only, which for a beef farm means
-          // every single cut, is held back for the farm's own page, where the
-          // photographs are. The count is shown rather than the items quietly
-          // disappearing. If a farm marked everything that way, show it all
-          // rather than an empty list.
-          let shown = cs.items.filter(a => !a.profile_only);
-          if (!shown.length) shown = cs.items;
-          const held = cs.items.length - shown.length;
           // Three buttons. Connect is the conversation, Order is the farm's
           // own shop, and both get you to the producer, so they match. See the
           // farm does a different job and is dressed differently. A farm with
@@ -290,14 +236,11 @@
           const orderBtn = cs.order
             ? `<a class="connect order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`
             : `<span class="connect pending" aria-disabled="true" title="Not open yet">Order</span>`;
-          // A Highlighted farm that has its own built page gets a quiet way
-          // through to it. Deliberately a line of type rather than a fourth
-          // button: the three buttons are the things to do here, and the
-          // filmed page is somewhere to go afterwards. Only shows when the
-          // page is actually live, so it can never be a dead link.
-          const ownPage = (p.tier === 'featured' && p.profile_slug && p.profile_live)
-            ? `../${encodeURIComponent(p.profile_slug)}/`
-            : (p.map_link ? '../' + p.map_link : '');
+          // The row is the whole listing: who they are, where they are, what
+          // tier they hold, and the three things to do. Nothing else. What a
+          // farm has, their terms, their intro and their produce photographs
+          // all live behind See the farm, so this page stays one scroll and a
+          // visitor can pick a farm rather than read past it.
           return `<div class="row" id="${esc(p.id)}">
             <div class="row-head">
               <div>
@@ -311,13 +254,6 @@
                 <a class="connect quiet" href="${esc(url)}">See the farm</a>
               </div>
             </div>
-            ${ownPage ? `<p class="row-own"><a href="${esc(ownPage)}">View their Highlighted profile</a></p>` : ''}
-            ${cs.intro ? `<p class="row-intro">${esc(cs.intro)}</p>` : ''}
-            ${cs.terms ? `<p class="row-terms">${esc(cs.terms)}</p>` : ''}
-            <p class="avail-label${cs.fresh ? '' : ' stale'}">${esc(cs.heading)}${cs.when ? ' · ' + esc(cs.when) : ''}</p>
-            <ul class="avail">${connectListHTML(shown, esc, { photos: false })}</ul>
-            ${cs.source ? `<p class="avail-source">${esc(cs.source)}</p>` : ''}
-            ${held ? `<p class="avail-more"><a href="${esc(url)}">and ${held} individual cut${held === 1 ? '' : 's'} on their page</a></p>` : ''}
           </div>`;
         }).join('');
 
@@ -333,15 +269,12 @@
           const order = row.querySelector('a.connect.order');
           if (order) order.addEventListener('click', () =>
             pvTrack('order_click', pvProducer(p, { surface: 'connect_page' })));
-          const own = row.querySelector('.row-own a');
-          if (own) own.addEventListener('click', () =>
-            pvTrack('profile_click', pvProducer(p, { surface: 'connect_page' })));
           const farm = row.querySelector('a.connect.quiet');
           if (farm) farm.addEventListener('click', () =>
             pvTrack('see_farm_click', pvProducer(p, { surface: 'connect_page' })));
-          pvTrack('availability_shown', pvProducer(p, {
-            surface: 'connect_page', items: cs.items.length, fresh: cs.fresh
-          }));
+          // No availability_shown here any more: this page shows no list, so
+          // firing it would report something that is not on screen. It still
+          // fires on the profile pages, where the list actually lives.
         });
 
         // Arriving from a profile's Connect button, land on that farm's row.
