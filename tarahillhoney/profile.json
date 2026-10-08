@@ -8,7 +8,7 @@
     "date": "20 September 2026",
     "walked_by": "Darragh",
     "ground": "The eastern slope of Tara Hill in north Wexford, forestry on the doorstep and the sea at the back. Hives here and out through Wicklow and Dublin, ten or twelve to a site. Everything extracted, jarred and labelled on the farm.",
-    "listed": "Highlighted 15 September 2026, Featured 19 September 2026"
+    "listed": "8 October 2026"
   },
 
   "hero": { "src": "hero.jpg", "alt": "The home apiary at Tara Hill, hives in long grass with the forestry on the hill behind" },
@@ -57,6 +57,9 @@
     { "src": "orchard.jpg", "caption": "A hive in the apple trees", "position": "50% 50%" },
     { "src": "apiary.jpg",  "caption": "The home apiary, under the forestry", "position": "50% 55%" },
     { "src": "hives.jpg",   "caption": "Hives above the yard", "position": "50% 58%" },
-    { "src": "shop.jpg",    "caption": "The shelves at the farm", "position": "50% 45%" }
+    { "src": "shop.jpg",    "caption": "The shelves at the farm", "position": "50% 45%" },
+    { "src": "roadside-sign.jpg", "caption": "The sign at the roadside", "position": "50% 45%" },
+    { "src": "dog.jpg",           "caption": "The dog at the farm", "position": "50% 42%" },
+    { "src": "hive-mwildes.jpg",  "caption": "A hive marked M Wildes", "position": "50% 50%" }
   ]
 }
