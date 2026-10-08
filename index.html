@@ -470,34 +470,36 @@
     #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
 
-    /* Sticky, not relative: the card scrolls, and a way out that scrolls away
-       with it is a way out only for people who have not scrolled. Both the
-       back control and the X ride on this strip. */
     .card-top {
-      position: sticky;
-      top: 0;
-      z-index: 3;
+      position: relative;
       padding-top: 1px;
     }
 
-    /* The way out, in words. The X is small, muted and top right, and the
-       swipe-down is invisible to anyone who has not been shown it, so the card
-       now says how to leave. Same wording and chevron as the header of every
-       profile page, so it is the one gesture people learn once. */
+    /* The only way out, and it sits where a right thumb already is: pinned to
+       the bottom right of the card, not scrolling with it. The X that used to
+       be top left of here is gone — small, muted, and at the far corner from
+       the hand holding the phone.
+
+       position: fixed anchors to the card rather than the window because
+       #card carries a transform, which makes it the containing block. That is
+       why this stays put while the card scrolls under it. */
     .card-back {
-      position: absolute;
-      top: 10px; left: 14px;
+      position: fixed;
+      right: 16px;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
+      z-index: 4;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 7px 13px 7px 10px;
-      border-radius: 20px;
-      background: rgba(26,27,24,0.78);
-      border: 1px solid rgba(232,222,200,0.18);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      padding: 11px 16px 11px 13px;
+      border-radius: 22px;
+      background: rgba(26,27,24,0.92);
+      border: 1px solid rgba(232,222,200,0.22);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       font-family: inherit;
-      font-size: 0.56rem;
+      font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -514,25 +516,9 @@
     }
 
 
-    .card-close {
-      position: absolute;
-      top: 10px; right: 14px;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s;
-    }
-    .card-close:hover { background: rgba(255,255,255,0.09); }
-    .card-close svg {
-      width: 11px; height: 11px;
-      stroke: #504838;
-      stroke-width: 2;
-      stroke-linecap: round;
-    }
+    /* The X is gone. It was 28px of muted grey in the corner furthest from the
+       hand holding the phone, and "Back to map" does that job in words, within
+       thumb reach. The swipe-down still works for anyone who knows it. */
 
     /* Photo */
     .card-photo-wrap {
@@ -681,8 +667,12 @@
     }
 
     /* Body */
+    /* The deep bottom padding keeps the last line of the card clear of the
+       Back to map button floating over the bottom right. Content passes behind
+       it while you scroll, which is what a floating button does, but nothing
+       ever comes to rest underneath it. */
     .card-body {
-      padding: 14px 22px calc(env(safe-area-inset-bottom, 16px) + 18px);
+      padding: 14px 22px calc(env(safe-area-inset-bottom, 16px) + 84px);
     }
 
     /* Tier mark — the card's opening statement, set as text rather than a
@@ -1634,12 +1624,15 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* The way back out of a cluster zoom. Bottom left, clear of the filter
-       and Connect in the top right and of the card when it rises. */
+    /* The way back out of a cluster zoom. Right-hand side under the thumb,
+       and sat above the legend rather than bottom left, where it covered the
+       producer counter. The bottom here is only a fallback: placeZoomOut()
+       measures the legend and pushes the chip clear of it, because the legend
+       changes height with the screen. */
     #zoom-out {
       position: fixed;
-      left: 16px;
-      bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
+      right: 16px;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 92px);
       z-index: 26;
       padding: 10px 15px;
       border-radius: 8px;
@@ -2240,14 +2233,10 @@
 
   <!-- CARD -->
   <div id="card">
-    <div class="card-top">
-      <button class="card-back" id="card-back" type="button">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
-      </button>
-      <button class="card-close" id="card-close" aria-label="Close">
-        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
+    <div class="card-top"></div>
+    <button class="card-back" id="card-back" type="button">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
+    </button>
 
     <div class="card-photo-wrap" id="card-photo-wrap">
       <div class="photo-placeholder">
@@ -2762,12 +2751,30 @@
       return n;
     }
 
+    /* Sit the chip just above the legend. The legend is fixed to the bottom
+       right and changes height between phone and desktop, so measuring it
+       beats guessing: clientHeight rather than innerHeight because that is the
+       box fixed positioning is laid out against, and the address bar does not
+       move it. */
+    function placeZoomOut() {
+      const chip = document.getElementById('zoom-out');
+      const legend = document.getElementById('map-legend');
+      if (!chip || !legend) return;
+      const r = legend.getBoundingClientRect();
+      if (!r.height) return;
+      const vh = document.documentElement.clientHeight || window.innerHeight;
+      chip.style.bottom = Math.round(vh - r.top + 12) + 'px';
+    }
+    window.addEventListener('resize', placeZoomOut);
+
     function applyMapZoom() {
       const wrap = document.getElementById('map-wrap');
       wrap.style.transformOrigin = '0 0';
       wrap.style.transform = mapZoom.s > 1
         ? `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})` : '';
-      document.getElementById('zoom-out').classList.toggle('visible', mapZoom.s > 1);
+      const on = mapZoom.s > 1;
+      if (on) placeZoomOut();
+      document.getElementById('zoom-out').classList.toggle('visible', on);
     }
 
     // Scale about the touched point, so the farms under the finger stay there.
@@ -3263,7 +3270,6 @@
         closeCard();
       }
     });
-    document.getElementById('card-close').addEventListener('click', closeCard);
     /* Back to map closes the card and leaves the map exactly as it was,
        cluster zoom and all. Zooming out as well would throw away the place
        the visitor just worked to get to, and the Zoom out chip is sitting
