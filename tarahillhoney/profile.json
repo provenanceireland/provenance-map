@@ -40,6 +40,16 @@
     { "name": "Propolis tincture", "note": "Made from the propolis the bees seal the hive with.", "season": "Year round" }
   ],
 
+  "product_photos": [
+    { "src": "products/blossom-honey.jpg",     "alt": "Tara Hill Blossom Honey on a block of beeswax" },
+    { "src": "products/raw-ivy-honey.jpg",     "alt": "Tara Hill Raw Ivy Honey on a block of beeswax" },
+    { "src": "products/heather-honey.jpg",     "alt": "Tara Hill Heather Honey on a block of beeswax" },
+    { "src": "products/dublin-honey.jpg",      "alt": "Dublin Honey, produced by their Dublin bees, on a block of beeswax" },
+    { "src": "products/hot-honey.jpg",         "alt": "Tara Hill Hot Honey on a block of beeswax" },
+    { "src": "products/bee-pollen.jpg",        "alt": "Tara Hill Bee Pollen on a block of beeswax" },
+    { "src": "products/propolis-tincture.jpg", "alt": "Tara Hill Irish Propolis Tincture on a block of beeswax" }
+  ],
+
   "photos_title": "Around the apiary",
   "photos": [
     { "src": "solar.jpg",   "caption": "The panels, and more hives", "position": "50% 55%" },

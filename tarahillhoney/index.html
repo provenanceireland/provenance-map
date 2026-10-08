@@ -207,6 +207,10 @@
     }
 
     /* ── photos ── */
+    .prod-photos { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 58px; }
+    .prod-photos figure { margin: 0; flex: 0 0 calc((100% - 30px) / 4); border: 1px solid var(--hair); background: var(--surface); overflow: hidden; }
+    .prod-photos img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+    @media (max-width: 620px) { .prod-photos figure { flex-basis: calc((100% - 10px) / 2); } }
     .gal { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; margin-bottom: 58px; }
     .gal figure { position: relative; margin: 0; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; cursor: zoom-in; }
     .gal img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
@@ -427,6 +431,13 @@
       <div class="products" id="products"></div>
     </section>
 
+  </div>
+
+  <div class="wide">
+    <div class="prod-photos hidden" id="prod-photos"></div>
+  </div>
+
+  <div class="col">
     <section id="film-single-section" class="hidden">
       <div class="sec-head"><h2>The farm on film</h2><span class="rule"></span></div>
     </section>
@@ -639,6 +650,11 @@
           `<div class="prod"><h3>${esc(p.name)}</h3>${p.note ? `<p>${esc(p.note)}</p>` : ''}${p.season ? `<span class="season">${esc(p.season)}</span>` : ''}</div>`
         ).join('');
         show('products-section', true);
+      }
+      const jars = (pr.product_photos || []).filter(p => p && p.src);
+      if (jars.length) {
+        $('prod-photos').innerHTML = jars.map(p => `<figure><img src="${esc(p.src)}" alt="${esc(p.alt || '')}" loading="lazy" /></figure>`).join('');
+        show('prod-photos', true);
       }
 
       // ── photos, no captions ──
