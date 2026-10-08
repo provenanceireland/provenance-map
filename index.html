@@ -534,9 +534,40 @@
     }
 
 
-    /* The X is gone. It was 28px of muted grey in the corner furthest from the
-       hand holding the phone, and "Back to map" does that job in words, within
-       thumb reach. The swipe-down still works for anyone who knows it. */
+    /* Two ways out, one per pointer. A finger gets "Back to map" on the footer
+       strip, bottom right, because the X was 28px of muted grey in the corner
+       furthest from the hand holding the phone. A mouse keeps the X it always
+       had: it is precise, it has no swipe, and the labelled bar was never
+       meant for desktop. Neither ever shows at the same time as the other. */
+    .card-close {
+      position: absolute;
+      top: 10px; right: 14px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s;
+    }
+    .card-close:hover { background: rgba(255,255,255,0.09); }
+    .card-close svg {
+      width: 11px; height: 11px;
+      stroke: #504838;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    /* On a finger: the footer, not the X. */
+    @media (pointer: coarse) {
+      .card-close { display: none; }
+    }
+    /* On a mouse: the X, not the footer, and the card body goes back to its
+       ordinary bottom padding because there is no strip to clear. */
+    @media not all and (pointer: coarse) {
+      .card-footer { display: none; }
+      .card-body { padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 18px); }
+    }
 
     /* Photo */
     .card-photo-wrap {
@@ -2330,7 +2361,11 @@
 
   <!-- CARD -->
   <div id="card">
-    <div class="card-top"></div>
+    <div class="card-top">
+      <button class="card-close" id="card-close" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
     <!-- The footer is a strip so the button never sits on top of the card's
          last line. It ignores pointer events; only the button takes them. -->
     <div class="card-footer">
@@ -3381,6 +3416,7 @@
        the visitor just worked to get to, and the Zoom out chip is sitting
        there in the corner the moment the card is gone. */
     document.getElementById('card-back').addEventListener('click', closeCard);
+    document.getElementById('card-close').addEventListener('click', closeCard);
 
     // Swipe down to dismiss
     let touchStartY = 0;
