@@ -1641,6 +1641,47 @@
     #filter-clear:hover { opacity: 1; }
 
     .filter-section { margin-bottom: 18px; }
+
+    /* ── FILTER RESULTS ── the filter's answer as a list. Dimming 100 of 106
+       pins is legible on a desktop map and much less so on a phone, where the
+       bright ones are still 6px wide and scattered. A name is not. */
+    #filter-results-list {
+      max-height: 42vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .fr-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 2px;
+      background: none;
+      border: none;
+      border-bottom: 0.5px solid rgba(69,112,78,0.15);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      color: #E8DEC8;
+      text-align: left;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .fr-row:last-child { border-bottom: none; }
+    .fr-row:hover { color: #5A8C64; }
+    .fr-row .m-dot { flex: none; border-radius: 50%; }
+    .fr-row .fr-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .fr-row .fr-where {
+      margin-left: auto;
+      padding-left: 10px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #504838;
+      white-space: nowrap;
+    }
+    .fr-none { padding: 13px 2px; color: #504838; font-size: 0.9rem; }
     .filter-label {
       font-size: 0.56rem;
       letter-spacing: 0.12em;
@@ -2028,6 +2069,14 @@
         <input id="filter-search" type="text" placeholder="Name, county, product…" autocomplete="off" autocorrect="off" spellcheck="false"/>
         <button id="filter-search-btn">Search</button>
       </div>
+    </div>
+
+    <!-- What the filter found, as names you can tap. The map dims the misses,
+         which on a phone reads as the map going dark rather than as an answer,
+         and you still have to find the pins that stayed bright. -->
+    <div class="filter-section hidden" id="filter-results">
+      <span class="filter-label" id="filter-results-label">Producers</span>
+      <div id="filter-results-list"></div>
     </div>
 
     <div class="filter-section">
@@ -3168,7 +3217,52 @@
       }
       lastAnswerKey = hasFilters ? key : '';
 
+      renderFilterResults(hasFilters, matched);
       updateFilterBadge();
+    }
+
+    /* The same matched pins, written out as a list you can tap. On a crowded
+       map this is often the faster route: you read a name rather than hunting
+       for whichever 6px dot stayed bright.
+
+       Only with a filter on. With none the panel is a filter, not a directory
+       — browsing everything is what the menu's Producers panel is for. */
+    const FR_CAP = 60;
+    function renderFilterResults(hasFilters, matched) {
+      const wrap = document.getElementById('filter-results');
+      const list = document.getElementById('filter-results-list');
+      if (!hasFilters) { wrap.classList.add('hidden'); list.innerHTML = ''; return; }
+
+      document.getElementById('filter-results-label').textContent =
+        matched.length === 1 ? '1 producer' : matched.length + ' producers';
+
+      if (!matched.length) {
+        list.innerHTML = '<p class="fr-none">Nothing matches that. Try fewer filters.</p>';
+        wrap.classList.remove('hidden');
+        return;
+      }
+
+      // A to Z, not the order they happen to sit in producers.json.
+      const DOT = { discovered: 'm-dot-disc', verified: 'm-dot-ver', featured: 'm-dot-feat',
+                    'seal-lite': 'm-dot-feat', 'seal-complete': 'm-dot-feat' };
+      const sorted = matched.slice().sort((a, b) =>
+        String(a.dataset.name).localeCompare(String(b.dataset.name)));
+      const shown = sorted.slice(0, FR_CAP);
+
+      list.innerHTML = shown.map((pin, i) =>
+        `<button type="button" class="fr-row" data-i="${i}">
+           <span class="m-dot ${DOT[pin.dataset.tierName] || DOT.discovered}"></span>
+           <span class="fr-name">${escHtml(pin.dataset.name || '')}</span>
+           <span class="fr-where">${escHtml(pin.dataset.county || '')}</span>
+         </button>`).join('') +
+        (sorted.length > FR_CAP
+          ? `<p class="fr-none">and ${sorted.length - FR_CAP} more, still lit on the map</p>` : '');
+
+      list.querySelectorAll('.fr-row').forEach(b => b.addEventListener('click', () => {
+        toggleFilter();              // close the panel, leave the filter on
+        tapPin(shown[+b.dataset.i]);
+      }));
+      wrap.classList.remove('hidden');
     }
 
     /* Hide any chip that no producer currently matches. A filter that always returns
