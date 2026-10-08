@@ -2951,12 +2951,23 @@
         document.getElementById('card-share-btn').addEventListener('click', e => shareProducer(pin, e.currentTarget));
       }
 
-      // Reset pinch-zoom so card is fully visible on iOS
-      const viewport = document.querySelector('meta[name=viewport]');
-      viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
-      requestAnimationFrame(() => {
-        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
-      });
+      /* Opening a card used to flip the viewport meta to
+         "maximum-scale=1.0, user-scalable=no" and put it back on the next
+         animation frame, to try to snap an iOS user back to 1x so the card
+         was fully visible. That is why pinch-zoom died after tapping a pin.
+
+         It fails two ways. The restore runs in requestAnimationFrame, which
+         does not fire while the app is backgrounded or throttled, so the
+         viewport can stay locked until a reload. And iOS latches a
+         user-scalable change made mid-session, especially in an installed
+         PWA, where unlike a Safari tab it actually honours the flag.
+
+         It also did not buy much: that trick stops further zooming more
+         reliably than it un-zooms someone already zoomed in. A broken
+         gesture for an unreliable reset is a bad trade, so it is gone.
+
+         If a card opened while zoomed in reads badly, the fix is to anchor
+         the card to window.visualViewport, not to touch this meta tag. */
 
       card.classList.add('open');
       overlay.classList.add('active');
