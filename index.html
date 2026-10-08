@@ -47,6 +47,12 @@
       z-index: 1;
       transform-origin: 0 0;
       transition: transform 0.65s cubic-bezier(0.32, 0.72, 0, 1);
+      /* The map carries 106 pins, several of them with live glows and a
+         pulse. Without this the browser repaints the lot on every frame of a
+         zoom and the move stutters; with it the map is its own layer and the
+         transform is a cheap composite. */
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     #map-img {
@@ -1912,9 +1918,12 @@
      is left intact but unreachable, so the feature can be restored by putting the
      button and its click listener back. */
 
+  /* Below Connect, not beside it. Connect sits at safe + 83px and is about
+     32px tall, and this chip is centred but wide enough — "12 producers
+     within 30km" — to run under it on a phone. safe + 128px clears it. */
   #near-me-chip {
     position: fixed;
-    top: calc(env(safe-area-inset-top, 20px) + 88px);
+    top: calc(env(safe-area-inset-top, 20px) + 128px);
     left: 50%;
     transform: translateX(-50%);
     z-index: 25;
@@ -2849,8 +2858,13 @@
     function applyMapZoom() {
       const wrap = document.getElementById('map-wrap');
       wrap.style.transformOrigin = '0 0';
+      /* Always an explicit transform, never '' — clearing the inline style
+         leaves the computed value as `none`, and animating a matrix to `none`
+         is where the zoom-out jumped instead of gliding. Identity is a matrix
+         like any other and interpolates cleanly. */
       wrap.style.transform = mapZoom.s > 1
-        ? `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})` : '';
+        ? `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})`
+        : 'translate(0px,0px) scale(1)';
       const on = mapZoom.s > 1;
       if (on) placeZoomOut();
       document.getElementById('zoom-out').classList.toggle('visible', on);
@@ -3858,6 +3872,10 @@
       ctx.strokeStyle = 'rgba(69,112,78,0.25)';
       ctx.lineWidth = 1;
       ctx.stroke();
+      // Clear anything left by a fading-out exit, in case near me is turned
+      // straight back on before that 650ms has run.
+      canvas.style.transition = '';
+      canvas.style.opacity = '';
       canvas.style.display = 'block';
     }
 
@@ -3906,11 +3924,22 @@
       // Zoom out chip cannot be left showing over an unzoomed map.
       resetMapZoom();
 
+      /* The radius circle and the you-are-here dot used to vanish on the
+         first frame while the map took 0.65s to glide back, which read as the
+         glitch at the start of a zoom out. They now ride the map out and are
+         cleared once it has arrived. */
       const canvas = document.getElementById('near-me-canvas');
-      canvas.style.display = 'none';
-      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-
-      removeUserDot();
+      canvas.style.transition = 'opacity 0.45s';
+      canvas.style.opacity = '0';
+      const dot = document.getElementById('user-location-dot');
+      if (dot) { dot.style.transition = 'opacity 0.45s'; dot.style.opacity = '0'; }
+      setTimeout(() => {
+        canvas.style.display = 'none';
+        canvas.style.opacity = '';
+        canvas.style.transition = '';
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        removeUserDot();
+      }, 650);
 
       document.querySelectorAll('.pin').forEach(pin => {
         pin.style.opacity = '';
