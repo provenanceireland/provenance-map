@@ -59,7 +59,6 @@
     { "src": "hives.jpg",   "caption": "Hives above the yard", "position": "50% 58%" },
     { "src": "shop.jpg",    "caption": "The shelves at the farm", "position": "50% 45%" },
     { "src": "roadside-sign.jpg", "caption": "The sign at the roadside", "position": "50% 45%" },
-    { "src": "dog.jpg",           "caption": "The dog at the farm", "position": "50% 42%" },
     { "src": "hive-mwildes.jpg",  "caption": "A hive marked M Wildes", "position": "50% 50%" }
   ]
 }
