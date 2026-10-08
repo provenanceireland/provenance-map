@@ -1596,6 +1596,34 @@
       display: flex; align-items: center; justify-content: center;
     }
 
+    /* The way back out of a cluster zoom. Bottom left, clear of the filter
+       and Connect in the top right and of the card when it rises. */
+    #zoom-out {
+      position: fixed;
+      left: 16px;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
+      z-index: 26;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: rgba(34,35,32,0.92);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-family: inherit;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #E8DEC8;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #zoom-out.visible { opacity: 1; pointer-events: auto; }
+    #zoom-out:hover { border-color: rgba(90,140,100,0.6); color: #5A8C64; }
+
     /* ── FILTER PANEL ── */
     #filter-panel {
       position: fixed;
@@ -2164,6 +2192,11 @@
     </div>
   </div>
 
+  <!-- Shown only while the map is zoomed into a cluster. Without it there is
+       no way back out but a reload, since this zoom is a transform and not the
+       browser's own. -->
+  <button id="zoom-out" type="button" aria-label="Zoom back out">Zoom out</button>
+
   <!-- OVERLAY -->
   <div id="overlay"></div>
 
@@ -2658,8 +2691,71 @@
       }, true);
     }
 
+    /* ── CLUSTER ZOOM ──
+       Minimum pin spacing is 1.25 map points, roughly 5px on a phone, so in
+       Wexford or west Cork several farms can sit inside one fingertip. No hit
+       area can fix that: if three pins are under your finger, picking one is
+       not a thing a finger can express. So a tap there does not pick — it
+       zooms, and the second tap picks.
+
+       It rides on the same transform near-me uses (translate then scale on
+       #map-wrap, origin 0 0), scaling about the point touched so what was
+       under the finger stays under the finger. Touch only: a mouse is precise
+       enough to pick out of a cluster already, and zooming under it would be
+       an unwanted surprise. */
+    const CLUSTER_MIN   = 3;    // pins under the finger before a tap zooms instead of picks
+    const CLUSTER_STEP  = 2.2;  // how much closer each tap gets
+    const CLUSTER_MAX   = 7;    // far enough that 5px apart becomes 35px apart
+    const mapZoom = { s: 1, tx: 0, ty: 0 };
+
+    function pinsWithinReach(cx, cy) {
+      let n = 0;
+      document.querySelectorAll('.pin').forEach(pin => {
+        const dot = pin.querySelector('.pin-dot');
+        if (!dot) return;
+        if (pin.style.opacity && parseFloat(pin.style.opacity) < 0.9) return; // filtered out
+        const r = dot.getBoundingClientRect();
+        if (!r.width) return;
+        if (Math.hypot(cx - (r.left + r.width / 2), cy - (r.top + r.height / 2)) <= pinTapReach(r.width)) n++;
+      });
+      return n;
+    }
+
+    function applyMapZoom() {
+      const wrap = document.getElementById('map-wrap');
+      wrap.style.transformOrigin = '0 0';
+      wrap.style.transform = mapZoom.s > 1
+        ? `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})` : '';
+      document.getElementById('zoom-out').classList.toggle('visible', mapZoom.s > 1);
+    }
+
+    // Scale about the touched point, so the farms under the finger stay there.
+    function zoomAbout(cx, cy) {
+      const next = Math.min(mapZoom.s * CLUSTER_STEP, CLUSTER_MAX);
+      if (next === mapZoom.s) return false;
+      const k = next / mapZoom.s;
+      mapZoom.tx = cx - (cx - mapZoom.tx) * k;
+      mapZoom.ty = cy - (cy - mapZoom.ty) * k;
+      mapZoom.s = next;
+      applyMapZoom();
+      return true;
+    }
+
+    function resetMapZoom() {
+      mapZoom.s = 1; mapZoom.tx = 0; mapZoom.ty = 0;
+      applyMapZoom();
+    }
+    document.getElementById('zoom-out').addEventListener('click', e => {
+      e.stopPropagation();
+      resetMapZoom();
+    });
+
     document.getElementById('map-wrap').addEventListener('click', e => {
       hidePinLabel();
+      // Near-me owns the transform while it is on, so leave it alone.
+      if (coarsePointer && !nearMe.active && pinsWithinReach(e.clientX, e.clientY) >= CLUSTER_MIN) {
+        if (zoomAbout(e.clientX, e.clientY)) { e.stopPropagation(); return; }
+      }
       const pin = pinNearestTo(e.clientX, e.clientY);
       if (pin) { e.stopPropagation(); tapPin(pin); }
     });
@@ -3588,6 +3684,9 @@
     }
 
     function enterNearMeMode(lat, lng) {
+      // Near-me drives the same transform, so drop any cluster zoom first
+      // rather than have two things writing to it.
+      resetMapZoom();
       nearMe.active = true;
       nearMe.lat = lat;
       nearMe.lng = lng;
@@ -3672,8 +3771,9 @@
       nearMe.active = false;
       nearMe.lat = nearMe.lng = null;
 
-      const wrap = document.getElementById('map-wrap');
-      wrap.style.transform = '';
+      // Clears the transform and the cluster-zoom state with it, so the
+      // Zoom out chip cannot be left showing over an unzoomed map.
+      resetMapZoom();
 
       const canvas = document.getElementById('near-me-canvas');
       canvas.style.display = 'none';
