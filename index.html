@@ -480,24 +480,36 @@
        be top left of here is gone — small, muted, and at the far corner from
        the hand holding the phone.
 
+       It rides a solid footer strip rather than floating free. Floating, it
+       landed exactly on "Confirmed by <farm>", which is the last line of the
+       card and therefore the line the scroll comes to rest on. A translucent
+       pill over the one line that says who stood over this farm is the worst
+       place it could have been. The strip is opaque and the body is padded to
+       clear it, so content scrolls cleanly behind and nothing is ever left
+       half-covered.
+
        position: fixed anchors to the card rather than the window because
-       #card carries a transform, which makes it the containing block. That is
-       why this stays put while the card scrolls under it. */
-    .card-back {
+       #card carries a transform, which makes it the containing block. */
+    .card-footer {
       position: fixed;
-      right: 16px;
-      bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
+      left: 0; right: 0;
+      bottom: 0;
       z-index: 4;
+      display: flex;
+      justify-content: flex-end;
+      padding: 12px 16px calc(env(safe-area-inset-bottom, 16px) + 12px);
+      background: linear-gradient(to top, #222320 72%, rgba(34,35,32,0));
+      pointer-events: none;
+    }
+    .card-back {
+      pointer-events: auto;
       display: inline-flex;
       align-items: center;
       gap: 7px;
       padding: 11px 16px 11px 13px;
       border-radius: 22px;
-      background: rgba(26,27,24,0.92);
+      background: #1A1B18;
       border: 1px solid rgba(232,222,200,0.22);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       font-family: inherit;
       font-size: 0.58rem;
       font-weight: 600;
@@ -667,12 +679,10 @@
     }
 
     /* Body */
-    /* The deep bottom padding keeps the last line of the card clear of the
-       Back to map button floating over the bottom right. Content passes behind
-       it while you scroll, which is what a floating button does, but nothing
-       ever comes to rest underneath it. */
+    /* The bottom padding clears the footer strip, so "Confirmed by <farm>"
+       finishes above the Back to map button rather than under it. */
     .card-body {
-      padding: 14px 22px calc(env(safe-area-inset-bottom, 16px) + 84px);
+      padding: 14px 22px calc(env(safe-area-inset-bottom, 16px) + 78px);
     }
 
     /* Tier mark — the card's opening statement, set as text rather than a
@@ -2234,9 +2244,13 @@
   <!-- CARD -->
   <div id="card">
     <div class="card-top"></div>
-    <button class="card-back" id="card-back" type="button">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
-    </button>
+    <!-- The footer is a strip so the button never sits on top of the card's
+         last line. It ignores pointer events; only the button takes them. -->
+    <div class="card-footer">
+      <button class="card-back" id="card-back" type="button">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
+      </button>
+    </div>
 
     <div class="card-photo-wrap" id="card-photo-wrap">
       <div class="photo-placeholder">
