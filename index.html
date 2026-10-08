@@ -1709,7 +1709,7 @@
     #near-me-btn svg {
       width: 14px; height: 14px;
       stroke: currentColor; fill: none;
-      stroke-width: 1.7; stroke-linecap: round;
+      stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
     }
     /* While the browser is asking for a location, which can take seconds. */
     #near-me-btn.loading { opacity: 0.55; pointer-events: none; }
@@ -2319,11 +2319,8 @@
   -->
   <button id="near-me-btn" type="button" aria-label="Find producers near me">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="3"/>
-      <line x1="12" y1="2" x2="12" y2="6"/>
-      <line x1="12" y1="18" x2="12" y2="22"/>
-      <line x1="2" y1="12" x2="6" y2="12"/>
-      <line x1="18" y1="12" x2="22" y2="12"/>
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/>
+      <circle cx="12" cy="10" r="3"/>
     </svg>
     <span>Near me</span>
   </button>
