@@ -2300,7 +2300,23 @@
   <!-- Producers near me. The whole feature was already written — geolocation,
        the 30km radius, the circle, the dimming, the chip and the list panel —
        and requestNearMe() had simply never been called by anything. This is
-       the switch. Touch only: a mouse is not struggling to pick pins. -->
+       the switch. Touch only: a mouse is not struggling to pick pins.
+
+       Icon alternatives, 2026-10-08. Swap the <svg> below for any of these;
+       they all take the same stroke, size and colour. The crosshair in use is
+       the same mark the near-me chip carries, which is why it is there.
+
+       Map pin — says "place" before it says "you", reads at a glance:
+         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+       Navigation arrow — the Google Maps convention for "my location":
+         <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+       Radar ripple — searching outward, closest to what the feature does:
+         <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M8.2 15.8a5.4 5.4 0 0 1 0-7.6"/><path d="M15.8 8.2a5.4 5.4 0 0 1 0 7.6"/><path d="M5 19a9.9 9.9 0 0 1 0-14"/><path d="M19 5a9.9 9.9 0 0 1 0 14"/>
+       Dot and radius — literally the 30km circle the map draws:
+         <circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/>
+       Compass — warmer, suits the painterly map better than a UI glyph:
+         <circle cx="12" cy="12" r="9.5"/><polygon points="16.2 7.8 13.8 13.8 7.8 16.2 10.2 10.2"/>
+  -->
   <button id="near-me-btn" type="button" aria-label="Find producers near me">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="3"/>
