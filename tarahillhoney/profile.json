@@ -18,9 +18,9 @@
 
   "series_label": "The visit, in parts",
   "series": [
-    { "title": "Part 1: Tara Hill Honey",       "url": "https://www.youtube.com/embed/2iR4jiOgfmE", "poster": "part-1.jpg", "aspect": "9/16" },
-    { "title": "Part 2: The Apiary Walk",        "url": "https://www.youtube.com/embed/IbRzH3Gcm-c", "poster": "part-2.jpg", "aspect": "9/16" },
-    { "title": "Part 3: The Hive Demonstration", "url": "https://www.youtube.com/embed/BWy8or52Z60", "poster": "part-3.jpg", "aspect": "9/16" }
+    { "title": "Part 1: The Apiary Walk",        "url": "https://www.youtube.com/embed/IbRzH3Gcm-c", "poster": "part-1.jpg", "aspect": "9/16" },
+    { "title": "Part 2: The Hive Demonstration", "url": "https://www.youtube.com/embed/BWy8or52Z60", "poster": "part-2.jpg", "aspect": "9/16" },
+    { "title": "Part 3: The Honey House",        "url": "https://www.youtube.com/embed/Qj_w9vfRLyg", "poster": "part-3.jpg", "aspect": "9/16" }
   ],
 
   "story_title": "",
