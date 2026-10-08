@@ -407,10 +407,6 @@
     </section>
   </div>
 
-  <div class="wide film hidden" id="film">
-    <div class="film-wrap" id="film-wrap"></div>
-  </div>
-
   <div class="wide series hidden" id="series">
     <p class="label" id="series-label">The visit, in three parts</p>
     <div class="series-grid" id="series-grid"></div>
@@ -431,6 +427,16 @@
       <div class="products" id="products"></div>
     </section>
 
+    <section id="film-single-section" class="hidden">
+      <div class="sec-head"><h2>The farm on film</h2><span class="rule"></span></div>
+    </section>
+  </div>
+
+  <div class="wide film hidden" id="film">
+    <div class="film-wrap" id="film-wrap"></div>
+  </div>
+
+  <div class="col">
     <section id="gallery-section" class="hidden">
       <div class="sec-head"><h2 id="gallery-title">Around the farm</h2><span class="rule"></span></div>
     </section>
@@ -613,8 +619,7 @@
       const film = pr.film || {};
       if (film.url) {
         $('film-wrap').outerHTML = filmFrame(film);
-        if (pr.film_intro) $('film-intro').textContent = pr.film_intro;
-        show('film-section', true); show('film', true);
+        show('film-single-section', true); show('film', true);
         armFilms($('film'));
       }
       const series = (pr.series || []).filter(s => s && s.url);
@@ -622,7 +627,7 @@
         if (pr.series_label) $('series-label').textContent = pr.series_label;
         $('series-grid').innerHTML = series.map(s => `<figure>${filmFrame(s)}${s.title ? `<figcaption>${esc(s.title)}</figcaption>` : ''}</figure>`).join('');
         show('series', true);
-        if (!film.url) show('film-section', true);
+        show('film-section', true);
         armFilms($('series'));
       }
 
