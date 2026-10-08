@@ -2422,14 +2422,26 @@
     }
 
     /* ── PIN HIT TESTING ──
-       A tap opens a producer only when it lands ON the dot. There used to be a
-       flat 28px halo around every dot, and on a map this dense that meant a click
-       on open country still opened whichever producer happened to be nearest,
-       usually not the one the user was looking at. The halo is gone.
+       On a mouse, a click opens a producer only when it lands ON the dot. There
+       used to be a flat 28px halo around every dot for every pointer, and on a
+       map this dense that meant a click on open country opened whichever
+       producer happened to be nearest, usually not the one the user was looking
+       at. That halo is still gone for a mouse, and a mouse is precise enough
+       not to want it.
 
-       The hit area is the dot's own rendered circle, measured rather than
-       hardcoded, because Discovered, Verified and Featured dots are all different
-       sizes and the sizes differ again on mobile.
+       A finger is not. On touch the reach is a minimum radius instead
+       (PIN_TAP_MIN_RADIUS below), which is the old halo idea brought back for
+       the one pointer that needs it — so the old complaint can recur on a
+       phone, in the form of a tap on open country opening the nearest farm.
+       Two things are different this time: it is touch only, so the desktop map
+       where that was most obvious is untouched; and the reach shrinks as you
+       pinch-zoom in, so zooming genuinely separates pins rather than just
+       magnifying the problem. If it reads as grabby, PIN_TAP_MIN_RADIUS is the
+       one number to turn down.
+
+       The dot's own rendered circle is measured rather than hardcoded, because
+       Discovered, Verified and Highlighted dots are all different sizes and the
+       sizes differ again on mobile.
 
        Where two dots genuinely overlap the nearest centre still wins, so a pin can
        never be buried by a neighbour in DOM order. That was the reason this was
@@ -2439,6 +2451,27 @@
     // gets a few pixels of forgiveness. A mouse gets none: click the dot or nothing
     // happens. Set to 0 to make touch exact too.
     const PIN_TAP_SLOP = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 5 : 0;
+
+    /* Every pin on a touch screen gets at least a 44px target, which is the
+       Apple and Android guidance and roughly the width of a fingertip. The
+       dots run from 4.25px to 9.1px on mobile, so dot plus slop left the
+       smallest ones asking for precision a finger does not have — and the
+       smallest is Discovered, which is most of the map.
+
+       Nothing about the pins changes. The dot is still drawn exactly as it
+       was; only the reach that counts as a hit grows, and the nearest centre
+       still wins, so a bigger reach can never bury a neighbour. */
+    const PIN_TAP_MIN_RADIUS = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 22 : 0;
+
+    /* Pinch-zoom is on for the map, and zooming is the only way to separate
+       pins that sit a few pixels apart — the minimum spacing is 1.25 map
+       points, which is about 5px on a phone. So the reach is divided by the
+       zoom: the target stays a fingertip wide on the glass instead of
+       swallowing the very neighbours you zoomed in to tell apart. */
+    function pinTapReach(dotWidth) {
+      const z = Math.max((window.visualViewport && window.visualViewport.scale) || 1, 1);
+      return Math.max(dotWidth / 2 + PIN_TAP_SLOP, PIN_TAP_MIN_RADIUS / z);
+    }
 
     function pinNearestTo(cx, cy) {
       let best = null,   bestDist = Infinity;   // pins matching the filter
@@ -2451,7 +2484,7 @@
         const dx = cx - (r.left + r.width / 2);
         const dy = cy - (r.top + r.height / 2);
         const dist = Math.hypot(dx, dy);
-        if (dist > r.width / 2 + PIN_TAP_SLOP) return; // off the dot, not a hit
+        if (dist > pinTapReach(r.width)) return; // out of reach, not a hit
         // A filtered-out pin should never win a tap over one the user filtered to,
         // even if it happens to be marginally closer.
         if (pin.style.opacity && parseFloat(pin.style.opacity) < 0.9) {
