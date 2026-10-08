@@ -470,9 +470,47 @@
     #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
 
+    /* Sticky, not relative: the card scrolls, and a way out that scrolls away
+       with it is a way out only for people who have not scrolled. Both the
+       back control and the X ride on this strip. */
     .card-top {
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 3;
       padding-top: 1px;
+    }
+
+    /* The way out, in words. The X is small, muted and top right, and the
+       swipe-down is invisible to anyone who has not been shown it, so the card
+       now says how to leave. Same wording and chevron as the header of every
+       profile page, so it is the one gesture people learn once. */
+    .card-back {
+      position: absolute;
+      top: 10px; left: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 13px 7px 10px;
+      border-radius: 20px;
+      background: rgba(26,27,24,0.78);
+      border: 1px solid rgba(232,222,200,0.18);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      font-family: inherit;
+      font-size: 0.56rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #E8DEC8;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .card-back:hover { border-color: rgba(90,140,100,0.65); color: #5A8C64; }
+    .card-back svg {
+      width: 12px; height: 12px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
 
 
@@ -2203,6 +2241,9 @@
   <!-- CARD -->
   <div id="card">
     <div class="card-top">
+      <button class="card-back" id="card-back" type="button">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
+      </button>
       <button class="card-close" id="card-close" aria-label="Close">
         <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -3223,6 +3264,11 @@
       }
     });
     document.getElementById('card-close').addEventListener('click', closeCard);
+    /* Back to map closes the card and leaves the map exactly as it was,
+       cluster zoom and all. Zooming out as well would throw away the place
+       the visitor just worked to get to, and the Zoom out chip is sitting
+       there in the corner the moment the card is gone. */
+    document.getElementById('card-back').addEventListener('click', closeCard);
 
     // Swipe down to dismiss
     let touchStartY = 0;
