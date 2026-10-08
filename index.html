@@ -1584,6 +1584,7 @@
       stroke: #E8DEC8; fill: none;
       stroke-width: 1.6; stroke-linecap: round;
     }
+    #filter-toggle:focus-visible { outline: 1.5px solid #5A8C64; outline-offset: 2px; }
     #filter-count {
       position: absolute;
       top: 7px; right: 7px;
@@ -1998,12 +1999,14 @@
     <div id="nm-list"></div>
   </div>
 
-  <!-- FILTER TOGGLE -->
-  <div id="filter-toggle" onclick="toggleFilter()" aria-label="Filter producers">
+  <!-- SEARCH / FILTER TOGGLE. A magnifying glass rather than the three
+       filter lines it used to be: the panel it opens leads with the search
+       box, and nobody reads three lines as "you can look for a farm here".
+       Same icon on PC and mobile. -->
+  <div id="filter-toggle" onclick="toggleFilter()" role="button" tabindex="0" aria-label="Search and filter producers">
     <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-      <line x1="2" y1="4.5" x2="16" y2="4.5"/>
-      <line x1="4.5" y1="9" x2="13.5" y2="9"/>
-      <line x1="7" y1="13.5" x2="11" y2="13.5"/>
+      <circle cx="7.6" cy="7.6" r="5.1"/>
+      <line x1="11.4" y1="11.4" x2="15.6" y2="15.6"/>
     </svg>
   </div>
 
