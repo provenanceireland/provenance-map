@@ -1665,6 +1665,56 @@
     #zoom-out.visible { opacity: 1; pointer-events: auto; }
     #zoom-out:hover { border-color: rgba(90,140,100,0.6); color: #5A8C64; }
 
+    /* Near me. Bottom left, above the discovery counter, which is fixed at
+       safe + 22px and capped at 40px tall — so safe + 72px clears it whatever
+       the counter's actual height turns out to be.
+
+       Hidden on a mouse. The point of it is thinning a crowded map down to
+       what is around you, and that is a finger problem: a cursor can already
+       pick any pin it likes. pointer: coarse is the same test the tap targets
+       and the cluster zoom use, so the three agree about what a phone is. */
+    #near-me-btn { display: none; }
+    @media (pointer: coarse) {
+      #near-me-btn {
+        position: fixed;
+        left: 16px;
+        bottom: calc(env(safe-area-inset-bottom, 16px) + 72px);
+        z-index: 26;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 10px 15px 10px 12px;
+        border-radius: 8px;
+        background: rgba(34,35,32,0.92);
+        border: 0.5px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        font-family: inherit;
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #E8DEC8;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: border-color 0.2s, color 0.2s, opacity 0.2s;
+      }
+    }
+    #near-me-btn svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.7; stroke-linecap: round;
+    }
+    /* While the browser is asking for a location, which can take seconds. */
+    #near-me-btn.loading { opacity: 0.55; pointer-events: none; }
+    #near-me-btn.loading svg { animation: nm-spin 1.1s linear infinite; }
+    @keyframes nm-spin { to { transform: rotate(360deg); } }
+    /* On, and pressing it again turns it off. */
+    #near-me-btn.active { border-color: rgba(90,140,100,0.7); color: #5A8C64; }
+    @media (prefers-reduced-motion: reduce) {
+      #near-me-btn.loading svg { animation: none; }
+    }
+
     /* ── FILTER PANEL ── */
     #filter-panel {
       position: fixed;
@@ -2237,6 +2287,21 @@
        no way back out but a reload, since this zoom is a transform and not the
        browser's own. -->
   <button id="zoom-out" type="button" aria-label="Zoom back out">Zoom out</button>
+
+  <!-- Producers near me. The whole feature was already written — geolocation,
+       the 30km radius, the circle, the dimming, the chip and the list panel —
+       and requestNearMe() had simply never been called by anything. This is
+       the switch. Touch only: a mouse is not struggling to pick pins. -->
+  <button id="near-me-btn" type="button" aria-label="Find producers near me">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="3"/>
+      <line x1="12" y1="2" x2="12" y2="6"/>
+      <line x1="12" y1="18" x2="12" y2="22"/>
+      <line x1="2" y1="12" x2="6" y2="12"/>
+      <line x1="18" y1="12" x2="22" y2="12"/>
+    </svg>
+    <span>Near me</span>
+  </button>
 
   <!-- OVERLAY -->
   <div id="overlay"></div>
@@ -3899,6 +3964,8 @@
 
     // Near me event listeners
     // (the compass button was removed — re-add its click listener here to restore the feature)
+    // The switch the whole near-me feature was waiting for.
+    document.getElementById('near-me-btn').addEventListener('click', requestNearMe);
     document.getElementById('near-me-chip').addEventListener('click', openNearMePanel);
     document.getElementById('nm-chip-close').addEventListener('click', e => {
       e.stopPropagation();
