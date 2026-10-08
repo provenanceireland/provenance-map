@@ -14,10 +14,14 @@
   "hero": { "src": "hero.jpg", "alt": "The home apiary at Tara Hill, hives in long grass with the forestry on the hill behind" },
 
   "film_intro": "Filmed by Provenance on the farm.",
-  "film": { "url": "https://www.youtube.com/embed/2iR4jiOgfmE", "poster": "film-short.jpg", "aspect": "9/16", "title": "Tara Hill Honey, Co. Wexford" },
+  "film": {},
 
   "series_label": "The visit, in parts",
-  "series": [],
+  "series": [
+    { "title": "Part 1: Tara Hill Honey",       "url": "https://www.youtube.com/embed/2iR4jiOgfmE", "poster": "part-1.jpg", "aspect": "9/16" },
+    { "title": "Part 2: The Apiary Walk",        "url": "https://www.youtube.com/embed/IbRzH3Gcm-c", "poster": "part-2.jpg", "aspect": "9/16" },
+    { "title": "Part 3: The Hive Demonstration", "url": "https://www.youtube.com/embed/BWy8or52Z60", "poster": "part-3.jpg", "aspect": "9/16" }
+  ],
 
   "story_title": "",
   "story": [
