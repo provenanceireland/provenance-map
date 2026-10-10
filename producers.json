@@ -942,7 +942,24 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "085 1893774" },
+        "order_url": "",
+        "updated": "2026-10-10",
+        "source": "Listed from their own website at newbardfarm.com.",
+        "intro": "A family farm at Lismore raising heritage breed pigs and sheep on certified organic pasture. Oxford Sandy and Black, Berkshire and Tamworth crosses, outdoors where they can root, forage and wallow. A maximum of two hundred pigs a year.",
+        "terms": "Collection only, at the farm in Lismore or at selected farmers markets and events. They do not ship. Newbard would rather you bought from a producer near you than have meat couriered across the country.",
+        "available": [
+          { "name": "Organic pork", "note": "Oxford Sandy and Black, Berkshire and Tamworth crosses, reared outdoors on organic pasture." },
+          { "name": "Bacon", "note": "Cured on the farm off their own pigs, traditional method, natural seasonings." },
+          { "name": "Sausages", "note": "Made from their own pork, natural seasonings." },
+          { "name": "Organic lamb", "note": "Off their own sheep, on the same organic ground as the pigs." },
+          { "name": "Hog roast", "note": "A whole pig off the farm, cooked on site for an event." }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "fat-tomato",
