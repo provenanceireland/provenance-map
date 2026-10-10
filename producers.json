@@ -929,7 +929,7 @@
       "lng": -7.55,
       "county": "Waterford",
       "location": "Co. Waterford",
-      "product": "Pork, Bacon, Lamb & Chicken",
+      "product": "Pork & Bacon",
       "product_type": ["pork"],
       "description": "We are Siobhán and Ross. Since 2012 we have raised heritage breed pigs, lamb and chicken on certified organic pasture near Lismore. We farm on the principle that the soil, the animal and the person eating it are all part of the same system, and that each one deserves to be treated as such.",
       "photo_url": "Newbard.png",
@@ -949,13 +949,12 @@
         "order_url": "",
         "updated": "2026-10-10",
         "source": "Listed from their own website at newbardfarm.com.",
-        "intro": "A family farm at Lismore raising heritage breed pigs and sheep on certified organic pasture. Oxford Sandy and Black, Berkshire and Tamworth crosses, outdoors where they can root, forage and wallow. A maximum of two hundred pigs a year.",
+        "intro": "A family farm at Lismore raising heritage breed pigs on certified organic pasture. Oxford Sandy and Black, Berkshire and Tamworth crosses, outdoors where they can root, forage and wallow. A maximum of two hundred pigs a year.",
         "terms": "Collection only, at the farm in Lismore or at selected farmers markets and events. They do not ship. Newbard would rather you bought from a producer near you than have meat couriered across the country.",
         "available": [
           { "name": "Organic pork", "note": "Oxford Sandy and Black, Berkshire and Tamworth crosses, reared outdoors on organic pasture." },
           { "name": "Bacon", "note": "Cured on the farm off their own pigs, traditional method, natural seasonings." },
           { "name": "Sausages", "note": "Made from their own pork, natural seasonings." },
-          { "name": "Organic lamb", "note": "Off their own sheep, on the same organic ground as the pigs." },
           { "name": "Hog roast", "note": "A whole pig off the farm, cooked on site for an event." }
         ],
         "plus": {}
