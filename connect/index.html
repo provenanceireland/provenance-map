@@ -84,10 +84,16 @@
     /* Each row is an anchor, so a profile's Connect button lands on that
        farm rather than at the top of the list. */
     .row { padding: 20px 0 18px; border-bottom: 1px solid var(--hair); scroll-margin-top: 20px; }
-    .row-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+    /* minmax(0, 1fr), not 1fr: a plain 1fr refuses to shrink below its
+       content, so a farm carrying two marks (Moyletra is Verified AND
+       Collection) pushed the buttons until "See the farm" wrapped to a
+       second line and that one row sat differently to every other. The text
+       column yields now; the buttons keep their width. */
+    .row-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center; }
     /* Connect and Order do the same job - they get you to the farm - so they
-       look alike. See the farm is a different job and looks different. */
-    .row-actions { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; justify-content: flex-end; }
+       look alike. See the farm is a different job and looks different.
+       nowrap: three buttons on one line, on every row, always. */
+    .row-actions { display: flex; flex-wrap: nowrap; gap: 9px; align-items: center; justify-content: flex-end; }
     /* The farm's name is the loudest thing in its row, but the row has to
        stay one line's worth of height, so it is smaller than it was when
        each row carried a whole list under it. */
@@ -95,8 +101,10 @@
     .row h2 a:hover { color: var(--green-light); }
     .row .where { color: var(--green-light); font-size: 1.02rem; margin-top: 3px; }
 
-    /* The tier states itself as text, the same as the map card. No boxes. */
-    .row .tags { margin-top: 6px; }
+    /* The tier states itself as text, the same as the map card. No boxes.
+       Flex so that a farm holding two marks drops the second onto its own
+       line cleanly, instead of a stray hairline opening a wrapped line. */
+    .row .tags { margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; row-gap: 3px; }
     .pill {
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
       font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
@@ -107,9 +115,9 @@
     .pill-discovered { color: #4E8560; }
     .pill-collection { color: #DCD9D0; }
     .connect {
-      display: inline-flex; align-items: center; gap: 8px; padding: 10px 17px;
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 15px;
       background: var(--green-deep); border: 1px solid var(--green);
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.7rem; letter-spacing: 0.18em;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.7rem; letter-spacing: 0.15em;
       text-transform: uppercase; color: var(--cream); transition: background 0.2s, border-color 0.2s; white-space: nowrap;
     }
     .connect:hover { background: var(--green-head); border-color: var(--green-light); }
