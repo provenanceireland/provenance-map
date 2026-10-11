@@ -1211,6 +1211,7 @@
       "practice": "regenerative",
       "name": "Moyletra Moileds",
       "tier": "verified",
+      "collection": true,
       "pin_classes": "",
       "badge": null,
       "badge2": null,
