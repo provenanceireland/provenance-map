@@ -1188,29 +1188,33 @@
 
     /* The live Featured profile link. Same amber as the tier pill, solid
        border, so it reads as the one thing on the card worth pressing. */
+    /* Highlighted Profile carries the tier's own gold, #D9AE55, rather than
+       cream. The ground is a shade deeper than the #2F5C3A used elsewhere so
+       the gold actually reads: against the lighter green it came out at
+       3.7:1, under the 4.5:1 small bold type needs. At #24472E it is 5:1. */
     .card-action-featured {
-      background: #2F5C3A;
+      background: #24472E;
       border: 1px solid #45704E;
-      color: #E8DEC8;
+      color: #D9AE55;
     }
-    .card-action-featured:hover { background: #35663F; }
+    .card-action-featured:hover { background: #2C5537; border-color: #D9AE55; }
 
     /* Connect: the first layer of Provenance Connect. Opens a WhatsApp chat
        with the producer, with a line saying where the person found them.
        Cream outline, so the deep green Featured Profile button stays the
        one filled thing on the card. Shows only when the record carries a
        whatsapp number. */
-    /* Dark green and filled, so Connect reads as the thing to press rather
-       than as one more cream outline among the card's other actions. The
-       same #2F5C3A the Connect page and the profile pages use, so the button
-       looks like itself wherever it turns up. */
+    /* Connect is the pale green one: a soft fill with dark green type, so it
+       reads apart from Highlighted Profile beside it rather than as a second
+       identical dark box. Being the lightest thing in the row also makes it
+       the first thing the eye lands on, which is the point. 5.7:1. */
     .card-action-connect {
-      background: #2F5C3A;
-      border: 1px solid #45704E;
-      color: #E8DEC8;
+      background: #B4D2BA;
+      border: 1px solid #B4D2BA;
+      color: #27502F;
       gap: 8px;
     }
-    .card-action-connect:hover { background: #35663F; border-color: #5A8C64; }
+    .card-action-connect:hover { background: #C6DECB; border-color: #C6DECB; }
     .card-action-connect svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
