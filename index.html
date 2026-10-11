@@ -1200,13 +1200,17 @@
        Cream outline, so the deep green Featured Profile button stays the
        one filled thing on the card. Shows only when the record carries a
        whatsapp number. */
+    /* Dark green and filled, so Connect reads as the thing to press rather
+       than as one more cream outline among the card's other actions. The
+       same #2F5C3A the Connect page and the profile pages use, so the button
+       looks like itself wherever it turns up. */
     .card-action-connect {
-      background: rgba(201,198,189,0.05);
-      border: 1px solid rgba(201,198,189,0.45);
+      background: #2F5C3A;
+      border: 1px solid #45704E;
       color: #E8DEC8;
       gap: 8px;
     }
-    .card-action-connect:hover { background: rgba(201,198,189,0.12); border-color: rgba(201,198,189,0.7); }
+    .card-action-connect:hover { background: #35663F; border-color: #5A8C64; }
     .card-action-connect svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
@@ -2467,7 +2471,7 @@
     <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
   </div>
 
-  <script src="connect.js?v=8"></script>
+  <script src="connect.js?v=9"></script>
   <script>
     const mapImg = document.getElementById('map-img');
 

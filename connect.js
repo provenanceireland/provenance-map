@@ -203,18 +203,32 @@ function connectFor(producer) {
     return {
       active: true,
       channel: (base && base.channel) || (producer.whatsapp ? { type: 'whatsapp', value: producer.whatsapp } : null),
+      order_url: (base && base.order_url) || '',
       updated: live.updated,
       intro: (base && base.intro) || '',
+      /* Record-level config, not part of the weekly list: a producer types
+         names and notes into a box, they do not re-type their delivery terms
+         or their group headings every week. Same reasoning as the options and
+         photos merged back above. */
+      terms: (base && base.terms) || '',
+      groups: (base && base.groups) || [],
+      source: (base && base.source) || '',
       available: merged,
       plus: (base && base.plus) || {},
-      source: 'live'
+      origin: 'live'
     };
   }
   if (!base || base.active === false) return null;
   var b = {};
   for (var k in base) if (Object.prototype.hasOwnProperty.call(base, k)) b[k] = base[k];
   if (!b.channel && producer.whatsapp) b.channel = { type: 'whatsapp', value: producer.whatsapp };
-  b.source = 'record';
+  /* `origin`, not `source`. This used to be written to `source`, which is the
+     author's "listed from their own website" line, so every record-backed
+     farm rendered the literal word "record" under its produce list and the
+     real line was destroyed on the way through. Nothing reads this marker;
+     it is kept because knowing which of the two sources answered is worth
+     having. */
+  b.origin = 'record';
   return b;
 }
 
@@ -254,8 +268,7 @@ function connectState(producer) {
     channel: connectChannel(producer, c),
     /* The second button. Connect is a conversation; Order is wherever the
        farm actually takes money, which is their own shop, never ours. */
-    order: connectOrder(producer, c),
-    source: c.source
+    order: connectOrder(producer, c)
   };
 }
 

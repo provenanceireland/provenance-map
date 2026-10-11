@@ -90,6 +90,21 @@
       text-transform: uppercase; color: var(--cream); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
     }
     .back:hover { color: var(--green-light); }
+    .site-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    /* The way back to the list a visitor came from. Filled, because it is the
+       press people repeat: farm, back, next farm. Back to the map stays as
+       plain type beside it. */
+    .back-connect {
+      padding: 9px 15px; background: var(--green-deep); border: 1px solid var(--green);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .back-connect:hover { background: var(--green-head); border-color: var(--green-light); color: var(--cream); }
+    @media (max-width: 520px) {
+      .site { padding: 14px 16px; gap: 10px; }
+      .site-nav { gap: 8px; }
+      .back { font-size: 0.58rem; letter-spacing: 0.12em; gap: 5px; }
+      .back-connect { padding: 8px 11px; }
+    }
     .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
     /* ── the one image every tier carries. Usually a logo, so it is contained
@@ -145,16 +160,6 @@
     .attrs span + span::before { content: '·'; margin: 0 9px; color: rgba(201,198,189,0.30); }
 
     /* ── buttons ── */
-    .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; position: relative; }
-    .links a, .links button {
-      display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px;
-      border: 1px solid rgba(201,198,189,0.32); background: rgba(201,198,189,0.04); cursor: pointer;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--cream-soft); transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .links a:hover, .links button:hover { background: rgba(201,198,189,0.10); color: var(--cream); border-color: rgba(201,198,189,0.5); }
-    .links a.connect { background: var(--green-deep); border-color: var(--green); color: var(--cream); }
-    .links a.connect:hover { background: var(--green-head); border-color: var(--green-light); }
     /* Provenance Connect at the top of the page, the same button the Featured
        pages carry. It jumps to the farm's list, where the message and Order
        buttons live. */
@@ -172,20 +177,7 @@
     }
     .connect-hero .ch-sub { font-size: 0.92rem; line-height: 1.45; color: var(--cream-soft); }
     .connect-hero .ch-arrow { width: 18px; height: 18px; opacity: 0.75; }
-    .connect-hero + .links { margin-top: 18px; }
     #connect-section { scroll-margin-top: 24px; }
-    .links button.share {
-      flex-basis: 100%; justify-content: flex-start; padding: 6px 0 0; border: 0; background: none; color: var(--cream-soft);
-    }
-    .links button.share:hover { background: none; color: var(--cream); }
-    .links svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    #share-toast {
-      position: absolute; top: calc(100% + 8px); left: 0;
-      background: var(--surface); border: 1px solid var(--hair-strong); border-radius: 6px;
-      padding: 10px 18px; font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--cream);
-      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 5;
-    }
-    #share-toast.visible { opacity: 1; transition: opacity 0.15s; }
 
     /* ── sections ── */
     section { padding: 52px 0; }
@@ -332,7 +324,14 @@
 
   <header class="site">
     <a class="logo" href="../">Provenance</a>
-    <a class="back" id="back" href="../"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to the map</a>
+    <nav class="site-nav">
+      <!-- Shown only for a farm that is actually on Connect, so it can never
+           send someone to a directory this producer is not in. Filled green
+           against the plain Back to the map, because moving between a farm
+           and the list is the thing people do over and over. -->
+      <a class="back back-connect hidden" id="back-connect" href="../connect/"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to Connect</a>
+      <a class="back" id="back" href="../"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to the map</a>
+    </nav>
   </header>
 
   <main id="page" class="hidden">
@@ -373,11 +372,6 @@
         <p style="margin-top: 18px"><a class="map-btn" id="seal-link" href="#" target="_blank" rel="noopener">Scan the Seal</a></p>
       </section>
 
-      <section id="elsewhere-section" class="hidden">
-        <div class="sec-head"><h2>Elsewhere</h2><span class="rule"></span></div>
-        <div class="links" id="links"><div id="share-toast">Link copied</div></div>
-      </section>
-
     </div>
 
     <div class="record">
@@ -413,7 +407,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=8"></script>
+  <script src="../connect.js?v=9"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -515,15 +509,12 @@
         show('connect-hero', true);
       }
 
-      const links = [];
-      if (paid && p.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(p.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
-      if (paid && p.website) links.push(`<a href="${esc(p.website)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>`);
-      if (p.directions) links.push(`<a href="${esc(p.directions)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Directions</a>`);
-      // Share is a Highlighted (and above) benefit, the same as on the card.
-      if (p.tier !== 'discovered') links.push(`<button type="button" id="share-btn" class="share"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>`);
-      $('links').innerHTML = links.join('') + '<div id="share-toast">Link copied</div>';
-      show('elsewhere-section', links.length > 0);
-      if ($('share-btn')) $('share-btn').addEventListener('click', () => shareProfile(p.name));
+      // The "Elsewhere" section was removed on 2026-10-11 at the user's
+      // request. It carried Instagram, Website, Directions and Share, and on
+      // a free producer all but Share are gated off, so it read as an empty
+      // heading on most profiles. The point stands on its own too: this page
+      // is for buying from the farm through Connect, not for sending people
+      // out to someone else's site.
 
       // Every profile view, whatever the tier, with the producer as a
       // parameter rather than as an event name.
@@ -531,6 +522,13 @@
 
       // ── Provenance Connect: what they have now ──
       const cs = connectState(p);
+      // The way back to the directory, on the farms that are in it. Anchored
+      // to this producer's own row, so it lands where they left off rather
+      // than at the top of the list.
+      if (cs) {
+        $('back-connect').href = '../connect/#' + encodeURIComponent(p.id);
+        show('back-connect', true);
+      }
       if (cs) {
         pvTrack('availability_shown', pvProducer(p, {
           surface: 'shared_profile', items: cs.items.length, fresh: cs.fresh
@@ -627,20 +625,6 @@
       if (p.profile_slug && p.profile_live) return '../' + p.profile_slug + '/';
       if (p.map_link) return '../' + p.map_link;
       return './?id=' + encodeURIComponent(p.id);
-    }
-
-    let shareToastTimer = null;
-    async function shareProfile(name) {
-      const url = location.href;
-      if (navigator.share) {
-        try { await navigator.share({ title: name + ' - Provenance', text: name + ' on the Provenance Map.', url }); } catch (e) {}
-      } else {
-        try {
-          await navigator.clipboard.writeText(url);
-          const t = $('share-toast'); t.classList.add('visible');
-          clearTimeout(shareToastTimer); shareToastTimer = setTimeout(() => t.classList.remove('visible'), 2150);
-        } catch (e) {}
-      }
     }
 
     // The live availability sheet is loaded alongside the producers, and a

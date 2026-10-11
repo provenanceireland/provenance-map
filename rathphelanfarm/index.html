@@ -93,6 +93,20 @@
       text-transform: uppercase; color: var(--cream); display: flex; align-items: center; gap: 7px; transition: color 0.2s;
     }
     .back:hover { color: var(--green-light); }
+    .site-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    /* The way back to the Connect list. Filled, because moving between a farm
+       and the list is the press people repeat. */
+    .back-connect {
+      padding: 9px 15px; background: var(--green-deep); border: 1px solid var(--green);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .back-connect:hover { background: var(--green-head); border-color: var(--green-light); color: var(--cream); }
+    @media (max-width: 520px) {
+      .site { padding: 14px 16px; gap: 10px; }
+      .site-nav { gap: 8px; }
+      .back { font-size: 0.58rem; letter-spacing: 0.12em; gap: 5px; }
+      .back-connect { padding: 8px 11px; }
+    }
     .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
     /* ── hero ── */
@@ -364,7 +378,10 @@
 
   <header class="site">
     <a class="logo" href="../">Provenance</a>
-    <a class="back" href="../?producer=rathphelan-farm"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to the map</a>
+    <nav class="site-nav">
+      <a class="back back-connect" href="../connect/#rathphelan-farm"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to Connect</a>
+      <a class="back" href="../?producer=rathphelan-farm"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to the map</a>
+    </nav>
   </header>
 
   <!-- HERO. The facts are written in so the page reads without JavaScript;
@@ -501,7 +518,7 @@
     <div id="lb-count" class="label"></div>
   </div>
 
-  <script src="../connect.js?v=7"></script>
+  <script src="../connect.js?v=9"></script>
   <script>
     // One producer per folder. The second Featured farm is a copy of this
     // folder with these two lines changed and its own profile.json.
