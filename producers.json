@@ -367,7 +367,52 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "087 3644247" },
+        "order_url": "",
+        "updated": "2026-10-11",
+        "intro": "Free range pork and bacon off pigs that roam the native woods on the side of the Ox Mountains all year round. Everything is vac packed and frozen, ready to go straight into the freezer.",
+        "terms": "€100 collected from the farm, or €100 plus delivery.",
+        "groups": [
+          { "name": "The box" },
+          { "name": "What tends to be in a box", "note": "Not an order list. These are the cuts that come off their own pigs and make the boxes up." }
+        ],
+        "available": [
+          { "name": "Free range pork and bacon box, 7 to 8kg", "group": "The box",
+            "note": "A mixture of cuts off their own pigs. No two boxes are identical: they make them as even and as fair as they can, but there are only two fillets on a pig, so not every box can carry one.",
+            "photo": "/produce/carraig-abhainn-farm/pork-and-bacon-box.jpg" },
+          { "name": "Belly pork", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Off the underside, fat layered through it. Slow roast for crackling.",
+            "photo": "/produce/carraig-abhainn-farm/belly-pork.jpg" },
+          { "name": "Roast leg of pork", "group": "What tends to be in a box", "profile_only": true,
+            "note": "The hind leg, lean. A Sunday roast joint.",
+            "photo": "/produce/carraig-abhainn-farm/roast-leg-of-pork.jpg" },
+          { "name": "Gammon steaks", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Cured leg, cut into steaks. Pan or grill.",
+            "photo": "/produce/carraig-abhainn-farm/gammon-steaks.jpg" },
+          { "name": "Roast shoulder of pork", "group": "What tends to be in a box", "profile_only": true,
+            "note": "The front leg and shoulder, more fat through it than the leg. Slow roast, pulls apart." },
+          { "name": "Shoulder of bacon", "group": "What tends to be in a box", "profile_only": true,
+            "note": "The shoulder, cured. Boil or roast as a joint." },
+          { "name": "Loin bacon", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Cured loin off the back. Leaner than streaky." },
+          { "name": "Pork chops", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Off the loin, bone in." },
+          { "name": "Fillet", "group": "What tends to be in a box", "profile_only": true,
+            "note": "The tenderloin, the leanest thing on a pig. Two to an animal." },
+          { "name": "Ham", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Cured and cooked leg." },
+          { "name": "Sausages", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Made from their own pork." },
+          { "name": "Rashers", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Cured and sliced, for the pan." },
+          { "name": "Neck roast", "group": "What tends to be in a box", "profile_only": true,
+            "note": "Off the neck end, well marbled. Slow roast." }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "girons-farm",
