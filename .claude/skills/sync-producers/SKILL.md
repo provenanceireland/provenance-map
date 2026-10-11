@@ -83,7 +83,7 @@ the filter panel is built in the same three sections.
 `Grass Fed` · `Free range` · `Pasture raised` · `Chemical Free`
 
 **Native and heritage** (what the animal, bee or seed *is*, not how it was kept) —
-`Native / rare breed` · `Native Irish bee` · `Heritage variety`
+`Native / rare breed` · `Native Irish Honey Bee` · `Heritage variety`
 
 **How it's made** (what was *not* done to it afterwards) —
 `Raw / unpasteurised` · `Non-Homogenised` · `Plastic Free`
