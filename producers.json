@@ -3511,6 +3511,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-05"
+    },
+    {
+      "id": "shanaghan-hill-farm",
+      "practice": "regenerative",
+      "name": "Shanaghan Hill Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.299028,
+      "lng": -6.131585,
+      "county": "Down",
+      "location": "Banbridge, Co. Down",
+      "product": "100% Grass Fed Lamb",
+      "product_type": ["lamb"],
+      "description": "Shanaghan Hill Farm is a family-run farm in the heart of County Down, producing 100% grass-fed lamb from sheep reared on our own land with a strong focus on sustainable farming, animal welfare and responsible land management. Our farm shop sells our own lamb.",
+      "photo_url": "ShanaghanHillFarm.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Grass Fed"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-12"
     }
   ]
 }
