@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Collection Sticker QR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --silver: #DCD9D0; }
+
+    body {
+      background: #060807;
+      color: #E8DEC8;
+      font-family: 'Source Serif 4', Georgia, serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--silver);
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #7a705c;
+      font-size: 0.85rem;
+      margin: 0.25rem 0 2rem;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      background: #0E100D;
+      border: 1px solid #1a1f18;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7a705c;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="url"], input[type="text"] {
+      width: 100%;
+      background: #060807;
+      border: 1px solid #1f2620;
+      border-radius: 6px;
+      color: #E8DEC8;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+    }
+    input:focus { border-color: var(--silver); }
+    input::placeholder { color: #504838; }
+
+    .hint { font-size: 0.8rem; color: #7a705c; line-height: 1.5; margin-top: 0.4rem; }
+
+    button {
+      background: var(--silver);
+      color: #060807;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.8rem 1.25rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover { background: #f0eee8; }
+    button.ghost { background: transparent; color: var(--silver); border: 1px solid #3a3d38; }
+    button.ghost:hover { border-color: var(--silver); background: transparent; }
+    .row { display: flex; gap: 0.75rem; }
+
+    #preview { display: none; flex-direction: column; align-items: center; gap: 1rem; }
+    #preview canvas { width: 100%; max-width: 320px; height: auto; border-radius: 10px; }
+
+    #error-msg { color: #c44a4a; font-size: 0.875rem; text-align: center; display: none; }
+    #url-out { word-break: break-all; font-size: 0.8rem; color: #7a705c; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <h1>Provenance Collection</h1>
+  <p class="subtitle">Sticker QR Generator</p>
+
+  <div class="card">
+    <div>
+      <label for="url-input">Private page URL</label>
+      <input type="url" id="url-input" placeholder="https://provenancemap.ie/collection/" autocomplete="off" />
+      <p class="hint">Paste the address of the page that hosts the Collection. Use the button below to add a random key, so the address cannot be guessed.</p>
+    </div>
+
+    <button class="ghost" id="key-btn" type="button">Add a private key to this address</button>
+
+    <div>
+      <label for="caption-input">Caption on the sticker</label>
+      <input type="text" id="caption-input" value="PROVENANCE COLLECTION" maxlength="32" autocomplete="off" />
+    </div>
+
+    <p id="error-msg">Please enter a valid URL.</p>
+
+    <button id="generate-btn" type="button">Generate sticker</button>
+
+    <div id="preview">
+      <canvas id="preview-canvas"></canvas>
+      <p id="url-out"></p>
+      <div class="row" style="width:100%">
+        <button id="png-btn" type="button">Download PNG</button>
+        <button id="svg-btn" type="button" class="ghost">Download SVG</button>
+      </div>
+      <p class="hint" style="text-align:center">PNG is 2000 × 2000. SVG stays sharp at any print size, so send that one to the sticker printer.</p>
+    </div>
+  </div>
+
+  <script>
+    const SILVER = '#DCD9D0';
+    const INK = '#060807';
+    const PAPER = '#F8F8F3';
+    const GROUND = '#060807';
+    const QUIET = 4;
+
+    const $ = (id) => document.getElementById(id);
+    const urlInput = $('url-input');
+    const captionInput = $('caption-input');
+    const errorMsg = $('error-msg');
+    let current = null;
+
+    function isValidUrl(str) {
+      try { const u = new URL(str); return u.protocol === 'https:' || u.protocol === 'http:'; } catch { return false; }
+    }
+
+    function randomKey(len) {
+      const alphabet = 'abcdefghjkmnpqrstuvwxyz23456789';
+      const bytes = new Uint8Array(len);
+      crypto.getRandomValues(bytes);
+      return Array.from(bytes, (b) => alphabet[b % alphabet.length]).join('');
+    }
+
+    // Everything is drawn on a 1000-unit square, so the PNG and SVG match exactly.
+    function layout(url, caption) {
+      const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
+      const n = qr.modules.size;
+      const data = qr.modules.data;
+      const panel = 700, panelX = 150, panelY = 110;
+      const cell = panel / (n + QUIET * 2);
+      const cells = [];
+      for (let r = 0; r < n; r++) {
+        for (let c = 0; c < n; c++) {
+          if (data[r * n + c]) {
+            cells.push([panelX + (c + QUIET) * cell, panelY + (r + QUIET) * cell]);
+          }
+        }
+      }
+      return { cell, cells, panel, panelX, panelY, caption };
+    }
+
+    function drawCanvas(L, px) {
+      const k = px / 1000;
+      const c = document.createElement('canvas');
+      c.width = c.height = px;
+      const ctx = c.getContext('2d');
+      ctx.scale(k, k);
+
+      ctx.fillStyle = GROUND;
+      ctx.fillRect(0, 0, 1000, 1000);
+
+      ctx.strokeStyle = SILVER;
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.roundRect(20, 20, 960, 960, 64);
+      ctx.stroke();
+
+      ctx.fillStyle = PAPER;
+      ctx.beginPath();
+      ctx.roundRect(L.panelX, L.panelY, L.panel, L.panel, 24);
+      ctx.fill();
+
+      ctx.fillStyle = INK;
+      const s = L.cell + 0.4; // tiny overlap hides hairline seams
+      for (const [x, y] of L.cells) ctx.fillRect(x, y, s, s);
+
+      if (L.caption) {
+        ctx.fillStyle = SILVER;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '600 44px "Cormorant Garamond", Georgia, serif';
+        if ('letterSpacing' in ctx) ctx.letterSpacing = '8px';
+        ctx.fillText(L.caption, 500, 910);
+      }
+      return c;
+    }
+
+    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    function buildSvg(L) {
+      const s = (L.cell + 0.4).toFixed(2);
+      const rects = L.cells.map(([x, y]) => `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${s}" height="${s}"/>`).join('');
+      const cap = L.caption
+        ? `<text x="500" y="922" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="600" font-size="44" letter-spacing="8" fill="${SILVER}">${esc(L.caption)}</text>`
+        : '';
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">` +
+        `<rect width="1000" height="1000" fill="${GROUND}"/>` +
+        `<rect x="20" y="20" width="960" height="960" rx="64" fill="none" stroke="${SILVER}" stroke-width="10"/>` +
+        `<rect x="${L.panelX}" y="${L.panelY}" width="${L.panel}" height="${L.panel}" rx="24" fill="${PAPER}"/>` +
+        `<g fill="${INK}">${rects}</g>${cap}</svg>`;
+    }
+
+    function download(href, name) {
+      const a = document.createElement('a');
+      a.href = href; a.download = name; a.click();
+    }
+
+    $('key-btn').addEventListener('click', () => {
+      const raw = urlInput.value.trim();
+      if (!isValidUrl(raw)) { errorMsg.textContent = 'Enter the page address first.'; errorMsg.style.display = 'block'; return; }
+      errorMsg.style.display = 'none';
+      const u = new URL(raw);
+      u.search = ''; u.hash = '';
+      u.pathname = u.pathname.replace(/\/+$/, '') + '/' + randomKey(14) + '/';
+      urlInput.value = u.toString();
+    });
+
+    $('generate-btn').addEventListener('click', async () => {
+      errorMsg.style.display = 'none';
+      const url = urlInput.value.trim();
+      if (!isValidUrl(url)) { errorMsg.textContent = 'Please enter a valid URL.'; errorMsg.style.display = 'block'; return; }
+      try { await document.fonts.load('600 44px "Cormorant Garamond"'); } catch {}
+      const caption = captionInput.value.trim().toUpperCase();
+      const L = layout(url, caption);
+      current = { url, L };
+      const pc = $('preview-canvas');
+      const out = drawCanvas(L, 640);
+      pc.width = pc.height = 640;
+      pc.getContext('2d').drawImage(out, 0, 0);
+      $('url-out').textContent = url;
+      $('preview').style.display = 'flex';
+    });
+
+    $('png-btn').addEventListener('click', () => {
+      if (!current) return;
+      download(drawCanvas(current.L, 2000).toDataURL('image/png'), 'provenance-collection-qr.png');
+    });
+
+    $('svg-btn').addEventListener('click', () => {
+      if (!current) return;
+      const blob = new Blob([buildSvg(current.L)], { type: 'image/svg+xml' });
+      const href = URL.createObjectURL(blob);
+      download(href, 'provenance-collection-qr.svg');
+      setTimeout(() => URL.revokeObjectURL(href), 1000);
+    });
+
+    urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('generate-btn').click(); });
+  </script>
+</body>
+</html>
