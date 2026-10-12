@@ -112,11 +112,10 @@
   <div class="card">
     <div>
       <label for="url-input">Private page URL</label>
-      <input type="url" id="url-input" placeholder="https://provenancemap.ie/collection/" autocomplete="off" />
-      <p class="hint">Paste the address of the page that hosts the Collection. Use the button below to add a random key, so the address cannot be guessed.</p>
+      <input type="url" id="url-input" value="https://provenancemap.ie/collection/f9epkcjqrqj7rr/" autocomplete="off" />
+      <p class="hint">Pre-filled with the private Collection page. The random folder name is the key, so only people with the sticker or link can find it.</p>
     </div>
 
-    <button class="ghost" id="key-btn" type="button">Add a private key to this address</button>
 
     <div>
       <label for="caption-input">Caption on the sticker</label>
@@ -235,16 +234,6 @@
       const a = document.createElement('a');
       a.href = href; a.download = name; a.click();
     }
-
-    $('key-btn').addEventListener('click', () => {
-      const raw = urlInput.value.trim();
-      if (!isValidUrl(raw)) { errorMsg.textContent = 'Enter the page address first.'; errorMsg.style.display = 'block'; return; }
-      errorMsg.style.display = 'none';
-      const u = new URL(raw);
-      u.search = ''; u.hash = '';
-      u.pathname = u.pathname.replace(/\/+$/, '') + '/' + randomKey(14) + '/';
-      urlInput.value = u.toString();
-    });
 
     $('generate-btn').addEventListener('click', async () => {
       errorMsg.style.display = 'none';
