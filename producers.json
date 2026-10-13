@@ -3538,6 +3538,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-12"
+    },
+    {
+      "id": "summerhill-natural-dairy-farm",
+      "practice": "unspecified",
+      "name": "Summerhill Natural Dairy Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.401433,
+      "lng": -8.777566,
+      "county": "Limerick",
+      "location": "Ballyagran, Co. Limerick",
+      "product": "Organic Milk",
+      "product_type": ["dairy"],
+      "description": "KNF Dairy is Thomas Stack's farm at Cloonee, Ballyagran. He took over the family farm in 2012, converted to organic in 2018, and now runs 60 grass fed cows on 130 acres using Korean Natural Farming, making his own soil and animal inputs from natural materials rather than buying them in.",
+      "photo_url": "knfdairy.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-13"
     }
   ]
 }
