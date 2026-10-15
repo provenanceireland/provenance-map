@@ -1618,6 +1618,19 @@
     @media (prefers-reduced-motion: reduce) {
       .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(1.8); opacity: 0.6; }
     }
+    /* The answer to the question that made them hover. A rippling pin asks
+       "why is that one moving"; this says what it means, in the same pale
+       green as the ripple, the legend row and the Connect buttons. Carries no
+       pointer-events of its own: the label is read, never pressed. */
+    #pin-label .pl-connect {
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B4D2BA;
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px solid rgba(180,210,186,0.22);
+    }
     #pin-label .pl-new {
       font-size: 0.5rem;
       letter-spacing: 0.16em;
@@ -2899,7 +2912,7 @@
     // does not open the card; the tap that follows still does.
     const pinLabel = document.createElement('div');
     pinLabel.id = 'pin-label';
-    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-county"></div><div class="pl-new">New this week</div>';
+    pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-county"></div><div class="pl-connect">Buy direct from this farm</div><div class="pl-new">New this week</div>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
     const overLabel = (x, y) => {
@@ -2936,6 +2949,10 @@
       const countyEl = pinLabel.querySelector('.pl-county');
       countyEl.textContent = county ? 'Co. ' + county.replace(/^Co\.?\s+/i, '') : '';
       countyEl.style.display = county ? '' : 'none';
+      // Why that pin was rippling. Hovering is the question; this is the
+      // answer, so it only shows on the farms the ripple is on.
+      pinLabel.querySelector('.pl-connect').style.display =
+        pin.classList.contains('on-connect') ? '' : 'none';
       pinLabel.querySelector('.pl-new').style.display = pin.classList.contains('is-new') ? '' : 'none';
       pinLabel.style.left = (r.left + r.width / 2) + 'px';
       pinLabel.style.top  = r.top + 'px';
