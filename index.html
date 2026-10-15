@@ -1460,6 +1460,9 @@
       padding: 6px 11px 7px;
       text-align: center;
       white-space: nowrap;
+      /* Caps how far the label can grow so it cannot be pushed off a phone
+         screen by a pin near the coast. */
+      max-width: min(78vw, 280px);
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.12s;
@@ -1506,24 +1509,13 @@
        on certain pins and would not let go. The film is on the card and on
        the profile page instead. Nothing in here is interactive now, so the
        pointer passes straight through. */
-    /* And on hover the gold pin itself grows and shows a play mark, the only
-       pin that changes under the pointer. The mark is drawn at the dot's own
-       scale and grows with it, so it stays crisp. */
+    /* And on hover the gold pin itself grows, the only pin that changes under
+       the pointer. It used to carry a small play triangle as well, on any
+       Highlighted farm with film on its record; that was removed on
+       2026-10-15 at the user's request. The film lives on the card and on the
+       profile page, and the pin's job is to say where the farm is. */
     .pin.t-featured .pin-dot { transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
     .pin.t-featured.hovered .pin-dot { transform: scale(2.3); z-index: 3; }
-    .pin.t-featured.hovered.has-film .pin-dot::after {
-      content: '';
-      position: absolute;
-      left: 50%; top: 50%;
-      width: 0; height: 0;
-      border-left: 3.2px solid #2F5C3A;
-      border-top: 2.2px solid transparent;
-      border-bottom: 2.2px solid transparent;
-      transform: translate(-38%, -50%);
-      box-shadow: none;
-      border-radius: 0;
-      background: none;
-    }
 
     /* ── ON PROVENANCE CONNECT ──────────────────────────────────────────────
        A thin ring leaves the pin and fades, like a drop in water. It reads as
@@ -1630,6 +1622,11 @@
       margin-top: 5px;
       padding-top: 5px;
       border-top: 1px solid rgba(180,210,186,0.22);
+      /* The one long line in the label, and the label is nowrap. On a narrow
+         phone, centred on a pin near the coast, it would otherwise run off the
+         edge of the screen. This line may wrap; the short ones above it still
+         do not. */
+      white-space: normal;
     }
     #pin-label .pl-new {
       font-size: 0.5rem;
