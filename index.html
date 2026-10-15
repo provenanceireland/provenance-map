@@ -1498,26 +1498,33 @@
        green as the Connect buttons, so the mark on the map and the button on
        the card read as one thing.
 
-       Slow (3.8s) and low in opacity on purpose: it has to live under the
-       cursor all day without becoming the loudest thing on the island. */
+       Pulled back on 2026-10-15: it was reading as the loudest thing on the
+       island, and it was in fact louder than the paid gold breath it sits
+       beside (0.55 peak over 3.8s against gold's 0.42 over 4.5s), which is
+       the wrong way round. Now 0.34 peak over 5s, travelling to 3.2x on a
+       0.8px line, with nearly half the cycle spent at rest. Just enough to
+       catch the eye on a pin you were not looking at. */
     .pin-ripple {
       position: absolute;
       left: 50%; top: 50%;
       width: 9px; height: 9px;
       margin: 0;
       border-radius: 50%;
-      border: 1px solid #B4D2BA;
+      border: 0.8px solid #B4D2BA;
       transform: translate(-50%, -50%) scale(1);
       opacity: 0;
       pointer-events: none;
       z-index: 1;
-      animation: connect-ripple 3.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      animation: connect-ripple 5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
     }
+    /* The long tail at zero is deliberate. A ring that restarts the instant
+       it fades reads as a blink; resting for nearly half the cycle reads as
+       breathing. */
     @keyframes connect-ripple {
       0%   { opacity: 0;    transform: translate(-50%, -50%) scale(1); }
-      12%  { opacity: 0.55; transform: translate(-50%, -50%) scale(1.3); }
-      70%  { opacity: 0;    transform: translate(-50%, -50%) scale(3.8); }
-      100% { opacity: 0;    transform: translate(-50%, -50%) scale(3.8); }
+      10%  { opacity: 0.34; transform: translate(-50%, -50%) scale(1.25); }
+      55%  { opacity: 0;    transform: translate(-50%, -50%) scale(3.2); }
+      100% { opacity: 0;    transform: translate(-50%, -50%) scale(3.2); }
     }
     @media (prefers-reduced-motion: reduce) {
       .pin-ripple { animation: none; }
@@ -2709,7 +2716,7 @@
       div.querySelector('.pin-pulse').style.animationDelay = '-' + (Math.random() * 3).toFixed(2) + 's';
       // Same for the ripples, or every Connect farm in the country breathes
       // out together and it reads as a machine rather than as a map.
-      if (onConnect) div.querySelector('.pin-ripple').style.animationDelay = '-' + (Math.random() * 3.8).toFixed(2) + 's';
+      if (onConnect) div.querySelector('.pin-ripple').style.animationDelay = '-' + (Math.random() * 5).toFixed(2) + 's';
       return div;
     }
 
