@@ -1488,6 +1488,41 @@
       background: none;
     }
 
+    /* ── ON PROVENANCE CONNECT ──────────────────────────────────────────────
+       A thin ring leaves the pin and fades, like a drop in water. It reads as
+       broadcast, which is what Connect is: this farm is reachable.
+
+       Deliberately not the tier's own pulse. That one breathes a soft blur in
+       place and belongs to the paid tiers; this one travels outward and is a
+       different motion doing a different job. Pale green #B4D2BA, the same
+       green as the Connect buttons, so the mark on the map and the button on
+       the card read as one thing.
+
+       Slow (3.8s) and low in opacity on purpose: it has to live under the
+       cursor all day without becoming the loudest thing on the island. */
+    .pin-ripple {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 9px; height: 9px;
+      margin: 0;
+      border-radius: 50%;
+      border: 1px solid #B4D2BA;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      animation: connect-ripple 3.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+    @keyframes connect-ripple {
+      0%   { opacity: 0;    transform: translate(-50%, -50%) scale(1); }
+      12%  { opacity: 0.55; transform: translate(-50%, -50%) scale(1.3); }
+      70%  { opacity: 0;    transform: translate(-50%, -50%) scale(3.8); }
+      100% { opacity: 0;    transform: translate(-50%, -50%) scale(3.8); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pin-ripple { animation: none; }
+    }
+
     /* ── ARRIVAL ── on first load the pins settle onto the island in a sweep
        from the north-west, about a second end to end, each one fading in and
        easing down to size. Off for reduced motion. */
@@ -2628,6 +2663,11 @@
       if (p.pin_classes) classes.push(...p.pin_classes.trim().split(' ').filter(Boolean));
       if (p.available_now) classes.push('available-now');
       if (p.collection)  { classes.push('collection'); div.dataset.collection = 'true'; }   // a Provenance Collection member wears the Collection pin
+      /* On Provenance Connect: a farm you can message and buy from directly.
+         connectState is the same test the card uses, so a pin and a card can
+         never disagree about whether a farm is reachable. */
+      const onConnect = !!connectState(p);
+      if (onConnect) classes.push('on-connect');
       div.className = classes.join(' ');
       div.dataset.lat = p.lat;
       div.dataset.lng = p.lng;
@@ -2663,9 +2703,13 @@
       if (p.where_to_buy && p.where_to_buy.length) div.dataset.whereToBuy = JSON.stringify(p.where_to_buy);
       if (p.farmers_market) div.dataset.farmersMarket = 'true';
       if (p.farm_shop)      div.dataset.farmShop      = 'true';
-      div.innerHTML = '<div class="pin-pulse"></div><div class="pin-dot"></div>';
+      div.innerHTML = '<div class="pin-pulse"></div><div class="pin-dot"></div>' +
+        (onConnect ? '<div class="pin-ripple"></div>' : '');
       // Desynchronise pulse cycles so seal pins never blink in unison
       div.querySelector('.pin-pulse').style.animationDelay = '-' + (Math.random() * 3).toFixed(2) + 's';
+      // Same for the ripples, or every Connect farm in the country breathes
+      // out together and it reads as a machine rather than as a map.
+      if (onConnect) div.querySelector('.pin-ripple').style.animationDelay = '-' + (Math.random() * 3.8).toFixed(2) + 's';
       return div;
     }
 
