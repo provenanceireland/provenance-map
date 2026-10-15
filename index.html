@@ -897,6 +897,8 @@
       gap: 7px;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
+      /* none on the block so the gaps between rows still pass clicks down to
+         the map; auto on the rows themselves. */
       pointer-events: none;
       width: fit-content;
       max-width: 46vw;
@@ -909,7 +911,41 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #504838;
+      /* a real button, so it answers the keyboard as well as the thumb */
+      pointer-events: auto;
+      appearance: none;
+      background: none;
+      border: 0;
+      border-radius: 4px;
+      margin: 0;
+      padding: 2px 4px;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.16s, color 0.16s;
+      -webkit-tap-highlight-color: transparent;
     }
+    .legend-item:hover { background: rgba(255,255,255,0.05); color: #6E6450; }
+    /* Pressed: this group is the one the map is keeping. */
+    .legend-item[aria-pressed="true"] {
+      background: rgba(255,255,255,0.09);
+      color: #B9AC8E;
+    }
+    .legend-item[aria-pressed="true"] .legend-desc { color: rgba(185,172,142,0.72); }
+    /* The ripple, standing still, so the row and the pin are visibly the same
+       thing. It does not animate here: a legend is read, not watched. */
+    .legend-connect .legend-ring {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      border: 0.8px solid rgba(180,210,186,0.75);
+      transform: translate(-50%, -50%) scale(1.5);
+      pointer-events: none;
+    }
+    .legend-count { color: #B4D2BA; }
+    .legend-connect[aria-pressed="true"] { background: rgba(180,210,186,0.14); color: #B4D2BA; }
+    .legend-connect[aria-pressed="true"] .legend-desc { color: rgba(180,210,186,0.75); }
     .legend-text {
       display: flex;
       flex-direction: column;
@@ -930,6 +966,7 @@
       position: relative;
     }
     .legend-dot {
+      display: block;   /* a span since the rows became buttons; without this its width and height are ignored */
       border-radius: 50%;
       flex-shrink: 0;
       position: relative;
@@ -2203,34 +2240,51 @@
 
 
   <!-- MAP LEGEND -->
+  <!-- The legend is a control, not a caption (2026-10-15). Press a row and
+       the map keeps that group and drops the rest back; press it again and
+       the map returns. It drives the same filterState the filter panel does,
+       so the two can never disagree and Clear all clears both. -->
   <div id="map-legend">
-    <div class="legend-item">
-      <div class="legend-dot-wrap">
-        <div class="legend-dot" style="width:5.85px;height:5.85px;background:#2A5A38;border:1px solid rgba(232,222,200,0.75);box-shadow:0 0 4px 1px rgba(42,90,56,0.40);"></div>
-      </div>
-      <div class="legend-text">
+    <button type="button" class="legend-item" data-legend-tier="discovered" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:5.85px;height:5.85px;background:#2A5A38;border:1px solid rgba(232,222,200,0.75);box-shadow:0 0 4px 1px rgba(42,90,56,0.40);"></span>
+      </span>
+      <span class="legend-text">
         <span>Discovered producer</span>
         <span class="legend-desc">Found and listed by Provenance</span>
-      </div>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot-wrap legend-dot-verified">
-        <div class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></div>
-      </div>
-      <div class="legend-text">
+      </span>
+    </button>
+    <button type="button" class="legend-item" data-legend-tier="verified" aria-pressed="false">
+      <span class="legend-dot-wrap legend-dot-verified">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></span>
+      </span>
+      <span class="legend-text">
         <span>Verified producer</span>
         <span class="legend-desc">Details confirmed by the producer</span>
-      </div>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot-wrap legend-dot-featured">
-        <div class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(69,112,78,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></div>
-      </div>
-      <div class="legend-text">
+      </span>
+    </button>
+    <button type="button" class="legend-item" data-legend-tier="featured" aria-pressed="false">
+      <span class="legend-dot-wrap legend-dot-featured">
+        <span class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(69,112,78,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></span>
+      </span>
+      <span class="legend-text">
         <span>Highlighted producer</span>
         <span class="legend-desc">Visited and filmed by Provenance</span>
-      </div>
-    </div>
+      </span>
+    </button>
+    <!-- Not a tier, so it is described by what it lets you do rather than by
+         what the producer has earned, and its count is on screen because that
+         number is the whole point of it. Hidden until a farm is on Connect. -->
+    <button type="button" class="legend-item legend-connect hidden" id="legend-connect" data-legend-connect="1" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-ring"></span>
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 5px 1.5px rgba(89,166,102,0.45);"></span>
+      </span>
+      <span class="legend-text">
+        <span>Buy direct <span class="legend-count" id="legend-connect-count"></span></span>
+        <span class="legend-desc">Message the farm and order from them</span>
+      </span>
+    </button>
   </div>
 
   <!-- DISCOVERY COUNTER -->
@@ -3474,6 +3528,7 @@
         initPins();
         animateCounter(data.producers.length);
         hideEmptyChips(); // must run after pins exist — chips are driven by live data
+        updateLegendConnect(); // same reason: the count is read off the pins
         buildMenu(data.producers); // must run after the chips, which name the categories
         // The live availability sheet. Nothing waits on it: a card opened
         // before it lands falls back to the record's own connect block.
@@ -3523,16 +3578,31 @@
       productTypes: new Set(),
       practices: new Set(),
       attributes: new Set(),
-      tiers: new Set()
+      tiers: new Set(),
+      // A plain boolean, not a Set: there is one Connect, you are on it or
+      // you are not.
+      connect: false
     };
+
+    /* The legend and the filter panel drive the same state, so after any
+       change both have to be redrawn from it rather than each tracking its
+       own idea of what is active. */
+    function syncFilterUI() {
+      document.querySelectorAll('.tier-btn').forEach(b =>
+        b.classList.toggle('active', filterState.tiers.has(b.dataset.tier)));
+      document.querySelectorAll('[data-legend-tier]').forEach(b =>
+        b.setAttribute('aria-pressed', filterState.tiers.has(b.dataset.legendTier) ? 'true' : 'false'));
+      const lc = document.getElementById('legend-connect');
+      if (lc) lc.setAttribute('aria-pressed', filterState.connect ? 'true' : 'false');
+    }
 
     let lastAnswerKey = '';
     function applyFilters() {
       if (nearMe.active) return; // near-me controls pin opacity while mode is on
       const pins = document.querySelectorAll('.pin');
-      const { search, county, productTypes, practices, attributes, tiers } = filterState;
+      const { search, county, productTypes, practices, attributes, tiers, connect } = filterState;
       const hasFilters = search || county || productTypes.size || practices.size ||
-                         attributes.size || tiers.size;
+                         attributes.size || tiers.size || connect;
       const matched = [];
 
       pins.forEach(pin => {
@@ -3569,6 +3639,9 @@
         }
         if (match && tiers.size) {
           match = tiers.has(tierName);
+        }
+        if (match && connect) {
+          match = pin.classList.contains('on-connect');
         }
 
         pin.style.opacity = match ? '' : '0.25';
@@ -3669,9 +3742,9 @@
     }
 
     function updateFilterBadge() {
-      const { search, county, productTypes, practices, attributes, tiers } = filterState;
+      const { search, county, productTypes, practices, attributes, tiers, connect } = filterState;
       const count = (search ? 1 : 0) + (county ? 1 : 0) + productTypes.size +
-                    practices.size + attributes.size + tiers.size;
+                    practices.size + attributes.size + tiers.size + (connect ? 1 : 0);
       const toggle = document.getElementById('filter-toggle');
       let badge = document.getElementById('filter-count');
       if (count > 0) {
@@ -3695,9 +3768,11 @@
       filterState.practices.clear();
       filterState.attributes.clear();
       filterState.tiers.clear();
+      filterState.connect = false;
       document.getElementById('filter-search').value = '';
       document.getElementById('filter-county').value = '';
       document.querySelectorAll('.filter-chip, .tier-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.legend-item').forEach(b => b.setAttribute('aria-pressed', 'false'));
       applyFilters();
     }
 
@@ -3738,6 +3813,24 @@
       });
     });
 
+    /* The legend as a control. A row toggles the same filterState the panel
+       does, so pressing "Verified producer" here and the Verified chip in
+       the panel are the one action, and Clear all releases both. */
+    document.querySelectorAll('.legend-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.legendConnect) {
+          filterState.connect = !filterState.connect;
+        } else {
+          const tier = btn.dataset.legendTier;
+          if (filterState.tiers.has(tier)) filterState.tiers.delete(tier);
+          else                             filterState.tiers.add(tier);
+        }
+        syncFilterUI();
+        applyFilters();
+        updateFilterBadge();
+      });
+    });
+
     document.querySelectorAll('.tier-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const tier = btn.dataset.tier;
@@ -3748,9 +3841,22 @@
           filterState.tiers.add(tier);
           btn.classList.add('active');
         }
+        syncFilterUI();   // the legend shows the same tiers as the panel
         applyFilters();
       });
     });
+
+    /* The Connect row's count, and whether the row shows at all. Read off the
+       pins rather than producers.json, so it can only ever report farms that
+       actually made it onto the map. */
+    function updateLegendConnect() {
+      const row = document.getElementById('legend-connect');
+      if (!row) return;
+      const n = document.querySelectorAll('.pin.on-connect').length;
+      const count = document.getElementById('legend-connect-count');
+      if (count) count.textContent = n ? '· ' + n : '';
+      row.classList.toggle('hidden', n === 0);
+    }
 
     // The corner Connect button. Counted separately from the card's, so the
     // map's own doorway into Connect can be told from a producer's.
