@@ -3593,7 +3593,28 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": "2026-10-17"
+      "date_added": "2026-10-17",
+      "connect": {
+        "active": true,
+        "channel": { "type": "email", "value": "rheeriverorganics@gmail.com" },
+        "order_url": "",
+        "updated": "2026-10-17",
+        "intro": "Heritage vegetables grown in the Causeway countryside, without artificial chemicals. This is their list for October and November.",
+        "terms": "Collection from BT51, or delivery for £4 within 15 miles. Further out on request.",
+        "available": [
+          { "name": "Rainbow chard", "note": "£6 a kilo, 60p per 100g." },
+          { "name": "Kales", "note": "Red Russian and Cottagers. £6 a kilo, 60p per 100g." },
+          { "name": "Cavalo Nero", "note": "£6 a kilo, 60p per 100g." },
+          { "name": "Pumpkin, Red Kuri", "note": "Half a kilo to 3kg each. £5.50 a kilo." },
+          { "name": "Pumpkin, Jarrahdale or Crown Prince", "note": "5 to 8kg each. £5.50 a kilo." },
+          { "name": "Flat leaf parsley", "note": "£2 per 100g." },
+          { "name": "Chives", "note": "£2 per 100g." },
+          { "name": "Mixed salad leaves", "note": "£10 a kilo, £1 per 100g." },
+          { "name": "Mixed Orientals mustards", "note": "Mibuna, mizuna and wasabina. £10 a kilo, £1 per 100g." },
+          { "name": "Spring onions", "note": "£8.50 a kilo, 85p per 100g." }
+        ],
+        "plus": {}
+      }
     }
   ]
 }
