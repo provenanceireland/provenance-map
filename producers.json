@@ -3675,6 +3675,36 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-17"
+    },
+    {
+      "id": "dun-deagh-farm",
+      "practice": "regenerative",
+      "name": "Dun Deagh Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.391139,
+      "lng": -6.372467,
+      "lat_desktop": 53.391139,
+      "lng_desktop": -6.175317,
+      "county": "Dublin",
+      "location": "Co. Dublin",
+      "product": "Vegetables",
+      "product_type": ["vegetables"],
+      "description": "We have 4 acres where we grow over 40 types of vegetables. We use organic principals and will be certified organic on 1st January 2027. Grown with love by Michael and Niamh.",
+      "photo_url": "dundeagh.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Chemical Free"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-17"
     }
   ]
 }
