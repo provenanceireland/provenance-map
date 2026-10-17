@@ -3705,6 +3705,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-17"
+    },
+    {
+      "id": "ballydown-milk",
+      "practice": "regenerative",
+      "name": "Ballydown Milk",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.34117,
+      "lng": -6.2597,
+      "county": "Down",
+      "location": "Banbridge, Co. Down",
+      "product": "Gently pasteurised Milk, yoghurt & Kefir",
+      "product_type": ["dairy"],
+      "description": "Fourth generation dairy farmers who are processing our own milk and selling through our on farm shop with our yoghurt & Kefir.",
+      "photo_url": "ballydown.jpg",
+      "directions": "https://maps.google.com/?q=BT32+3RN",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Non-Homogenised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-17"
     }
   ]
 }
