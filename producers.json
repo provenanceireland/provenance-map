@@ -3644,6 +3644,35 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-17"
+    },
+    {
+      "id": "shy-by-nature-farm",
+      "practice": "regenerative,organic",
+      "name": "Shy By Nature Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.688686,
+      "lng": -8.293185,
+      "county": "Donegal",
+      "location": "Co. Donegal",
+      "product": "Organic vegetables",
+      "product_type": ["vegetables"],
+      "description": "Shy By Nature is an organic market garden in South Donegal, growing seasonal vegetables with and for our community. Our veg boxes travel from Letterkenny to Donegal Town, Killybegs and Dungloe, and we also supply local cafés, restaurants and shops. “For life and wildlife” is our guiding principle.",
+      "photo_url": "shybynature.jpg",
+      "photo_bg": "white",
+      "directions": "https://maps.google.com/?q=F94+YV91",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Chemical Free"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-17"
     }
   ]
 }
