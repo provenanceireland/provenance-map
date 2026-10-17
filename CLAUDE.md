@@ -219,11 +219,84 @@ from any page depth. Square, 700px, q84 — a centre crop of a packet shot reads
 well at the 96px the list renders. Rathphelan Farm has thirteen (2026-09-25).
 
 **No commission, ever.** Provenance takes no part in the order; the button goes
-straight to the producer's chosen channel. The commercial model is a monthly
-producer subscription. Still open, and needing a decision: which tiers may use
-Connect (availability is a producer-authored claim, which argues for
-Verified as the floor, and nothing enforces a tier yet), and whether that
-subscription is self-service, which this file currently says no paid step is.
+straight to the producer's chosen channel.
+
+**Connect is a free discovery and connection network, with paid services built
+around it as the platform develops (revised 2026-10-17).** That is the shape of
+the thing, and the sentence to reach for when anyone asks what Connect is.
+
+**The basic producer profile stays free.** Being found, having a profile, and
+carrying a Connect button costs a producer nothing. There is no listing fee,
+and the €15 listing fee and the monthly producer subscription that earlier
+versions of this file described are both retired. Do not reintroduce a charge
+for the basic listing.
+
+**The first paid feature being tested is weekly product availability updates,
+with a visible update date on the profile.** A producer keeping their own list
+current, every week, under their own hand, and the date of their last update on
+screen for a buyer to judge. The machinery already exists: `updated` on the
+connect block, `CONNECT_FRESH_DAYS`, and the heading that softens from
+*Available now* to *Last listed*. What has not existed is a way for a producer
+to do the updating themselves, which is the thing being built and the thing
+being charged for.
+
+**What is free and what is paid, as it stands:**
+
+| | |
+|---|---|
+| Free | The listing, the profile, the Connect button, the availability list itself, and the update date |
+| Paid, recurring | The producer updating that list themselves, weekly |
+| Paid, one-off | A Connect visit |
+
+The distinction to hold on to: **a farm's current availability always shows,
+whoever is paying.** What is paid for is the producer's own hand on it rather
+than Provenance updating it for them. Nothing is taken off a page because a
+producer has not paid.
+
+**Connect visits stay a separate one-off paid service.** A visit is bought on
+its own and is never folded into the recurring feature. It may be *bundled*
+with it, for instance a visit carrying some months of updates with it, and that
+is a commercial decision rather than a rule in this file. How a Connect visit
+relates to the **Highlighted** tier, which is itself visit-gated and one-off,
+has not been stated: do not assume they are the same thing or different things
+without asking.
+
+**The 60-day founding trial explains the model; it does not charge for it.**
+The trial is not a countdown to paying for the basic listing. Its job is to
+show producers what Connect is and where it is going. **The first trial runs
+with Rathphelan Farm** (chosen 2026-10-17): one farm updating weekly, their
+content pushed hard, and one question to answer, which is whether an update
+produces enquiries. If it does, the price sets itself.
+
+**Where Connect is going** (the vision, not a build list): AI assistance,
+websites, customer enquiries, availability updates and ordering automation. The
+aim is for Provenance to be the digital infrastructure behind independent
+producers, not another directory.
+
+Still open: which tiers may use Connect (availability is a producer-authored
+claim, which argues for Verified as the floor, and nothing enforces a tier yet),
+and what the recurring feature costs.
+
+#### Talking about Connect in content
+
+**Consumer content sells the vision, not the software roadmap.** No tiers, no
+prices, no feature list for producers in anything aimed at the public. The
+consumer message is: find the people behind your food, see what they make and
+where they are, connect with them directly, and joining is free for producers.
+Tiers and pricing belong in a separate producer-facing carousel, made later.
+
+The consumer "What is Provenance Connect?" carousel runs, in order: what if you
+could discover the people behind your food and connect with them; Ireland is
+full of farmers, growers, beekeepers, producers and food businesses, but
+finding them isn't always easy; that's why we built Provenance Connect; find a
+producer, discover what they make, see where they're based; connect directly
+(website, WhatsApp, farm shop, direct enquiry); joining Connect is free, no
+monthly fee to be part of the network; because we don't want Provenance to be
+simply another directory, we want to build the digital infrastructure behind
+independent producers; that's where Connect is going (AI assistance, websites,
+customer enquiries, availability updates, ordering automation); a free network
+of Irish producers with better digital tools built around them; close: find
+the people behind your food, explore Provenance Connect, provenancemap.ie.
 
 ### Navigation and profile pages
 
@@ -242,6 +315,12 @@ The category names and their order are read from the map's own filter chips at l
 `profileUrl()` implements that rule and exists in both `index.html` and `/producer/index.html`. The shared page redirects to a bespoke one if it is ever reached by a stale link, so a producer can never be shown a lesser page than they have earned.
 
 `/producer/index.html` is set in the **Highlighted pages' language** (charcoal, Playfair, forest green, no italic), not the map's, because it is a profile page. It shows only what the record can honestly carry: a Discovered farm gets what its card has, Verified adds the practice and the attributes they confirmed, and Instagram, website and where-to-buy are gated to Highlighted **in the page code as well as in the data**, so a stray field on a free record can never put a paid benefit on a free page. The single card image is contained rather than cropped, since it is usually a logo, and `photo_bg: "white"` gives it a white ground to sit on.
+
+### The Provenance Collection
+
+**One-off, limited-run releases made with producers already on the map.** Each one is a product from a producer the user has met and visited, announced and documented as a storytelling piece, and never restocked. Membership is the silver `"collection": true` mark described above: it sits on top of whatever tier the producer already holds and never replaces one. First member: Galtee Honey Farm, 2026-09-19.
+
+**Provenance works with producers and does not make its own products (decided 2026-10-12).** A Collection release is a collaboration with a named producer, carrying their product and their name, not a Provenance-manufactured line. **Athnuachan, the user's own grass-fed tallow brand, is shelved** and is not in the pipeline; it does not appear on Collection releases and a Collection product is not routed through it. Do not propose an own-brand product, a Provenance-made line or an Athnuachan collaboration unless the user reopens it himself.
 
 ### Consumer Model (B2C, Freemium)
 
