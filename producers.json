@@ -3565,6 +3565,35 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-13"
+    },
+    {
+      "id": "rhee-river-organics",
+      "practice": "unspecified",
+      "name": "Rhee River Organics",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 55.07,
+      "lng": -6.68,
+      "lat_desktop": 55.07,
+      "lng_desktop": -6.48285,
+      "county": "Derry",
+      "location": "Coleraine, Co. Derry",
+      "product": "Heritage Vegetables",
+      "product_type": ["vegetables"],
+      "description": "Heritage vegetables grown on the slopes above the Rhee River in the Causeway countryside, as part of a woodland property managed for wildlife.",
+      "photo_url": "rheeriver.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-17"
     }
   ]
 }
