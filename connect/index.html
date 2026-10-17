@@ -28,6 +28,11 @@
   <meta name="twitter:description" content="Beef by the quarter, half or whole animal, or individual cuts. What each farm has right now, and how to reach them." />
   <meta name="twitter:image" content="https://provenancemap.ie/assets/og/connect.jpg" />
   <meta name="theme-color" content="#1A1B18" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Provenance" />
   <link rel="icon" href="../icons/icon-192.png" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y56PR1JFH8"></script>
@@ -292,6 +297,13 @@
         }
       })
       .catch(() => { $('empty').textContent = 'The list could not be loaded. Try again in a moment.'; $('empty').classList.remove('hidden'); });
+  </script>
+  <script>
+    /* Registered here as well as on the map, because these pages are entry
+       points in their own right: a shared Connect link lands here first. The
+       worker sits at the site root either way, so the scope is the whole site
+       and one registration serves all of them. */
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('../service-worker.js');
   </script>
 </body>
 </html>

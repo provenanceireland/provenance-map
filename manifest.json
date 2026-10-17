@@ -1,12 +1,23 @@
 {
+  "id": "/",
   "name": "Provenance",
   "short_name": "Provenance",
   "description": "Real food. Named source. Verified producer.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#060807",
   "theme_color": "#060807",
+  "categories": ["food", "shopping", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Provenance Connect",
+      "short_name": "Connect",
+      "description": "Farms you can message and buy from directly",
+      "url": "/connect/"
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon-192.png",

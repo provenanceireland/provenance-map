@@ -29,6 +29,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="manifest" href="manifest.json" />
+  <!-- iOS ignores the manifest's icons. Without this, Add to Home Screen uses
+       a screenshot of whatever was on screen as the app icon. -->
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1517,6 +1521,56 @@
     .pin.t-featured .pin-dot { transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
     .pin.t-featured.hovered .pin-dot { transform: scale(2.3); z-index: 3; }
 
+    /* ── INSTALL ────────────────────────────────────────────────────────────
+       A slim bar at the foot of the map. On Android it appears when Chrome
+       fires beforeinstallprompt and pressing it opens the real install
+       dialogue. On iOS no such event exists and never will, so it instead
+       tells them where the Share button is. Dismissed once, gone for good. */
+    #install-bar {
+      position: fixed;
+      left: 12px; right: 12px;
+      bottom: calc(env(safe-area-inset-bottom, 12px) + 12px);
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px 11px 14px;
+      border-radius: 10px;
+      background: rgba(17,18,16,0.95);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    #install-bar .ib-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+    #install-bar .ib-title { font-size: 0.78rem; color: #E8DEC8; line-height: 1.25; }
+    #install-bar .ib-sub { font-size: 0.66rem; color: #8d8a80; line-height: 1.3; }
+    #install-bar #ib-go {
+      flex: none;
+      padding: 8px 14px;
+      border: 0; border-radius: 6px;
+      background: #B4D2BA; color: #27502F;
+      font-family: inherit; font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #install-bar #ib-no {
+      flex: none;
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: 0; padding: 0;
+      color: #6a6253; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #install-bar #ib-no svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+    #install-bar #ib-no:hover { color: #B9AC8E; }
+    /* On iOS the button is instructions, not an action, so it is not dressed
+       as the thing that does the installing. */
+    #install-bar.ios #ib-go { background: none; border: 1px solid rgba(201,198,189,0.35); color: #E8DEC8; }
+
     /* ── ON PROVENANCE CONNECT ──────────────────────────────────────────────
        A thin ring leaves the pin and fades, like a drop in water. It reads as
        broadcast, which is what Connect is: this farm is reachable.
@@ -2353,6 +2407,20 @@
        own, the same as every other Connect that is navigation rather than a
        chat. -->
   <a id="connect-fab" href="connect/" aria-label="Provenance Connect, buy direct from the farm">Connect</a>
+
+  <!-- The invitation to install. Hidden until the browser says it is possible,
+       or until we know we are on an iPhone, where it never will. Dismissed
+       once and it stays dismissed. -->
+  <div id="install-bar" class="hidden">
+    <div class="ib-text">
+      <span class="ib-title">Add Provenance to your phone</span>
+      <span class="ib-sub" id="ib-sub">Opens full screen, works without signal</span>
+    </div>
+    <button type="button" id="ib-go">Install</button>
+    <button type="button" id="ib-no" aria-label="Not now">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
 
   <!-- FILTER PANEL -->
   <div id="filter-panel">
@@ -3584,6 +3652,77 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js?v=32');
     }
+
+    /* ── INSTALL ──────────────────────────────────────────────────────────
+       Two completely different jobs behind one bar.
+
+       Android and desktop Chrome fire beforeinstallprompt when the site
+       qualifies. We hold the event, show the bar, and hand the event back to
+       the browser when they press. The prompt can only be used once.
+
+       iOS fires nothing and Apple will not add it, so the only route is
+       Share then Add to Home Screen. There the bar is a signpost, and it
+       only appears for someone actually on an iPhone or iPad who has not
+       already installed it. */
+    (function () {
+      const bar = document.getElementById('install-bar');
+      if (!bar) return;
+      const DISMISSED = 'pv-install-dismissed';
+      let deferred = null;
+
+      // Already installed: standalone on Android/desktop, navigator.standalone on iOS.
+      const installed = window.matchMedia('(display-mode: standalone)').matches ||
+                        window.navigator.standalone === true;
+      let dismissed = false;
+      try { dismissed = localStorage.getItem(DISMISSED) === '1'; } catch (e) {}
+      if (installed || dismissed) return;
+
+      const show = () => bar.classList.remove('hidden');
+
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();          // suppress Chrome's own banner, use ours
+        deferred = e;
+        show();
+      });
+
+      const ua = navigator.userAgent;
+      const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                    // iPadOS 13+ reports as a Mac, with a touchscreen
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      if (isIOS) {
+        bar.classList.add('ios');
+        document.getElementById('ib-sub').textContent = 'Tap Share, then Add to Home Screen';
+        document.getElementById('ib-go').textContent = 'How';
+        // Give them a moment with the map before asking for anything.
+        setTimeout(show, 2500);
+      }
+
+      document.getElementById('ib-go').addEventListener('click', async () => {
+        pvTrack('install_prompt_click', { platform: isIOS ? 'ios' : 'other' });
+        if (deferred) {
+          deferred.prompt();
+          const { outcome } = await deferred.userChoice;
+          pvTrack('install_choice', { outcome: outcome });
+          deferred = null;
+          bar.classList.add('hidden');
+        } else if (isIOS) {
+          document.getElementById('ib-sub').textContent =
+            'Share is the square with the arrow, in the toolbar';
+        }
+      });
+
+      document.getElementById('ib-no').addEventListener('click', () => {
+        bar.classList.add('hidden');
+        try { localStorage.setItem(DISMISSED, '1'); } catch (e) {}
+        pvTrack('install_dismissed', {});
+      });
+
+      window.addEventListener('appinstalled', () => {
+        bar.classList.add('hidden');
+        try { localStorage.setItem(DISMISSED, '1'); } catch (e) {}
+        pvTrack('install_done', {});
+      });
+    })();
 
     /* ── FILTER SYSTEM ── */
     const filterState = {
