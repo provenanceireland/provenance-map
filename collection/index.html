@@ -104,8 +104,8 @@
 </head>
 <body>
   <header class="site">
-    <a class="logo" href="../../">PROVENANCE</a>
-    <a class="back" href="../../">The map</a>
+    <a class="logo" href="../">PROVENANCE</a>
+    <a class="back" href="../">The map</a>
   </header>
 
   <main class="wrap">
@@ -119,12 +119,12 @@
     <p class="label count" id="count" hidden></p>
     <div id="list"></div>
     <p class="empty" id="empty" hidden>The Collection could not be loaded. Please try again.</p>
-    <p class="note">Every producer here is on the <a href="../../" style="color:var(--silver)">Provenance Map</a>.</p>
+    <p class="note">Every producer here is on the <a href="../" style="color:var(--silver)">Provenance Map</a>.</p>
   </main>
 
   <script>
     const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    const ROOT = '../../';
+    const ROOT = '../';
     const TIER = { discovered: 'Discovered', verified: 'Provenance Verified', featured: 'Provenance Highlighted' };
 
     // Same rule as the map and the shared profile page.

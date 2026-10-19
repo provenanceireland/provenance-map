@@ -14,26 +14,26 @@ Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Nati
 |------|-------|----------|
 | **Discovered** | €0 | Free basic map pin. The default listing for any producer. |
 | **Verified** | €0 | Free. The producer confirms their own details and farming practice via the "verify your profile" Fillout form. Green pin and a confirmed practice pill — **organic** (dark green `#4A8A55`, leaf icon) and/or **regenerative** (gold `#C4A44A`, sprout icon); a producer can hold both, shown side by side. Any other value shows no pill. A single card image (a logo or one representative photo) — but **no multi-image gallery, Instagram, website, or where-to-buy**; those begin at Highlighted. |
-| **Provenance Highlighted** | One-off fee (amount TBD) | Visit-gated, farm-level. Never sold without a prior personal visit. **A one-off fee, never a monthly charge (confirmed 2026-10-08).** The fee covers the visit, the filmed vlog, the photography and building their profile page. Updates happen opportunistically when the founder is at the farm anyway. The monthly retainer belongs to the Seal, not to this tier. Includes the filmed farm visit (vlogged), a gold pulsing pin with priority placement, photo gallery, Instagram + website links, where-to-buy, a chatbot trained on the farm's practice, a monthly collaborative reel/carousel posted across Provenance, and a silver-bordered QR sticker. Currently: Skehana Hill, Tara Hill Honey (from 2026-09-19). |
-| **Provenance Seal Complete** | €149/month | Product-level — requires a qualifying packaged product (jarred / bottled / bagged / boxed, with a batch number and date). Full batch documentation, Eurofins facilitation, blockchain anchor, API store integration, and a gold-bordered QR sticker. Gold pulsing pin with a gold ring. |
+| **Provenance Highlighted** | One-off fee (amount TBD) | Visit-gated, farm-level. Never sold without a prior personal visit. **A one-off fee, never a monthly charge (confirmed 2026-10-08).** The fee covers the visit, the filmed vlog, the photography and building their profile page. Updates happen opportunistically when the founder is at the farm anyway. The monthly retainer belongs to the Seal, not to this tier. Includes the filmed farm visit (vlogged), a gold pulsing pin with priority placement, photo gallery, Instagram + website links, where-to-buy, a chatbot trained on the farm's practice, a monthly collaborative reel/carousel posted across Provenance, and a silver-bordered QR sticker. The producers currently on this tier are in `producers.json`, not in this file. |
+| **Provenance Seal** | Price unspecified | Product-level, and **not yet sold or pitched to producers (2026-10-19)**. A QR code on the pack opens that product's story page: the farm, the people, the breed or variety, the ground, and the history behind what the buyer is holding. Price, what a fee would cover and the sticker treatment are all unspecified until the Collection case study is finished. **The word Seal is public (2026-10-19), but do not sell or pitch the Seal, Seal Lite or Seal Complete to producers, or show them in producer-facing decks,** until that is settled. The code slugs stay as they are. |
 
 **The tier names, as they stand (restored 2026-10-01).** Three free-to-paid steps a visitor can see: **Discovered** (`"tier": "discovered"`, researched, not confirmed), **Verified** (`"tier": "verified"`, the producer submitted their own details on the verify form) and **Highlighted** (`"tier": "featured"`, the gold, visit-gated, paid tier with its own profile page). The **Provenance Collection** is a silver mark on top of a tier, not a tier. History, so nobody repeats it: on 2026-09-24 the free confirmed tier was renamed Verified → Highlighted, and two hours later the gold tier took the name Highlighted and the confirmed tier was relabelled **Discovered** ("Confirmed" in the legend). That left the map with no visible difference between a researched listing and one the producer had confirmed. On 2026-10-01 the user had the confirmed tier restored to **Verified** everywhere a visitor sees it: the card mark ("Provenance Verified"), the legend ("Verified producer"), the tier filter ("Verified"), the shared profile, the Connect listing, the Highlighted pages' Nearby cards, the Founder pages ("Verified by Provenance", "is verified on the Provenance Map"), the app manifest and the share-stub fallback. **Do not rename a tier again without the user asking.** **2026-10-08: at the user's request, every remaining use of "Featured" for the gold tier in this file was changed to Highlighted.** The tier is called Highlighted everywhere, in copy and in this file. Only the code slugs still say `featured`, and they stay that way. The slugs never changed: `verified`, `.tier-mark-verified`, `.pin.t-verified` and `p-ver` are the Verified tier; `featured`, `.tier-mark-featured` and `p-feat` are Highlighted. The Fillout form is still at `provenancemap.fillout.com/provenancemapverified`. **A producer becomes Verified only by submitting the form themselves**; an upgrade command does not make them Verified on its own.
 
 
 **Highlighted has to be worth more than what Founders were given.** Founders got a full profile page for nothing, at a point when the map needed them more than they needed it. Highlighted is a paid tier, so it has to carry things a Founder page never did: the filmed visit, the trained chatbot, and ongoing upkeep rather than a page that is built once and left. If a Highlighted producer cannot see what the one-off fee bought them, the tier is priced wrong.
 
-**Highlighted and the Seal are two separate layers, not a ladder.** Highlighted is about the *farm* (who the producer is, how they farm); the Seal is about a specific *packaged product*. Most Highlighted farms will never need a Seal, and a Seal can be sold directly to any producer with a qualifying product without a Highlighted relationship. Neither paid step is self-service — both are reached through a real conversation (the visit relationship or direct commercial outreach), never a public payment link.
+**Highlighted and the Seal are two separate layers, not a ladder.** Highlighted is about the *farm* (who the producer is, how they farm); the Seal is the story of a specific *packaged product*, reached by scanning the pack. Most Highlighted farms will never need a Seal, and a Seal can go to any producer with a qualifying product without a Highlighted relationship. **A Seal does involve a visit, but not the Highlighted visit**: a short introduction and a mapping of the product and the ground behind it, not a filmed day on the farm. Neither paid step is self-service: both are reached through a real conversation, never a public payment link.
 
 ### Pin Colours
 
 - **Discovered Producers (tier: "discovered" / default):** Dark green — `#2A5A38`, 5.85px dot (5.78px on mobile), cream border (`1px solid rgba(232,222,200,0.75)`), faint green glow (`box-shadow: 0 0 4px 1px rgba(42,90,56,0.40)`). The default pin. No profile page, no badge. Card shows "Discovered Producer" pill in matching dark green (border `#2A5A38`, text `#4E8560`). Set `"tier": "discovered"` in producers.json (or omit tier field).
 - **Verified Producers (tier: "verified"):** Green `#59A666`, 8.78px dot (8.67px on mobile) — 50% larger than Discovered, thin white border (`1px solid rgba(248,248,243,0.6)`), **static** green glow (`box-shadow: 0 0 6px 2px rgba(89,166,102,0.73)`) — no pulse; the pulsing pin is a paid (Highlighted/Seal) signal. The glow is deliberately tight: a wide glow paints many times the dot's own diameter and the pins merge into a wash as the map fills up. Card pill "Provenance Verified" in matching `#4A8A55`. Set `"tier": "verified"` in producers.json.
-- **Provenance Highlighted (paid, gold):** Deep amber gold — a **radial gradient**, not a flat fill: `radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%)`, lit from the upper left so the dot reads as a raised bead rather than a flat disc, with an `inset 0 0 1.5px rgba(255,238,186,0.45)` highlight. The mid tone `#CDA043` is warmer and richer than the `#C4A44A` gold token (hue 40 vs 44, and more saturated). **9.22px dot (9.10px on mobile), 5% larger than Verified** — a deliberately modest bump, so colour and glow do the work rather than size. **No border** (unlike Discovered and Verified, which both carry a cream/white one), and a soft radial glow that is deliberately restrained: `box-shadow: 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.20)`. Earlier passes ran brighter and harder (`#E0B93C`, `#E9C93E`, a green-with-gold core `#6FB35A`, and a glow at double this strength) and read neon; this is the settled version. **Pulses**, very faintly: a 4.5s orange breath (`rgba(214,132,52,0.20)`, scaling to 2.8x, peak opacity 0.42) deliberately near the threshold of noticeable, so it reads as the pin being alive rather than as an alert. Reduced-motion turns it off. The visit-gated farm tier. Card mark "Provenance Highlighted" (the gold tier is called Highlighted wherever a visitor sees it) in `#D9AE55`, a lifted amber for legibility on the dark card. Set `"tier": "featured"` in producers.json. Unlocks Instagram + website links and where-to-buy on the card, plus the link to the producer's own profile page at `/<profile_slug>/`, which is where the photo gallery and the filmed visit live (never on the card). Instagram and website went live on 2026-09-07. Currently: Skehana Hill, Tara Hill Honey, and **Rathphelan Farm (2026-09-25)**. **Rathphelan became Highlighted because of the founder visit**, like every Highlighted farm (corrected 2026-10-08; an earlier note here wrongly said it went gold before a visit). Its profile page is live at `/rathphelanfarm/`.
-- **Provenance Seal Complete:** Gold — `#C4A44A`, pulsing + gold ring border. The €149/month product-level tier.
-- **Provenance Founder:** Set `badge2: "Provenance Founder"`. Renders as a gold **button at the foot of the card** (`.card-action-founder`), not a pill beside the tier badge, and links to their full profile page at `map_link` (`producers/<slug>.html`). The badge line stays a single tier statement. No special pin treatment — pin appearance is controlled by tier. Currently: Newbard Organic Farm Ltd, Staffords Butchers, and Saltrock Dairy Farm (all Verified).
+- **Provenance Highlighted (paid, gold):** Deep amber gold — a **radial gradient**, not a flat fill: `radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%)`, lit from the upper left so the dot reads as a raised bead rather than a flat disc, with an `inset 0 0 1.5px rgba(255,238,186,0.45)` highlight. The mid tone `#CDA043` is warmer and richer than the `#C4A44A` gold token (hue 40 vs 44, and more saturated). **9.22px dot (9.10px on mobile), 5% larger than Verified** — a deliberately modest bump, so colour and glow do the work rather than size. **No border** (unlike Discovered and Verified, which both carry a cream/white one), and a soft radial glow that is deliberately restrained: `box-shadow: 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(201,154,56,0.45), 0 0 16px 6px rgba(201,154,56,0.20)`. Earlier passes ran brighter and harder (`#E0B93C`, `#E9C93E`, a green-with-gold core `#6FB35A`, and a glow at double this strength) and read neon; this is the settled version. **Pulses**, very faintly: a 4.5s orange breath (`rgba(214,132,52,0.20)`, scaling to 2.8x, peak opacity 0.42) deliberately near the threshold of noticeable, so it reads as the pin being alive rather than as an alert. Reduced-motion turns it off. The visit-gated farm tier. Card mark "Provenance Highlighted" (the gold tier is called Highlighted wherever a visitor sees it) in `#D9AE55`, a lifted amber for legibility on the dark card. Set `"tier": "featured"` in producers.json. Unlocks Instagram + website links and where-to-buy on the card, plus the link to the producer's own profile page at `/<profile_slug>/`, which is where the photo gallery and the filmed visit live (never on the card). Instagram and website went live on 2026-09-07. **Every Highlighted farm got there through a founder visit** (corrected 2026-10-08; an earlier note here wrongly said one went gold before a visit). Who is on the tier, and which profile pages are live, is in `producers.json`, not in this file.
+- **Provenance Seal:** Unspecified (2026-10-19). A Seal may eventually change something on the farm's pin, but the treatment is not decided and the Seal is not publicly offered, so nothing renders for it today.
+- **Provenance Founder:** Set `badge2: "Provenance Founder"`. Renders as a gold **button at the foot of the card** (`.card-action-founder`), not a pill beside the tier badge, and links to their full profile page at `map_link` (`producers/<slug>.html`). The badge line stays a single tier statement. No special pin treatment — pin appearance is controlled by tier. Who holds it is in `producers.json`, not in this file.
 
 > **Implementation note:** the code ships tiers `discovered`, `verified`, `featured`, `seal-lite`, `seal-complete`. The gold **Highlighted** pin was wired in on 2026-08-24 with Skehana Hill as the first producer on it. The pin carries a very faint orange pulse (added 2026-08-24) plus a soft gold glow. Highlighted's card unlocks (gallery, Instagram, website, where-to-buy, filmed visit) are **not** wired in yet: Skehana Hill's card carries the tier pill, a gold top edge on the card itself (#card.featured-card), their Instagram and website, and an inert Highlighted Profile In Progress pill between the links and the confirmed line. **The profile page exists** (built 2026-09-14) at `provenancemap.ie/skehanahill`, served from `/skehanahill/index.html`; the public slug lives in a `profile_slug` field on the record, never in the `id`. Facts on the page come from `producers.json` (so card and page cannot drift; `where_to_buy` feeds both), visit content from `/<slug>/profile.json` (visit date, hero, film, story, product notes, and the `photos` gallery with captions and crop positions). **The map card never carries the photo gallery.** Decided 2026-09-14: the card keeps its single logo, the tier pill, the practice pill and the links, and its job is to send people to the profile page, which is where the photos live. So a Highlighted record has no `photos` array; the card's thumbnail strip and lightbox stay in the code but nothing feeds them. `profile_live: true` on the record swaps the card's inert "Highlighted Profile In Progress" span for the real link (`#card-featured-link`) and drops the page's own "Profile in progress" pill; **Skehana Hill went live on 2026-09-15.** The visit date is the line the tier stands on: a page does not go live without one. The card's where-to-buy entries are `{ name, url, note, when }`: the name links to `url`, `when` sits on the right (a day, or "Directions" for a maps link), `note` is a muted line under it, and a single entry spans the card. A second Highlighted producer is a copy of the folder with `PRODUCER_ID` and `PAGE_URL` changed and its own `profile.json`. **Provenance Connect, layer one (2026-09-21):** a `whatsapp` number on the record (written as dialled, `087...`; normalised to `353` for `wa.me`) puts a **Connect** button on the map card beside Highlighted Profile and a filled Connect button at the head of the profile page's link row; both open a WhatsApp chat prefilled with "Hi, I found <name> on the Provenance Map." An empty or missing number shows nothing. **Provenance Collection** membership is `"collection": true` on the record: the pin keeps its Verified green and size and takes a thin bright silver ring `#DCD9D0` and a soft silver glow in place of the white ring and green glow and the card carries a silver "Provenance Collection" pill beside the tier pill; the tier itself is unchanged. First member: Galtee Honey Farm, 2026-09-19. Saltrock renders on `verified` (green) with its logo as the single card image; its former gallery/IG/website/where-to-buy were removed from its record when it moved to Verified. `photo_url` is the single card image (a logo is preferred, but one representative photo is acceptable on any tier); only the multi-image `photos` gallery is Highlighted-only. Pin size is not affected by farming practice — organic/regenerative shows via the card practice pill only, never by enlarging the pin.
-- **Farmers Market:** Terracotta — `#B0623A`, 5.95px dot (4.25px on mobile), no border, terracotta glow. Completely different card layout showing hours and a producer list. Currently: Gorey Farmers Market (Saturday 10am–2pm). Add `class="pin market"` and `data-category="market"` to the pin.
+- **Farmers Market:** Terracotta — `#B0623A`, 5.95px dot (4.25px on mobile), no border, terracotta glow. Completely different card layout showing hours and a producer list. Add `class="pin market"` and `data-category="market"` to the pin.
 
 ### The card states things, it does not badge them
 
@@ -47,6 +47,8 @@ Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, 
 The Connect listing page follows the same rule. Anything new that wants to label a producer gets a line of type, not a pill.
 
 ### Provenance Connect, layer two — availability
+
+**Connect is not paused (corrected 2026-10-19).** It is being worked on in the background, and the user will update it later in the week. Prices and what is paid are unspecified for now. `CONNECT-SETUP.md` is still not done. The two open questions at the end of this section stay open on purpose: which tiers may use Connect, and whether the producer subscription is self-service. Everything below is the record of what was built.
 
 Built 2026-09-24. **What a producer currently has, in their own words.** The
 governing rule: *what do you have*, never *how many do you have*. There is no
@@ -219,84 +221,11 @@ from any page depth. Square, 700px, q84 — a centre crop of a packet shot reads
 well at the 96px the list renders. Rathphelan Farm has thirteen (2026-09-25).
 
 **No commission, ever.** Provenance takes no part in the order; the button goes
-straight to the producer's chosen channel.
-
-**Connect is a free discovery and connection network, with paid services built
-around it as the platform develops (revised 2026-10-17).** That is the shape of
-the thing, and the sentence to reach for when anyone asks what Connect is.
-
-**The basic producer profile stays free.** Being found, having a profile, and
-carrying a Connect button costs a producer nothing. There is no listing fee,
-and the €15 listing fee and the monthly producer subscription that earlier
-versions of this file described are both retired. Do not reintroduce a charge
-for the basic listing.
-
-**The first paid feature being tested is weekly product availability updates,
-with a visible update date on the profile.** A producer keeping their own list
-current, every week, under their own hand, and the date of their last update on
-screen for a buyer to judge. The machinery already exists: `updated` on the
-connect block, `CONNECT_FRESH_DAYS`, and the heading that softens from
-*Available now* to *Last listed*. What has not existed is a way for a producer
-to do the updating themselves, which is the thing being built and the thing
-being charged for.
-
-**What is free and what is paid, as it stands:**
-
-| | |
-|---|---|
-| Free | The listing, the profile, the Connect button, the availability list itself, and the update date |
-| Paid, recurring | The producer updating that list themselves, weekly |
-| Paid, one-off | A Connect visit |
-
-The distinction to hold on to: **a farm's current availability always shows,
-whoever is paying.** What is paid for is the producer's own hand on it rather
-than Provenance updating it for them. Nothing is taken off a page because a
-producer has not paid.
-
-**Connect visits stay a separate one-off paid service.** A visit is bought on
-its own and is never folded into the recurring feature. It may be *bundled*
-with it, for instance a visit carrying some months of updates with it, and that
-is a commercial decision rather than a rule in this file. How a Connect visit
-relates to the **Highlighted** tier, which is itself visit-gated and one-off,
-has not been stated: do not assume they are the same thing or different things
-without asking.
-
-**The 60-day founding trial explains the model; it does not charge for it.**
-The trial is not a countdown to paying for the basic listing. Its job is to
-show producers what Connect is and where it is going. **The first trial runs
-with Rathphelan Farm** (chosen 2026-10-17): one farm updating weekly, their
-content pushed hard, and one question to answer, which is whether an update
-produces enquiries. If it does, the price sets itself.
-
-**Where Connect is going** (the vision, not a build list): AI assistance,
-websites, customer enquiries, availability updates and ordering automation. The
-aim is for Provenance to be the digital infrastructure behind independent
-producers, not another directory.
-
-Still open: which tiers may use Connect (availability is a producer-authored
-claim, which argues for Verified as the floor, and nothing enforces a tier yet),
-and what the recurring feature costs.
-
-#### Talking about Connect in content
-
-**Consumer content sells the vision, not the software roadmap.** No tiers, no
-prices, no feature list for producers in anything aimed at the public. The
-consumer message is: find the people behind your food, see what they make and
-where they are, connect with them directly, and joining is free for producers.
-Tiers and pricing belong in a separate producer-facing carousel, made later.
-
-The consumer "What is Provenance Connect?" carousel runs, in order: what if you
-could discover the people behind your food and connect with them; Ireland is
-full of farmers, growers, beekeepers, producers and food businesses, but
-finding them isn't always easy; that's why we built Provenance Connect; find a
-producer, discover what they make, see where they're based; connect directly
-(website, WhatsApp, farm shop, direct enquiry); joining Connect is free, no
-monthly fee to be part of the network; because we don't want Provenance to be
-simply another directory, we want to build the digital infrastructure behind
-independent producers; that's where Connect is going (AI assistance, websites,
-customer enquiries, availability updates, ordering automation); a free network
-of Irish producers with better digital tools built around them; close: find
-the people behind your food, explore Provenance Connect, provenancemap.ie.
+straight to the producer's chosen channel. The commercial model is a monthly
+producer subscription. Still open, and needing a decision: which tiers may use
+Connect (availability is a producer-authored claim, which argues for
+Verified as the floor, and nothing enforces a tier yet), and whether that
+subscription is self-service, which this file currently says no paid step is.
 
 ### Navigation and profile pages
 
@@ -320,12 +249,20 @@ The category names and their order are read from the map's own filter chips at l
 
 **One-off, limited-run releases made with producers already on the map.** Each one is a product from a producer the user has met and visited, announced and documented as a storytelling piece, and never restocked. Membership is the silver `"collection": true` mark described above: it sits on top of whatever tier the producer already holds and never replaces one. First member: Galtee Honey Farm, 2026-09-19.
 
+**Members and releases.** Galtee Honey Farm was the first member (2026-09-19). **Moyletra Moileds is the second member and the first release**: beef tallow, October 2026. Galtee's Ling Heather honey follows it. Who else holds the mark is in `producers.json`.
+
+**How the first release works, and why it is not the model yet.** Provenance sells the product and handles fulfilment; the producer makes it. The visit and the Seal story page are free to the producer. This is deliberately a case study rather than a finished commercial arrangement: the first release exists to find out what the work actually takes before any of it is priced. Do not treat the current terms as the permanent model, and do not quote them to another producer as standard.
+
+**Every Collection release carries a Seal story page**, reached from a QR code on the pack at `/seal/<slug>/`.
+
+**The `/collection/` index page exists and is not specified here yet.** Still to be settled and built: whether sold out releases stay listed and how they read once they are gone, how a release links to its Seal story page, where the pre-sale sign up lives and what it posts to, and whether the index carries the email list at all.
+
 **Provenance works with producers and does not make its own products (decided 2026-10-12).** A Collection release is a collaboration with a named producer, carrying their product and their name, not a Provenance-manufactured line. **Athnuachan, the user's own grass-fed tallow brand, is shelved** and is not in the pipeline; it does not appear on Collection releases and a Collection product is not routed through it. Do not propose an own-brand product, a Provenance-made line or an Athnuachan collaboration unless the user reopens it himself.
 
 ### Consumer Model (B2C, Freemium)
 
 - Free forever: basic map discovery
-- Premium (€3–€5/month): saved producers, batch notifications, full chatbot access, in-app ordering
+- Premium (€3–€5/month): saved producers, new release notifications, full chatbot access, in-app ordering
 
 ### In-App Ordering (Phase 4)
 
@@ -334,11 +271,11 @@ The category names and their order are read from the map's own filter chips at l
 
 ## Design System
 
-### Aesthetic
+**Four languages, and they do not mix.** Pick by surface, never by taste.
 
-Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, surrounded by ocean and cloud. Deep greens, teal water, atmospheric. Producer pins glow softly on hover. Feels like a world worth exploring, not a utility tool.
+### 1. The map (Cormorant)
 
-### Colours
+The map, its cards and the About page. Painterly and illustrated, inspired by Ghost of Tsushima: Ireland from above, surrounded by ocean and cloud, deep greens, teal water, atmospheric. Producer pins glow softly on hover. It should feel like a world worth exploring, not a utility tool.
 
 | Token | Hex |
 |-------|-----|
@@ -350,12 +287,54 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 | Cream text | `#E8DEC8` |
 | Muted text | `#504838` |
 
-### Typography
+Headings Cormorant Garamond, body Source Serif 4.
 
-- Headings: Cormorant Garamond
-- Body: Source Serif 4
+### 2. Profile pages (charcoal, Playfair, forest green)
 
-**Highlighted profile pages are the exception** (decided 2026-09-15, Skehana Hill first): they are set like the carousel plates, not like the map. Charcoal ground `#1A1B18`, silver hairlines `rgba(201,198,189,0.14)`, Playfair Display for names, headings and pull quotes in deep forest green (`#2F5C3A` name, `#35663F` headings), upright throughout with no italic anywhere; Inter medium small caps in `#45704E`; Source Serif 4 body in cream `#E8DEC8`; the place line and buttons in a lighter green `#5A8C64` so they read apart. The map and its cards keep Cormorant.
+Decided 2026-09-15. Highlighted profile pages and `/producer/` are set like the carousel plates, not like the map: charcoal ground `#1A1B18`, silver hairlines `rgba(201,198,189,0.14)`, Playfair Display for names, headings and pull quotes in deep forest green (`#2F5C3A` name, `#35663F` headings), upright throughout with no italic anywhere; Inter medium small caps in `#45704E`; Source Serif 4 body in cream `#E8DEC8`; the place line and buttons in a lighter green `#5A8C64` so they read apart. The map and its cards keep Cormorant.
+
+### 3. Collection charcoal (storytelling, and the Seal story page)
+
+Chapter carousels, any Collection storytelling piece, and **the Seal story page**, which uses this language rather than the profile one.
+
+- Background `radial-gradient(ellipse 85% 75% at 50% 45%, #222320 0%, #1C1D1A 65%, #151614 100%)`
+- Cream `#E8DEC8`, body `#CFC7B3`, muted `#9A968B`, source lines `#7A766A`
+- Green kicker `#45704E`, deep green `#2F5C3A`
+- Two hairline insets on a plate: 36px at `rgba(201,198,189,0.30)` and 46px at `rgba(201,198,189,0.12)`; content box inset 100px left and right, 96px top and bottom
+- Playfair Display 400 for headings, line height 1.05, cream `#E8DEC8`
+- Inter 500 for kickers: 21px, 0.26em tracking, uppercase, `#45704E`
+- Source Serif 4 300 for body: 27px, line height 1.5, `#CFC7B3`
+- Figure captions Playfair 22px `#9A968B`; source lines 19px `#7A766A`
+- Line art in `#C9C6BD`, stroke width 1.1, round caps and joins
+- Plate footer: "Provenance" on the left, a roman numeral `X / Y` on the right
+
+### 4. Collection parchment (announcements)
+
+Announcements, explainers, opening pieces and collab posts only. Background `#F3EEDD`, primary `#243629`, muted `#6C6858`. Playfair Display and Inter. No gold. **Never used for storytelling**, which is always charcoal.
+
+### Heritage style
+
+Playfair headlines, Inter body, deep green and cream on dark brown, concentric rings, gold era tags, template in `heritage-style-template.html`. Not retired, but on the back burner. Keep it in the repo and do not offer it unless the user asks.
+
+### Carousel exports
+
+**1080 by 1350 (4:5)**, the largest size Instagram renders in feed, unless the user says otherwise for a given piece. Canvas based, with a button per plate and a download all as a zip. Every factual plate carries a source line in its footer. (The Irish Moiled and Tallow chapters of October 2026 were built square at 1080 by 1080; the spec above applies from here.)
+
+## Voice and Content Rules
+
+**Three channels, never mixed.** One test for any piece: who is speaking.
+
+| Channel | Who is speaking |
+|---|---|
+| Provenance | The system. Facts, label research, map growth, producer spotlights, Collection storytelling |
+| Personal | Darragh. Health, building in public, farm vlogs, reasoning and decisions |
+| Athnuachan | The brand. **Shelved (2026-10-12), not deleted.** Nothing is published on it until the user reopens it |
+
+**The Provenance voice is the system speaking, and it may say "we".** First person plural is the system's own voice and is allowed. First person singular is not: "I" belongs to the personal channel, and the founder is never the narrator of a Provenance piece.
+
+**No em dashes. Ever.** Not in carousels, captions, DMs, bios, emails, or on any page.
+
+**Sourcing.** Every factual claim carries a named source on the piece itself. Anything a producer says about their own operation that cannot be checked independently is labelled as a producer statement. A claim that cannot be sourced or checked does not get published: a weaker true sentence always beats a stronger unverifiable one. **Never invent, guess or misattribute a source.** Provenance exists to expose unverified claims, so a fabricated citation is a self-inflicted wound.
 
 ## Producers
 
@@ -390,28 +369,47 @@ Painterly, illustrated — inspired by Ghost of Tsushima. Ireland from above, su
 
 The rule: **one image on every card (logo preferred, a single photo is fine); the multi-image gallery, Instagram, website, and where-to-buy begin at Highlighted.**
 
-### Provenance Seal Batch Documentation Page (Provenance Seal Complete)
+### Provenance Seal Story Page
 
-- Named farm
-- Named butcher or supplier
+**The Seal is the story behind the product, not a verification certificate (decided 2026-10-19).** A buyer scans the code on the pack and reaches a page that tells them where the thing in their hand came from and who made it. That is the whole product.
+
+**The word Seal is public; the Seal is not yet sold or pitched (corrected 2026-10-19).** Seal story pages are live to buyers of Collection releases and the word Seal may be used on them. What is not happening is selling or pitching the Seal to producers: Seal, Seal Lite and Seal Complete stay out of producer-facing decks and material until the Collection case study is finished. Price and what a fee would cover are unspecified.
+
+**What the Seal page is not.** It carries no batch numbers, render or production dates, best before dates, net weights, jar or unit counts, laboratory or Eurofins results, lab report downloads, and no blockchain or IPFS anchor. The word *verified* does not appear on it. That was the earlier definition of the Seal and it is retired: do not reintroduce any of it, and do not add placeholder fields for it.
+
+What a Seal page carries:
+
+- Named farm and the people on it
 - Breed or variety
-- Feeding regime or growing method
-- Render or production date
-- Kitchen or facility details
-- Eurofins test results with EU limits alongside each number
-- Lab report PDF download
-- Sourcing footage (TikTok or YouTube embed)
-- Render or production footage (TikTok or YouTube embed)
-- AI chatbot embed
+- The ground the product came off, and how it is grazed or grown
+- How the product was made, in plain language, without dates or process data
+- The history behind the food itself, sourced
+- Practical use and storage
+- A sources block naming every source used
+- Link to the producer's profile on the Provenance Map
+- Sourcing or production footage (TikTok or YouTube embed) where it exists
 - QR code image
-- Best before date
-- Storage instructions
+
+**One page per product.** A producer with several Seal products gets a standalone page for each, never one page carrying them all.
+
+**Provenance writes the page.** The producer supplies facts and statements; the research, writing and sourcing are ours.
+
+**Producer statements are labelled as producer statements.** Anything the farm says about itself that cannot be checked independently (herd size, finishing, practice) is attributed to the farm on the page. Anything historical carries its source. Nothing else goes on.
+
+**Planned but not built:** the AI chatbot embed on the page, and store API integration. Both are part of the Seal as intended; neither exists yet, so neither goes in a pitch as though it does.
+
+**Where it lives.** `/seal/<slug>/`, for example `/seal/moyletra-tallow`. Pages are generated from `releases/<slug>.json` so a new release is a data edit, not a code edit, and the built page works with no JavaScript. The QR on the pack points at that address, and because it is printed it cannot be changed afterwards.
+
+**Design language:** Collection charcoal, not the profile page language. See the Design System below.
 
 ## Tools
 
 | File | Purpose | Notes |
 |------|---------|-------|
-| `qr-generator.html` | QR code generator | Standalone HTML. Input: URL. Output: downloadable PNG at 1000×1000px minimum. Uses CDN-hosted QR library. Background matches design system. |
+| `qr-generator.html` | QR code generator | Standalone HTML. Input: URL. Output: downloadable PNG at 1000×1000px minimum. Uses CDN-hosted QR library. Background matches design system. A Seal sticker always encodes `/seal/<slug>/`. |
+| `seal-qr.html` | Seal sticker QR generator | Input: a release slug. Output: PNG (2000×2000) and SVG of a sticker that encodes `https://provenancemap.ie/seal/<slug>/`. Silver ring is a placeholder, as the Seal sticker treatment is unspecified. |
+| `generate-seal-pages.ps1` | Seal page generator | Builds `/seal/<slug>/index.html` from every `releases/<slug>.json`, plus `/seal/index.html` and `/404.html` (code not recognised). **Run after any edit to a release file, then commit the output.** See `releases/README.md`. |
+| `provenance-seal.html` | Old Seal marketing page | **Out of date and public.** Still sells Eurofins results, a blockchain anchor and Athnuachan, all of which are retired. Rewrite it against the Seal story page section above, and keep it offline-in-spirit until the Seal is publicly offered again. |
 | `generate-share-pages.ps1` | Share stub generator | Creates `/share/<slug>.html` for every Verified+ producer in producers.json: OG tags for rich link previews, then redirects to `/?producer=<slug>` which opens their card on the map. **Run whenever a producer upgrades to Verified**, then commit the new stub. The card Share button (Verified only) shares this stub URL. |
 
 ## Social Channels
@@ -421,6 +419,18 @@ TikTok and Instagram — both accounts: **Provenance**
 ## Rollout
 
 Starting in Wexford, expanding county by county across all 32 counties of Ireland.
+
+## Project files
+
+| File | What it is |
+|------|------------|
+| `CLAUDE.md` | This file. The master strategic reference: what everything is and why. If a decision changes, it is updated in the same session. |
+| `PROVENANCE-EXECUTION-GUIDE.md` | The phased task list: what order to do things in. **Does not currently exist in the repo and is to be rebuilt.** |
+| `PHILOSOPHY.md` | Founding purpose, positioning, the never-be-sold commitment. |
+
+If `CLAUDE.md` and the execution guide ever disagree, `CLAUDE.md` wins.
+
+**Phases have triggers, not dates.** The API waits for real subscriber volume. The consumer app waits for real Seal density. Automation waits for ten manual subscribers. Do not start a later phase because it sounds exciting: ask what the trigger is.
 
 ## Philosophy and Positioning
 

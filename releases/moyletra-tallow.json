@@ -1,0 +1,99 @@
+{
+  "slug": "moyletra-tallow",
+  "product": "Beef Tallow",
+  "producer": {
+    "name": "Moyletra Moileds",
+    "place": "Moyletra Kill, north coast of Ireland",
+    "profile": "/producer/?id=moyletra-moileds"
+  },
+  "kicker": "Provenance Collection",
+  "descriptor": "Beef tallow for cooking, rendered from Moyletra's own cattle.",
+  "og_description": "The story behind a jar of Moyletra Moileds beef tallow: the farm, the Irish Moiled breed, and what this fat was to Irish households.",
+  "intro": [
+    "This is the story behind the product in your hand, recorded by Provenance together with the producer.",
+    "It is a story and nothing more. This page makes no claim of batch verification, laboratory testing or certification."
+  ],
+  "sections": [
+    {
+      "id": "farm",
+      "kicker": "The farm",
+      "heading": "Moyletra Kill",
+      "blocks": [
+        { "type": "p", "text": "Moyletra Moileds farms at Moyletra Kill, on the north coast of Ireland. The farm dates to 1878, and five generations of the same family have worked it." },
+        { "type": "p", "text": "The herd began with a single cow named Honey." },
+        { "type": "statement", "label": "Farm statement", "text": "The herd is approximately 130 cattle." },
+        { "type": "p", "text": "The cattle graze protected ground, including Magilligan Point, the Roe Estuary Nature Reserve and Swann's Bridge. This conservation grazing lets finer plants return to the sward." }
+      ],
+      "source": "Source: Moyletra Moileds. Herd size and grazing are the farm's own statements."
+    },
+    {
+      "id": "breed",
+      "kicker": "The breed",
+      "heading": "The Irish Moiled",
+      "blocks": [
+        { "type": "p", "text": "The name comes from the Irish maol, meaning bald or hornless. The breed is naturally polled. It is red and white, with a white line over the back." },
+        { "type": "p", "text": "References to hornless cattle in Ireland go back to around 640 AD. The Irish Moiled Cattle Society holds that the breed predates the Viking period, and associates it with Northern European cattle." },
+        { "type": "p", "text": "In 1835 Sir William Wilde described cattle suited to poor drumlin ground, browsing willow, ash and ivy." },
+        { "type": "p", "text": "The breed came close to extinction, down to roughly thirty breeding females and two bulls. It is on the Rare Breeds Survival Trust watchlist and is recognised by Slow Food UK." },
+        { "type": "p", "text": "The Irish Moilie beef scheme describes the breed as slow maturing, with marbling developing over that longer life." }
+      ],
+      "source": "Sources: Irish Moiled Cattle Society; Rare Breeds Survival Trust; Slow Food UK; DAERA; the Irish Moilie beef scheme."
+    },
+    {
+      "id": "fat",
+      "kicker": "The fat",
+      "heading": "Beef tallow",
+      "blocks": [
+        { "type": "p", "text": "Tallow is beef fat rendered down and strained clean. The most prized part is suet, the hard fat from around the kidneys and loins." , "cite": "McConnell, Irish Food History: A Companion, p. 334" },
+        { "type": "statement", "label": "Farm statement", "text": "These cattle are grazed in conservation zones, given the time to mature, and finished on grass." },
+        { "type": "p", "text": "The conservation grazing is described above. The grass finishing is the farm's own declaration." },
+        { "type": "p", "text": "Research has found that the fat of grass fed and grain finished cattle differs in fatty acid composition. That is a finding about feed in general. It says nothing about which fat is better, and it is not a claim about this product.", "cite": "Daley et al., Nutrition Journal, 2010" }
+      ],
+      "source": "Sources: Irish Food History: A Companion; Moyletra Moileds (farm statement); Daley et al., Nutrition Journal, 2010."
+    },
+    {
+      "id": "kitchen",
+      "kicker": "In the kitchen",
+      "heading": "Using it",
+      "blocks": [
+        { "type": "p", "text": "Beef tallow is a cooking fat, and this jar is made for cooking." },
+        { "type": "p", "text": "No shelf life has been set for this release, so none is given here. For questions about use or storage, ask the farm." }
+      ]
+    },
+    {
+      "id": "history",
+      "kicker": "The history",
+      "heading": "What tallow was to Irish households",
+      "blocks": [
+        { "type": "p", "text": "The eleventh century Irish language had its own words: ger for suet, and íth and úsca for tallow. Writing of that century counts tallow among the by-products of slaughter, and the chief of them.", "cite": "Sayers, Irish Food History: A Companion, p. 219" },
+        { "type": "p", "text": "In 1737 Jonathan Swift boasted that his Deanery pudding was three quarters suet and plums.", "cite": "McConnell, Irish Food History: A Companion, p. 334" },
+        { "type": "p", "text": "The butter a household made was commonly sold, or used to pay rent, so homes cooked with beef dripping, caught in a tin pan under the roasting spit. One pan, from Abbeyleix, had a central receptacle pierced with holes so that no meat or hearth ash got into the grease.", "cite": "Kinmonth, Irish Food History: A Companion, p. 433" },
+        { "type": "p", "text": "From the seventeenth to the nineteenth century Ireland shipped barrelled beef, pork, butter, hides and tallow to Europe and the colonies.", "cite": "Barnard, Irish Food History: A Companion, p. 268" },
+        { "type": "p", "text": "What the kitchen did not use went into candles.", "cite": "Lehane, Irish Food History: A Companion, p. 170" },
+        { "type": "p", "text": "Rushes were cut, dried and peeled, then dipped one by one in tallow melted in an iron vessel called a sligire, and lit.", "cite": "The Schools' Collection, Urhan, Co. Cork, Dúchas" },
+        { "type": "p", "text": "Soap was made from tallow with soda and lime.", "cite": "The Schools' Collection, Hollymount, Co. Mayo, Dúchas" }
+      ]
+    }
+  ],
+  "sources": [
+    "Irish Food History: A Companion: McConnell, p. 334; Sayers, p. 219; Kinmonth, p. 433; Barnard, p. 268; Lehane, p. 170.",
+    "The Schools' Collection, Urhan, Co. Cork, Dúchas (rush lights dipped in tallow).",
+    "The Schools' Collection, Hollymount, Co. Mayo, Dúchas (soap made from tallow).",
+    "Daley et al., Nutrition Journal, 2010.",
+    "Irish Moiled Cattle Society.",
+    "Rare Breeds Survival Trust.",
+    "Slow Food UK.",
+    "DAERA.",
+    "The Irish Moilie beef scheme.",
+    "Sir William Wilde, 1835, on Irish cattle.",
+    "Moyletra Moileds. Herd size, grazing and grass finishing are the farm's own statements."
+  ],
+  "collection": {
+    "heading": "The Provenance Collection",
+    "text": [
+      "The Provenance Collection is a series of one-off, limited-run releases, made with producers already on the Provenance Map. Provenance works with the producer and does not make its own products."
+    ],
+    "profile_label": "See Moyletra Moileds on the Provenance Map",
+    "next_label": "Find the next release"
+  }
+}

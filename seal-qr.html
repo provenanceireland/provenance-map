@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Collection Sticker QR</title>
+  <title>Seal Sticker QR</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
@@ -106,20 +106,20 @@
 </head>
 <body>
 
-  <h1>Provenance Collection</h1>
+  <h1>Provenance Seal</h1>
   <p class="subtitle">Sticker QR Generator</p>
 
   <div class="card">
     <div>
-      <label for="url-input">Private page URL</label>
-      <input type="url" id="url-input" value="https://provenancemap.ie/collection/f9epkcjqrqj7rr/" autocomplete="off" />
-      <p class="hint">Pre-filled with the private Collection page. The random folder name is the key, so only people with the sticker or link can find it.</p>
+      <label for="url-input">Release slug</label>
+      <input type="text" id="url-input" value="moyletra-tallow" autocomplete="off" spellcheck="false" />
+      <p class="hint" id="addr-hint">The sticker links to https://provenancemap.ie/seal/moyletra-tallow/. The slug is the release file name in releases/. A printed code cannot be changed, so check this before you order.</p>
     </div>
 
 
     <div>
       <label for="caption-input">Caption on the sticker</label>
-      <input type="text" id="caption-input" value="PROVENANCE COLLECTION" maxlength="32" autocomplete="off" />
+      <input type="text" id="caption-input" value="PROVENANCE SEAL" maxlength="32" autocomplete="off" />
     </div>
 
     <p id="error-msg">Please enter a valid URL.</p>
@@ -237,12 +237,14 @@
 
     $('generate-btn').addEventListener('click', async () => {
       errorMsg.style.display = 'none';
-      const url = urlInput.value.trim();
+      const slug = urlInput.value.trim().toLowerCase();
+      if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) { errorMsg.textContent = 'Use lower case letters, numbers and hyphens only.'; errorMsg.style.display = 'block'; return; }
+      const url = 'https://provenancemap.ie/seal/' + slug + '/';
       if (!isValidUrl(url)) { errorMsg.textContent = 'Please enter a valid URL.'; errorMsg.style.display = 'block'; return; }
       try { await document.fonts.load('600 44px "Cormorant Garamond"'); } catch {}
       const caption = captionInput.value.trim().toUpperCase();
       const L = layout(url, caption);
-      current = { url, L };
+      current = { url, slug, L };
       const pc = $('preview-canvas');
       const out = drawCanvas(L, 640);
       pc.width = pc.height = 640;
@@ -253,17 +255,18 @@
 
     $('png-btn').addEventListener('click', () => {
       if (!current) return;
-      download(drawCanvas(current.L, 2000).toDataURL('image/png'), 'provenance-collection-qr.png');
+      download(drawCanvas(current.L, 2000).toDataURL('image/png'), 'seal-' + current.slug + '-qr.png');
     });
 
     $('svg-btn').addEventListener('click', () => {
       if (!current) return;
       const blob = new Blob([buildSvg(current.L)], { type: 'image/svg+xml' });
       const href = URL.createObjectURL(blob);
-      download(href, 'provenance-collection-qr.svg');
+      download(href, 'seal-' + current.slug + '-qr.svg');
       setTimeout(() => URL.revokeObjectURL(href), 1000);
     });
 
+    urlInput.addEventListener('input', () => { $('addr-hint').textContent = 'The sticker links to https://provenancemap.ie/seal/' + (urlInput.value.trim().toLowerCase() || '...') + '/. The slug is the release file name in releases/. A printed code cannot be changed, so check this before you order.'; });
     urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('generate-btn').click(); });
   </script>
 </body>
