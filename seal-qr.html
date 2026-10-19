@@ -113,7 +113,7 @@
     <div>
       <label for="url-input">Release slug</label>
       <input type="text" id="url-input" value="moyletra-tallow" autocomplete="off" spellcheck="false" />
-      <p class="hint" id="addr-hint">The sticker links to https://provenancemap.ie/seal/moyletra-tallow/. The slug is the release file name in releases/. A printed code cannot be changed, so check this before you order.</p>
+      <p class="hint" id="addr-hint">The sticker links to https://provenancemap.ie/seal/moyletra-tallow/ (leave the slug empty for the home page). The slug is the release file name in releases/. A printed code cannot be changed, so check this before you order.</p>
     </div>
 
 
@@ -241,13 +241,13 @@
       errorMsg.style.display = 'none';
       if (typeof QRCode === "undefined") { errorMsg.textContent = "The QR library did not load. Check your connection and reload."; errorMsg.style.display = "block"; return; }
       const slug = urlInput.value.trim().toLowerCase();
-      if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) { errorMsg.textContent = 'Use lower case letters, numbers and hyphens only.'; errorMsg.style.display = 'block'; return; }
-      const url = 'https://provenancemap.ie/seal/' + slug + '/';
+      if (slug && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) { errorMsg.textContent = 'Use lower case letters, numbers and hyphens only.'; errorMsg.style.display = 'block'; return; }
+      const url = slug ? 'https://provenancemap.ie/seal/' + slug + '/' : 'https://provenancemap.ie/';
       if (!isValidUrl(url)) { errorMsg.textContent = 'Please enter a valid URL.'; errorMsg.style.display = 'block'; return; }
       try { await document.fonts.load('400 44px "Playfair Display"'); } catch {}
       const caption = captionInput.value.trim().toUpperCase();
       const L = layout(url, caption);
-      current = { url, slug, L };
+      current = { url, slug: slug || 'provenancemap', L };
       const pc = $('preview-canvas');
       const out = drawCanvas(L, 640);
       pc.width = pc.height = 640;
@@ -258,18 +258,18 @@
 
     $('png-btn').addEventListener('click', () => {
       if (!current) return;
-      download(drawCanvas(current.L, 2000).toDataURL('image/png'), 'seal-' + current.slug + '-qr.png');
+      download(drawCanvas(current.L, 2000).toDataURL('image/png'), 'qr-' + current.slug + '.png');
     });
 
     $('svg-btn').addEventListener('click', () => {
       if (!current) return;
       const blob = new Blob([buildSvg(current.L)], { type: 'image/svg+xml' });
       const href = URL.createObjectURL(blob);
-      download(href, 'seal-' + current.slug + '-qr.svg');
+      download(href, 'qr-' + current.slug + '.svg');
       setTimeout(() => URL.revokeObjectURL(href), 1000);
     });
 
-    urlInput.addEventListener('input', () => { $('addr-hint').textContent = 'The sticker links to https://provenancemap.ie/seal/' + (urlInput.value.trim().toLowerCase() || '...') + '/. The slug is the release file name in releases/. A printed code cannot be changed, so check this before you order.'; });
+    urlInput.addEventListener('input', () => { $('addr-hint').textContent = 'The sticker links to https://provenancemap.ie/' + (urlInput.value.trim() ? 'seal/' + urlInput.value.trim().toLowerCase() + '/' : '') + ' (leave the slug empty for the home page). The slug is the release file name in releases/. A printed code cannot be changed, so check this before you order.'; });
     urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('generate-btn').click(); });
   </script>
 </body>
