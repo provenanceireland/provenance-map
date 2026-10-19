@@ -7,7 +7,7 @@
   <title>Seal Sticker QR</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@400&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -138,10 +138,10 @@
   </div>
 
   <script>
-    const SILVER = '#DCD9D0';
-    const INK = '#060807';
-    const PAPER = '#F8F8F3';
-    const GROUND = '#060807';
+    const CHARCOAL = '#1A1B18';
+    const INK = '#1A1B18';
+    const PAPER = '#F3EEDD';
+    const GROUND = '#F3EEDD';
     const QUIET = 4;
 
     const $ = (id) => document.getElementById(id);
@@ -189,7 +189,7 @@
       ctx.fillStyle = GROUND;
       ctx.fillRect(0, 0, 1000, 1000);
 
-      ctx.strokeStyle = SILVER;
+      ctx.strokeStyle = CHARCOAL;
       ctx.lineWidth = 10;
       ctx.beginPath();
       ctx.roundRect(20, 20, 960, 960, 64);
@@ -205,10 +205,10 @@
       for (const [x, y] of L.cells) ctx.fillRect(x, y, s, s);
 
       if (L.caption) {
-        ctx.fillStyle = SILVER;
+        ctx.fillStyle = CHARCOAL;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = '600 44px "Cormorant Garamond", Georgia, serif';
+        ctx.font = '400 44px "Playfair Display", Georgia, serif';
         if ('letterSpacing' in ctx) ctx.letterSpacing = '8px';
         ctx.fillText(L.caption, 500, 910);
       }
@@ -221,11 +221,11 @@
       const s = (L.cell + 0.4).toFixed(2);
       const rects = L.cells.map(([x, y]) => `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${s}" height="${s}"/>`).join('');
       const cap = L.caption
-        ? `<text x="500" y="922" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="600" font-size="44" letter-spacing="8" fill="${SILVER}">${esc(L.caption)}</text>`
+        ? `<text x="500" y="922" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="44" letter-spacing="8" fill="${CHARCOAL}">${esc(L.caption)}</text>`
         : '';
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">` +
         `<rect width="1000" height="1000" fill="${GROUND}"/>` +
-        `<rect x="20" y="20" width="960" height="960" rx="64" fill="none" stroke="${SILVER}" stroke-width="10"/>` +
+        `<rect x="20" y="20" width="960" height="960" rx="64" fill="none" stroke="${CHARCOAL}" stroke-width="10"/>` +
         `<rect x="${L.panelX}" y="${L.panelY}" width="${L.panel}" height="${L.panel}" rx="24" fill="${PAPER}"/>` +
         `<g fill="${INK}">${rects}</g>${cap}</svg>`;
     }
@@ -242,7 +242,7 @@
       if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) { errorMsg.textContent = 'Use lower case letters, numbers and hyphens only.'; errorMsg.style.display = 'block'; return; }
       const url = 'https://provenancemap.ie/seal/' + slug + '/';
       if (!isValidUrl(url)) { errorMsg.textContent = 'Please enter a valid URL.'; errorMsg.style.display = 'block'; return; }
-      try { await document.fonts.load('600 44px "Cormorant Garamond"'); } catch {}
+      try { await document.fonts.load('400 44px "Playfair Display"'); } catch {}
       const caption = captionInput.value.trim().toUpperCase();
       const L = layout(url, caption);
       current = { url, slug, L };
