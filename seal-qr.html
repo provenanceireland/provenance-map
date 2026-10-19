@@ -163,7 +163,7 @@
     // The QR runs almost edge to edge: a charcoal ring, then a cream gap (the
     // quiet zone, about 3.7 modules) and then the code. The caption sits in the
     // gap along the bottom. Outside the ring the sticker is transparent.
-    const RING = 10, GAP = 80, MARGIN = RING + GAP, CAP_Y = 1000 - RING - GAP / 2, CAP_SIZE = 44, CAP_MAX = 780;
+    const RING = 10, GAP = 80, MARGIN = RING + GAP, CAP_Y = 1000 - RING - GAP / 2, CAP_SIZE = 50, CAP_MAX = 780;
 
     function layout(url, caption) {
       const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
@@ -244,7 +244,7 @@
       if (slug && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) { errorMsg.textContent = 'Use lower case letters, numbers and hyphens only.'; errorMsg.style.display = 'block'; return; }
       const url = slug ? 'https://provenancemap.ie/seal/' + slug + '/' : 'https://provenancemap.ie/';
       if (!isValidUrl(url)) { errorMsg.textContent = 'Please enter a valid URL.'; errorMsg.style.display = 'block'; return; }
-      try { await document.fonts.load('400 44px "Playfair Display"'); } catch {}
+      try { await document.fonts.load('400 50px "Playfair Display"'); } catch {}
       const caption = captionInput.value.trim().toUpperCase();
       const L = layout(url, caption);
       current = { url, slug: slug || 'provenancemap', L };
