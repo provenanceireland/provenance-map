@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --silver: #DCD9D0; }
@@ -237,6 +237,7 @@
 
     $('generate-btn').addEventListener('click', async () => {
       errorMsg.style.display = 'none';
+      if (typeof QRCode === "undefined") { errorMsg.textContent = "The QR library did not load. Check your connection and reload."; errorMsg.style.display = "block"; return; }
       const slug = urlInput.value.trim().toLowerCase();
       if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) { errorMsg.textContent = 'Use lower case letters, numbers and hyphens only.'; errorMsg.style.display = 'block'; return; }
       const url = 'https://provenancemap.ie/seal/' + slug + '/';
