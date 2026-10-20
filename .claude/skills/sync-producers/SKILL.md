@@ -83,7 +83,16 @@ the filter panel is built in the same three sections.
 `Grass Fed` · `Free range` · `Pasture raised` · `Chemical Free`
 
 **Native and heritage** (what the animal, bee or seed *is*, not how it was kept) —
-`Native / rare breed` · `Native Irish Honey Bee` · `Heritage variety`
+`Native / rare breed` · `Heritage breed` · `Pedigree breed` ·
+`Native Irish Honey Bee` · `Heritage variety`
+
+`Heritage breed` and `Pedigree breed` were added on 2026-10-20 for O'Callaghan
+Family Farm's Belted Galloways. They fill a real gap: a Belted Galloway is a
+rare pedigree breed but a Scottish one, so `Native / rare breed` read as a
+claim about Ireland that was not true. **Heritage breed** is for an old
+established breed of animal, **Pedigree breed** for a registered herd or flock,
+and a producer can tick both. `Heritage variety` stays what it always was, for
+seeds and plants.
 
 **How it's made** (what was *not* done to it afterwards) —
 `Raw / unpasteurised` · `Non-Homogenised` · `Plastic Free`
