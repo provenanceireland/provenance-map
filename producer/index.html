@@ -112,17 +112,21 @@
     }
     .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
-    /* ── the one image every tier carries. Usually a logo, so it is contained
-       rather than cropped, and a logo drawn on white gets a white ground to
-       sit on instead of being punched out of the page. ── */
-    .mark { margin: 40px auto 34px; max-width: 260px; }
+    /* ── the one image every tier carries. The frame takes the image's own
+       shape instead of forcing a square: a wide banner logo and a tall photo
+       each fill their frame rather than floating in empty bands. Nothing is
+       ever cropped, because these are usually logos and a crop would cut the
+       wordmark off. inline-flex is what makes the frame shrink to the image;
+       the caps keep a panorama from going too wide and a portrait too tall.
+       A logo drawn on white still gets a white ground to sit on. ── */
+    .mark { margin: 40px auto 34px; text-align: center; }
     .mark-inner {
       border: 1px solid var(--hair); background: var(--surface);
-      display: flex; align-items: center; justify-content: center; padding: 18px;
-      aspect-ratio: 1/1;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 18px; max-width: 100%;
     }
     .mark-inner.on-white { background: #FFFFFF; border-color: rgba(255,255,255,0.18); }
-    .mark-inner img { max-height: 100%; width: auto; object-fit: contain; }
+    .mark-inner img { max-width: min(222px, 100%); max-height: 300px; width: auto; height: auto; }
 
     /* ── the tier line, the same statement the map card makes ── */
     .tier-line { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
