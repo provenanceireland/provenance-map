@@ -161,13 +161,23 @@
     .practice .p-korean-natural-farming { color: #4A8A8A; }
     .practice svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
+    /* Confirmed attributes: a glyph and a label each, from the shared icon map
+       in connect.js, so this page and the map card say the same thing the same
+       way. One muted colour throughout, so these never compete with the
+       practice line above them. */
     .attrs {
       margin-top: 14px;
+      display: flex; flex-wrap: wrap; gap: 9px 18px;
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--muted); line-height: 1.8;
+      font-size: 0.64rem; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--muted); line-height: 1.5;
     }
-    .attrs span + span::before { content: '·'; margin: 0 9px; color: rgba(201,198,189,0.30); }
+    .attrs .attr { display: inline-flex; align-items: center; gap: 7px; font-style: normal; }
+    .attrs .attr svg {
+      width: 16px; height: 16px; flex: none;
+      stroke: currentColor; fill: none; stroke-width: 1.4;
+      stroke-linecap: round; stroke-linejoin: round; opacity: 0.9;
+    }
 
     /* ── buttons ── */
     /* Provenance Connect at the top of the page, the same button the Featured
@@ -417,7 +427,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=9"></script>
+  <script src="../connect.js?v=10"></script>
   <script>
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -503,7 +513,7 @@
       }
       const attrs = (p.attributes || []).filter(Boolean);
       if (attrs.length) {
-        $('attrs').innerHTML = attrs.map(a => `<span>${esc(a)}</span>`).join('');
+        $('attrs').innerHTML = pvAttrsHTML(attrs, esc);
         show('attrs', true);
       }
 

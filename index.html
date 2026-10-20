@@ -1200,18 +1200,39 @@
       color: rgba(90,140,100,0.45);
     }
 
-    /* What the producer has confirmed. A quiet caption line under the practice
-       statement, separated by middots — the words are the point, the boxes
-       never were. */
+    /* What the producer has confirmed. Each one is a line-art glyph and a
+       label, drawn in the same stroke language as the practice sprout above it.
+       Most producers carry exactly one attribute, and a lone middot line had
+       nothing to anchor it, which is what made it read as an afterthought.
+       Still no boxes and no fills: the words are the point.
+
+       The container stays ordinary inline flow and each attribute is
+       inline-flex, because clampLine() uses -webkit-line-clamp, which needs
+       inline content. A flex container here would break the two-line clamp and
+       its Show all button. */
     #card-attributes {
-      font-size: 0.56rem;
+      font-size: 0.6rem;
       font-weight: 500;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: #A89A82;
-      line-height: 1.75;
-      margin-top: 2px;
+      color: #BCAE93;
+      line-height: 1.95;
+      margin-top: 5px;
       margin-bottom: 11px;
+    }
+    #card-attributes .attr {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-style: normal;
+      margin-right: 16px;
+    }
+    #card-attributes .attr:last-child { margin-right: 0; }
+    #card-attributes .attr svg {
+      width: 15px; height: 15px; flex: none;
+      stroke: currentColor; fill: none; stroke-width: 1.4;
+      stroke-linecap: round; stroke-linejoin: round;
+      opacity: 0.9;
     }
     .badge-attr + .badge-attr::before {
       content: '·';
@@ -2673,7 +2694,7 @@
     <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
   </div>
 
-  <script src="connect.js?v=9"></script>
+  <script src="connect.js?v=10"></script>
   <script>
     const mapImg = document.getElementById('map-img');
 
@@ -3355,9 +3376,12 @@
       // ── Attributes ──
       const attrsEl = document.getElementById('card-attributes');
       if (pin.dataset.attributes) {
-        attrsEl.innerHTML = pin.dataset.attributes.split(',').map(t =>
-          `<span class="badge-attr">${t.trim()}</span>`
-        ).join('');
+        // Icon plus label, built from the shared map in connect.js so the card
+        // and the shared profile cannot drift apart.
+        attrsEl.innerHTML = pvAttrsHTML(
+          pin.dataset.attributes.split(',').map(t => t.trim()),
+          s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+        );
         attrsEl.classList.remove('hidden');
       } else {
         attrsEl.classList.add('hidden');

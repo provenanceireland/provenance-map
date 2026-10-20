@@ -465,3 +465,89 @@ function connectGroupedHTML(items, groups, escFn, opt) {
 }
 
 var CONNECT_ICON = '<svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>';
+
+/* ── Confirmed attributes ─────────────────────────────────────────────────
+   An icon and a label, not a middot run. Most producers carry exactly one
+   attribute, and a lone line of small caps had nothing to anchor it, which
+   is what made it read as an afterthought.
+
+   The glyphs are drawn in the same stroke language as the practice sprout
+   already on the card: 24 box, 1.4 weight, round caps, no fill. They stay a
+   single muted colour on purpose. Colouring them by vocabulary group was
+   considered and dropped, because gold and teal directly under the practice
+   line compete with it, and the practice line is meant to be the warmest
+   thing on the card.
+
+   Lives here rather than in a page because the map card and the shared
+   profile both render it, and two copies drift. The visit record on a
+   Highlighted page keeps the plain comma list: that is reference data, not
+   a display of marks.
+
+   Keys must match the vocabulary in CLAUDE.md exactly. An unknown value
+   falls back to the rosette rather than rendering bare, which is how
+   "Heritage breed" and "Pedigree breed" currently draw. */
+var PV_ATTR_ROSETTE =
+  '<circle cx="12" cy="9.2" r="4.6"/><path d="M9.4 13.2L7.8 20.5l4.2-2.1 4.2 2.1-1.6-7.3"/>';
+
+var PV_ATTR_ICONS = {
+  'Grass Fed':
+    '<path d="M12 21V11.5"/><path d="M12 14.5c-2.6-1.2-4.2-3.8-4.2-7 2.6.6 4.2 2.8 4.2 7z"/>' +
+    '<path d="M12 14.5c2.6-1.2 4.2-3.8 4.2-7-2.6.6-4.2 2.8-4.2 7z"/><path d="M7.5 21h9"/>',
+  'Free range':
+    '<path d="M20 7.2c-1.2 0-2 .6-2.4 1.4-1.2-1.2-3-1.4-4.6-.8C9.8 9 8 12.2 8 15.2c0 1-.6 2-2 2.6 ' +
+    '1.6.8 3.4.8 5 .2 3.4-1.2 6-4.6 6-8.4 0-.6.4-1 1-1 .8 0 1.6-.6 2-1.4z"/>' +
+    '<circle cx="16.9" cy="9.1" r=".55" style="fill:currentColor;stroke:none"/>',
+  'Pasture raised':
+    '<path d="M3 20h18"/><path d="M6 20c0-3.2 1-5.2 2-6.4M9.5 20c0-4.4 1.8-6.8 3-8' +
+    'M14.5 20c0-4 1.2-6 2.2-7.2M18.5 20c0-2.6.2-3.8 1-4.8"/>',
+  'Chemical Free':
+    '<path d="M12 4c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.5 2-5 5-9z"/><path d="M5 19.5L19 4.5"/>',
+  'Native / rare breed':
+    '<path d="M7 11.5c0-2.8 2.2-4.8 5-4.8s5 2 5 4.8v1.8a5 5 0 0 1-10 0z"/>' +
+    '<path d="M7 11.5C4.9 10.6 3.6 8.5 4 6.4c2-.2 3.3 1.4 3.7 3.2M17 11.5c2.1-.9 3.4-3 3-5.1' +
+    '-2-.2-3.3 1.4-3.7 3.2"/><path d="M10.6 14.4h2.8"/>',
+  'Native Irish Honey Bee':
+    '<ellipse cx="12" cy="14.5" rx="3.6" ry="5"/><path d="M8.6 13h6.8M8.6 16.2h6.8"/>' +
+    '<path d="M9.2 9.8C6.6 7.2 4 8.2 4.3 10.4 4.6 12.2 7 12.6 9.2 11.2"/>' +
+    '<path d="M14.8 9.8C17.4 7.2 20 8.2 19.7 10.4 19.4 12.2 17 12.6 14.8 11.2"/>' +
+    '<path d="M11 9.4V7.4M13 9.4V7.4"/>',
+  'Heritage variety':
+    '<path d="M12 21V9.5"/><path d="M12 9.5c0-2.2 1.1-3.9 2.8-5 .6 2.2-.5 4.1-2.8 5z"/>' +
+    '<path d="M12 9.5c0-2.2-1.1-3.9-2.8-5-.6 2.2.5 4.1 2.8 5z"/>' +
+    '<path d="M12 14c0-2.2 1.1-3.9 2.8-5 .6 2.2-.5 4.1-2.8 5z"/>' +
+    '<path d="M12 14c0-2.2-1.1-3.9-2.8-5-.6 2.2.5 4.1 2.8 5z"/>',
+  'Raw / unpasteurised':
+    '<path d="M13.5 14.6V5a1.5 1.5 0 0 0-3 0v9.6a3.6 3.6 0 1 0 3 0z"/><path d="M4.5 20L19.5 4.5"/>',
+  'Non-Homogenised':
+    '<path d="M10 3.5h4V6l1.6 2.3c.3.4.4.9.4 1.4V19a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9.7' +
+    'c0-.5.1-1 .4-1.4L10 6z"/><path d="M8 12.6h8"/>',
+  'Plastic Free':
+    '<path d="M10 3.5h4V6l1.6 2.3c.3.4.4.9.4 1.4V19a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9.7' +
+    'c0-.5.1-1 .4-1.4L10 6z"/><path d="M4.5 20L19.5 4.5"/>'
+};
+
+/* Case and spacing are forgiven, so a record written "Native Irish Honey bee"
+   still finds its glyph instead of silently falling back. */
+var PV_ATTR_LOOKUP = (function () {
+  var m = {};
+  for (var k in PV_ATTR_ICONS) {
+    if (Object.prototype.hasOwnProperty.call(PV_ATTR_ICONS, k)) {
+      m[k.toLowerCase().replace(/\s+/g, ' ').trim()] = PV_ATTR_ICONS[k];
+    }
+  }
+  return m;
+})();
+
+function pvAttrIcon(name) {
+  var key = String(name || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+    (PV_ATTR_LOOKUP[key] || PV_ATTR_ROSETTE) + '</svg>';
+}
+
+/* `esc` is passed in because each page has its own escaper. */
+function pvAttrsHTML(attrs, esc) {
+  var e = esc || function (s) { return String(s == null ? '' : s); };
+  return (attrs || []).filter(Boolean).map(function (a) {
+    return '<i class="attr">' + pvAttrIcon(a) + '<span>' + e(a) + '</span></i>';
+  }).join('');
+}
