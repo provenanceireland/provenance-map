@@ -537,6 +537,8 @@
       "badge2": null,
       "lat": 52.477347,
       "lng": -8.504141,
+      "lat_desktop": 52.313140,
+      "lng_desktop": -8.308918,
       "county": "Limerick",
       "location": "Co. Limerick",
       "product": "Vegetables - Korean Natural Farming",
