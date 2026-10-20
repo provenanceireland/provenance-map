@@ -1502,7 +1502,12 @@
       border-radius: 6px;
       padding: 6px 11px 7px;
       text-align: center;
-      white-space: nowrap;
+      /* The label wraps. It used to be nowrap, which meant a long produce line
+         simply ran out past max-width and across the map: SeanNua Farm's is 121
+         characters. Nine producers are over forty. overflow-wrap catches a
+         single unbroken token so nothing can escape the box. */
+      white-space: normal;
+      overflow-wrap: anywhere;
       /* Caps how far the label can grow so it cannot be pushed off a phone
          screen by a pin near the coast. */
       max-width: min(78vw, 280px);
@@ -1535,6 +1540,13 @@
       text-transform: uppercase;
       color: #9A968B;
       margin-top: 3px;
+      /* Two lines is the most a hover hint should spend on the produce list.
+         The longest on the map runs to four or five wrapped lines otherwise,
+         which turns a glance into a paragraph. The card carries the full line. */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     #pin-label .pl-product.t-featured { color: #CDA043; }
     /* The county, so two farms with similar names can be told apart without
@@ -1715,11 +1727,7 @@
       margin-top: 5px;
       padding-top: 5px;
       border-top: 1px solid rgba(180,210,186,0.22);
-      /* The one long line in the label, and the label is nowrap. On a narrow
-         phone, centred on a pin near the coast, it would otherwise run off the
-         edge of the screen. This line may wrap; the short ones above it still
-         do not. */
-      white-space: normal;
+      /* Wrapping is the label's default now, so this no longer needs saying. */
     }
     #pin-label .pl-new {
       font-size: 0.5rem;
@@ -3025,11 +3033,6 @@
     pinLabel.innerHTML = '<div class="pl-name"></div><div class="pl-product"></div><div class="pl-county"></div><div class="pl-connect">Buy direct from this farm</div><div class="pl-new">New this week</div>';
     document.body.appendChild(pinLabel);
     let labelPin = null;
-    const overLabel = (x, y) => {
-      if (!pinLabel.classList.contains('visible')) return false;
-      const r = pinLabel.getBoundingClientRect();
-      return x >= r.left - 8 && x <= r.right + 8 && y >= r.top - 8 && y <= r.bottom + 12;
-    };
 
     function pinNearestForLabel(cx, cy, reach) {
       let best = null, bestDist = Infinity;
@@ -3081,17 +3084,23 @@
     const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
 
     if (!coarsePointer) {
+      /* The label used to freeze while the pointer was anywhere inside its own
+         box plus a margin, so moving between two pins caught on the label of
+         the one you were leaving: it sits directly above its pin and can be
+         280px wide, so you pass through it almost every time. That guard was
+         there because the label once held a pressable button. The button is
+         gone and the label is pointer-events: none, so the pointer passes
+         straight through and the nearest-pin test can simply run. */
       let hoverRaf = null;
       mapWrapEl.addEventListener('mousemove', e => {
         if (hoverRaf) return;
         hoverRaf = requestAnimationFrame(() => {
           hoverRaf = null;
-          if (overLabel(e.clientX, e.clientY)) return;
           const pin = pinNearestForLabel(e.clientX, e.clientY, 6);
           if (pin !== labelPin) showPinLabel(pin);
         });
       });
-      mapWrapEl.addEventListener('mouseleave', e => { if (!overLabel(e.clientX, e.clientY)) hidePinLabel(); });
+      mapWrapEl.addEventListener('mouseleave', hidePinLabel);
     } else {
       let pressTimer = null, pressStart = null, suppressClick = false;
       mapWrapEl.addEventListener('touchstart', e => {
