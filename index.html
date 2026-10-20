@@ -596,13 +596,21 @@
       background: #080a09;
       overflow: hidden;
     }
+    /* The image is sized to its own shape and centred, rather than stretched
+       across the banner, so its box is exactly the picture. That is what lets
+       a white ground sit behind just the logo instead of flooding the whole
+       strip: most of these logos are square and the banner is 2.5:1, so a
+       full-width white band left about 60% of it empty. */
     .card-photo-wrap img {
       position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: contain;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto;
       display: block;
     }
+    /* A logo drawn on white gets its white ground, hugging the logo only. */
+    .card-photo-wrap.on-white img { background: #FFFFFF; }
     .card-photo-wrap .photo-placeholder {
       position: absolute;
       inset: 0;
@@ -618,7 +626,13 @@
     .card-photo-wrap.cover {
       border-radius: 18px 18px 0 0;
     }
+    /* Gallery heroes still fill the banner edge to edge, so they reset the
+       shrink-to-image sizing above. */
     .card-photo-wrap.cover img {
+      inset: 0;
+      transform: none;
+      width: 100%; height: 100%;
+      max-width: none; max-height: none;
       object-fit: cover;
       object-position: center 32%;
       cursor: zoom-in;
@@ -3346,7 +3360,9 @@
 
       // ── Photo + strip ──
       const photoWrap  = document.getElementById('card-photo-wrap');
-      photoWrap.style.background = pin.dataset.photoBg === 'white' ? '#ffffff' : '';
+      // The white ground goes on the image itself, not the banner, so it hugs
+      // the logo instead of painting the whole 2.5:1 strip white.
+      photoWrap.classList.toggle('on-white', pin.dataset.photoBg === 'white');
       const photoStrip = document.getElementById('card-photo-strip');
       const heroLogo = pin.dataset.photo || '';
       const galleryPhotos = pin.dataset.photos
