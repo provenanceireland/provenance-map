@@ -483,11 +483,9 @@ var CONNECT_ICON = '<svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 
    Highlighted page keeps the plain comma list: that is reference data, not
    a display of marks.
 
-   Keys must match the vocabulary in CLAUDE.md exactly. An unknown value
-   falls back to the rosette rather than rendering bare, which is how
-   "Heritage breed" and "Pedigree breed" currently draw. */
-var PV_ATTR_ROSETTE =
-  '<circle cx="12" cy="9.2" r="4.6"/><path d="M9.4 13.2L7.8 20.5l4.2-2.1 4.2 2.1-1.6-7.3"/>';
+   Keys must match the vocabulary in CLAUDE.md exactly. An unknown value draws
+   a plain confirmed tick rather than rendering bare. */
+var PV_ATTR_FALLBACK = '<path d="M5 12.6l4.6 4.6L19 7.4"/>';
 
 var PV_ATTR_ICONS = {
   'Grass Fed':
@@ -511,6 +509,17 @@ var PV_ATTR_ICONS = {
     '<path d="M9.2 9.8C6.6 7.2 4 8.2 4.3 10.4 4.6 12.2 7 12.6 9.2 11.2"/>' +
     '<path d="M14.8 9.8C17.4 7.2 20 8.2 19.7 10.4 19.4 12.2 17 12.6 14.8 11.2"/>' +
     '<path d="M11 9.4V7.4M13 9.4V7.4"/>',
+  /* Heritage breed and Pedigree breed exist because a Belted Galloway is a
+     rare pedigree animal but a Scottish one: "Native / rare breed" would have
+     read as a claim that it is Irish. Heritage variety is the seed and plant
+     term and does not fit an animal, so neither was remapped. */
+  'Heritage breed':
+    '<path d="M5.6 11.6c0-1 .8-1.8 1.8-1.8h6.8c1 0 1.8.8 1.8 1.8V15H5.6z"/>' +
+    '<path d="M16 11.4h2.4l1.6 1.3V15H16"/>' +
+    '<path d="M7.4 15v4.6M10 15v4.6M12.9 15v4.6M15.5 15v4.6"/>' +
+    '<path d="M5.6 11.9c-1.2.3-2 1.4-1.8 2.7"/>',
+  'Pedigree breed':
+    '<circle cx="12" cy="9.2" r="4.6"/><path d="M9.4 13.2L7.8 20.5l4.2-2.1 4.2 2.1-1.6-7.3"/>',
   'Heritage variety':
     '<path d="M12 21V9.5"/><path d="M12 9.5c0-2.2 1.1-3.9 2.8-5 .6 2.2-.5 4.1-2.8 5z"/>' +
     '<path d="M12 9.5c0-2.2-1.1-3.9-2.8-5-.6 2.2.5 4.1 2.8 5z"/>' +
@@ -541,7 +550,7 @@ var PV_ATTR_LOOKUP = (function () {
 function pvAttrIcon(name) {
   var key = String(name || '').toLowerCase().replace(/\s+/g, ' ').trim();
   return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-    (PV_ATTR_LOOKUP[key] || PV_ATTR_ROSETTE) + '</svg>';
+    (PV_ATTR_LOOKUP[key] || PV_ATTR_FALLBACK) + '</svg>';
 }
 
 /* `esc` is passed in because each page has its own escaper. */
