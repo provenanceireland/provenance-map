@@ -149,13 +149,19 @@ bug to work around.
   If research turns up nothing specific, write a minimal honest line from the known
   facts and say so. Present any *generated* description in your reply for the user
   to edit; a verbatim producer one needs no sign-off.
-- **Practice gating.** Only write a real practice (`regenerative` and/or
-  `organic`) to `producers.json` when the note's `practice_confirmed` is `true`.
-  If practice is set but not confirmed, store `"practice": "unspecified"` (no pill
-  shows) — never display a practice a producer hasn't confirmed. `conventional`
-  and anything else render no pill; only `organic`/`regenerative` show. A producer
-  can hold both — store `"regenerative,organic"` and the card shows both pills
-  side by side.
+- **`korean-natural-farming` is the third practice** (added 2026-10-20 for New
+  Leaf Urban Farmers). It renders a teal `#4A8A8A` pill with a fermenting crock
+  icon, beside the organic leaf and the regenerative sprout. Write the slug
+  **hyphenated**, never "Korean Natural Farming": the card builds its CSS class
+  from the slug and a space would break it. The label comes from a lookup, not
+  from capitalising the slug, so a multi-word practice renders properly.
+- **Practice gating.** Only write a real practice (`regenerative`, `organic`
+  and/or `korean-natural-farming`) to `producers.json` when the note's
+  `practice_confirmed` is `true`. If practice is set but not confirmed, store
+  `"practice": "unspecified"` (no pill shows) — never display a practice a
+  producer hasn't confirmed. `conventional` and anything else render no pill;
+  only those three do. A producer can hold more than one — store
+  `"regenerative,organic"` and the card shows both pills side by side.
 - **Single card image.** Every tier gets **one** image (`photo_url`) — a logo is
   ideal, but a single representative photo (e.g. a farm shot) is also fine on
   Discovered and Verified. Check the image (Read it): if it's a logo on a
