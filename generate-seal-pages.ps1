@@ -162,9 +162,11 @@ foreach ($f in $releases) {
     $b += '</section>'
   }
 
+  if (@($r.sources).Count -gt 0) {
   $b += '<section id="sources"><p class="kick">Sources</p><h2>Where this comes from</h2><ul class="sources">'
   foreach ($x in @($r.sources)) { $b += '<li>' + (E $x) + '</li>' }
   $b += '</ul></section>'
+  }
 
   $c = $r.collection
   $b += '<section id="collection"><p class="kick">The Collection</p><h2>' + (E $c.heading) + '</h2>'

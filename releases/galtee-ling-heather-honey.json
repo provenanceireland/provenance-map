@@ -1,0 +1,26 @@
+{
+  "slug": "galtee-ling-heather-honey",
+  "product": "Ling Heather Honey",
+  "producer": {
+    "name": "Galtee Honey Farm",
+    "place": "Galtee Vee Valley, Co. Tipperary",
+    "profile": "/producer/?id=galtee-honey-farm"
+  },
+  "kicker": "Provenance Collection",
+  "descriptor": "Ling heather honey from Galtee Honey Farm.",
+  "og_description": "The story behind a jar of Galtee Honey Farm ling heather honey, recorded by Provenance with the producer.",
+  "intro": [
+    "This is the story behind the product in your hand, recorded by Provenance together with the producer.",
+    "The full story is being written and will appear on this page. It is a story and nothing more. This page makes no claim of batch verification, laboratory testing or certification."
+  ],
+  "sections": [],
+  "sources": [],
+  "collection": {
+    "heading": "The Provenance Collection",
+    "text": [
+      "The Provenance Collection is a series of one-off, limited-run releases, made with producers already on the Provenance Map. Provenance works with the producer and does not make its own products."
+    ],
+    "profile_label": "See Galtee Honey Farm on the Provenance Map",
+    "next_label": "Find the next release"
+  }
+}
