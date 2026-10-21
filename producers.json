@@ -3808,6 +3808,36 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-21"
+    },
+    {
+      "id": "dripsey-castle",
+      "practice": "organic",
+      "name": "Dripsey Castle",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.773550,
+      "lng": -8.746619,
+      "lat_desktop": 51.773550,
+      "lng_desktop": -8.549471,
+      "county": "Cork",
+      "location": "Dripsey, Co. Cork",
+      "product": "Vegetables, soft fruit, apples, herbs, leaves",
+      "product_type": ["vegetables", "fruit"],
+      "description": "An organic horticulture farm and tillage in mid Cork region. Call us for more details!",
+      "photo_url": "dripsey.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Chemical Free"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-21"
     }
   ]
 }
