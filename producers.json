@@ -3778,6 +3778,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-19"
+    },
+    {
+      "id": "lough-key-view-regenerative-farm",
+      "practice": "regenerative",
+      "name": "Lough Key View Regenerative Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.973,
+      "lng": -8.301,
+      "county": "Roscommon",
+      "location": "Boyle, Co. Roscommon",
+      "product": "Pasture Raised Pork, Organic Vegetables, Fresh eggs",
+      "product_type": ["pork", "vegetables", "eggs"],
+      "description": "We are a first generation family farm on the foot of the Curlew mountain in Boyle Co Roscommon. We raise Jersey cows, KuneKune pigs, poultry and also grow our own vegetables.",
+      "photo_url": "loughkeyview.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Pasture raised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-21"
     }
   ]
 }
