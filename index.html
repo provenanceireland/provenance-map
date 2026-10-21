@@ -330,6 +330,19 @@
       margin-bottom: 48px;
     }
 
+    /* A utility, not a destination, so it sits quieter and smaller than the
+       four links above it and loses the dividing rule under the last one. */
+    .menu-refresh {
+      font-size: 19px;
+      color: #7A8F80;
+      border-bottom: none;
+      margin-top: 4px;
+      background: none;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .menu-refresh:hover { color: #A8C0AE; }
+    .menu-refresh.working { color: #5A8C64; pointer-events: none; }
     .menu-link {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 32px;
@@ -2329,6 +2342,10 @@
            restore it. -->
       <!-- <a href="about.html" class="menu-link">About Provenance</a> -->
       <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
+      <!-- Installed as an app there is no address bar and no pull to refresh,
+           so without this there is no way to force a fresh copy when the map is
+           showing something stale or has got itself stuck. -->
+      <button type="button" class="menu-link menu-refresh" id="menu-refresh">Refresh the map</button>
     </div>
 
     <div class="menu-panel" id="menu-cats">
@@ -3210,6 +3227,10 @@
     }
     document.getElementById('zoom-out').addEventListener('click', e => {
       e.stopPropagation();
+      /* Near me scales the map too, so the chip has to undo the whole mode:
+         clearing the transform alone would leave the radius circle, the
+         you-are-here dot and the dimmed pins behind over an unzoomed map. */
+      if (nearMe.active) { exitNearMeMode(); return; }
       resetMapZoom();
     });
 
@@ -4121,6 +4142,34 @@
     document.querySelectorAll('#menu-overlay [data-open]').forEach(b =>
       b.addEventListener('click', () => menuPanel(b.dataset.open)));
 
+    /* Refresh. Installed as an app there is no address bar and no pull to
+       refresh, so this is the only way out of a stale or stuck view.
+
+       A plain reload is not enough on its own: producers.json, connect.js and
+       every image are served cache-first by the worker, so they would come
+       back from the same cache that is the problem. The caches go first, then
+       the worker is told to look for a new version of itself, and only then
+       does the page reload. */
+    document.getElementById('menu-refresh')?.addEventListener('click', async e => {
+      const btn = e.currentTarget;
+      btn.classList.add('working');
+      btn.textContent = 'Refreshing...';
+      try {
+        if (window.caches) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k).catch(() => {})));
+        }
+        if (navigator.serviceWorker) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.update().catch(() => {})));
+        }
+      } catch (err) {
+        /* Private mode, no worker, storage blocked: reload anyway rather than
+           leave the button sitting on "Refreshing..." with nothing happening. */
+      }
+      location.reload();
+    });
+
     function buildMenu(list) {
       MENU_PRODUCERS = list;
       // The category names and their order come from the map's own filter
@@ -4307,9 +4356,15 @@
       const tx = vw / 2 - N * px;
       const ty = vh / 2 - N * py;
 
-      const wrap = document.getElementById('map-wrap');
-      wrap.style.transformOrigin = '0 0';
-      wrap.style.transform = `translate(${tx}px,${ty}px) scale(${N})`;
+      /* Through mapZoom, not straight onto the element. Writing the transform
+         directly left mapZoom.s at 1 while the map was visibly scaled 3 to 8
+         times, so applyMapZoom() thought the map was at rest and the Zoom out
+         chip stayed hidden: the map was zoomed in with no visible way back out
+         except pressing Near me a second time. */
+      mapZoom.s = N;
+      mapZoom.tx = tx;
+      mapZoom.ty = ty;
+      applyMapZoom();
 
       drawNearMeCircle(px, py, rh);
       addUserDot(px, py);
