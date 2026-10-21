@@ -31,7 +31,6 @@ a{color:inherit}
 h1,h2{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:400;line-height:1.05;color:var(--cream);text-wrap:balance}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 0;border-bottom:1px solid var(--h2)}
 .mark{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'Playfair Display',Georgia,serif;font-size:1rem;letter-spacing:.16em;color:var(--cream)}
-.mark svg{width:26px;height:26px;fill:none;stroke:var(--line);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
 .hero{padding:44px 0 34px;border-bottom:1px solid var(--h1)}
 .hero h1{font-size:clamp(2.6rem,12vw,3.6rem);margin:14px 0 14px}
 .hero .producer{font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.2;color:var(--cream)}
@@ -62,7 +61,6 @@ ul.sources li{font-size:.9rem;line-height:1.5;color:var(--source);padding:6px 0;
 
 $head_fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Inter:wght@500&family=Source+Serif+4:opsz,wght@8..60,300&display=swap" rel="stylesheet">'
 
-$markSvg = '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><circle cx="16" cy="16" r="8"/><circle cx="16" cy="16" r="1.6"/></svg>'
 
 function Page([string]$title, [string]$desc, [string]$canonical, [bool]$index, [string]$body) {
   $robots = if ($index) { 'index, follow' } else { 'noindex, nofollow' }
@@ -96,7 +94,7 @@ $head_fonts
 </head>
 <body>
 <div class="wrap">
-<header class="top"><a class="mark" href="/">$markSvg<span>PROVENANCE</span></a></header>
+<header class="top"><a class="mark" href="/"><span>PROVENANCE</span></a></header>
 $body
 <footer class="foot"><span>Provenance</span><a href="/">provenancemap.ie</a></footer>
 </div>
