@@ -560,7 +560,20 @@
          collide with. Nothing shows through an opaque strip. */
       background: #222320;
       pointer-events: none;
+      /* Matches the card, which is max-width 560px and centred, so the strip
+         never runs wider than the card it belongs to on a tablet. */
+      max-width: 560px;
+      margin: 0 auto;
+      /* The strip lives outside #card now, so it no longer slides away with
+         the card and has to show and hide on its own. */
+      opacity: 0;
+      transition: opacity 0.2s;
     }
+    #card.open ~ .card-footer { opacity: 1; }
+    /* Inert unless the card is open, so the button can never be pressed
+       through a closed card. */
+    .card-footer .card-back { pointer-events: none; }
+    #card.open ~ .card-footer .card-back { pointer-events: auto; }
     /* A short fade above the strip so text thins out as it reaches it rather
        than being guillotined by a hard edge. It sits outside the strip, so
        the strip itself stays completely opaque. */
@@ -2679,14 +2692,6 @@
         <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-    <!-- The footer is a strip so the button never sits on top of the card's
-         last line. It ignores pointer events; only the button takes them. -->
-    <div class="card-footer">
-      <button class="card-back" id="card-back" type="button">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
-      </button>
-    </div>
-
     <div class="card-photo-wrap" id="card-photo-wrap">
       <div class="photo-placeholder">
         <svg viewBox="0 0 24 24" fill="none" stroke="#f8f8f3" stroke-width="1.2">
@@ -2736,6 +2741,22 @@
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
+  </div>
+
+  <!-- The footer is a strip so the button never sits on top of the card's last
+       line. It ignores pointer events; only the button takes them.
+
+       It is OUTSIDE #card on purpose. It used to live inside, and #card.open
+       sets transform: translateY(0) — a transform, not none — which makes the
+       card the containing block for any position: fixed descendant. The strip
+       was therefore not fixed to the viewport at all: it was pinned to the
+       bottom of the card's scrollable content and rode up and down with it,
+       landing on the confirmed line and on the Share and Directions row. Out
+       here, fixed means what it says. -->
+  <div class="card-footer">
+    <button class="card-back" id="card-back" type="button">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back to map
+    </button>
   </div>
 
   <!-- LIGHTBOX / PHOTO VIEWER -->
