@@ -271,7 +271,7 @@ The category names and their order are read from the map's own filter chips at l
 
 ## Design System
 
-**Four languages, and they do not mix.** Pick by surface, never by taste.
+**Five languages, and they do not mix.** Pick by surface, never by taste.
 
 ### 1. The map (Cormorant)
 
@@ -311,6 +311,19 @@ Chapter carousels, any Collection storytelling piece, and **the Seal story page*
 ### 4. Collection parchment (announcements)
 
 Announcements, explainers, opening pieces and collab posts only. Background `#F3EEDD`, primary `#243629`, muted `#6C6858`. Playfair Display and Inter. No gold. **Never used for storytelling**, which is always charcoal.
+
+### 5. Personal channel (charcoal, cream only)
+
+Added 2026-10-22. Darragh's own page, and deliberately **not** the Collection's parchment: a personal post is not a Collection announcement and should not borrow its look.
+
+- Flat charcoal ground `#1A1B18`. No gradient, which is what separates it from Collection charcoal.
+- **Cream only.** `#E8DEC8` for headings, `#BCAE93` for icons and small labels, and lower opacities of cream for everything else. **No green, no gold, no second hue anywhere**: hierarchy comes from opacity and size, never from colour.
+- The map's two fonts, **Cormorant Garamond** for headings and **Source Serif 4** for body, which is what keeps it apart from the Collection's Playfair and Inter.
+- Carousels 1080 by 1350, same as everything else.
+
+**Voice is the personal channel**, so first person singular, and never the Provenance "we". First built for the attribute icons post; the export is `attribute-icons-export.html`.
+
+**When a post shows something from the map, lift the real artwork.** That post's icons were taken straight from `PV_ATTR_ICONS` in `connect.js` rather than redrawn, so the post cannot drift from what the map actually renders.
 
 ### Heritage style
 
