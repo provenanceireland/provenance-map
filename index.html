@@ -330,19 +330,52 @@
       margin-bottom: 48px;
     }
 
-    /* A utility, not a destination, so it sits quieter and smaller than the
-       four links above it and loses the dividing rule under the last one. */
-    .menu-refresh {
-      font-size: 19px;
-      color: #7A8F80;
-      border-bottom: none;
-      margin-top: 4px;
-      background: none;
+    /* Refresh. Installed as an app there is no address bar and no pull to
+       refresh, so this is the only way out of a stale or stuck view.
+
+       Bottom left, above the producer counter, which is the quietest corner of
+       the map: the legend is opposite, the search and the menu are at the top.
+       Deliberately small and unlabelled, a circular arrow being the one icon
+       nobody has to be taught. On a phone it clears the Near me button, which
+       takes that same column. */
+    #refresh-btn {
+      position: fixed;
+      left: 16px;
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 70px);
+      z-index: 26;
+      width: 34px; height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 8px;
+      background: rgba(34,35,32,0.78);
+      border: 0.5px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      color: #7E8C80;
       cursor: pointer;
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      opacity: 0.72;
+      transition: opacity 0.2s, color 0.2s, transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .menu-refresh:hover { color: #A8C0AE; }
-    .menu-refresh.working { color: #5A8C64; pointer-events: none; }
+    #refresh-btn:hover { opacity: 1; color: #A8C0AE; }
+    #refresh-btn svg {
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none; stroke-width: 1.7;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    /* Spins while it works, so a tap is visibly doing something on a slow
+       connection rather than looking ignored. */
+    #refresh-btn.working { opacity: 1; color: #5A8C64; pointer-events: none; }
+    #refresh-btn.working svg { animation: refresh-spin 0.9s linear infinite; }
+    @keyframes refresh-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      #refresh-btn.working svg { animation: none; }
+    }
+    /* Near me owns bottom + 72 on a phone, so step above it. */
+    @media (pointer: coarse) {
+      #refresh-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 124px); }
+    }
     .menu-link {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 32px;
@@ -2342,10 +2375,6 @@
            restore it. -->
       <!-- <a href="about.html" class="menu-link">About Provenance</a> -->
       <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
-      <!-- Installed as an app there is no address bar and no pull to refresh,
-           so without this there is no way to force a fresh copy when the map is
-           showing something stale or has got itself stuck. -->
-      <button type="button" class="menu-link menu-refresh" id="menu-refresh">Refresh the map</button>
     </div>
 
     <div class="menu-panel" id="menu-cats">
@@ -2625,6 +2654,13 @@
        Compass — warmer, suits the painterly map better than a UI glyph:
          <circle cx="12" cy="12" r="9.5"/><polygon points="16.2 7.8 13.8 13.8 7.8 16.2 10.2 10.2"/>
   -->
+  <button id="refresh-btn" type="button" aria-label="Refresh the map" title="Refresh the map">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.5 11.5a8.5 8.5 0 1 1-2.6-5.6"/>
+      <path d="M20.5 4.2v5.1h-5.1"/>
+    </svg>
+  </button>
+
   <button id="near-me-btn" type="button" aria-label="Find producers near me">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/>
@@ -4147,25 +4183,42 @@
 
        A plain reload is not enough on its own: producers.json, connect.js and
        every image are served cache-first by the worker, so they would come
-       back from the same cache that is the problem. The caches go first, then
-       the worker is told to look for a new version of itself, and only then
-       does the page reload. */
-    document.getElementById('menu-refresh')?.addEventListener('click', async e => {
+       back from the same cache that is the problem.
+
+       But it does not wipe the lot either. Dropping every cache would take the
+       2MB island artwork and all the producer photos with it, and the worker
+       only refills them when a new version of itself installs, so the app
+       would be left with no offline copy until the next deploy. Only the
+       things that actually go stale are dropped: the data, the code and the
+       pages. The pictures stay, which also makes the reload quick. */
+    document.getElementById('refresh-btn')?.addEventListener('click', async e => {
       const btn = e.currentTarget;
       btn.classList.add('working');
-      btn.textContent = 'Refreshing...';
+      /* The pathname only, never the query. A page like /producer/?id=moo-cow
+         still ends its path in a slash, and connect.js is cached under
+         connect.js?v=11; testing the whole URL missed the first and would have
+         left a stale profile page behind. */
+      const stale = /\.(json|js|html)$|\/$/i;
       try {
         if (window.caches) {
-          const keys = await caches.keys();
-          await Promise.all(keys.map(k => caches.delete(k).catch(() => {})));
+          const names = await caches.keys();
+          for (const name of names) {
+            const cache = await caches.open(name);
+            const reqs = await cache.keys();
+            await Promise.all(reqs.map(r =>
+              stale.test(new URL(r.url).pathname)
+                ? cache.delete(r).catch(() => {})
+                : Promise.resolve()
+            ));
+          }
         }
         if (navigator.serviceWorker) {
           const regs = await navigator.serviceWorker.getRegistrations();
           await Promise.all(regs.map(r => r.update().catch(() => {})));
         }
       } catch (err) {
-        /* Private mode, no worker, storage blocked: reload anyway rather than
-           leave the button sitting on "Refreshing..." with nothing happening. */
+        /* Private mode, no worker, storage blocked. Reload anyway rather than
+           leave the icon spinning with nothing happening. */
       }
       location.reload();
     });
