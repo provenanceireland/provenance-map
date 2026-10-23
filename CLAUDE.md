@@ -287,7 +287,7 @@ The map, its cards and the About page. Painterly and illustrated, inspired by Gh
 | Cream text | `#E8DEC8` |
 | Muted text | `#504838` |
 
-Headings Cormorant Garamond, body Source Serif 4.
+Headings Cormorant Garamond, body Source Serif 4. **Playfair Display was swapped in across the map on 2026-10-23 and reverted the same day at Darragh's request.** The map stays on Cormorant. Playfair belongs to the profile pages, the Seal story pages and the Collection, and what keeps the map apart from them is its heading face as much as its colours. Do not move the map to Playfair again without the user asking.
 
 ### 2. Profile pages (charcoal, Playfair, forest green)
 
