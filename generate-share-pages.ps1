@@ -29,22 +29,33 @@ $made = 0
 
 # Build a 1200x630 OG image by contain-fitting the source photo onto a dark canvas
 # (whole image visible, no cropping — safe for logos and portrait/square photos alike).
-function New-OgImage($srcPath, $destPath) {
+#
+# A photo that is missing or unreadable is a hard stop, never a blank canvas. New Leaf
+# Urban Farmers shipped an empty black share preview for days because this quietly
+# skipped a photo that was not on disk, and nobody sees a bad preview until the moment
+# someone shares the link. System.Drawing cannot read WebP whatever the file is called,
+# so a WebP photo stops here too: re-encode it as a real PNG and run this again.
+function New-OgImage($srcPath, $destPath, $who) {
+    if (-not (Test-Path $srcPath)) {
+        throw "$who : photo not found at $srcPath. Add the file, or clear photo_url, then run this again."
+    }
+    try {
+        $src = [System.Drawing.Image]::FromFile($srcPath)
+    } catch {
+        throw "$who : could not read $srcPath. If it is a WebP (whatever its extension says), re-encode it as a real PNG first."
+    }
     $W = 1200; $H = 630
     $canvas = New-Object System.Drawing.Bitmap($W, $H)
     $g = [System.Drawing.Graphics]::FromImage($canvas)
     $g.InterpolationMode = 'HighQualityBicubic'
     $g.Clear([System.Drawing.Color]::FromArgb(6, 8, 7))
-    if (Test-Path $srcPath) {
-        $src = [System.Drawing.Image]::FromFile($srcPath)
-        $scale = [Math]::Min($W / $src.Width, $H / $src.Height)
-        $dw = $src.Width * $scale
-        $dh = $src.Height * $scale
-        $dx = ($W - $dw) / 2
-        $dy = ($H - $dh) / 2
-        $g.DrawImage($src, $dx, $dy, $dw, $dh)
-        $src.Dispose()
-    }
+    $scale = [Math]::Min($W / $src.Width, $H / $src.Height)
+    $dw = $src.Width * $scale
+    $dh = $src.Height * $scale
+    $dx = ($W - $dw) / 2
+    $dy = ($H - $dh) / 2
+    $g.DrawImage($src, $dx, $dy, $dw, $dh)
+    $src.Dispose()
     $g.Dispose()
     $canvas.Save($destPath, [System.Drawing.Imaging.ImageFormat]::Jpeg)
     $canvas.Dispose()
@@ -64,7 +75,7 @@ foreach ($p in $data.producers) {
     # Generate the OG image from the producer photo; fall back to default if no photo.
     if ($p.photo_url) {
         $srcPhoto = Join-Path $root $p.photo_url
-        New-OgImage $srcPhoto (Join-Path $ogDir "$slug.jpg")
+        New-OgImage $srcPhoto (Join-Path $ogDir "$slug.jpg") $name
         $ogImage = "https://provenancemap.ie/assets/og/$slug.jpg"
     } else {
         $ogImage = 'https://provenancemap.ie/assets/og-default.png'
