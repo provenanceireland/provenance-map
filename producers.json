@@ -3841,6 +3841,33 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-21"
+    },
+    {
+      "id": "metcalfe-park-beef",
+      "practice": "regenerative,organic",
+      "name": "Metcalfe Park Beef",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.4119,
+      "lng": -6.8333,
+      "county": "Kildare",
+      "location": "Co. Kildare",
+      "product": "Organic Rare breed Kerry and Dexter Beef",
+      "product_type": ["beef"],
+      "description": "Native rare breed Kerry and Dexter cattle, raised from birth to fork on the unspoiled pastures of North Co Kildare and the mountains of South West Kerry.",
+      "photo_url": "metcalfe.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Native / rare breed"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-24"
     }
   ]
 }
