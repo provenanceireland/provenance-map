@@ -1,0 +1,24 @@
+# Provenance Map
+#
+# Deliberately narrow. Producer photographs, the carousel exports and the
+# PowerShell tools all belong in the repo, so nothing here touches them.
+# This only keeps out things a machine generated that the site never serves.
+
+# Browser "Save page as, Complete webpage" asset folders. One of these held
+# 38mb of Meta's own JavaScript from a saved Facebook page.
+*_files/
+
+# Finished artwork and zips produced for a post or a print job. They are
+# deliverables rather than site files, and the map never loads them.
+Claude outputs/
+
+# Local editor and machine config. The skills in .claude stay committed.
+.claude/launch.json
+.claude/settings.local.json
+
+# OS and editor noise
+Thumbs.db
+.DS_Store
+desktop.ini
+*.bak
+*.tmp
