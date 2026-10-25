@@ -3868,6 +3868,34 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-24"
+    },
+    {
+      "id": "curraghmore-farm",
+      "practice": "regenerative,organic",
+      "name": "Curraghmore Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.05,
+      "lng": -9.6353,
+      "county": "Kerry",
+      "location": "Black Valley, Co. Kerry",
+      "product": "Grass-fed Lamb & Hogget meat, Carded wool",
+      "product_type": ["lamb", "wool"],
+      "description": "Curraghmore Farm in County Kerry is a 1,200-acre, family-run mixed farm in the Black Valley, focused on raising sheep for high-quality meat while promoting animal welfare and regenerative farming. It is also committed to restoring native woodlands, improving biodiversity and protecting the natural landscape, while selling meat products, offering farm accommodation and running educational initiatives such as the Wise Wool Project.",
+      "photo_url": "curraghmore.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Grass Fed"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-10-25"
     }
   ]
 }
