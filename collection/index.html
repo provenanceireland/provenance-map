@@ -15,7 +15,7 @@
   <link rel="canonical" href="https://provenancemap.ie/collection/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     /* Collection parchment: announcements only. Playfair and Inter, no gold. */
     :root {
@@ -58,6 +58,17 @@
     .price .size { font-family: Inter, Helvetica, Arial, sans-serif; font-size: 0.85rem; color: var(--muted); margin-left: 8px; }
     .price[hidden] { display: none; }
     .note { margin-top: 10px; font-size: 0.88rem; color: var(--muted); }
+    /* the pre-sale saving: stated in full ink at the heaviest weight the page loads,
+       so it reads apart from the 300 body without reaching for a second colour */
+    .note.lead { font-size: 1rem; font-weight: 600; color: var(--ink); }
+
+    /* the same offer at the very top, where it cannot be scrolled past */
+    .offer { display: block; background: var(--ink); color: var(--parchment); text-decoration: none; }
+    .offer:hover { background: #1A281E; }
+    .offer span {
+      display: block; max-width: 600px; margin: 0 auto; padding: 13px 24px;
+      font-weight: 600; font-size: 0.8rem; line-height: 1.45; text-align: center;
+    }
 
     .btn {
       display: block; width: 100%; text-align: center; margin-top: 18px;
@@ -80,6 +91,9 @@
   </style>
 </head>
 <body>
+
+<a class="offer" href="#both"><span>Pre-sale offer: ordering them together works out cheaper than buying them separately.</span></a>
+
 <div class="wrap">
 
   <header class="top"><a class="brand" href="/">PROVENANCE</a></header>
@@ -115,7 +129,7 @@
     <p class="kick">Both products</p>
     <h2>The Collection bundle</h2>
     <p>The beef tallow and the Ling heather honey, in one order.</p>
-    <p class="note">Ordering both together works out cheaper than buying them separately.</p>
+    <p class="note lead">Ordering them together works out cheaper than buying them separately. That is the pre-sale offer.</p>
     <p class="price" id="price-both" hidden></p>
     <span class="btn soon" id="btn-both">Opens soon</span>
   </section>
