@@ -37,6 +37,8 @@
     .wrap { max-width: 600px; margin: 0 auto; padding: 0 24px; }
     h1, h2 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 400; line-height: 1.08; text-wrap: balance; }
     .kick { font-weight: 500; font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); }
+    /* the two product names lead their sections, so they outweigh a section kicker */
+    .kick.prod { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.18em; }
     .muted { color: var(--muted); }
 
     .top { padding: 22px 0; border-bottom: 1px solid var(--hair-soft); }
@@ -52,8 +54,6 @@
     .product h2 { font-size: 2.05rem; margin: 10px 0 6px; }
     .by { color: var(--muted); font-size: 0.95rem; }
     .product p.desc { margin-top: 18px; }
-    .stmt { margin-top: 16px; padding-left: 14px; border-left: 1px solid var(--hair); }
-    .tag { display: block; font-weight: 500; font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
     .price { margin-top: 20px; font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; }
     .price .size { font-family: Inter, Helvetica, Arial, sans-serif; font-size: 0.85rem; color: var(--muted); margin-left: 8px; }
     .price[hidden] { display: none; }
@@ -92,7 +92,7 @@
 </head>
 <body>
 
-<a class="offer" href="#both"><span>Pre-sale offer: ordering them together works out cheaper than buying them separately.</span></a>
+<a class="offer" href="#both"><span>Pre-sale offer: Ordering them together works out cheaper than buying them separately.</span></a>
 
 <div class="wrap">
 
@@ -107,17 +107,16 @@
   </section>
 
   <section class="product" id="tallow">
-    <p class="kick">Beef Tallow</p>
+    <p class="kick prod">Beef Tallow</p>
     <h2>Moyletra Moileds</h2>
     <p class="by">Moyletra Kill, north coast of Ireland</p>
     <p class="desc">Beef tallow for cooking, rendered from Moyletra's own cattle.</p>
-    <p class="stmt"><span class="tag">Farm statement</span>The cattle are grazed in conservation zones, given the time to mature, and finished on grass.</p>
     <p class="price" id="price-tallow" hidden></p>
     <span class="btn soon" id="btn-tallow">Opens soon</span>
   </section>
 
   <section class="product" id="honey">
-    <p class="kick">Ling Heather Honey</p>
+    <p class="kick prod">Ling Heather Honey</p>
     <h2>Galtee Honey Farm</h2>
     <p class="by">Galtee Vee Valley, Co. Tipperary</p>
     <p class="desc">Ling heather honey from one of Ireland's oldest family-run honey farms.</p>
@@ -126,7 +125,7 @@
   </section>
 
   <section class="both" id="both">
-    <p class="kick">Both products</p>
+    <p class="kick prod">Both products</p>
     <h2>The Collection bundle</h2>
     <p>The beef tallow and the Ling heather honey, in one order.</p>
     <p class="note lead">Ordering them together works out cheaper than buying them separately. That is the pre-sale offer.</p>
