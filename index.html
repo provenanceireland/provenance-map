@@ -1683,47 +1683,10 @@
        as the thing that does the installing. */
     #install-bar.ios #ib-go { background: none; border: 1px solid rgba(201,198,189,0.35); color: #E8DEC8; }
 
-    /* ── ON PROVENANCE CONNECT ──────────────────────────────────────────────
-       A thin ring leaves the pin and fades, like a drop in water. It reads as
-       broadcast, which is what Connect is: this farm is reachable.
-
-       Deliberately not the tier's own pulse. That one breathes a soft blur in
-       place and belongs to the paid tiers; this one travels outward and is a
-       different motion doing a different job. Pale green #B4D2BA, the same
-       green as the Connect buttons, so the mark on the map and the button on
-       the card read as one thing.
-
-       Pulled back on 2026-10-15: it was reading as the loudest thing on the
-       island, and it was in fact louder than the paid gold breath it sits
-       beside (0.55 peak over 3.8s against gold's 0.42 over 4.5s), which is
-       the wrong way round. Now 0.34 peak over 5s, travelling to 3.2x on a
-       0.8px line, with nearly half the cycle spent at rest. Just enough to
-       catch the eye on a pin you were not looking at. */
-    .pin-ripple {
-      position: absolute;
-      left: 50%; top: 50%;
-      width: 9px; height: 9px;
-      margin: 0;
-      border-radius: 50%;
-      border: 0.8px solid #B4D2BA;
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 1;
-      animation: connect-ripple 5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-    }
-    /* The long tail at zero is deliberate. A ring that restarts the instant
-       it fades reads as a blink; resting for nearly half the cycle reads as
-       breathing. */
-    @keyframes connect-ripple {
-      0%   { opacity: 0;    transform: translate(-50%, -50%) scale(1); }
-      10%  { opacity: 0.34; transform: translate(-50%, -50%) scale(1.25); }
-      55%  { opacity: 0;    transform: translate(-50%, -50%) scale(3.2); }
-      100% { opacity: 0;    transform: translate(-50%, -50%) scale(3.2); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .pin-ripple { animation: none; }
-    }
+    /* The expanding ripple on Connect pins was removed on 2026-10-27: the
+       user did not like it and asked for the pins back as they were. The
+       static ring on .pin.on-connect is untouched. Do not reintroduce the
+       animation without being asked. */
 
     /* ── ARRIVAL ── on first load the pins settle onto the island in a sweep
        from the north-west, about a second end to end, each one fading in and
@@ -3006,13 +2969,9 @@
       if (p.where_to_buy && p.where_to_buy.length) div.dataset.whereToBuy = JSON.stringify(p.where_to_buy);
       if (p.farmers_market) div.dataset.farmersMarket = 'true';
       if (p.farm_shop)      div.dataset.farmShop      = 'true';
-      div.innerHTML = '<div class="pin-pulse"></div><div class="pin-dot"></div>' +
-        (onConnect ? '<div class="pin-ripple"></div>' : '');
+      div.innerHTML = '<div class="pin-pulse"></div><div class="pin-dot"></div>';
       // Desynchronise pulse cycles so seal pins never blink in unison
       div.querySelector('.pin-pulse').style.animationDelay = '-' + (Math.random() * 3).toFixed(2) + 's';
-      // Same for the ripples, or every Connect farm in the country breathes
-      // out together and it reads as a machine rather than as a map.
-      if (onConnect) div.querySelector('.pin-ripple').style.animationDelay = '-' + (Math.random() * 5).toFixed(2) + 's';
       return div;
     }
 
