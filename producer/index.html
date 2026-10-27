@@ -226,6 +226,20 @@
       color: var(--green); margin-bottom: 20px;
     }
     .connect-when.stale { color: var(--faint); }
+    /* The hero photograph. 3:2 to match the Highlighted pages, cropped to
+       fill, so a portrait farm photo loses its top and bottom rather than
+       distorting. `hero_focus` on the record moves the crop when the middle
+       is the wrong part of the picture. */
+    .hero-img { margin-bottom: 34px; }
+    .hero-img img {
+      display: block; width: 100%; aspect-ratio: 3/2; object-fit: cover;
+      object-position: center; border: 1px solid var(--hair); background: var(--surface);
+    }
+    @media (max-width: 620px) {
+      .hero-img { margin-bottom: 26px; }
+      .hero-img img { aspect-ratio: 4/3; }
+    }
+
     /* Up in the hero now, with the name and the place, so it is set like a
        description rather than like body copy inside a section. */
     .connect-intro {
@@ -383,6 +397,12 @@
   </header>
 
   <main id="page" class="hidden">
+    <!-- The farm, before any type. Renders only when the record carries a
+         hero_image, so a producer whose only picture is a logo gets the page
+         exactly as it was rather than a logo stretched across a banner. The
+         same shape the Highlighted pages use, so the two kinds of profile
+         open the same way. -->
+    <div class="wide hero-img hidden" id="hero-img"></div>
     <div class="col">
       <div class="mark hidden" id="mark"></div>
       <div class="tier-line" id="tier-line"></div>
@@ -534,6 +554,20 @@
       if (p.collection) marks += `<span class="tier-mark tier-mark-collection">Provenance Collection</span>`;
       if (p.badge2 === 'Provenance Founder') marks += `<span class="tier-mark tier-mark-founder">Provenance Founder</span>`;
       $('tier-line').innerHTML = marks + '<span class="tier-rule"></span>';
+
+      /* The hero. One field turns it on: hero_image, a path from the site
+         root. Nothing else on the record is used for it, and in particular
+         photo_url is never promoted into it, because for 45 of the 128
+         producers that image is a logo and a logo across a banner looks
+         broken. A farm gets a hero when there is a photograph of the farm
+         to put there, and not before. hero_focus is an optional
+         object-position, for when the middle is the wrong part of the shot. */
+      if (p.hero_image) {
+        $('hero-img').innerHTML =
+          `<img src="${esc(p.hero_image)}" alt="${esc(p.name)}" ` +
+          `style="object-position:${esc(p.hero_focus || 'center')}" />`;
+        show('hero-img', true);
+      }
 
       $('name').textContent    = p.name;
       $('where').textContent   = p.location || ('Co. ' + p.county);

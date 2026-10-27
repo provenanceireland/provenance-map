@@ -245,6 +245,10 @@ The category names and their order are read from the map's own filter chips at l
 
 `/producer/index.html` is set in the **Highlighted pages' language** (charcoal, Playfair, forest green, no italic), not the map's, because it is a profile page. It shows only what the record can honestly carry: a Discovered farm gets what its card has, Verified adds the practice and the attributes they confirmed, and Instagram, website and where-to-buy are gated to Highlighted **in the page code as well as in the data**, so a stray field on a free record can never put a paid benefit on a free page. The single card image is contained rather than cropped, since it is usually a logo, and `photo_bg: "white"` gives it a white ground to sit on.
 
+**The page order, reset 2026-10-27.** Hero photograph, then name, place, produce, practice and attributes, then the farm's description, then Connect, then Available now (date, terms, the grouped list, the produce gallery, Connect and Order), then the rest. The description used to sit under the *Available now* heading, where a description of the farm read as a preamble to the produce list. The produce photographs used to hang off each list row as 96px thumbnails and are now gathered into a gallery under the list. A second group inside the list is indented off a hairline, because on a farm selling a box the cuts are what is *inside* it, not a sibling of it.
+
+**`hero_image` turns on the hero, and nothing else does (decided 2026-10-27).** A path from the site root, with an optional `hero_focus` giving an `object-position` for when the middle is the wrong part of the shot. **`photo_url` is never promoted into the hero**: 45 of the 128 producers have a logo there, and a logo stretched across a banner looks broken. A farm gets a hero when there is a photograph of the farm to put in it, and not before, so a page without one opens exactly as it did. Decided in preference to giving logo-only farms a muted band, because the user would rather collect real photographs than paper over the gap.
+
 ### The Provenance Collection
 
 **One-off, limited-run releases made with producers already on the map.** Each one is a product from a producer the user has met and visited, announced and documented as a storytelling piece, and never restocked. Membership is the silver `"collection": true` mark described above: it sits on top of whatever tier the producer already holds and never replaces one. First member: Galtee Honey Farm, 2026-09-19.
@@ -312,18 +316,20 @@ Chapter carousels, any Collection storytelling piece, and **the Seal story page*
 
 Announcements, explainers, opening pieces and collab posts only. Background `#F3EEDD`, primary `#243629`, muted `#6C6858`. Playfair Display and Inter. No gold. **Never used for storytelling**, which is always charcoal.
 
-### 5. Personal channel (charcoal, cream only)
+### 5. Building Provenance (the personal channel)
 
-Added 2026-10-22. Darragh's own page, and deliberately **not** the Collection's parchment: a personal post is not a Collection announcement and should not borrow its look.
+Darragh's own page. Set 2026-10-27, replacing the 2026-10-22 version of this section (cream only, Cormorant and Source Serif, no green), which the user moved away from over the October posts. Deliberately **not** the Collection's parchment: a personal post is not a Collection announcement and should not borrow its look.
 
-- Flat charcoal ground `#1A1B18`. No gradient, which is what separates it from Collection charcoal.
-- **Cream only.** `#E8DEC8` for headings, `#BCAE93` for icons and small labels, and lower opacities of cream for everything else. **No green, no gold, no second hue anywhere**: hierarchy comes from opacity and size, never from colour.
-- The map's two fonts, **Cormorant Garamond** for headings and **Source Serif 4** for body, which is what keeps it apart from the Collection's Playfair and Inter.
-- Carousels 1080 by 1350, same as everything else.
+- **Plate:** 1080 by 1350, flat charcoal `#1A1B18`, no gradient (that is what separates it from Collection charcoal). Content inset 110px left and right. Hairlines in `rgba(232,222,200,0.14)` across the top at 96px and across the bottom at 198px from the foot.
+- **Header row:** "BUILDING PROVENANCE" on the left at 140px from the top, the page count `n / N` on the right. Inter 500, 22px, uppercase, 0.24em tracking (0.1em on the count), dark forest green `#35663F`. **These two are the only things in Inter.**
+- **Everything else is Playfair Display 400.** Headings cream `#E8DEC8`, line height 1.06, usually 90 to 130px. Supporting lines also Playfair, about 44px, line height 1.4, in a slightly darker cream `#CFC6B2`. Do not bring Source Serif or a third face back in: the user asked for this down to two fonts on 2026-10-26.
+- **Layout:** left aligned, the text block centred vertically between the hairlines. One idea per plate, one heading and at most two short supporting lines. No images unless the user supplies one.
+- **Accents, used sparingly:** a single key word may take the brand green `#4A8A55` (the map's green accent), e.g. "connect" in "How do your customers connect with you?". A quoted phrase may go in Playfair italic, with its opening quote mark hung outside the margin so the letters line up with the lines above. Neither is a default; one accent per plate at most.
+- **Copy:** short, plain, said the way a person would say it. No slogans, nothing that reads like an ad. Break lines by hand so no line ends on a single word.
 
-**Voice is the personal channel**, so first person singular, and never the Provenance "we". First built for the attribute icons post; the export is `attribute-icons-export.html`.
+**Voice is the personal channel**, so first person singular, and never the Provenance "we".
 
-**When a post shows something from the map, lift the real artwork.** That post's icons were taken straight from `PV_ATTR_ICONS` in `connect.js` rather than redrawn, so the post cannot drift from what the map actually renders.
+**When a post shows something from the map, lift the real artwork.** The attribute icons post took its icons straight from `PV_ATTR_ICONS` in `connect.js` rather than redrawing them, so the post cannot drift from what the map actually renders.
 
 ### Heritage style
 
