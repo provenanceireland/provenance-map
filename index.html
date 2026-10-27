@@ -1016,8 +1016,10 @@
       left: 50%; top: 50%;
       width: 100%; height: 100%;
       border-radius: 50%;
-      border: 0.8px solid rgba(180,210,186,0.75);
-      transform: translate(-50%, -50%) scale(1.5);
+      border: 0.8px solid rgba(180,210,186,0.85);
+      /* Matches .pin.on-connect::after exactly, so the legend shows the mark
+         the map actually draws. */
+      transform: translate(-50%, -50%) scale(1.9);
       pointer-events: none;
     }
     .legend-count { color: #B4D2BA; }
@@ -1794,6 +1796,40 @@
       text-transform: uppercase;
       color: #E8DEC8;
       margin-top: 4px;
+    }
+
+    /* ── PROVENANCE CONNECT ── a farm you can message and order from.
+
+       Not a tier. It cuts across them, six Verified and two Highlighted
+       today, so it layers a ring over whatever colour the pin already has
+       rather than taking a colour of its own. Colour and size mean tier on
+       this map, and a Connect colour would have cost you the ability to see
+       whether a farm is Verified or Highlighted. Same reason the Collection
+       uses a ring.
+
+       The legend has drawn this ring since Connect shipped; the pins never
+       did, so the legend was promising a mark the map did not render.
+
+       It hangs off .pin rather than .pin-dot because ::before there is the
+       New this week halo and ::after is the available-now dot. This way a
+       farm can carry all three without them fighting over a pseudo-element.
+
+       A Collection member on Connect, which Moyletra Moileds is, reads
+       correctly: the silver Collection ring sits tight on the dot's edge,
+       this one orbits outside it. */
+    .pin.on-connect::after {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      border: 1px solid rgba(180,210,186,0.85);
+      /* 1.9, not the legend's old 1.5. The Verified dot's glow reaches about
+         8px past its edge, so a 1.5 ring sat inside the glow and washed out.
+         The legend is moved to the same number below, so it keeps telling
+         the truth about what the map draws. */
+      transform: translate(-50%, -50%) scale(1.9);
+      pointer-events: none;
     }
 
     /* Available now — bright green dot on top-right of pin */
