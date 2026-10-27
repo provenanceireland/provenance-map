@@ -3923,7 +3923,7 @@
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
-      "farmers_market": true,
+      "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-10-27"
     }
