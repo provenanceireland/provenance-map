@@ -1466,7 +1466,44 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "087 922 3651" },
+        "order_url": "https://white-grass-farm.myshopify.com/",
+        "updated": "2026-10-27",
+        "intro": "Former professional rugby player, turned Farmer! White Grass Farm is a family-run beef farm located in Ferbane, Co. Offaly. We believe in farming naturally, with a low-input, (chemical free) low-stocking approach that puts animal welfare, sustainability and quality at the heart of everything we do. Our cattle are raised with care, producing premium Irish beef that we sell directly to customers, bringing honest, traceable, farm-fresh beef from our fields to your table.",
+        "terms": "Order in advance. Collection from the farm at Gallen, Ferbane, or delivery for €5.",
+        "groups": [
+          { "name": "The box" },
+          { "name": "What was in a recent box", "note": "Not an order list. These are the cuts that came out of one of their boxes." }
+        ],
+        "available": [
+          { "name": "Beef box", "group": "The box",
+            "note": "A mixture of cuts and joints off their own cattle. €160.",
+            "photo": "/produce/white-grass-farm/beef-box.jpg" },
+          { "name": "Striploin steak", "group": "What was in a recent box", "profile_only": true,
+            "note": "Off the loin, with the fat cap left on.",
+            "photo": "/produce/white-grass-farm/striploin-steak.jpg" },
+          { "name": "Fillet steak", "group": "What was in a recent box", "profile_only": true,
+            "note": "The tenderloin, the leanest thing on the animal." },
+          { "name": "Rib-eye steak", "group": "What was in a recent box", "profile_only": true,
+            "note": "Off the fore rib, marbled through." },
+          { "name": "Top rib roast", "group": "What was in a recent box", "profile_only": true,
+            "note": "A roasting joint off the rib end." },
+          { "name": "Housekeeper's cut", "group": "What was in a recent box", "profile_only": true,
+            "note": "A traditional butcher's cut, lean and full flavoured." },
+          { "name": "Beef burgers", "group": "What was in a recent box", "profile_only": true,
+            "note": "Made from their own beef." },
+          { "name": "Standard mince", "group": "What was in a recent box", "profile_only": true,
+            "note": "Their own beef, minced." },
+          { "name": "Diced stewing beef", "group": "What was in a recent box", "profile_only": true,
+            "note": "Cut for the pot. Long and slow." },
+          { "name": "Shin beef", "group": "What was in a recent box", "profile_only": true,
+            "note": "Off the lower leg, full of connective tissue. Stews and osso buco." }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "carncash-farm",
