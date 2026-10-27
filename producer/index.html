@@ -226,17 +226,45 @@
       color: var(--green); margin-bottom: 20px;
     }
     .connect-when.stale { color: var(--faint); }
-    .connect-intro { color: var(--cream-soft); margin-bottom: 18px; }
-    .connect-terms { margin-bottom: 20px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
+    /* Up in the hero now, with the name and the place, so it is set like a
+       description rather than like body copy inside a section. */
+    .connect-intro {
+      margin-top: 20px; max-width: 580px;
+      font-size: 1.04rem; line-height: 1.6; color: var(--cream-soft);
+    }
+    .connect-terms { margin-bottom: 24px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
     .avail-source { margin-top: 14px; font-size: 0.86rem; color: var(--faint); }
-    /* Groups inside the availability list. */
-    .avail-group + .avail-group { margin-top: 30px; }
+    /* Groups inside the availability list. A second group is what is inside
+       the first, so it is indented and hung off a hairline rather than
+       sitting as an equal beside it. */
+    .avail-group + .avail-group {
+      margin-top: 26px; padding-left: 18px; border-left: 1px solid var(--hair);
+    }
     .avail-group-name {
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
       font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream);
     }
+    .avail-group + .avail-group .avail-group-name { color: var(--green-light); }
     .avail-group-note { margin-top: 6px; font-size: 0.92rem; color: var(--green-light); }
     .avail-group .avail { margin-top: 8px; }
+    /* The produce photographs, gathered under the list. */
+    .avail-gallery {
+      margin-top: 30px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px;
+    }
+    .avail-gallery figure { margin: 0; }
+    .avail-gallery img {
+      display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+      border: 1px solid var(--hair); background: var(--surface);
+    }
+    .avail-gallery figcaption {
+      margin-top: 8px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-light);
+    }
+    @media (max-width: 520px) {
+      .avail-gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
     .avail { list-style: none; margin: 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
     .avail .a-photo { flex: none; }
@@ -363,15 +391,24 @@
       <p class="produce" id="produce"></p>
       <div class="practice hidden" id="practice"></div>
       <div class="attrs hidden" id="attrs"></div>
+      <!-- Who they are, in their own words. It used to sit under the
+           "Available now" heading, where it read as a preamble to the produce
+           list rather than as a description of the farm. It belongs up here
+           with the name and the place. -->
+      <p class="connect-intro hidden" id="connect-intro"></p>
       <a class="connect-hero hidden" id="connect-hero" href="#connect-section"></a>
 
       <!-- Provenance Connect: what they have right now, and the one button. -->
       <section id="connect-section" class="hidden" style="border-top: none">
         <div class="sec-head"><h2 id="connect-head">Available now</h2><span class="rule"></span></div>
-        <p class="connect-intro hidden" id="connect-intro"></p>
-        <p class="connect-terms hidden" id="connect-terms"></p>
         <p class="connect-when" id="connect-when"></p>
+        <p class="connect-terms hidden" id="connect-terms"></p>
         <div id="avail"></div>
+        <!-- The produce photographs, collected under the list rather than
+             sitting as thumbnails beside each line. A row of 96px squares
+             down the side of a list reads as decoration; the same pictures
+             gathered together read as the farm's produce. -->
+        <div class="avail-gallery hidden" id="avail-gallery"></div>
         <p class="avail-source hidden" id="connect-source"></p>
         <div class="connect-cta" id="connect-cta"></div>
       </section>
@@ -565,7 +602,16 @@
         if (cs.terms) { $('connect-terms').textContent = cs.terms; show('connect-terms', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
-        $('avail').innerHTML = connectGroupedHTML(cs.items, cs.groups, esc);
+        // photos: false, because they are gathered into the gallery below
+        // rather than sitting as a thumbnail against each line.
+        $('avail').innerHTML = connectGroupedHTML(cs.items, cs.groups, esc, { photos: false });
+        const shots = cs.items.filter(a => a.photo);
+        if (shots.length) {
+          $('avail-gallery').innerHTML = shots.map(a =>
+            `<figure><img src="${esc(a.photo)}" alt="${esc(a.name)}" loading="lazy" />` +
+            `<figcaption>${esc(a.name)}</figcaption></figure>`).join('');
+          show('avail-gallery', true);
+        }
         if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
         // Connect for the conversation, Order for the farm's own shop — the
         // same pair the Connect page carries, so a visitor who arrives here
