@@ -13,6 +13,16 @@
   <meta property="og:description" content="The first release: beef tallow from Moyletra Moileds and Ling heather honey from Galtee Honey Farm." />
   <meta property="og:url" content="https://provenancemap.ie/collection/" />
   <link rel="canonical" href="https://provenancemap.ie/collection/" />
+  <!-- Google tag (gtag.js), the same property as every other page. It records a
+       page view for /collection/ and keeps any utm_ tags on the link from the
+       email. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y56PR1JFH8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y56PR1JFH8');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -166,6 +176,7 @@
 
 </div>
 
+<script src="../connect.js?v=11"></script>
 <script>
   /* The only things to edit here. Leave a link empty and its button stays
      greyed ("Opens soon"), so there is never a live button that goes
@@ -202,6 +213,15 @@
       }
     });
   })();
+
+  // Order presses, counted through the same funnel as the rest of the site:
+  // one event name, the product in a parameter (tallow, honey or both).
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.btn');
+    if (a && a.id.indexOf('btn-') === 0 && typeof pvTrack === 'function') {
+      pvTrack('collection_order_click', { product: a.id.slice(4), surface: 'collection_page' });
+    }
+  });
 </script>
 </body>
 </html>
