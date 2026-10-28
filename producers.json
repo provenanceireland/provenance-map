@@ -1652,13 +1652,31 @@
       "map_link": null,
       "social_instagram": null,
       "website": null,
+      "hero_image": "/farms/mulroy-meadow-farm/hero.jpg",
       "attributes": ["Chemical Free"],
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "085 123 1401" },
+        "order_url": "",
+        "updated": "2026-10-28",
+        "intro": "Husband and wife, environmental and marine scientist, biological and organic agri scientist, pharmacist and KNF practisioners. We use these skills to produce food without chemicals and re-establish microbes into the soil to bring hope to the future of agriculture. We produce grass fed dexter beef, pasture raised eggs and have a market garden and education centre.",
+        "terms": "Collection from the farm at Fanad. Order in advance, and call before you come.",
+        "available": [
+          { "name": "Dexter beef", "note": "A box of 10kg, mixed cuts. €200. Autumn and winter.",
+            "photo": "/produce/mulroy-meadow-farm/dexter-beef.jpg" },
+          { "name": "Seasonal vegetables", "note": "Tomatoes, cucumbers, beans, salad and kale. €2.50 to €3.50. All year.",
+            "photos": ["/produce/mulroy-meadow-farm/market-garden.jpg",
+                       "/produce/mulroy-meadow-farm/pollinators.jpg"] },
+          { "name": "Pasture raised eggs", "note": "Ten eggs, €5.50. All year." }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "donegal-sea-salt",
