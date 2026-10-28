@@ -1928,6 +1928,66 @@
       border-color: #5A8C64;
     }
 
+    /* ── PROVENANCE COLLECTION, the doorways from the map ── The first release
+       has a landing page at /collection/. Four ways in, all silver to match
+       the Collection pin: a corner button (top left, under the menu, as
+       Connect sits top right), a slim dismissible strip across the very top,
+       a menu link, and the silver mark on a member's card. The strip sits in
+       the 24px above the menu and filter buttons, so it moves nothing. */
+    #collection-fab {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 20px) + 83px);
+      left: 16px;
+      z-index: 25;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(34,35,32,0.92);
+      border: 0.5px solid rgba(220,217,208,0.50);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #DCD9D0;
+      text-decoration: none;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    #collection-fab:hover { background: rgba(48,49,45,0.96); border-color: #DCD9D0; }
+
+    #collection-banner {
+      position: fixed;
+      top: env(safe-area-inset-top, 0px);
+      left: 0; right: 0;
+      height: 24px;
+      z-index: 105;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(34,35,32,0.94);
+      border-bottom: 0.5px solid rgba(220,217,208,0.18);
+      font-size: 0.56rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #DCD9D0;
+    }
+    #collection-banner[hidden] { display: none; }
+    #collection-banner a { color: inherit; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #collection-banner button {
+      background: none; border: 0; color: #9A968B; cursor: pointer;
+      font-size: 0.95rem; line-height: 1; padding: 0 8px; -webkit-tap-highlight-color: transparent;
+    }
+
+    a.tier-mark-collection { text-decoration: none; }
+    a.tier-mark-collection::after { content: "\2192"; margin-left: 6px; }
+    a.tier-mark-collection:hover { text-decoration: underline; text-underline-offset: 3px; }
+
     /* ── FILTER TOGGLE ── */
     #filter-toggle {
       position: fixed;
@@ -2392,6 +2452,7 @@
       <!-- Provenance Seal section hidden for now — restore by uncommenting this line -->
       <!-- <a href="provenance-seal.html" class="menu-link">The Provenance Seal</a> -->
       <a href="connect/" class="menu-link">Provenance Connect</a>
+      <a href="collection/" class="menu-link" data-collection-link="menu">The Provenance Collection</a>
       <button type="button" class="menu-link menu-into" data-open="menu-cats">Producers</button>
       <!-- About Provenance pulled 2026-09-24 while the page is rewritten.
            The page itself is untouched at /about.html; put this line back to
@@ -2523,6 +2584,15 @@
        own, the same as every other Connect that is navigation rather than a
        chat. -->
   <a id="connect-fab" href="connect/" aria-label="Provenance Connect, buy direct from the farm">Connect</a>
+
+  <!-- The Provenance Collection, top left under the menu, and a slim strip
+       above everything for the launch. The strip stays hidden until the script
+       has checked it was not dismissed. -->
+  <a id="collection-fab" href="collection/" data-collection-link="fab" aria-label="The Provenance Collection, the first release">Collection</a>
+  <div id="collection-banner" hidden>
+    <a href="collection/" data-collection-link="banner">The first Collection release is open <span aria-hidden="true">&rarr;</span></a>
+    <button type="button" id="collection-banner-close" aria-label="Dismiss">&times;</button>
+  </div>
 
   <!-- The invitation to install. Hidden until the browser says it is possible,
        or until we know we are on an iPhone, where it never will. Dismissed
@@ -3379,7 +3449,8 @@
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
         // A Collection member carries a second, silver mark beside the tier,
         // divided by a hairline rather than boxed off on its own.
-        if (pin.dataset.collection === 'true') badgeHTML += `<span class="tier-mark tier-mark-collection">Provenance Collection</span>`;
+        // The mark is a link to the Collection page.
+        if (pin.dataset.collection === 'true') badgeHTML += `<a class="tier-mark tier-mark-collection" href="collection/" data-collection-link="card">Provenance Collection</a>`;
       }
       // The hairline runs from the last mark to the edge of the card.
       badgeHTML += '<span class="tier-rule"></span>';
@@ -4196,6 +4267,29 @@
     // map's own doorway into Connect can be told from a producer's.
     document.getElementById('connect-fab').addEventListener('click', () =>
       pvTrack('connect_layer_click', { surface: 'map_home' }));
+
+    // The Provenance Collection doorways. One event, with the doorway in a
+    // parameter (menu, fab, banner, card), so the event names stay few.
+    document.addEventListener('click', e => {
+      const a = e.target.closest && e.target.closest('[data-collection-link]');
+      if (a && typeof pvTrack === 'function') pvTrack('collection_click', { surface: a.dataset.collectionLink });
+    });
+
+    // The launch strip. Set to false to take it down for everyone; a visitor
+    // who closes it does not see it again. Storage can be blocked, so both
+    // reads and writes are guarded and the strip simply shows if it is.
+    const COLLECTION_BANNER_ON = true;
+    (function () {
+      const bar = document.getElementById('collection-banner');
+      if (!bar || !COLLECTION_BANNER_ON) return;
+      let dismissed = false;
+      try { dismissed = localStorage.getItem('pv_collection_banner_1') === '1'; } catch (e) {}
+      if (!dismissed) bar.hidden = false;
+      document.getElementById('collection-banner-close').addEventListener('click', () => {
+        bar.hidden = true;
+        try { localStorage.setItem('pv_collection_banner_1', '1'); } catch (e) {}
+      });
+    })();
 
     function toggleMenu() {
       const btn = document.getElementById('menu-btn');
