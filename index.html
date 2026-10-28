@@ -1998,19 +1998,37 @@
       background: none; border: 0; color: #9A968B; cursor: pointer;
       font-size: 0.95rem; line-height: 1; padding: 0 8px; -webkit-tap-highlight-color: transparent;
     }
+    /* On a wide screen the strip goes to the bottom, bigger, where it is more
+       obvious and clear of the wordmark. The card sits above it, and the
+       things that live along the bottom edge move up by its height while it is
+       showing (body.pv-bottom-banner, set by the script). */
+    @media (min-width: 601px) {
+      #collection-banner {
+        top: auto;
+        bottom: env(safe-area-inset-bottom, 0px);
+        height: 38px;
+        z-index: 24;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        border-bottom: 0;
+        border-top: 0.5px solid rgba(243,238,221,0.22);
+      }
+      #collection-banner button { font-size: 1.2rem; padding: 0 12px; }
+      body.pv-bottom-banner #discovery-counter { bottom: calc(env(safe-area-inset-bottom, 16px) + 22px + 38px); }
+      body.pv-bottom-banner #refresh-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 70px + 38px); }
+      body.pv-bottom-banner #zoom-out { bottom: calc(env(safe-area-inset-bottom, 16px) + 92px + 38px); }
+      body.pv-bottom-banner #install-bar { bottom: calc(env(safe-area-inset-bottom, 12px) + 12px + 38px); }
+      body.pv-bottom-banner #near-me-toast { bottom: calc(env(safe-area-inset-bottom, 16px) + 112px + 38px); }
+    }
 
     /* The button at the foot of a member's card, in the parchment of the
        Collection page. */
     .card-action-collection {
-      margin-top: 14px;
       background: #F3EEDD;
       border: 1px solid #F3EEDD;
       color: #243629;
     }
     .card-action-collection:hover { background: #FBF7EA; border-color: #FBF7EA; }
-    a.tier-mark-collection { text-decoration: none; }
-    a.tier-mark-collection::after { content: "\2192"; margin-left: 6px; }
-    a.tier-mark-collection:hover { text-decoration: underline; text-underline-offset: 3px; }
 
     /* ── FILTER TOGGLE ── */
     #filter-toggle {
@@ -2820,6 +2838,12 @@
       <div id="card-attributes" class="hidden"></div>
       <!-- The produce tags: under the practice and attribute pills, above the links, on every card -->
       <div id="card-product-tags" class="card-product-tags"></div>
+      <!-- A Collection member gets its Connect and Access the Collection buttons
+           here, above the website, directions and share row. Hidden, and Connect
+           back in its usual place below, for every other producer. -->
+      <div class="card-actions card-lead-actions hidden" id="card-lead-actions">
+        <a id="card-collection" class="card-action-btn card-action-collection hidden" href="collection/" data-collection-link="card_button">Access the Collection</a>
+      </div>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
 
@@ -2845,7 +2869,6 @@
         <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       </div>
       <p class="card-confirmed hidden" id="card-confirmed"></p>
-      <a id="card-collection" class="card-action-btn card-action-collection hidden" href="collection/" data-collection-link="card_button">Access the Collection</a>
     </div>
   </div>
 
@@ -3474,8 +3497,7 @@
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
         // A Collection member carries a second, silver mark beside the tier,
         // divided by a hairline rather than boxed off on its own.
-        // The mark is a link to the Collection page.
-        if (pin.dataset.collection === 'true') badgeHTML += `<a class="tier-mark tier-mark-collection" href="collection/" data-collection-link="card">Provenance Collection</a>`;
+        if (pin.dataset.collection === 'true') badgeHTML += `<span class="tier-mark tier-mark-collection">Provenance Collection</span>`;
       }
       // The hairline runs from the last mark to the edge of the card.
       badgeHTML += '<span class="tier-rule"></span>';
@@ -3591,8 +3613,19 @@
         confirmedEl.classList.add('hidden');
         confirmedEl.innerHTML = '';
       }
-      // A Collection member also gets the parchment button under it.
-      document.getElementById('card-collection').classList.toggle('hidden', pin.dataset.collection !== 'true');
+      // A Collection member gets Connect and the parchment Access the Collection
+      // button above the website / directions / share row. Everyone else keeps
+      // Connect where it always was, in the bottom group.
+      {
+        const isMember = pin.dataset.collection === 'true';
+        const lead = document.getElementById('card-lead-actions');
+        const collBtn = document.getElementById('card-collection');
+        const connectBtn = document.getElementById('card-connect');
+        lead.classList.toggle('hidden', !isMember);
+        collBtn.classList.toggle('hidden', !isMember);
+        if (isMember) lead.insertBefore(connectBtn, collBtn);
+        else document.querySelector('.card-actions:not(.card-lead-actions)').insertBefore(connectBtn, document.getElementById('card-where-to-buy'));
+      }
 
       // ── Photo + strip ──
       const photoWrap  = document.getElementById('card-photo-wrap');
@@ -4314,9 +4347,10 @@
       if (!bar || !COLLECTION_BANNER_ON) return;
       let dismissed = false;
       try { dismissed = localStorage.getItem('pv_collection_banner_1') === '1'; } catch (e) {}
-      if (!dismissed) bar.hidden = false;
+      if (!dismissed) { bar.hidden = false; document.body.classList.add('pv-bottom-banner'); }
       document.getElementById('collection-banner-close').addEventListener('click', () => {
         bar.hidden = true;
+        document.body.classList.remove('pv-bottom-banner');
         try { localStorage.setItem('pv_collection_banner_1', '1'); } catch (e) {}
       });
     })();
