@@ -554,7 +554,42 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "086 878 6047" },
+        "order_url": "",
+        "updated": "2026-10-28",
+        "intro": "At New Leaf Urban Farmers, we use Korean Natural Farming (KNF) principles alongside other natural farming methods to build healthy, biologically active soil and grow high-quality vegetables. We are pioneers of this methodology in the vegetable sector in Ireland. Our approach focuses on nurturing beneficial microorganisms, recycling organic resources, minimising soil disturbance. We use locally available materials and natural farming preparations to support soil fertility, plant health and biodiversity. Our aim is to produce nutritious, flavourful vegetables while developing a resilient, sustainable market garden that works with nature rather than against it.",
+        "terms": "Collection from the farm at Bruff. Best to call beforehand, and there is an honesty box at the gate. Whether you need to order ahead depends on what you are after.",
+        "available": [
+          { "name": "Mixed leaves", "note": "125g to 1kg." },
+          { "name": "Rocket", "note": "100g to 1kg." },
+          { "name": "Spinach", "note": "250g to 1kg." },
+          { "name": "Chard", "note": "Bunch or 1kg." },
+          { "name": "Kale", "note": "250g to 1kg." },
+          { "name": "Cherry tomatoes", "note": "250g to 1kg." },
+          { "name": "Cucumbers", "note": "One, or by the case." },
+          { "name": "Aubergines", "note": "One, or by the case." },
+          { "name": "Courgettes", "note": "One, or by the case." },
+          { "name": "Sweetcorn", "note": "One, or by the case." },
+          { "name": "French beans", "note": "200g or 1kg." },
+          { "name": "Garden peas", "note": "250g, or by the case." },
+          { "name": "Broccoli", "note": "One, or by the case." },
+          { "name": "Cauliflower", "note": "One, or by the case." },
+          { "name": "Cabbage", "note": "One." },
+          { "name": "Leeks", "note": "One, or by the case." },
+          { "name": "Spring onions", "note": "Bunch, or by the case." },
+          { "name": "Onions", "note": "One, or 1kg." },
+          { "name": "Garlic", "note": "One bulb, or 1kg." },
+          { "name": "Carrots", "note": "By the bunch." },
+          { "name": "Hakurei turnips", "note": "A small white turnip, sweet enough to eat raw. Bunch, or by the case." },
+          { "name": "Swede", "note": "One." },
+          { "name": "Queen's potatoes", "note": "1kg." },
+          { "name": "Carolus potatoes", "note": "1kg." }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "rigneys-farm",
