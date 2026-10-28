@@ -1334,12 +1334,17 @@
        cream. The ground is a shade deeper than the #2F5C3A used elsewhere so
        the gold actually reads: against the lighter green it came out at
        3.7:1, under the 4.5:1 small bold type needs. At #24472E it is 5:1. */
+    /* The same green as Connect, at the user's request on 2026-10-28, so the
+       two buttons on a Highlighted farm's card read as a pair rather than as
+       two different offers. It gives up its gold lettering to do that; the
+       tier is still stated in gold on the card's tier mark and by the card's
+       gold top edge, so the paid tier is not left unmarked. */
     .card-action-featured {
-      background: #24472E;
-      border: 1px solid #45704E;
-      color: #D9AE55;
+      background: #4A8A55;
+      border: 1px solid #4A8A55;
+      color: #0E100D;
     }
-    .card-action-featured:hover { background: #2C5537; border-color: #D9AE55; }
+    .card-action-featured:hover { background: #559A61; border-color: #559A61; }
 
     /* Connect: the first layer of Provenance Connect. Opens a WhatsApp chat
        with the producer, with a line saying where the person found them.
@@ -1348,13 +1353,21 @@
        whatsapp number. */
     /* Connect is deep forest green with white type (changed from the pale green
        fill on 2026-10-28), the same green as the corner Connect button. */
+    /* Connect and Highlighted Profile are the same button colour, settled
+       2026-10-28: the brand green accent with the card's own surface colour
+       knocked out of it. #0E100D rather than the #1A1B18 charcoal, because
+       on this green that one lands at 4.2:1 and small bold uppercase needs
+       4.5. The card surface clears it at 4.6:1 and has the nicer logic: the
+       lettering is the card showing through.
+       Hover lightens rather than darkens, since darkening would close the
+       gap on dark text rather than open it. */
     .card-action-connect {
-      background: #2F5C3A;
-      border: 1px solid #2F5C3A;
-      color: #FFFFFF;
+      background: #4A8A55;
+      border: 1px solid #4A8A55;
+      color: #0E100D;
       gap: 8px;
     }
-    .card-action-connect:hover { background: #35663F; border-color: #35663F; }
+    .card-action-connect:hover { background: #559A61; border-color: #559A61; }
     .card-action-connect svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
     /* "Confirmed by <farm>" — verified trust line at the very bottom */
