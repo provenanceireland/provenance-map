@@ -1524,17 +1524,23 @@
         0 0 10px 3px rgba(201,154,56,0.58),
         0 0 21px 7px rgba(201,154,56,0.27) !important;
     }
-    /* A very slow, very faint orange breath. Deliberately near the threshold
-       of noticeable: it should read as the pin being alive, not as an alert. */
+    /* Highlighted no longer breathes (2026-10-29). It carried a slow orange
+       pulse from 2026-08-24, and CLAUDE.md called a pulsing pin the paid
+       signal. Movement now means one thing on this map and one thing only:
+       you can buy direct from this farm. Three different things moving, for
+       three unrelated reasons, was the confusion.
+
+       Nothing is lost telling Highlighted apart. It still has the gold
+       gradient, the largest dot and the strongest glow, none of which any
+       other tier has. A static halo stands in for the pulse so the pin keeps
+       its weight rather than simply losing a layer. */
     .pin.t-featured .pin-pulse {
       display: block;
       width: 9.22px; height: 9.22px;
       background: rgba(214,132,52,0.20);
-      animation: pulse-featured 4.5s ease-out infinite;
-    }
-    @keyframes pulse-featured {
-      0%   { transform: translate(-50%,-50%) scale(1);   opacity: 0.42; }
-      100% { transform: translate(-50%,-50%) scale(2.8); opacity: 0; }
+      transform: translate(-50%,-50%) scale(2.1);
+      opacity: 0.26;
+      animation: none;
     }
 
     /* Seal Lite — gold with gentle desynchronised pulse */
@@ -1768,28 +1774,27 @@
     }
 
     /* ── NEW THIS WEEK ── a pin listed in the last seven days wears a soft
-       cream ring that breathes outward, so the map visibly grows. Driven by
-       date_added on the record. Static ring for reduced motion. */
+       cream ring, so the map visibly grows. Driven by date_added.
+
+       Static since 2026-10-29. It used to breathe outward on a 2.6s loop,
+       which read as the same "look here" as the Connect ripple while meaning
+       something entirely different: new to the map, not open for orders. A
+       steady, slightly brighter ring still says recently added without
+       competing for the eye. This is what the reduced-motion rule below
+       already showed everyone else; now everyone gets it. */
     .pin.is-new .pin-dot::before {
       content: '';
       position: absolute;
       left: 50%; top: 50%;
       width: 100%; height: 100%;
       border-radius: 50%;
-      border: 1px solid rgba(232,222,200,0.85);
-      transform: translate(-50%, -50%) scale(1.6);
-      opacity: 0.7;
-      animation: pin-new-ring 2.6s ease-out infinite;
+      border: 1px solid rgba(232,222,200,0.9);
+      transform: translate(-50%, -50%) scale(1.8);
+      opacity: 0.8;
       pointer-events: none;
     }
-    @keyframes pin-new-ring {
-      0%   { transform: translate(-50%, -50%) scale(1.3); opacity: 0.85; }
-      70%  { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
-      100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(1.8); opacity: 0.6; }
-    }
+    /* No reduced-motion rule here any more: the ring is static for everyone,
+       so there is nothing left to turn off. */
     /* The answer to the question that made them hover. A rippling pin asks
        "why is that one moving"; this says what it means, in the same pale
        green as the ripple, the legend row and the Connect buttons. Carries no
@@ -1873,6 +1878,10 @@
     /* Reduced motion — pulses become static glows */
     @media (prefers-reduced-motion: reduce) {
       .pin-pulse { animation: none !important; opacity: 0 !important; }
+      /* Except Highlighted's, which stopped moving for everyone on 2026-10-29.
+         There is nothing left to calm, so hiding it here would only take the
+         halo off the pin for these visitors and nobody else. */
+      .pin.t-featured .pin-pulse { opacity: 0.26 !important; }
       .pin.t-seal-lite .pin-dot,
       .pin.t-seal-complete .pin-dot {
         box-shadow: 0 0 10px 3px rgba(196,164,74,0.5);
