@@ -169,9 +169,10 @@
       .row-head { grid-template-columns: 1fr; gap: 12px; }
       .row-main { gap: 14px; }
       .row-thumb { width: 60px; height: 60px; }
-      /* Three columns, not two: the three buttons sit on one line so a farm
-         is one thumb's worth of screen and the list stays one scroll. */
-      .row-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; justify-content: stretch; }
+      /* Two columns, matching the two buttons. It said three until
+         2026-10-29, left over from when Order was here, so every row had an
+         empty third of the screen beside See the farm. */
+      .row-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; justify-content: stretch; }
       .connect { justify-content: center; padding: 11px 4px; font-size: 0.58rem; letter-spacing: 0.08em; gap: 5px; }
       .connect svg { width: 13px; height: 13px; }
     }
@@ -209,7 +210,7 @@
       <p class="label" style="margin-bottom: 14px">How it works</p>
       <p><strong>Discover what's available.</strong> Each producer keeps their own list of what they currently have. Press <strong>See the farm</strong> for their profile, where the latest list sits alongside the date they sent it.</p>
       <p><strong>Connect directly.</strong> Press <strong>Connect</strong> to message the producer. You are talking to the person who grew or reared it, not to us.</p>
-      <p><strong>Buy from the producer.</strong> <strong>Order</strong> takes you to their own shop, where they have one. If they don't have a store, click <strong>Connect</strong>, tell them what you want and organise collection or delivery. Provenance takes no part in the sale and receives no commission.</p>
+      <p><strong>Buy from the producer.</strong> Tell them what you want and organise collection or delivery between you. Provenance takes no part in the sale and receives no commission. Some farms also sell through their own online shop, and the link to it is on their profile.</p>
       <p>Buying in bulk, or after something that is not on the list? A quarter, a half, a whole animal, a standing order? Message the producer and talk it through.</p>
       <p>Farming in Ireland and want to be on this? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
     </div>
