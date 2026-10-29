@@ -133,10 +133,16 @@
       font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
     }
     .pill + .pill { margin-left: 11px; padding-left: 11px; border-left: 1px solid rgba(201,198,189,0.20); }
-    .pill-featured   { color: #D9AE55; }
-    .pill-verified   { color: #59A666; }
-    .pill-discovered { color: #4E8560; }
     .pill-collection { color: #DCD9D0; }
+    /* The Connect marks. The map tier came off these rows on 2026-10-29: a
+       farm's standing on the map said nothing about what they have on
+       Connect, and two unrelated ladders in one column read as one. What a
+       mark names is what the VISITOR can do, never which tier the farmer
+       bought: a buyer has no reason to care that a farm pays for Tier 1, and
+       every reason to care that the list was updated on Tuesday. */
+    .pill-connect { color: #5A8C64; display: inline-flex; align-items: center; gap: 6px; }
+    .pill-visit   { color: #9A968B; display: inline-flex; align-items: center; gap: 6px; }
+    .pill svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
     .connect {
       display: inline-flex; align-items: center; gap: 8px; padding: 10px 15px;
       background: var(--green-deep); border: 1px solid var(--green);
@@ -219,7 +225,29 @@
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-    const TIER = { featured: 'Provenance Highlighted', verified: 'Provenance Verified', discovered: 'Discovered Producer' };
+    /* The Connect ladder, named by what a visitor gets rather than by its
+       number. connect_tier is cumulative, so a farm on 2 carries the marks
+       for 1 and 2. A farm with no connect_tier carries nothing, which is
+       what makes a mark worth having: free is the listing, not the bottom
+       rung of a rating. Tier 3 is here so adding it is a data edit, but it
+       does not exist yet and may well want a button rather than a mark.
+       visited is separate and sits outside the ladder: any farm can be
+       visited at any level, and it reads in muted grey, not the green. */
+    const CONNECT_MARKS = [
+      { tier: 1, label: 'Updated weekly', icon: '<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/>' },
+      { tier: 2, label: 'Ask the farm',   icon: '<path d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1"/>' },
+      { tier: 3, label: 'Order here',     icon: '<path d="M17 10l-2 -6"/><path d="M7 10l2 -6"/><path d="M4 10h16l-1.5 7.6a2 2 0 0 1 -2 1.4h-9a2 2 0 0 1 -2 -1.4z"/>' }
+    ];
+    const VISIT_ICON = '<rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l4.6 -2.3a1 1 0 0 1 1.4 .9v6.8a1 1 0 0 1 -1.4 .9l-4.6 -2.3z"/>';
+    const svgIcon = d => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+
+    function connectMarks(p) {
+      const n = Number(p.connect_tier) || 0;
+      const out = CONNECT_MARKS.filter(m => m.tier <= n)
+        .map(m => `<span class="pill pill-connect">${svgIcon(m.icon)}${m.label}</span>`);
+      if (p.visited) out.push(`<span class="pill pill-visit">${svgIcon(VISIT_ICON)}Visited</span>`);
+      return out.join('');
+    }
 
     // "See the farm" always goes to the shared profile page, even for a farm
     // that has a bespoke one of its own. Every farm on Connect should land a
@@ -255,8 +283,12 @@
         if (!members.length) { $('empty').classList.remove('hidden'); return; }
 
         $('list').innerHTML = members.map(({ p, cs }) => {
-          const tier = p.tier || 'discovered';
-          const pills = `<span class="pill pill-${esc(tier)}">${TIER[tier] || TIER.discovered}</span>` +
+          // The Connect marks, then Collection. The map tier is deliberately
+          // absent: Discovered, Verified and Highlighted describe a farm's
+          // standing on the map, which is a different ladder and said nothing
+          // about what they have here. Collection stays because it is a
+          // release mark, not a tier.
+          const pills = connectMarks(p) +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const url = profileUrl(p);
           // Three buttons. Connect is the conversation, Order is the farm's

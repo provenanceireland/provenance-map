@@ -61,7 +61,20 @@ The Connect listing page follows the same rule. Anything new that wants to label
 
 **A visit is not a tier and sits outside the ladder.** The founder goes to the farm, photographs their produce so they have professional photographs of their own, films the visit, and tells the story. Any farm can buy a visit at any level, including a free listing, and a Tier 3 farm might never have one. **Once a farm has been visited, the visit goes in the place on their Connect listing that used to carry their map tier.**
 
-**The Connect listing no longer shows the map tier.** Discovered, Verified and Highlighted describe a producer's standing on the map and said nothing about what they were paying for on Connect. That slot now carries the Connect tier, and the visit once there is one.
+**The Connect listing no longer shows the map tier (2026-10-29).** Discovered, Verified and Highlighted describe a producer's standing on the map and said nothing about what they have on Connect. Two unrelated ladders in one column read as one. That slot now carries the Connect marks instead. The Collection mark stays, because it is a release mark and not a tier.
+
+**The mark names what the visitor can do, never which tier the farmer bought.** A buyer browsing the directory has no reason to care that a farm pays for Tier 1, and every reason to care that its list was updated on Tuesday. So there is no numeral, no bar chart and no word "tier" on the page: the commercial ladder stays between Provenance and the producer, which also means the tiers can be repriced or restructured without it showing.
+
+`"connect_tier": 1` on the record, cumulative, so a farm on 2 carries both marks. A farm with no `connect_tier` carries nothing at all, which is what makes a mark worth having: free is the listing, not the bottom rung of a rating. `"visited": true` is separate and sits outside the ladder, in muted grey `#9A968B` rather than the green `#5A8C64`. The marks, with their line-art icons:
+
+| On the record | Shows | Icon |
+|---|---|---|
+| `connect_tier: 1` | Updated weekly | A circular refresh arrow |
+| `connect_tier: 2` | Ask the farm | A speech bubble |
+| `connect_tier: 3` | Order here | A basket |
+| `visited: true` | Visited | A film camera |
+
+Tier 3's mark is written but the tier does not exist, and when it does it may well want a button rather than a mark. The marks render on the `/connect/` directory row only: not on the shared profile, and **not on the map card**, which has spent two months having things taken off it.
 
 **"Tier" now means two different things, so say which.** A *map* tier is Discovered, Verified or Highlighted. A *Connect* tier is 1, 2 or 3. They are unrelated ladders: a Discovered farm can be Connect Tier 3, and a Highlighted farm can be on the free Connect listing. **Highlighted is not a Connect tier**: a Highlighted page is a filmed visit the founder made, and Connect is a separate product. Do not conflate them.
 
