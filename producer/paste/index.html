@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Paste an availability message - Provenance</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#1A1B18" />
+  <link rel="icon" href="../../icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Internal. A farm sends a WhatsApp message saying what they have this
+       week; this turns it into their connect block.
+
+       The whole point is the merge. A message carries names and maybe a note.
+       It does not carry photos, options, profile_only, groups or sold_out,
+       and those took real work to assemble: Rathphelan alone has fifteen cut
+       photographs. So an item matched by name keeps everything it already
+       had, exactly the way connectFor merges a live Sheet row back against
+       the record.
+
+       Nothing here publishes. Provenance runs no backend and this page holds
+       no credentials, so it ends at a block to copy. */
+    :root {
+      --ground: #1A1B18; --surface: #222320; --surface-2: #282925;
+      --hair: rgba(201,198,189,0.14); --hair-strong: rgba(201,198,189,0.28);
+      --cream: #E8DEC8; --cream-soft: #CFC7B3; --muted: #9A968B; --faint: #7A766A;
+      --green-deep: #2F5C3A; --green-head: #35663F; --green: #45704E; --green-light: #5A8C64;
+      --warn: #C4A44A; --drop: #B9734A;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--ground); }
+    body {
+      background: var(--ground); color: var(--cream);
+      font-family: 'Source Serif 4', Georgia, serif; font-weight: 300;
+      font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 1.5px solid var(--green-light); outline-offset: 3px; }
+    .hidden { display: none !important; }
+    .col { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    h1, h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
+    h1 { font-size: clamp(2rem, 5vw, 2.6rem); line-height: 1.1; color: var(--green-deep); }
+    h2 { font-size: 1.3rem; color: var(--green-head); margin-bottom: 10px; }
+    .label {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green);
+    }
+    .head { padding: 40px 0 26px; }
+    .lede { color: var(--cream-soft); margin-top: 12px; }
+    .step { border-top: 1px solid var(--hair); padding: 26px 0; }
+
+    select, textarea {
+      width: 100%; background: var(--surface); color: var(--cream);
+      border: 1px solid var(--hair-strong); border-radius: 6px; padding: 12px 14px;
+      font-family: inherit; font-size: 1rem; line-height: 1.5;
+    }
+    textarea { min-height: 190px; resize: vertical; }
+    select { font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.9rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px; padding: 12px 20px; cursor: pointer;
+      background: none; border: 1px solid rgba(201,198,189,0.32); color: var(--cream-soft);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem;
+      letter-spacing: 0.18em; text-transform: uppercase; border-radius: 4px;
+    }
+    .btn:hover { background: rgba(201,198,189,0.08); color: var(--cream); }
+    .btn-go { background: var(--green-deep); border-color: var(--green-deep); color: #FFFFFF; }
+    .btn-go:hover { background: var(--green-head); border-color: var(--green-head); color: #FFFFFF; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+    .hint { font-size: 0.9rem; color: var(--faint); margin-top: 8px; }
+
+    /* The three outcomes of a merge, told apart at a glance. */
+    .group + .group { margin-top: 26px; }
+    .gname {
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .g-keep .gname { color: var(--green-light); }
+    .g-new  .gname { color: var(--warn); }
+    .g-drop .gname { color: var(--drop); }
+    ul { list-style: none; }
+    li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--hair);
+    }
+    li:last-child { border-bottom: none; }
+    .nm { font-family: 'Playfair Display', Georgia, serif; font-size: 1.12rem; color: var(--cream); }
+    .bd { flex: 1; min-width: 0; }
+    .nt {
+      width: 100%; margin-top: 5px; background: none; border: 0; border-bottom: 1px dashed var(--hair-strong);
+      color: var(--cream-soft); font-family: inherit; font-size: 0.95rem; padding: 2px 0;
+    }
+    .nt:focus { outline: none; border-bottom-color: var(--green-light); }
+    .keeps {
+      margin-top: 6px; font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint);
+    }
+    li.off .nm, li.off .keeps { color: var(--faint); text-decoration: line-through; }
+    .tog {
+      flex: none; width: 34px; height: 20px; border-radius: 10px; border: 0; cursor: pointer;
+      background: var(--green-deep); position: relative; margin-top: 5px;
+    }
+    .tog::after {
+      content: ''; position: absolute; top: 3px; right: 3px; width: 14px; height: 14px;
+      border-radius: 50%; background: #B4D2BA; transition: all 0.15s;
+    }
+    .tog[aria-pressed="false"] { background: #33342F; }
+    .tog[aria-pressed="false"]::after { right: auto; left: 3px; background: #55534C; }
+
+    #out { min-height: 260px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.78rem; }
+    .status { margin-top: 12px; font-size: 0.92rem; color: var(--green-light); min-height: 1.4em; }
+    .warnline { color: var(--warn); }
+    footer { padding: 40px 24px 60px; text-align: center; }
+    .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: var(--green); letter-spacing: 0.14em; }
+  </style>
+</head>
+<body>
+
+  <main class="col">
+    <div class="head">
+      <p class="label">Provenance Connect, internal</p>
+      <h1>Paste a message</h1>
+      <p class="lede">A farm sends what they have this week. This turns it into their block.
+        Names are matched against what is already on their record, so photos, options and
+        groups carry over untouched. Nothing here publishes: it ends with a block to copy.</p>
+    </div>
+
+    <div class="step">
+      <h2>1. The farm</h2>
+      <select id="farm"><option>Loading...</option></select>
+      <p class="hint" id="farm-hint"></p>
+    </div>
+
+    <div class="step">
+      <h2>2. Their message</h2>
+      <textarea id="msg" placeholder="Paste the WhatsApp message here.
+
+This week we have:
+Beef box 5kg
+Beef box 8kg
+Picanha
+Ribeye - only a few left
+No fillet this week"></textarea>
+      <div class="row">
+        <button type="button" class="btn btn-go" id="read">Read the message</button>
+        <button type="button" class="btn" id="all">Everything they list</button>
+      </div>
+      <p class="hint">Lines beginning with a dash, a bullet or a number are tidied. A line
+        with no letters in it is skipped. "Name, then a dash or a colon, then a note" is split
+        into the two.</p>
+    </div>
+
+    <div class="step hidden" id="step3">
+      <h2>3. Check it</h2>
+      <p class="hint" id="summary"></p>
+      <div id="result"></div>
+    </div>
+
+    <div class="step hidden" id="step4">
+      <h2>4. Send this to Claude</h2>
+      <p class="hint">The whole <code>connect</code> block, with today's date on it. Paste it
+        into the chat and say which farm it is for.</p>
+      <textarea id="out" readonly></textarea>
+      <div class="row">
+        <button type="button" class="btn btn-go" id="copy">Copy the block</button>
+        <a class="btn" id="view" href="#" target="_blank" rel="noopener">See their page</a>
+      </div>
+      <p class="status" id="status"></p>
+    </div>
+  </main>
+
+  <footer><p class="f-logo">Provenance</p></footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    let PRODUCERS = [], farm = null, rows = [];
+
+    const norm = s => String(s || '').toLowerCase()
+      .replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+
+    function today() {
+      const d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') +
+             '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    fetch('../../producers.json?v=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => {
+        PRODUCERS = (data.producers || []).filter(p => p.connect);
+        PRODUCERS.sort((a, b) => a.name.localeCompare(b.name));
+        $('farm').innerHTML = PRODUCERS.map(p =>
+          `<option value="${p.id}">${p.name}</option>`).join('');
+        pick();
+      })
+      .catch(() => { $('farm-hint').textContent = 'Could not load producers.json.'; });
+
+    $('farm').addEventListener('change', pick);
+    function pick() {
+      farm = PRODUCERS.find(p => p.id === $('farm').value) || PRODUCERS[0];
+      if (!farm) return;
+      const n = (farm.connect.available || []).length;
+      const shots = (farm.connect.available || [])
+        .filter(a => a.photo || (a.photos && a.photos.length)).length;
+      $('farm-hint').textContent =
+        n + ' on their list, ' + shots + ' with photographs. Last updated ' +
+        (farm.connect.updated || 'never') + '.';
+      $('view').href = '../?id=' + encodeURIComponent(farm.id);
+      $('step3').classList.add('hidden');
+      $('step4').classList.add('hidden');
+    }
+
+    /* Pull candidate product names out of a message. Deliberately forgiving:
+       people write lists in a dozen ways and the check step catches anything
+       this gets wrong. */
+    function parse(text) {
+      const SKIP = /^(hi|hey|hello|howya|morning|thanks|thank you|cheers|this week|available|we have|all good|ok|okay)\b/i;
+      return String(text || '').split(/\r?\n/)
+        .map(l => l.replace(/^[\s>*•\-–—]+/, '')      // bullets and dashes
+                   .replace(/^\d+[.)]\s*/, '')                        // 1. or 1)
+                   .trim())
+        .filter(l => l && /[a-z]/i.test(l) && !SKIP.test(l) && !/^no\b/i.test(l))
+        .map(l => {
+          const m = l.match(/^(.+?)\s*[-–—:]\s+(.*)$/);     // name - note
+          return m ? { name: m[1].trim(), note: m[2].trim() } : { name: l.replace(/[.,;]+$/, ''), note: '' };
+        })
+        .filter(r => r.name);
+    }
+
+    /* The merge. An item the farm names keeps everything the record already
+       holds for it; a name that is not on the record becomes a new item with
+       nothing but a note; anything on the record they did not name is dropped,
+       because a shorter list is how a farm says something is gone. */
+    function build(named) {
+      const have = farm.connect.available || [];
+      const byName = {};
+      have.forEach(a => { byName[norm(a.name)] = a; });
+      const seen = {};
+      rows = [];
+
+      named.forEach(r => {
+        const key = norm(r.name);
+        if (seen[key]) return;
+        seen[key] = true;
+        const was = byName[key];
+        rows.push({
+          kind: was ? 'keep' : 'new',
+          on: true,
+          name: was ? was.name : r.name,
+          note: r.note || (was ? was.note : '') || '',
+          base: was || null
+        });
+      });
+
+      have.forEach(a => {
+        if (seen[norm(a.name)]) return;
+        rows.push({ kind: 'drop', on: false, name: a.name, note: a.note || '', base: a });
+      });
+
+      draw();
+    }
+
+    function carries(base) {
+      if (!base) return 'new, nothing carried over';
+      const bits = [];
+      const shots = base.photos ? base.photos.length : (base.photo ? 1 : 0);
+      if (shots) bits.push(shots === 1 ? 'photo' : shots + ' photos');
+      if (base.options && base.options.length) bits.push(base.options.length + ' options');
+      if (base.group) bits.push('group ' + base.group);
+      if (base.profile_only) bits.push('profile only');
+      if (base.fulfilment) bits.push('own fulfilment');
+      return bits.length ? 'keeps ' + bits.join(', ') : 'no extras on file';
+    }
+
+    function section(kind, title, note) {
+      const mine = rows.map((r, i) => ({ r, i })).filter(x => x.r.kind === kind);
+      if (!mine.length) return '';
+      return `<div class="group g-${kind === 'keep' ? 'keep' : kind === 'new' ? 'new' : 'drop'}">
+        <p class="gname">${title}</p>
+        ${note ? `<p class="hint" style="margin:-4px 0 10px">${note}</p>` : ''}
+        <ul>${mine.map(({ r, i }) => `
+          <li class="${r.on ? '' : 'off'}" data-i="${i}">
+            <button type="button" class="tog" aria-pressed="${r.on}" aria-label="Include ${r.name}"></button>
+            <span class="bd">
+              <span class="nm">${r.name}</span>
+              <input class="nt" value="${String(r.note).replace(/"/g, '&quot;')}" placeholder="A plain line saying what it is" />
+              <span class="keeps">${carries(r.base)}</span>
+            </span>
+          </li>`).join('')}</ul>
+      </div>`;
+    }
+
+    function draw() {
+      $('result').innerHTML =
+        section('keep', 'On the list already', 'Everything on file for these carries over.') +
+        section('new',  'New',                 'Not on their record. Give each one a note before it goes up.') +
+        section('drop', 'Dropped',             'On their record but not in the message. Off unless you switch one back on.');
+
+      const on = rows.filter(r => r.on).length;
+      const nonote = rows.filter(r => r.on && !String(r.note).trim()).length;
+      $('summary').innerHTML = on + ' items will publish. ' +
+        rows.filter(r => r.kind === 'drop').length + ' dropped.' +
+        (nonote ? ` <span class="warnline">${nonote} with no note.</span>` : '');
+
+      $('result').querySelectorAll('.tog').forEach(b => {
+        b.addEventListener('click', () => {
+          const i = +b.closest('li').dataset.i;
+          rows[i].on = !rows[i].on;
+          draw(); out();
+        });
+      });
+      $('result').querySelectorAll('.nt').forEach(inp => {
+        inp.addEventListener('input', () => {
+          rows[+inp.closest('li').dataset.i].note = inp.value;
+          out();
+        });
+      });
+
+      $('step3').classList.remove('hidden');
+      $('step4').classList.remove('hidden');
+      out();
+    }
+
+    /* The block. Built from the record so everything not touched here, the
+       channel, the terms, the intro, the groups, survives untouched. */
+    function out() {
+      const c = farm.connect;
+      const block = {
+        active: true,
+        channel: c.channel,
+        order_url: c.order_url || '',
+        updated: today()
+      };
+      if (c.intro)  block.intro  = c.intro;
+      if (c.terms)  block.terms  = c.terms;
+      if (c.source) block.source = c.source;
+      if (c.groups && c.groups.length) block.groups = c.groups;
+
+      block.available = rows.filter(r => r.on).map(r => {
+        const b = r.base || {};
+        const item = { name: r.name };
+        if (String(r.note).trim()) item.note = String(r.note).trim();
+        if (b.group) item.group = b.group;
+        if (b.options && b.options.length) item.options = b.options;
+        if (b.fulfilment) item.fulfilment = b.fulfilment;
+        if (b.profile_only) item.profile_only = true;
+        if (b.photos && b.photos.length) item.photos = b.photos;
+        else if (b.photo) item.photo = b.photo;
+        return item;
+      });
+      block.plus = c.plus || {};
+
+      $('out').value = '"' + farm.id + '" connect block:\n\n' +
+        JSON.stringify({ connect: block }, null, 2);
+    }
+
+    $('read').addEventListener('click', () => {
+      const named = parse($('msg').value);
+      if (!named.length) {
+        $('summary').textContent = 'Nothing readable in that. Check the message.';
+        $('step3').classList.remove('hidden');
+        return;
+      }
+      build(named);
+    });
+
+    $('all').addEventListener('click', () => {
+      build((farm.connect.available || []).map(a => ({ name: a.name, note: a.note || '' })));
+    });
+
+    $('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText($('out').value);
+        $('status').textContent = 'Copied. Paste it into the chat and say which farm.';
+      } catch (e) {
+        $('out').select();
+        $('status').textContent = 'Could not copy automatically. It is selected, press Ctrl C.';
+      }
+    });
+  </script>
+</body>
+</html>
