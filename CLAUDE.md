@@ -173,7 +173,7 @@ go to different places on purpose:
 | Pressed on | Goes to | Why |
 |---|---|---|
 | The map card | `/producer/?id=<id>` — that farm's See the farm page | From a pin you want *that* producer, not a list of everyone. Their page carries the full list, the terms and the Connect and Order buttons, so nothing is lost by skipping the directory |
-| A Highlighted profile hero | `#connect-section` on the same page | Settled by the user on 2026-10-01; do not change it without asking. The Highlighted profile at `/<slug>/` runs: hero (name, place, produce, a small Connect with the farm button, then Instagram, website and share), quote, film, story, what they grow, Around the farm, **Available now** (list, Connect and Order), **Where to buy** (Connect beside the farm shop Directions; "Direct from the farm" when nowhere is on file), visit record. The Connect profile at `/producer/?id=<id>` carries the same list |
+| A Highlighted profile hero | `/producer/?id=<id>` — that farm's Connect profile | Changed by the user on 2026-10-29. It used to scroll to `#connect-section` further down the same page (settled 2026-10-01); that block is gone, so the button leaves the page. Do not change it again without asking |
 
 Either button shows when the farm is **on Connect at all**, not when a
 `whatsapp` number happens to be on the record, so neither can land somewhere
@@ -181,6 +181,29 @@ that is not there. The messaging button with the icon lives on `/connect/` and
 in the availability block of a profile. The card's press is tracked as
 `see_farm_click` — named for where it lands, so it sits alongside the same
 press on `/connect/` rather than inventing a second event for one button.
+
+**The two kinds of profile are separate products, and each page is one of them
+(2026-10-29).** A **Highlighted page** at `/<slug>/` is the story of a visit:
+hero (name, place, produce, Connect with the farm, then Instagram, website and
+share), quote, film, story, what they grow, Around the farm, Where to buy, the
+visit record. A **Connect profile** at `/producer/?id=<id>` is the business:
+what they have this week, the terms, Connect, Order, **Follow** and **Share**.
+
+The Highlighted pages used to carry the whole Available now block as well,
+which made them very long and made the two products read as one thing. It came
+off all three (`skehanahill`, `rathphelanfarm`, `tarahillhoney`) on 2026-10-29.
+**Do not put availability back on a Highlighted page.** Where to buy keeps its
+own Connect button, because that is a way to reach the farmer rather than a
+produce list.
+
+**Follow and Share live on the Connect profile, not the Highlighted page.**
+Following a farm is about next week's list, which only Connect has, so the
+button shows only for a farm that is on Connect; Share is on every shared
+profile whatever the tier. Follow is kept in `localStorage` under
+`pv-follow-<id>` (unchanged when it moved, so anyone who already followed from
+the Highlighted page still follows), there is no push service yet, and the
+page says so rather than promising a notification it cannot send. The events
+are `follow`, `unfollow` and `share`, all with `surface: shared_profile`.
 
 **Numbers outside the Republic go in international form.** `connectWhatsapp`
 normalises a dialled number, and a leading zero is not always Irish: the map
@@ -297,7 +320,7 @@ The category names and their order are read from the map's own filter chips at l
 
 `/producer/index.html` is set in the **Highlighted pages' language** (charcoal, Playfair, forest green, no italic), not the map's, because it is a profile page. It shows only what the record can honestly carry: a Discovered farm gets what its card has, Verified adds the practice and the attributes they confirmed, and Instagram, website and where-to-buy are gated to Highlighted **in the page code as well as in the data**, so a stray field on a free record can never put a paid benefit on a free page. The single card image is contained rather than cropped, since it is usually a logo, and `photo_bg: "white"` gives it a white ground to sit on.
 
-**The page order, reset 2026-10-27.** Hero photograph, then name, place, produce, practice and attributes, then the farm's description, then Connect, then Available now (date, terms, the grouped list, the produce gallery, Connect and Order), then the rest. The description used to sit under the *Available now* heading, where a description of the farm read as a preamble to the produce list. The produce photographs used to hang off each list row as 96px thumbnails and are now gathered into a gallery under the list. A second group inside the list is indented off a hairline, because on a farm selling a box the cuts are what is *inside* it, not a sibling of it.
+**The page order, reset 2026-10-27.** Hero photograph, then name, place, produce, practice and attributes, then the farm's description, then Connect, then **Follow and Share** (added 2026-10-29), then Available now (date, terms, the grouped list, the produce gallery, Connect, and Order as a line of text underneath), then the rest. The description used to sit under the *Available now* heading, where a description of the farm read as a preamble to the produce list. The produce photographs used to hang off each list row as 96px thumbnails and are now gathered into a gallery under the list. A second group inside the list is indented off a hairline, because on a farm selling a box the cuts are what is *inside* it, not a sibling of it.
 
 **`hero_image` turns on the hero, and nothing else does (decided 2026-10-27).** A path from the site root, with an optional `hero_focus` giving an `object-position` for when the middle is the wrong part of the shot. **`photo_url` is never promoted into the hero**: 45 of the 128 producers have a logo there, and a logo stretched across a banner looks broken. A farm gets a hero when there is a photograph of the farm to put in it, and not before, so a page without one opens exactly as it did. Decided in preference to giving logo-only farms a muted band, because the user would rather collect real photographs than paper over the gap.
 
