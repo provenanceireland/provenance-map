@@ -46,9 +46,30 @@ Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, 
 
 The Connect listing page follows the same rule. Anything new that wants to label a producer gets a line of type, not a pill.
 
+### The Connect tiers (set 2026-10-29)
+
+**Being on Connect is free, and free is not a tier.** A free listing carries the farmer, where they are, and what they produce. It is never updated. Everything above it is paid.
+
+| | What the farm gets |
+|---|---|
+| **Free listing** | Who they are, where they are, what they produce. Never updated. Not a tier. |
+| **Tier 1** | Photographs from around the farm, weekly availability updates, and promotion: a weekly post on the Provenance channels highlighting them |
+| **Tier 2** | Everything in Tier 1, plus **the chatbot**. A visitor asks a question on the farm's page and gets an answer without needing WhatsApp and without waiting on the farmer to reply |
+| **Tier 3** | Everything in Tier 2, plus **an ordering page through Provenance**. People see the produce, order it there, and Provenance passes the order to the farm. Just Eat for the farm. |
+
+**The tiers are cumulative.** Each one includes everything below it, so the price has to rise at each step because the thing genuinely gets bigger. This is not a menu: a farm cannot take the chatbot without the weekly updates, because the chatbot and the ordering page both answer questions about what the farm currently has, and that list is Tier 1.
+
+**A visit is not a tier and sits outside the ladder.** The founder goes to the farm, photographs their produce so they have professional photographs of their own, films the visit, and tells the story. Any farm can buy a visit at any level, including a free listing, and a Tier 3 farm might never have one. **Once a farm has been visited, the visit goes in the place on their Connect listing that used to carry their map tier.**
+
+**The Connect listing no longer shows the map tier.** Discovered, Verified and Highlighted describe a producer's standing on the map and said nothing about what they were paying for on Connect. That slot now carries the Connect tier, and the visit once there is one.
+
+**"Tier" now means two different things, so say which.** A *map* tier is Discovered, Verified or Highlighted. A *Connect* tier is 1, 2 or 3. They are unrelated ladders: a Discovered farm can be Connect Tier 3, and a Highlighted farm can be on the free Connect listing. **Highlighted is not a Connect tier**: a Highlighted page is a filmed visit the founder made, and Connect is a separate product. Do not conflate them.
+
+**Rathphelan Farm is the Tier 1 pilot**, running from November 2026. Nothing is priced yet. What a tier costs, and whether any of it is self-service, are both still open.
+
 ### Provenance Connect, layer two — availability
 
-**Connect is not paused (corrected 2026-10-19).** It is being worked on in the background, and the user will update it later in the week. Prices and what is paid are unspecified for now. `CONNECT-SETUP.md` is still not done. The two open questions at the end of this section stay open on purpose: which tiers may use Connect, and whether the producer subscription is self-service. Everything below is the record of what was built.
+**Connect is not paused (corrected 2026-10-19).** It is being worked on in the background. **The tier ladder was set on 2026-10-29 (see the section above); prices are still unspecified.** `CONNECT-SETUP.md` is still not done. The open questions at the end of this section stay open on purpose. Everything below is the record of what was built.
 
 Built 2026-09-24. **What a producer currently has, in their own words.** The
 governing rule: *what do you have*, never *how many do you have*. There is no
@@ -105,15 +126,27 @@ groups renders exactly as before.
 **`fulfilment`** is a per-item exception to `terms` and is rarely needed;
 `terms` said once beat it repeated down fifteen cuts.
 
-**Three buttons, and they mean different things.** **Connect** opens the chat,
-**Order** goes to the farm's own shop (`order_url`, falling back to the
-record's `website`), and both get you to the producer so they look alike.
-**See the farm** always goes to `/producer/?id=<id>` — the shared profile, even
-for a farm with a bespoke page — so every farm on Connect lands a visitor on
-the same kind of page. It is bordered rather than filled, because it is a
-different job. A farm with no channel or no shop on file keeps the slot as a
-greyed, inert `<span>`, so the row does not change shape when the detail
+**Two buttons on the directory, and they mean different things.** **Connect**
+opens the chat. **See the farm** always goes to `/producer/?id=<id>` — the
+shared profile, even for a farm with a bespoke page — so every farm on Connect
+lands a visitor on the same kind of page. It is bordered rather than filled,
+because it is a different job. A farm with no channel on file keeps the slot as
+a greyed, inert `<span>`, so the row does not change shape when the detail
 arrives and there is never a live button that goes nowhere.
+
+**Order is not a button, and it is never on the directory (2026-10-29).** It
+points at the farm's own shop (`order_url`, falling back to the record's
+`website`). Given equal weight beside Connect it handed the buyer straight to a
+checkout, which ended Provenance's part in it: no conversation, no
+relationship, nothing learned about what the buyer actually wanted. It now
+renders only on the shared profile at `/producer/?id=<id>`, as a line of text
+under the Connect button ("They also sell through their own shop"), below the
+"Provenance takes no part in the order" note. Reach the farm through the
+conversation first; find the shop afterwards if that is what you would rather
+do. **Do not put Order back on `/connect/`, and do not promote it to a button.**
+The press is still tracked as `order_click`. The three bespoke Highlighted
+pages keep their own Order button in their availability block, because a
+Highlighted page is not a Connect surface.
 
 **A Highlighted farm with its own built page gets a quiet line** under the
 buttons, "View their Highlighted profile", in the Highlighted amber. A line and
@@ -220,12 +253,18 @@ the record as a path from the site root (`/produce/...`) so it resolves the same
 from any page depth. Square, 700px, q84 — a centre crop of a packet shot reads
 well at the 96px the list renders. Rathphelan Farm has thirteen (2026-09-25).
 
-**No commission, ever.** Provenance takes no part in the order; the button goes
-straight to the producer's chosen channel. The commercial model is a monthly
-producer subscription. Still open, and needing a decision: which tiers may use
-Connect (availability is a producer-authored claim, which argues for
-Verified as the floor, and nothing enforces a tier yet), and whether that
-subscription is self-service, which this file currently says no paid step is.
+**No commission, ever, up to Tier 2.** Provenance takes no part in the order;
+Connect goes straight to the producer's chosen channel and the shop link goes
+straight to their shop. **Tier 3 is the exception and is a different thing**:
+the order is placed on a Provenance page and passed to the farm, so what
+Provenance takes there is unspecified and has to be settled before Tier 3 is
+offered to anyone.
+
+Still open, and needing a decision: which **map** tier a farm must hold to be
+on Connect at all (availability is a producer-authored claim, which argues for
+Verified as the floor, and nothing enforces a tier yet), what each Connect tier
+costs, and whether any of it is self-service, which this file currently says no
+paid step is.
 
 ### Navigation and profile pages
 

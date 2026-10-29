@@ -308,7 +308,10 @@
     .avail li:last-child { border-bottom: none; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
-    /* Connect and Order together, the same pair the Connect page carries. */
+    /* Connect is the button. Order is a line underneath it, not a second
+       button and never on the directory: a buyer should reach the farm
+       through the conversation first, and find the shop afterwards if that
+       is what they would rather do. */
     .connect-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; scroll-margin-top: 28px; }
     .connect-cta a {
       display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px;
@@ -319,6 +322,14 @@
     .connect-cta a:hover { background: var(--green-head); border-color: var(--green-light); }
     .connect-cta a svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .connect-cta p { flex-basis: 100%; margin-top: 4px; font-size: 0.88rem; color: var(--faint); }
+    .connect-cta p.cta-order-line { margin-top: 10px; }
+    .connect-cta p.cta-order-line a {
+      display: inline; padding: 0; background: none; border: none;
+      font-family: inherit; font-weight: inherit; font-size: inherit; letter-spacing: normal;
+      text-transform: none; color: var(--green-light); text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-color: rgba(90,140,100,0.5);
+    }
+    .connect-cta p.cta-order-line a:hover { background: none; color: var(--cream); text-decoration-color: currentColor; }
 
     /* ── where to buy ── */
     .buy p { font-size: 1.05rem; }
@@ -655,19 +666,26 @@
           show('avail-gallery', true);
         }
         if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
-        // Connect, and only Connect. Order was removed on 2026-10-29: it
-        // handed the buyer off to the farm's own checkout, which ended
-        // Provenance's part in it and routed around the conversation Connect
-        // exists to start. order_url stays on the records and connectOrder
-        // stays in connect.js; nothing renders either.
+        // Connect is the button. Order came off both surfaces on 2026-10-29
+        // and came back here only, under the Connect button as a line of
+        // text: a shop link beside Connect handed the buyer straight to a
+        // checkout and ended Provenance's part in it. It stays off the
+        // directory entirely.
         const cta = [];
         if (cs.channel) cta.push(`<a class="cta-connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`);
-        if (cta.length) {
+        const orderLine = cs.order
+          ? `<p class="cta-order-line">They also sell through <a class="cta-order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">their own shop</a>.</p>`
+          : '';
+        if (cta.length || orderLine) {
           $('connect-cta').innerHTML = cta.join('') +
-            `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
+            (cta.length ? `<p>Goes straight to the farm. Provenance takes no part in the order.</p>` : '') +
+            orderLine;
           const cBtn = $('connect-cta').querySelector('.cta-connect');
           if (cBtn) cBtn.addEventListener('click', () =>
             pvTrack('connect_click', pvProducer(p, { surface: 'shared_profile', channel: cs.channel.kind })));
+          const oBtn = $('connect-cta').querySelector('.cta-order');
+          if (oBtn) oBtn.addEventListener('click', () =>
+            pvTrack('order_click', pvProducer(p, { surface: 'shared_profile' })));
         }
         show('connect-section', true);
       }
