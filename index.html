@@ -4358,7 +4358,7 @@
     // The launch strip. Set to false to take it down for everyone; a visitor
     // who closes it does not see it again. Storage can be blocked, so both
     // reads and writes are guarded and the strip simply shows if it is.
-    const COLLECTION_BANNER_ON = true;
+    const COLLECTION_BANNER_ON = false;
     // Launch week: the Collection pins glow brighter until this date (inclusive).
     const COLLECTION_LIVE_UNTIL = '2026-11-04';
     if (Date.now() <= new Date(COLLECTION_LIVE_UNTIL + 'T23:59:59').getTime()) document.body.classList.add('collection-live');
