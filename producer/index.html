@@ -211,11 +211,6 @@
     }
     .follow-btn svg, .share-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .follow-btn:hover, .share-btn:hover { border-color: var(--green-light); color: var(--cream); }
-    /* Following: filled, so the state is unmistakable at a glance. */
-    .follow-btn[aria-pressed="true"] {
-      background: rgba(47,92,58,0.55); border-color: var(--green); color: var(--cream);
-    }
-    .follow-btn[aria-pressed="true"] svg { fill: rgba(232,222,200,0.22); }
     .follow-note { margin-top: 12px; font-size: 0.88rem; line-height: 1.5; color: var(--faint); max-width: 44ch; }
     #share-toast {
       position: absolute; left: 0; bottom: -30px; opacity: 0; pointer-events: none;
@@ -459,10 +454,10 @@
            2026-10-29: following a farm is about next week's list, which is a
            Connect thing, and the filmed page is the story of one visit. -->
       <div class="hero-actions hidden" id="hero-actions">
-        <button type="button" class="follow-btn hidden" id="follow-btn" aria-pressed="false">
+        <a class="follow-btn hidden" id="follow-btn" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span id="follow-label">Follow</span>
-        </button>
+          Follow
+        </a>
         <button type="button" class="share-btn" id="share-btn" aria-label="Share this producer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
           Share
@@ -540,6 +535,21 @@
   <script src="../connect.js?v=11"></script>
   <script>
     const $ = id => document.getElementById(id);
+
+    /* Follow collects an email address, not a push subscription. Decided
+       2026-10-29. Web push would need somewhere to keep each device's
+       subscription and a server holding a VAPID key, which Provenance does
+       not have and will not put in a page; worse, on iPhone it only works
+       for someone who has added the site to their home screen, so the whole
+       build would reach the smaller half of the audience. Email reaches
+       everyone on every device, and a weekly produce list is email-shaped.
+
+       Put the form's address here and Follow appears. Leave it empty and
+       Follow does not render at all, because a button that collects nothing
+       is worse than no button. The producer id and name are appended as
+       query parameters, so one form serves every farm and each submission
+       says which farm it was for. */
+    const FOLLOW_FORM = '';
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const show = (id, on) => $(id).classList.toggle('hidden', !on);
 
@@ -716,32 +726,21 @@
           } catch (err) {}
         }
       });
-      if (cs) {
-        const KEY = 'pv-follow-' + p.id;
-        const btn = $('follow-btn'), label = $('follow-label'), note = $('follow-note');
-        const read = () => { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } };
-        const standalone = window.matchMedia('(display-mode: standalone)').matches ||
-                           window.navigator.standalone === true;
-        function paintFollow(following, announce) {
-          btn.setAttribute('aria-pressed', following ? 'true' : 'false');
-          label.textContent = following ? 'Following' : 'Follow';
-          if (following) {
-            note.textContent = standalone
-              ? 'Saved. When ' + p.name + ' posts next week’s list, you will be told.'
-              : 'Saved. Add Provenance to your home screen and you will be told when ' +
-                p.name + ' posts next week’s list.';
-          }
-          note.classList.toggle('hidden', !following || !announce);
-        }
-        paintFollow(read(), false);
-        btn.addEventListener('click', () => {
-          const now = !read();
-          try { localStorage.setItem(KEY, now ? '1' : '0'); } catch (e) {}
-          paintFollow(now, true);
-          pvTrack(now ? 'follow' : 'unfollow',
-            pvProducer(p, { surface: 'shared_profile', installed: standalone }));
-        });
+      // Follow is a link to the sign-up form, not a toggle. A toggle would
+      // have to say whether the person is following, and the page cannot
+      // know that: the form is submitted somewhere else and never reports
+      // back. So the button does one thing, opens the form, and the line
+      // under it says what that gets you before the press rather than
+      // claiming something afterwards.
+      if (cs && FOLLOW_FORM) {
+        const f = $('follow-btn');
+        f.href = FOLLOW_FORM + (FOLLOW_FORM.indexOf('?') < 0 ? '?' : '&') +
+          'producer=' + encodeURIComponent(p.id) + '&farm=' + encodeURIComponent(p.name);
+        f.addEventListener('click', () =>
+          pvTrack('follow', pvProducer(p, { surface: 'shared_profile' })));
+        $('follow-note').textContent = 'Get ' + p.name + '’s list by email each week.';
         show('follow-btn', true);
+        show('follow-note', true);
       }
       if (cs) {
         pvTrack('availability_shown', pvProducer(p, {

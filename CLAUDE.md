@@ -211,13 +211,29 @@ own Connect button, because that is a way to reach the farmer rather than a
 produce list.
 
 **Follow and Share live on the Connect profile, not the Highlighted page.**
-Following a farm is about next week's list, which only Connect has, so the
-button shows only for a farm that is on Connect; Share is on every shared
-profile whatever the tier. Follow is kept in `localStorage` under
-`pv-follow-<id>` (unchanged when it moved, so anyone who already followed from
-the Highlighted page still follows), there is no push service yet, and the
-page says so rather than promising a notification it cannot send. The events
-are `follow`, `unfollow` and `share`, all with `surface: shared_profile`.
+Following a farm is about next week's list, which only Connect has, so Follow
+shows only for a farm that is on Connect; Share is on every shared profile
+whatever the tier. The events are `follow` and `share`, both with
+`surface: shared_profile`.
+
+**Follow collects an email address, not a push subscription (decided
+2026-10-29).** It is a link to a sign-up form, with `producer` and `farm`
+appended as query parameters so one form serves every farm. The form's address
+is the `FOLLOW_FORM` constant at the top of the script in
+`producer/index.html`; **while it is empty, Follow does not render at all**,
+because a button that collects nothing is worse than no button. It is a plain
+link and not a toggle, because the form is submitted somewhere else and never
+reports back, so the page cannot honestly say whether someone is following.
+The line under it sets the expectation before the press instead.
+
+Web push was considered and rejected: it needs somewhere to keep each device's
+subscription and a server holding a VAPID key, which breaks the rule that
+Provenance runs no backend and no page holds a credential, and **on iPhone it
+only works for someone who has added the site to their home screen**, so the
+whole build would reach the smaller half of the audience. Email reaches
+everyone on every device and a weekly produce list is email-shaped. The
+earlier version wrote a `pv-follow-<id>` flag to `localStorage` and notified
+nobody; that key is dead and nothing reads it.
 
 **Numbers outside the Republic go in international form.** `connectWhatsapp`
 normalises a dialled number, and a leading zero is not always Irish: the map

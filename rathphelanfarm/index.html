@@ -611,9 +611,10 @@
         show('connect-hero', true);
       }
 
-      // Follow moved to the Connect profile on 2026-10-29. The stored key is
-      // unchanged, 'pv-follow-<id>', so anyone who already followed from
-      // here is still following over there.
+      // Follow moved to the Connect profile on 2026-10-29 and became an
+      // email sign-up rather than a flag in localStorage, so the old
+      // 'pv-follow-<id>' key is dead and nothing reads it. Nobody was ever
+      // notified by it, so nothing was lost in the change.
 
       const links = [];
       if (producer.social_instagram) links.push(`<a href="https://www.instagram.com/${esc(producer.social_instagram)}/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>Instagram</a>`);
