@@ -655,21 +655,19 @@
           show('avail-gallery', true);
         }
         if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
-        // Connect for the conversation, Order for the farm's own shop — the
-        // same pair the Connect page carries, so a visitor who arrives here
-        // from "See the farm" is not sent back to place an order.
+        // Connect, and only Connect. Order was removed on 2026-10-29: it
+        // handed the buyer off to the farm's own checkout, which ended
+        // Provenance's part in it and routed around the conversation Connect
+        // exists to start. order_url stays on the records and connectOrder
+        // stays in connect.js; nothing renders either.
         const cta = [];
         if (cs.channel) cta.push(`<a class="cta-connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`);
-        if (cs.order) cta.push(`<a class="cta-order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`);
         if (cta.length) {
           $('connect-cta').innerHTML = cta.join('') +
             `<p>Goes straight to the farm. Provenance takes no part in the order.</p>`;
           const cBtn = $('connect-cta').querySelector('.cta-connect');
           if (cBtn) cBtn.addEventListener('click', () =>
             pvTrack('connect_click', pvProducer(p, { surface: 'shared_profile', channel: cs.channel.kind })));
-          const oBtn = $('connect-cta').querySelector('.cta-order');
-          if (oBtn) oBtn.addEventListener('click', () =>
-            pvTrack('order_click', pvProducer(p, { surface: 'shared_profile' })));
         }
         show('connect-section', true);
       }

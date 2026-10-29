@@ -104,21 +104,10 @@
     .row-main { display: flex; align-items: center; gap: 18px; min-width: 0; }
     .row-text { min-width: 0; }
 
-    /* ── THE LEAD ROW ───────────────────────────────────────────────────────
-       The farm at the top of the list gets a bigger picture, a bigger name
-       and more air, and a stronger rule under it dividing it from the nine
-       below. Built on :first-child rather than on an id, so it follows
-       whoever the FIRST array puts at the top rather than being welded to
-       one farm: today that is Rathphelan, who is the trial farm.
-
-       It makes no claim. There is no "featured" word and no badge, because
-       the row cannot honestly say what earned the prominence. It is simply
-       larger. */
-    .row:first-child { padding: 30px 0 28px; border-bottom-color: var(--hair-strong); }
-    .row:first-child .row-thumb { width: 118px; height: 118px; }
-    .row:first-child h2 { font-size: clamp(2.05rem, 5.4vw, 2.65rem); }
-    .row:first-child .where { font-size: 1.1rem; margin-top: 5px; }
-    .row:first-child .tags { margin-top: 9px; }
+    /* The lead row was enlarged on 2026-10-29 and taken back off the same
+       day: bigger for no stated reason reads as a mistake rather than as
+       emphasis. Prominence on this page has to come from something a visitor
+       can understand, not from scale. */
     .row-thumb {
       flex: none; display: block; width: 72px; height: 72px;
       border: 1px solid var(--hair); background: #121310; overflow: hidden;
@@ -174,8 +163,6 @@
       .row-head { grid-template-columns: 1fr; gap: 12px; }
       .row-main { gap: 14px; }
       .row-thumb { width: 60px; height: 60px; }
-      .row:first-child { padding: 24px 0 22px; }
-      .row:first-child .row-thumb { width: 88px; height: 88px; }
       /* Three columns, not two: the three buttons sit on one line so a farm
          is one thumb's worth of screen and the list stays one scroll. */
       .row-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; justify-content: stretch; }
@@ -280,9 +267,14 @@
           const connectBtn = cs.channel
             ? `<a class="connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`
             : `<span class="connect pending" aria-disabled="true" title="Not open yet">${CONNECT_ICON}Connect</span>`;
-          const orderBtn = cs.order
-            ? `<a class="connect order" href="${esc(cs.order.url)}" target="_blank" rel="noopener">${esc(cs.order.label)}</a>`
-            : `<span class="connect pending" aria-disabled="true" title="Not open yet">Order</span>`;
+          // Order was removed on 2026-10-29. It sent people straight to a
+          // farm's own shop, which ended Provenance's part in it: no
+          // conversation, no relationship, and nothing learned about what
+          // the customer actually wanted. Connect exists to put a buyer and
+          // a grower in touch, and a link to a Shopify checkout quietly
+          // routes around that. Two buttons now, Connect and See the farm.
+          // order_url stays on the records and connectOrder stays in
+          // connect.js; nothing renders it.
           // The row is the whole listing: who they are, where they are, what
           // tier they hold, and the three things to do. Nothing else. What a
           // farm has, their terms, their intro and their produce photographs
@@ -313,7 +305,6 @@
               </div>
               <div class="row-actions">
                 ${connectBtn}
-                ${orderBtn}
                 <a class="connect quiet" href="${esc(url)}">See the farm</a>
               </div>
             </div>
@@ -326,12 +317,9 @@
         members.forEach(({ p }) => { byId[p.id] = p; });
         Array.from($('list').children).forEach((row, i) => {
           const { p, cs } = members[i];
-          const live = row.querySelector('a.connect:not(.quiet):not(.order)');
+          const live = row.querySelector('a.connect:not(.quiet)');
           if (live) live.addEventListener('click', () =>
             pvTrack('connect_click', pvProducer(p, { surface: 'connect_page', channel: cs.channel ? cs.channel.kind : '' })));
-          const order = row.querySelector('a.connect.order');
-          if (order) order.addEventListener('click', () =>
-            pvTrack('order_click', pvProducer(p, { surface: 'connect_page' })));
           const farm = row.querySelector('a.connect.quiet');
           if (farm) farm.addEventListener('click', () =>
             pvTrack('see_farm_click', pvProducer(p, { surface: 'connect_page' })));
