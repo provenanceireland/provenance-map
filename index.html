@@ -1700,6 +1700,11 @@
     /* On iOS the button is instructions, not an action, so it is not dressed
        as the thing that does the installing. */
     #install-bar.ios #ib-go { background: none; border: 1px solid rgba(201,198,189,0.35); color: #E8DEC8; }
+    /* An open card sits at z-index 30 and the bar at 40, so the bar landed on
+       top of the card's own footer and over the back to map, share and
+       directions row. The invitation waits until they have closed the
+       producer. */
+    body.pv-card-open #install-bar { display: none; }
 
     /* ── ON PROVENANCE CONNECT ──────────────────────────────────────────────
        A thin ring leaves the pin and fades, like a drop in water. It reads as
@@ -2039,6 +2044,16 @@
       body.pv-bottom-banner #zoom-out { bottom: calc(env(safe-area-inset-bottom, 16px) + 92px + 38px); }
       body.pv-bottom-banner #install-bar { bottom: calc(env(safe-area-inset-bottom, 12px) + 12px + 38px); }
       body.pv-bottom-banner #near-me-toast { bottom: calc(env(safe-area-inset-bottom, 16px) + 112px + 38px); }
+    }
+
+    /* The bar lands exactly where the producer counter lives, and on a phone it
+       spans the full width, so the counter moves above it while the bar is up
+       (body.pv-install-bar, set by the script). Everything else along that edge
+       already sits clear: the refresh button is 124px up on a touchscreen, the
+       zoom control 92px, the Near Me toast 112px. */
+    body.pv-install-bar #discovery-counter { bottom: calc(env(safe-area-inset-bottom, 16px) + 22px + 60px); }
+    @media (min-width: 601px) {
+      body.pv-install-bar.pv-bottom-banner #discovery-counter { bottom: calc(env(safe-area-inset-bottom, 16px) + 22px + 60px + 38px); }
     }
 
     /* The button at the foot of a member's card, in the parchment of the
@@ -3833,12 +3848,15 @@
 
       card.classList.add('open');
       overlay.classList.add('active');
+      // Takes the install bar down: it is above the card and covers its footer.
+      document.body.classList.add('pv-card-open');
       if (applyBtn) applyBtn.style.display = 'none';
     }
 
     function closeCard() {
       card.classList.remove('open');
       card.classList.remove('market-card');
+      document.body.classList.remove('pv-card-open');
       overlay.classList.remove('active');
       if (applyBtn) applyBtn.style.display = '';
       document.getElementById('card-photo-wrap').style.display = '';
@@ -3992,66 +4010,121 @@
        qualifies. We hold the event, show the bar, and hand the event back to
        the browser when they press. The prompt can only be used once.
 
-       iOS fires nothing and Apple will not add it, so the only route is
-       Share then Add to Home Screen. There the bar is a signpost, and it
-       only appears for someone actually on an iPhone or iPad who has not
-       already installed it. */
+       Every other browser on a phone fires nothing, so there the bar is a
+       signpost to the browser's own menu item instead. That is Safari, where
+       Apple will not add the event; it is also Firefox and Samsung Internet
+       on Android, which have the menu item but not the event. Until now the
+       signpost was shown on iPhones only, so a visitor on Samsung Internet
+       was never invited to install the map at all.
+
+       Pressing the close button is a snooze, not a decision for ever. The
+       first version wrote a permanent flag, which meant one press of "not
+       now" turned the invitation off on that phone for good. */
     (function () {
       const bar = document.getElementById('install-bar');
       if (!bar) return;
-      const DISMISSED = 'pv-install-dismissed';
+      /* Holds a date, not a yes or no. Renaming the key from the old
+         pv-install-dismissed is deliberate: it clears the permanent flag off
+         every phone already carrying one. */
+      const SNOOZE = 'pv-install-snooze';
+      const SNOOZE_DAYS = 45;
+      const DAY = 86400000;
       let deferred = null;
+      let shown = false, gone = false;
 
       // Already installed: standalone on Android/desktop, navigator.standalone on iOS.
       const installed = window.matchMedia('(display-mode: standalone)').matches ||
                         window.navigator.standalone === true;
-      let dismissed = false;
-      try { dismissed = localStorage.getItem(DISMISSED) === '1'; } catch (e) {}
-      if (installed || dismissed) return;
+      if (installed) return;
 
-      const show = () => bar.classList.remove('hidden');
+      let snoozed = false;
+      try {
+        snoozed = parseInt(localStorage.getItem(SNOOZE) || '0', 10) > Date.now();
+      } catch (e) {}
+      if (snoozed) return;
 
-      window.addEventListener('beforeinstallprompt', e => {
-        e.preventDefault();          // suppress Chrome's own banner, use ours
-        deferred = e;
-        show();
-      });
+      const title = bar.querySelector('.ib-title');
+      const sub = document.getElementById('ib-sub');
+      const go = document.getElementById('ib-go');
+
+      const show = () => {
+        if (shown || gone) return;
+        shown = true;
+        bar.classList.remove('hidden');
+        document.body.classList.add('pv-install-bar');
+      };
+      const hide = () => {
+        gone = true;
+        bar.classList.add('hidden');
+        document.body.classList.remove('pv-install-bar');
+      };
+      const snooze = days => {
+        try { localStorage.setItem(SNOOZE, String(Date.now() + days * DAY)); } catch (e) {}
+      };
 
       const ua = navigator.userAgent;
       const isIOS = /iPad|iPhone|iPod/.test(ua) ||
                     // iPadOS 13+ reports as a Mac, with a touchscreen
                     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      if (isIOS) {
-        bar.classList.add('ios');
-        document.getElementById('ib-sub').textContent = 'Tap Share, then Add to Home Screen';
-        document.getElementById('ib-go').textContent = 'How';
+      // The same test the rest of the map uses for "this is a phone".
+      const isPhone = window.matchMedia('(pointer: coarse)').matches;
+      if (!isPhone) title.textContent = 'Install Provenance';
+
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();          // suppress Chrome's own banner, use ours
+        deferred = e;
+        /* The event can arrive after the signpost has gone up, so put the real
+           button back rather than leaving someone reading instructions they do
+           not need. */
+        bar.classList.remove('ios');
+        go.textContent = 'Install';
+        sub.textContent = 'Opens full screen, works without signal';
         // Give them a moment with the map before asking for anything.
         setTimeout(show, 2500);
-      }
+      });
 
-      document.getElementById('ib-go').addEventListener('click', async () => {
-        pvTrack('install_prompt_click', { platform: isIOS ? 'ios' : 'other' });
+      /* No event means no install dialogue, so point at the menu instead. The
+         wording stays general about what the menu is called, because it
+         differs between Safari, Firefox and Samsung Internet and a confidently
+         wrong instruction is worse than a vague right one. Held back a little
+         longer than the prompt, so a browser that is simply slow to fire
+         beforeinstallprompt still gets the real button. */
+      if (isPhone) setTimeout(() => {
+        if (deferred || shown || gone) return;
+        bar.classList.add('ios');
+        go.textContent = 'How';
+        sub.textContent = isIOS
+          ? 'Tap Share, then Add to Home Screen'
+          : 'Open your browser menu, then Add to Home screen';
+        show();
+      }, 3500);
+
+      go.addEventListener('click', async () => {
+        pvTrack('install_prompt_click', {
+          platform: isIOS ? 'ios' : (deferred ? 'prompt' : 'signpost')
+        });
         if (deferred) {
           deferred.prompt();
           const { outcome } = await deferred.userChoice;
           pvTrack('install_choice', { outcome: outcome });
           deferred = null;
-          bar.classList.add('hidden');
-        } else if (isIOS) {
-          document.getElementById('ib-sub').textContent =
-            'Share is the square with the arrow, in the toolbar';
+          hide();
+        } else {
+          sub.textContent = isIOS
+            ? 'Share is the square with the arrow, in the toolbar'
+            : 'The menu is the three dots or lines in the toolbar';
         }
       });
 
       document.getElementById('ib-no').addEventListener('click', () => {
-        bar.classList.add('hidden');
-        try { localStorage.setItem(DISMISSED, '1'); } catch (e) {}
+        hide();
+        snooze(SNOOZE_DAYS);
         pvTrack('install_dismissed', {});
       });
 
       window.addEventListener('appinstalled', () => {
-        bar.classList.add('hidden');
-        try { localStorage.setItem(DISMISSED, '1'); } catch (e) {}
+        hide();
+        snooze(3650);   // installed is a decision for good
         pvTrack('install_done', {});
       });
     })();
