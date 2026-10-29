@@ -77,7 +77,11 @@
     .back svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
     .hero { padding: 56px 0 40px; }
-    h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.06; color: var(--green-deep); margin: 10px 0 16px; text-wrap: balance; }
+    /* Cream, not the deep green it was until 2026-10-29. #2F5C3A on this
+       ground measures 2.2:1, and large text needs 3:1, so the biggest words
+       on the page were the hardest ones to read. Cream is 12.6:1 and matches
+       the farm names down the list. */
+    h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.06; color: var(--cream); margin: 10px 0 16px; text-wrap: balance; }
     .hero p { max-width: 560px; color: var(--cream-soft); }
     .count { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-top: 22px; }
 
@@ -85,10 +89,60 @@
        scrolls it once and picks a farm. Everything a farm has to say about
        what they have, how they sell it and what it looks like is behind
        See the farm. */
-    .list { display: flex; flex-direction: column; border-top: 1px solid var(--hair); margin-bottom: 64px; }
+    /* Search and the produce filter. Sticky, so on a phone you never scroll
+       back to the top to change what you are looking at, which is the single
+       thing that makes a long directory feel heavy. */
+    .filter-bar {
+      position: sticky; top: 0; z-index: 5; background: var(--ground);
+      padding: 14px 0 13px; border-bottom: 1px solid var(--hair);
+    }
+    .search { display: flex; align-items: center; gap: 11px; border: 1px solid var(--hair-strong); background: var(--surface); padding: 11px 14px; }
+    .search svg { flex: none; width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .search input {
+      flex: 1; min-width: 0; background: none; border: none; outline: none; color: var(--cream);
+      font-family: 'Source Serif 4', Georgia, serif; font-weight: 300; font-size: 1rem;
+    }
+    .search input::placeholder { color: var(--muted); }
+    .search .clear {
+      flex: none; background: none; border: none; cursor: pointer; padding: 2px; line-height: 0;
+      color: var(--muted); visibility: hidden;
+    }
+    .search .clear:hover { color: var(--cream); }
+    .search .clear svg { stroke: currentColor; width: 14px; height: 14px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
+    .chip {
+      flex: none; background: none; border: 1px solid rgba(201,198,189,0.28); cursor: pointer;
+      padding: 7px 12px; color: var(--cream-soft);
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.6rem;
+      letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .chip:hover { border-color: rgba(201,198,189,0.55); color: var(--cream); }
+    .chip[aria-pressed="true"] { background: var(--green-deep); border-color: var(--green); color: var(--cream); }
+    /* One scrolling line on a phone rather than three wrapped rows: a sticky
+       bar taking half the screen is worse than no sticky bar. */
+    @media (max-width: 560px) {
+      .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+      .chips::-webkit-scrollbar { display: none; }
+    }
+
+    /* County headings. Nine counties for ten farms today, so most groups
+       hold one farm; it earns its keep as the list grows. */
+    .grp { display: flex; align-items: center; gap: 14px; padding: 28px 0 8px; }
+    .grp-name {
+      flex: none; font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green);
+    }
+    .grp-rule { flex: 1; height: 1px; background: var(--hair); }
+
+    .list { display: flex; flex-direction: column; margin-bottom: 64px; }
+    .no-hits { color: var(--muted); padding: 40px 0; }
     /* Each row is an anchor, so a profile's Connect button lands on that
        farm rather than at the top of the list. */
-    .row { padding: 20px 0 18px; border-bottom: 1px solid var(--hair); scroll-margin-top: 20px; }
+    /* scroll-margin clears the sticky filter bar. Without it, arriving from
+       a profile's Connect button lands the farm's row underneath the search
+       box rather than beside it. */
+    .row { padding: 20px 0 18px; border-bottom: 1px solid var(--hair); scroll-margin-top: 130px; }
     /* minmax(0, 1fr), not 1fr: a plain 1fr refuses to shrink below its
        content, so a farm carrying two marks (Moyletra is Verified AND
        Collection) pushed the buttons until "See the farm" wrapped to a
@@ -123,6 +177,11 @@
     .row h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: clamp(1.7rem, 4.4vw, 2.1rem); line-height: 1.1; color: var(--cream); }
     .row h2 a:hover { color: var(--green-light); }
     .row .where { color: var(--green-light); font-size: 1.02rem; margin-top: 3px; }
+    /* What they actually sell. Added 2026-10-29: without it a visitor had to
+       open a farm to find out whether it was beef or honey, which is the one
+       fact that decides which farm they want. Straight off the record, the
+       same line the map card carries, so the two cannot disagree. */
+    .row .what { color: var(--cream-soft); font-size: 0.97rem; line-height: 1.45; margin-top: 2px; }
 
     /* The tier states itself as text, the same as the map card. No boxes.
        Flex so that a farm holding two marks drops the second onto its own
@@ -198,12 +257,25 @@
     <div class="hero">
       <p class="label">Provenance Connect</p>
       <h1>Buy direct from the farm</h1>
+      <!-- One line, not two. It used to say this and then say it again in
+           different words, which pushed the first farm off a phone screen. -->
       <p>Discover your food, connect directly, buy from the source.</p>
-      <p>Find Irish farmers and food producers, see what they make, and contact them directly.</p>
       <p class="count" id="count"></p>
     </div>
 
+    <div class="filter-bar hidden" id="filter-bar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input type="search" id="search" placeholder="Search farms, produce or county" aria-label="Search farms, produce or county" autocomplete="off" />
+        <button type="button" class="clear" id="search-clear" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+        </button>
+      </label>
+      <div class="chips" id="chips"></div>
+    </div>
+
     <div class="list" id="list"></div>
+    <p class="no-hits hidden" id="no-hits">No farms match that. Try a different word, or clear the filters.</p>
     <p class="empty hidden" id="empty">No farms are listing yet.</p>
 
     <div class="how">
@@ -283,7 +355,52 @@
         pvTrack('connect_page_view', { farms: members.length });
         if (!members.length) { $('empty').classList.remove('hidden'); return; }
 
-        $('list').innerHTML = members.map(({ p, cs }) => {
+        /* ── the filter chips ─────────────────────────────────────────────
+           Built from the product_type slugs the listed farms actually carry,
+           the same way the map hides a filter chip with nothing behind it. A
+           new slug appears on its own the day a farm with it is listed, and
+           nothing here needs editing. The label is the slug capitalised,
+           which is right for every slug in use; a multi-word one would need
+           a lookup, and there is deliberately not one until there is. */
+        const typeCounts = {};
+        members.forEach(({ p }) => {
+          (p.product_type || []).forEach(t => { if (t) typeCounts[t] = (typeCounts[t] || 0) + 1; });
+        });
+        const types = Object.keys(typeCounts).sort();
+        const capitalise = s => s.charAt(0).toUpperCase() + s.slice(1);
+        $('chips').innerHTML =
+          `<button type="button" class="chip" data-type="" aria-pressed="true">All</button>` +
+          types.map(t => `<button type="button" class="chip" data-type="${esc(t)}" aria-pressed="false">${esc(capitalise(t))}</button>`).join('');
+
+        /* ── county order ─────────────────────────────────────────────────
+           The counties holding the pinned farms come first, in the pinned
+           order, so Rathphelan still opens the page; everything else follows
+           alphabetically. That keeps the order the user set while letting
+           the list group, rather than making them choose between the two. */
+        const countyOrder = [];
+        members.forEach(({ p }) => {
+          const c = p.county || 'Elsewhere';
+          if (countyOrder.indexOf(c) === -1) countyOrder.push(c);
+        });
+        const pinnedCounties = [];
+        FIRST.forEach(id => {
+          const m = members.find(x => x.p.id === id);
+          if (m) { const c = m.p.county || 'Elsewhere'; if (pinnedCounties.indexOf(c) === -1) pinnedCounties.push(c); }
+        });
+        const restCounties = countyOrder.filter(c => pinnedCounties.indexOf(c) === -1).sort((a, b) => a.localeCompare(b));
+        const counties = pinnedCounties.concat(restCounties);
+
+        // State. Both are client side; nothing is fetched when they change.
+        let query = '';
+        let activeType = '';
+
+        const hay = ({ p }) => [p.name, p.product, p.county, p.location]
+          .filter(Boolean).join(' ').toLowerCase();
+        const matches = m =>
+          (!activeType || (m.p.product_type || []).indexOf(activeType) !== -1) &&
+          (!query || hay(m).indexOf(query) !== -1);
+
+        function rowHTML({ p, cs }) {
           // The Connect marks, then Collection. The map tier is deliberately
           // absent: Discovered, Verified and Highlighted describe a farm's
           // standing on the map, which is a different ladder and said nothing
@@ -292,27 +409,19 @@
           const pills = connectMarks(p) +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const url = profileUrl(p);
-          // Three buttons. Connect is the conversation, Order is the farm's
-          // own shop, and both get you to the producer, so they match. See the
-          // farm does a different job and is dressed differently. A farm with
-          // no channel or no shop on file yet keeps the slot, greyed and
-          // inert — a span, never a live button that goes nowhere.
+          // Two buttons. Connect is the conversation, See the farm is a
+          // different job and is dressed differently. Order came off this
+          // page on 2026-10-29 and lives on the profile as a line of text:
+          // beside Connect it handed the buyer to a checkout and ended
+          // Provenance's part in it. A farm with no channel on file keeps
+          // the slot, greyed and inert, a span rather than a live button
+          // that goes nowhere.
           const connectBtn = cs.channel
             ? `<a class="connect" href="${esc(cs.channel.url)}" target="_blank" rel="noopener">${CONNECT_ICON}${esc(cs.channel.label)}</a>`
             : `<span class="connect pending" aria-disabled="true" title="Not open yet">${CONNECT_ICON}Connect</span>`;
-          // Order was removed on 2026-10-29. It sent people straight to a
-          // farm's own shop, which ended Provenance's part in it: no
-          // conversation, no relationship, and nothing learned about what
-          // the customer actually wanted. Connect exists to put a buyer and
-          // a grower in touch, and a link to a Shopify checkout quietly
-          // routes around that. Two buttons now, Connect and See the farm.
-          // order_url stays on the records and connectOrder stays in
-          // connect.js; nothing renders it.
-          // The row is the whole listing: who they are, where they are, what
-          // tier they hold, and the three things to do. Nothing else. What a
-          // farm has, their terms, their intro and their produce photographs
-          // all live behind See the farm, so this page stays one scroll and a
-          // visitor can pick a farm rather than read past it.
+          // The row says who they are, where they are, what they sell and
+          // what they hold on Connect. Their terms, their intro, their full
+          // list and their produce photographs are all behind See the farm.
           // The farm's own card image, the same file their map card uses.
           // Settled 2026-10-29: whatever a producer gave Provenance for their
           // map pin is what Connect shows too, logo or photograph, because it
@@ -333,6 +442,7 @@
                 <div class="row-text">
                   <h2><a href="${esc(url)}">${esc(p.name)}</a></h2>
                   <p class="where">${esc(p.location || ('Co. ' + p.county))}</p>
+                  ${p.product ? `<p class="what">${esc(p.product)}</p>` : ''}
                   <div class="tags">${pills}</div>
                 </div>
               </div>
@@ -342,24 +452,71 @@
               </div>
             </div>
           </div>`;
-        }).join('');
+        }
 
-        // The two buttons on each row, tracked by producer rather than by a
-        // per-producer event name.
-        const byId = {};
-        members.forEach(({ p }) => { byId[p.id] = p; });
-        Array.from($('list').children).forEach((row, i) => {
-          const { p, cs } = members[i];
-          const live = row.querySelector('a.connect:not(.quiet)');
-          if (live) live.addEventListener('click', () =>
-            pvTrack('connect_click', pvProducer(p, { surface: 'connect_page', channel: cs.channel ? cs.channel.kind : '' })));
-          const farm = row.querySelector('a.connect.quiet');
-          if (farm) farm.addEventListener('click', () =>
-            pvTrack('see_farm_click', pvProducer(p, { surface: 'connect_page' })));
-          // No availability_shown here any more: this page shows no list, so
-          // firing it would report something that is not on screen. It still
-          // fires on the profile pages, where the list actually lives.
+        /* Draw the list: county heading, then its farms, skipping a county
+           with nothing left in it after the filters. Rebuilt in full on
+           every keystroke, which is free at this size and keeps one code
+           path rather than a diffing one that can drift. */
+        function render() {
+          const shown = members.filter(matches);
+          let html = '';
+          counties.forEach(c => {
+            const inCounty = shown.filter(m => (m.p.county || 'Elsewhere') === c);
+            if (!inCounty.length) return;
+            html += `<div class="grp"><span class="grp-name">${esc(c === 'Elsewhere' ? c : 'Co. ' + c)}</span><span class="grp-rule"></span></div>`;
+            html += inCounty.map(rowHTML).join('');
+          });
+          $('list').innerHTML = html;
+          $('no-hits').classList.toggle('hidden', shown.length > 0);
+          $('count').textContent = (shown.length === 1 ? '1 farm' : shown.length + ' farms') +
+            (shown.length === members.length ? ' listing' : ' of ' + members.length);
+
+          // The two buttons on each row, tracked by producer rather than by
+          // a per-producer event name. Bound by the row's id, because the
+          // rows are no longer a flat run that lines up with members.
+          const byId = {};
+          members.forEach(m => { byId[m.p.id] = m; });
+          $('list').querySelectorAll('.row').forEach(row => {
+            const m = byId[row.id];
+            if (!m) return;
+            const live = row.querySelector('a.connect:not(.quiet)');
+            if (live) live.addEventListener('click', () =>
+              pvTrack('connect_click', pvProducer(m.p, { surface: 'connect_page', channel: m.cs.channel ? m.cs.channel.kind : '' })));
+            const farm = row.querySelector('a.connect.quiet');
+            if (farm) farm.addEventListener('click', () =>
+              pvTrack('see_farm_click', pvProducer(m.p, { surface: 'connect_page' })));
+            // No availability_shown here any more: this page shows no list,
+            // so firing it would report something that is not on screen. It
+            // still fires on the profile pages, where the list lives.
+          });
+        }
+
+        const input = $('search'), clear = $('search-clear');
+        function setQuery(v) {
+          query = v.trim().toLowerCase();
+          clear.style.visibility = v ? 'visible' : 'hidden';
+          render();
+        }
+        input.addEventListener('input', () => setQuery(input.value));
+        clear.addEventListener('click', () => { input.value = ''; setQuery(''); input.focus(); });
+        $('chips').addEventListener('click', e => {
+          const chip = e.target.closest('.chip');
+          if (!chip) return;
+          // Pressing the active chip turns it off rather than doing nothing,
+          // so there is always a way back to everything without hunting for
+          // the All button.
+          activeType = (chip.dataset.type === activeType) ? '' : chip.dataset.type;
+          $('chips').querySelectorAll('.chip').forEach(c =>
+            c.setAttribute('aria-pressed', c.dataset.type === activeType ? 'true' : 'false'));
+          // A filter that scrolls you away from the thing you pressed is
+          // disorienting, so the list goes back to its own top.
+          if (window.scrollY > $('list').offsetTop) $('filter-bar').scrollIntoView();
+          render();
         });
+
+        render();
+        $('filter-bar').classList.remove('hidden');
 
         // Arriving from a profile's Connect button, land on that farm's row.
         if (location.hash) {
