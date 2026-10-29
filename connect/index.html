@@ -270,11 +270,15 @@
           // farm has, their terms, their intro and their produce photographs
           // all live behind See the farm, so this page stays one scroll and a
           // visitor can pick a farm rather than read past it.
-          // The farm's own card image, the same one the map uses, so a new
-          // farm arrives here with a picture already. A logo is contained on
-          // its own white ground; a photograph fills the square.
-          const thumb = p.photo_url
-            ? `<a class="row-thumb${p.photo_bg === 'white' ? ' on-white' : ''}" href="${esc(url)}" tabindex="-1" aria-hidden="true">
+          // Logos only, never photography (2026-10-29). Most card images on
+          // the map are the farm's own photographs, which are theirs and not
+          // Provenance's to publish on a directory page. `logo: true` on the
+          // record is the only thing that puts a picture here: photo_bg is
+          // not a substitute, because it is set by hand and is already wrong
+          // in at least one place. No flag, no image, and the row falls back
+          // to type exactly as it did before.
+          const thumb = (p.logo === true && p.photo_url)
+            ? `<a class="row-thumb on-white" href="${esc(url)}" tabindex="-1" aria-hidden="true">
                  <img src="../${esc(p.photo_url)}" alt="" loading="lazy" /></a>`
             : '';
           return `<div class="row" id="${esc(p.id)}">
