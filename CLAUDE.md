@@ -6,6 +6,16 @@ Ireland's number one platform for finding real food producers. Not certification
 
 Progressive web app (PWA), hosted on GitHub Pages, built using Claude Code. Native iOS and Android apps planned post-PWA.
 
+### The install invitation (2026-10-29)
+
+**This is an in-page bar, not a push notification.** `#install-bar` in `index.html`, a slim bar at the foot of the map. **Web push is still rejected** for the same reason it was rejected for Follow: it needs a server holding a VAPID key and somewhere to keep each device's subscription, which breaks the rule that Provenance runs no backend and no page holds a credential. **Do not build web push to prompt an install, and do not call this a notification.** Nothing can reach a visitor who has closed the tab.
+
+Two jobs behind the one bar. Chrome, on Android and desktop, fires `beforeinstallprompt`, so the button opens the browser's real install dialogue. **Every other browser on a phone fires nothing**, so the bar becomes a signpost to that browser's own menu item: Safari because Apple will not add the event, Firefox and Samsung Internet because they have the menu item but not the event. It was shown on iPhones only until 2026-10-29, which meant a visitor on Samsung Internet was never invited to install the map at all. **The signpost does not name the menu**, because the name differs between those three browsers and a confidently wrong instruction is worse than a vague right one. A late `beforeinstallprompt` swaps the signpost back to a real Install button.
+
+**Closing it is a 45 day snooze, never permanent.** `pv-install-snooze` in `localStorage` holds a date. The first version wrote a permanent flag (`pv-install-dismissed`, now dead and read by nothing), so one press of "not now" turned the invitation off on that phone for good. An actual install snoozes it for ten years.
+
+It is hidden while a producer card is open (`body.pv-card-open`), because the bar is above the card and covered its footer, and it lifts the producer counter while it shows (`body.pv-install-bar`), because they sit at the same height on the same edge. Events: `install_prompt_click` (with `platform`: `ios`, `prompt` or `signpost`), `install_choice`, `install_dismissed`, `install_done`.
+
 ## Business Model
 
 ### Producer Tiers (B2B)
