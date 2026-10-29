@@ -699,8 +699,15 @@
       let shareToastTimer;
       $('share-btn').addEventListener('click', async () => {
         pvTrack('share', pvProducer(p, { surface: 'shared_profile' }));
+        // The line has to be true for the farm being shared. Only a farm on
+        // Connect has a list of what it has right now; every other profile
+        // gets the plain line, so a shared link never promises produce that
+        // is not on the page.
+        const shareText = cs
+          ? 'What ' + p.name + ' has right now, on the Provenance Map.'
+          : p.name + ' on the Provenance Map.';
         if (navigator.share) {
-          try { await navigator.share({ title: p.name + ' - Provenance', text: 'What ' + p.name + ' has right now, on the Provenance Map.', url: shareUrl }); } catch (err) {}
+          try { await navigator.share({ title: p.name + ' - Provenance', text: shareText, url: shareUrl }); } catch (err) {}
         } else {
           try {
             await navigator.clipboard.writeText(shareUrl);
