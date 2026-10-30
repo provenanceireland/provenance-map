@@ -99,7 +99,7 @@
     /* The way back to the list a visitor came from. Filled, because it is the
        press people repeat: farm, back, next farm. Back to the map stays as
        plain type beside it. */
-    .back-connect {
+    .back-connect { border-radius: 3px;
       padding: 9px 15px; background: var(--green-deep); border: 1px solid var(--green);
       transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
@@ -183,7 +183,7 @@
     /* Provenance Connect at the top of the page, the same button the Featured
        pages carry. It jumps to the farm's list, where the message and Order
        buttons live. */
-    .connect-hero {
+    .connect-hero { border-radius: 3px;
       display: flex; align-items: center; gap: 16px; max-width: 460px; margin-top: 28px; padding: 16px 20px;
       background: var(--green-deep); border: 1px solid var(--green); color: var(--cream);
       transition: background 0.2s, border-color 0.2s;
@@ -202,7 +202,7 @@
        than filled: Connect is what to do now, these are what to do about
        next week and about telling someone else. */
     .hero-actions { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px; }
-    .follow-btn, .share-btn {
+    .follow-btn, .share-btn { border-radius: 3px;
       display: inline-flex; align-items: center; gap: 9px; padding: 11px 18px;
       background: none; border: 1px solid rgba(201,198,189,0.32); cursor: pointer;
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.72rem;
@@ -361,7 +361,7 @@
        through the conversation first, and find the shop afterwards if that
        is what they would rather do. */
     .connect-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; scroll-margin-top: 28px; }
-    .connect-cta a {
+    .connect-cta a { border-radius: 3px;
       display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px;
       background: var(--green-deep); border: 1px solid var(--green);
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.74rem; letter-spacing: 0.2em;
@@ -388,7 +388,7 @@
     /* ── where to buy ── */
     .buy p { font-size: 1.05rem; }
     .buy-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-    .buy a.dir {
+    .buy a.dir { border-radius: 3px;
       display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px;
       border: 1px solid rgba(201,198,189,0.32); background: rgba(201,198,189,0.04);
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.78rem; letter-spacing: 0.2em;
@@ -730,12 +730,20 @@
 
       // ── Provenance Connect: what they have now ──
       const cs = connectState(p);
-      // The way back to the directory, on the farms that are in it. Anchored
-      // to this producer's own row, so it lands where they left off rather
-      // than at the top of the list.
+      /* The way back to the directory, on the farms that are in it. Anchored
+         to this producer's own row, so it lands where they left off rather
+         than at the top of the list.
+
+         One back link, never two (2026-10-30). Back to the map goes when
+         Back to Connect arrives: a visitor on a Connect farm came from the
+         directory, and two arrows pointing in different directions is a
+         choice nobody asked for. It stays on the other 116 producers, who
+         have no directory to go back to, and the Provenance logo is still
+         the way home either way. */
       if (cs) {
         $('back-connect').href = '../connect/#' + encodeURIComponent(p.id);
         show('back-connect', true);
+        show('back', false);
       }
 
       /* ── Follow and Share ────────────────────────────────────────────────
