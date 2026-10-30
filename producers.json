@@ -2975,14 +2975,19 @@
             "photo": ""
           },
           {
-            "name": "Beef box, 5kg",
+            "name": "5kg Beef Box - Locavore Box",
             "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts.",
-            "photo": ""
+            "photo": "/produce/rathphelan-farm/locavore-box.jpg"
           },
           {
-            "name": "Beef box, 8kg",
+            "name": "8kg Beef Box - Family Box",
             "note": "The same idea with more in it, plus some of the classic slow-cooking cuts.",
-            "photo": ""
+            "photo": "/produce/rathphelan-farm/family-box.jpg"
+          },
+          {
+            "name": "10kg Beef Box - Freezer Filler Box",
+            "note": "The biggest of the three, with steaks alongside short ribs and the slow-cooking cuts.",
+            "photo": "/produce/rathphelan-farm/freezer-filler-box.jpg"
           },
           { "name": "T-bone steak", "note": "Striploin one side of the bone, fillet the other.", "profile_only": true, "photo": "/produce/rathphelan-farm/t-bone-steak.jpg" },
           { "name": "Bone-in rib eye steak", "note": "Rib eye left on the bone.", "profile_only": true, "photo": "/produce/rathphelan-farm/bone-in-rib-eye.jpg" },
