@@ -110,10 +110,26 @@ Tier 3's mark is written but the tier does not exist, and when it does it may we
 
 **Connect is not paused (corrected 2026-10-19).** It is being worked on in the background. **The tier ladder was set on 2026-10-29 (see the section above); prices are still unspecified.** `CONNECT-SETUP.md` is still not done. The open questions at the end of this section stay open on purpose. Everything below is the record of what was built.
 
-Built 2026-09-24. **What a producer currently has, in their own words.** The
-governing rule: *what do you have*, never *how many do you have*. There is no
-quantity field in the UI or in the data, deliberately, and none is to be added
-— a note like "boxes to order" is prose, not a number.
+Built 2026-09-24. **What a producer currently has, in their own words.**
+
+**Stock counts are in, and the no-counting rule is reversed (2026-10-30, at
+the user's direction).** From 2026-09-24 the governing rule was *what do you
+have*, never *how many do you have*, with no quantity field in the UI or the
+data and none to be added. That is over. An item may carry `"qty": 8`, which
+renders beside its name as **8 AVAILABLE** in the green, and Rathphelan Farm's
+three boxes are the first to use it.
+
+What the old rule was protecting still applies, so two things hold:
+
+- **A count is only as true as its date.** A stale list was merely vague; a
+  stale count is wrong, and says so precisely. `updated` therefore matters
+  more than it did, not less, and a farm carrying counts needs its list kept
+  current or the counts come off.
+- **`sold_out` still wins over `qty`.** A farm that forgets to zero a number
+  should not keep advertising stock.
+
+`qty` is optional and most farms will not carry one. An item with no `qty`
+renders exactly as it always did, and `sold_out` remains a yes or no.
 
 On the record:
 
@@ -292,10 +308,12 @@ shorter list. A Google outage degrades to the record, never to a broken page.
 Form ids live in `connect-source.json` — see `CONNECT-SETUP.md`, which is the
 ten-minute recipe and is **not done yet**.
 
-**`updated` is what replaces stock counts.** It is always on screen. Past
+**`updated` is what the counts stand on.** It is always on screen. Past
 `CONNECT_FRESH_DAYS` (21, one constant in `connect.js`) the heading softens
 from *Available now* to *Last listed* in muted grey. A list is only as
-trustworthy as its date, so the date is never hidden.
+trustworthy as its date, so the date is never hidden. It used to replace stock
+counts entirely; since `qty` arrived on 2026-10-30 it carries them instead, and
+a farm on counts needs its date kept honest or the counts come off.
 
 **The producer's editor** is `/producer/edit/?id=<slug>` — our own UI, not a
 Google Form: add a line, remove a line, Save. It posts to the Form and then

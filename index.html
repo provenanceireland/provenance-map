@@ -2947,7 +2947,7 @@
     <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
   </div>
 
-  <script src="connect.js?v=13"></script>
+  <script src="connect.js?v=14"></script>
   <script>
     const mapImg = document.getElementById('map-img');
 
@@ -4510,7 +4510,7 @@
       btn.classList.add('working');
       /* The pathname only, never the query. A page like /producer/?id=moo-cow
          still ends its path in a slash, and connect.js is cached under
-         connect.js?v=13; testing the whole URL missed the first and would have
+         connect.js?v=14; testing the whole URL missed the first and would have
          left a stale profile page behind. */
       const stale = /\.(json|js|html)$|\/$/i;
       try {

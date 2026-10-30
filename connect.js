@@ -432,8 +432,17 @@ function connectListHTML(items, escFn, opt) {
        matters most for the farms that sell by the animal and go quiet between
        batches. */
     var out = a.sold_out ? '<span class="a-out">Sold out</span>' : '';
+    /* `qty` is a stock count, added 2026-10-30 at the user's direction. It
+       reverses the layer's founding rule, which was what do you have and
+       never how many, on the grounds that a weekly update is worth more
+       when it says how much is left. It is only as true as its date, so it
+       lives or dies by `updated` being right: a stale count is worse than
+       no count, where a stale list was only vague. Sold out still wins over
+       it, because a farm that forgets to zero a number should not keep
+       advertising stock. */
+    var qty = (!a.sold_out && a.qty) ? '<span class="a-qty">' + e(a.qty) + ' available</span>' : '';
     return '<li' + (a.sold_out ? ' class="is-out"' : '') + '>' + photo + '<span class="a-txt">' +
-      '<span class="a-name">' + e(a.name) + '</span>' + out +
+      '<span class="a-name">' + e(a.name) + '</span>' + out + qty +
       (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') +
       (opts.length ? '<span class="a-opts">' + opts.map(function (o) { return '<span>' + e(o) + '</span>'; }).join('') + '</span>' : '') +
       (a.fulfilment ? '<span class="a-fulfil">' + e(a.fulfilment) + '</span>' : '') +

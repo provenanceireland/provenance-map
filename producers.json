@@ -2986,16 +2986,19 @@
         "available": [
           {
             "name": "5kg Beef Box - Locavore Box",
+            "qty": 8,
             "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts.",
             "photo": "/produce/rathphelan-farm/locavore-box.jpg"
           },
           {
             "name": "8kg Beef Box - Family Box",
+            "qty": 8,
             "note": "The same idea with more in it, plus some of the classic slow-cooking cuts.",
             "photo": "/produce/rathphelan-farm/family-box.jpg"
           },
           {
             "name": "10kg Beef Box - Freezer Filler Box",
+            "qty": 4,
             "note": "The biggest of the three, with steaks alongside short ribs and the slow-cooking cuts.",
             "photo": "/produce/rathphelan-farm/freezer-filler-box.jpg"
           }

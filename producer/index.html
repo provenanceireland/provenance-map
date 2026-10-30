@@ -338,6 +338,13 @@
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
       font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint);
     }
+    /* The stock count, in the green rather than the faint grey Sold out
+       uses: one says there is something here, the other says there is not. */
+    .avail .a-qty {
+      margin-left: 10px; vertical-align: 2px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
+      font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-light);
+    }
     .avail li.is-out .a-name { color: var(--muted); }
     .avail li.is-out .a-photo img { opacity: 0.45; }
     .avail .a-fulfil {
@@ -572,7 +579,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=13"></script>
+  <script src="../connect.js?v=14"></script>
   <script>
     const $ = id => document.getElementById(id);
 
