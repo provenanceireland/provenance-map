@@ -996,7 +996,14 @@
                   `<button class="film-face" type="button" aria-label="Play ${esc(cf.title || 'the film')}"></button></div>`;
                 $('film').querySelector('.film-face').addEventListener('click', function () {
                   this.parentNode.innerHTML =
-                    `<iframe src="https://www.youtube.com/embed/${esc(vid)}?autoplay=1&rel=0&playsinline=1" ` +
+                    /* width and height attributes as well as the CSS. An
+                       iframe with neither defaults to 300 by 150 at the
+                       moment it is created, and the player can measure
+                       itself at that size before the stylesheet resizes it,
+                       which pins it to the bottom of YouTube's quality
+                       ladder for the whole play. The CSS still decides what
+                       is actually drawn. */
+                    `<iframe width="1080" height="1920" src="https://www.youtube.com/embed/${esc(vid)}?autoplay=1&rel=0&playsinline=1" ` +
                     `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                   pvTrack('film_play', pvProducer(p, { surface: 'shared_profile' }));
                 });
