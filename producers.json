@@ -311,7 +311,22 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "085 180 3212" },
+        "updated": "2026-10-30",
+        "intro": "Family run regenerative farm outside Bailieborough in Co. Cavan. We focus on soil health & a healthy ecosystem, we use zero pesticides or chemicals throughout our gardens & our chickens and pigs enjoy the best GMO free grains.",
+        "terms": "Collection from the farm only, Friday from 5pm or Saturday and Sunday. Order in advance.",
+        "available": [
+          { "name": "Pasture-Raised Eggs" },
+          { "name": "Seasonal No Dig Chemical Free Vegetables" },
+          { "name": "Pasture-Raised Chicken" },
+          { "name": "Pasture and Forest Raised Pork" },
+          { "name": "Grass Fed and Grass Finished Beef" }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "forest-hill-farm",
@@ -1114,7 +1129,7 @@
       "lat_desktop": 52.228229,
       "lng_desktop": -8.089661,
       "county": "Cork",
-      "location": "Co. Cork",
+      "location": "Glanworth, Co. Cork",
       "product": "Beef",
       "product_type": ["beef"],
       "description": "100% Pasture Fed Pedigree Belted Galloway herd. Beef boxes direct from our farm to your door.",
@@ -1128,7 +1143,20 @@
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "087 783 5775" },
+        "updated": "2026-10-30",
+        "intro": "We sell pedigree Belted Galloway beef direct from our family farm in 10kg boxes, quarter, half or whole animal. Our Belties are 100% pasture raised with a little seaweed provided for supplements.",
+        "terms": "Delivery only, charged by distance. Order in advance.",
+        "available": [
+          { "name": "10KG Beef Box", "note": "Mince, burgers, diced beef, round roast and a selection of steaks: T-bone, striploin, ribeye and sirloin." },
+          { "name": "Fillet Barrel", "note": "Fillet steak." },
+          { "name": "Quarter, half or whole animal", "options": ["Quarter", "Half", "Whole"] }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "wexford-organics",
