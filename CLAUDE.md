@@ -223,10 +223,16 @@ own Connect button, because that is a way to reach the farmer rather than a
 produce list.
 
 **Follow and Share live on the Connect profile, not the Highlighted page.**
-Following a farm is about next week's list, which only Connect has, so Follow
-shows only for a farm that is on Connect; Share is on every shared profile
-whatever the tier. The events are `follow` and `share`, both with
-`surface: shared_profile`.
+Share is on every shared profile whatever the tier. The events are `follow`
+and `share`, both with `surface: shared_profile`.
+
+**Follow is a Connect Tier 1 benefit and shows only at `connect_tier` 1 and
+above (2026-10-30).** It used to show for any farm on Connect. The button
+promises a list by email every week, and the weekly update is the thing a
+Tier 1 farm has bought: a free listing is never updated, so offering to mail
+it weekly from one would be a promise nothing behind the page can keep.
+Today that is **Rathphelan Farm alone**, and any farm that takes Tier 1 gets
+it with no code change. **Do not widen this back to every Connect farm.**
 
 **Follow collects an email address, not a push subscription (decided
 2026-10-29).** It is a link to a sign-up form, with `producer` and `farm`

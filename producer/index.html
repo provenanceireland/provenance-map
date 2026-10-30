@@ -766,13 +766,21 @@
           } catch (err) {}
         }
       });
-      // Follow is a link to the sign-up form, not a toggle. A toggle would
-      // have to say whether the person is following, and the page cannot
-      // know that: the form is submitted somewhere else and never reports
-      // back. So the button does one thing, opens the form, and the line
-      // under it says what that gets you before the press rather than
-      // claiming something afterwards.
-      if (cs && FOLLOW_FORM) {
+      /* Follow is gated on Connect tier 1 and above, not on being on
+         Connect at all (2026-10-30). The button promises a list by email
+         every week, and only a Tier 1 farm has bought the weekly update. A
+         free listing is never updated, so offering to mail it weekly would
+         be a promise nothing behind the page can keep. Today that is
+         Rathphelan Farm alone, and any farm that takes Tier 1 gets it with
+         no code change.
+
+         It is a link to the form and not a toggle. A toggle would have to
+         say whether the person is following, and the page cannot know
+         that: the form is submitted somewhere else and never reports back.
+         So the button does one thing, opens the form, and the line under
+         it says what that gets you before the press rather than claiming
+         something afterwards. */
+      if (cs && FOLLOW_FORM && Number(p.connect_tier) >= 1) {
         const f = $('follow-btn');
         f.href = FOLLOW_FORM + (FOLLOW_FORM.indexOf('?') < 0 ? '?' : '&') +
           'producer=' + encodeURIComponent(p.id) + '&farm=' + encodeURIComponent(p.name);
