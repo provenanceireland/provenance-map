@@ -356,18 +356,18 @@
     .avail .a-opts span + span::before { content: '\00B7'; margin: 0 9px; color: rgba(201,198,189,0.30); }
     /* Sold out: said plainly, and the row quietened rather than hidden, so the
        full range a farm produces still reads while today's gap is honest. */
-    .avail .a-out {
-      margin-left: 10px; vertical-align: 2px;
+    /* nowrap on both marks. They are two words that mean one thing, and a
+       narrow column was breaking "8 AVAILABLE" after the number, leaving a
+       lone 8 hanging off the end of a box name. */
+    .avail .a-out, .avail .a-qty {
+      margin-left: 10px; vertical-align: 2px; white-space: nowrap;
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
-      font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint);
+      font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase;
     }
+    .avail .a-out { color: var(--faint); }
     /* The stock count, in the green rather than the faint grey Sold out
        uses: one says there is something here, the other says there is not. */
-    .avail .a-qty {
-      margin-left: 10px; vertical-align: 2px;
-      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 600;
-      font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-light);
-    }
+    .avail .a-qty { color: var(--green-light); }
     .avail li.is-out .a-name { color: var(--muted); }
     .avail li.is-out .a-photo img { opacity: 0.45; }
     .avail .a-fulfil {
@@ -375,7 +375,14 @@
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
       font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
     }
-    @media (max-width: 520px) { .avail .a-photo img { width: 68px; height: 68px; } }
+    @media (max-width: 520px) {
+      .avail .a-photo img { width: 68px; height: 68px; }
+      /* The mark drops under the box name on a phone. Beside a name like
+         "10kg Beef Box - Freezer Filler Box" there is no room left on the
+         line, so it sat alone at the end of a wrap looking like an orphan
+         rather than a fact about that box. */
+      .avail .a-out, .avail .a-qty { display: block; margin-left: 0; margin-top: 5px; }
+    }
     .avail li:last-child { border-bottom: none; }
     .avail .a-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.22rem; line-height: 1.3; color: var(--cream); }
     .avail .a-note { display: block; margin-top: 4px; font-size: 0.93rem; color: var(--cream-soft); line-height: 1.5; }
