@@ -166,7 +166,7 @@ groups renders exactly as before.
 `terms` said once beat it repeated down fifteen cuts.
 
 **Two buttons on the directory, and they mean different things.** **Connect**
-opens the chat. **See what they have** always goes to `/producer/?id=<id>` — the
+opens the chat. **See the farm** always goes to `/producer/?id=<id>` — the
 shared profile, even for a farm with a bespoke page — so every farm on Connect
 lands a visitor on the same kind of page. It is bordered rather than filled,
 because it is a different job. A farm with no channel on file keeps the slot as
@@ -198,7 +198,7 @@ go to different places on purpose:
 
 | Pressed on | Goes to | Why |
 |---|---|---|
-| The map card | `/producer/?id=<id>` — that farm's Connect profile | From a pin you want *that* producer, not a list of everyone. Their page carries the full list, the terms and the Connect and Order buttons, so nothing is lost by skipping the directory |
+| The map card | `/producer/?id=<id>` — that farm's See the farm page | From a pin you want *that* producer, not a list of everyone. Their page carries the full list, the terms and the Connect and Order buttons, so nothing is lost by skipping the directory |
 | A Highlighted profile hero | `/producer/?id=<id>` — that farm's Connect profile | Changed by the user on 2026-10-29. It used to scroll to `#connect-section` further down the same page (settled 2026-10-01); that block is gone, so the button leaves the page. Do not change it again without asking |
 
 Either button shows when the farm is **on Connect at all**, not when a
