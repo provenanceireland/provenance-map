@@ -303,6 +303,29 @@
       .avail-gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
     }
 
+    /* The film. The same click to play frame the Highlighted pages use:
+       the box holds its shape and nothing is requested from YouTube until
+       somebody presses it, so the page stays light for the people who only
+       came for the list. A Short is 9/16, and `aspect` on the data lets a
+       widescreen film keep its own shape instead. */
+    .film-wrap {
+      position: relative; width: 100%; max-width: 420px; margin: 0 auto;
+      aspect-ratio: 9/16; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--hair); border-radius: 3px;
+    }
+    .film-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .film-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .film-face { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: none; cursor: pointer; }
+    /* A lone white play mark, centred, nothing around it */
+    .film-face::after {
+      content: ''; position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px 0 0 -24px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 3v18l16-9z' fill='%23FFFFFF'/%3E%3C/svg%3E") no-repeat center / contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.55));
+      transition: transform 0.2s;
+    }
+    .film-face:hover::after { transform: scale(1.08); }
+    .film-note { margin-top: 14px; text-align: center; font-size: 0.88rem; color: var(--faint); }
+
     /* Around the farm. The same arrangement the Highlighted pages use, a
        wide shot, a tall one beside it and the rest in threes, so the two
        kinds of page show the same photographs the same way. Captions are
@@ -516,6 +539,15 @@
         <div class="avail-gallery extra hidden" id="extra-gallery"></div>
         <p class="avail-source hidden" id="connect-source"></p>
         <div class="connect-cta" id="connect-cta"></div>
+      </section>
+
+      <!-- The film, above the photographs. Click to play: the frame holds
+           its shape and nothing from YouTube loads until somebody taps it,
+           so a page that nobody watches costs nobody a player. -->
+      <section id="film-section" class="hidden">
+        <div class="sec-head"><h2 id="film-title">The farm</h2><span class="rule"></span></div>
+        <div class="film" id="film"></div>
+        <p class="film-note hidden" id="film-note"></p>
       </section>
 
       <!-- Around the farm. The photographs from the farm's own Highlighted
@@ -946,10 +978,36 @@
         fetch('../' + encodeURIComponent(p.profile_slug) + '/profile.json?v=' + Date.now(), { cache: 'no-store' })
           .then(r => r.ok ? r.json() : null)
           .then(pr => {
+            const base = '../' + encodeURIComponent(p.profile_slug) + '/';
+
+            /* The film, above the photographs. `connect_film` is its own key
+               rather than the `film` the Highlighted page reads, so putting
+               a video on one page does not silently put it on the other.
+               Nothing is requested from YouTube until the frame is pressed. */
+            const cf = (pr && pr.connect_film) || null;
+            if (cf && cf.url) {
+              const vid = (cf.url.match(/embed\/([A-Za-z0-9_-]+)/) || [])[1] || '';
+              if (vid) {
+                if (cf.title) $('film-title').textContent = cf.title;
+                const shape = cf.aspect ? ` style="aspect-ratio:${esc(cf.aspect)}"` : '';
+                const poster = cf.poster ? `<img src="${esc(base + cf.poster)}" alt="${esc(cf.title || p.name)}" loading="lazy" />` : '';
+                $('film').innerHTML =
+                  `<div class="film-wrap"${shape}>${poster}` +
+                  `<button class="film-face" type="button" aria-label="Play ${esc(cf.title || 'the film')}"></button></div>`;
+                $('film').querySelector('.film-face').addEventListener('click', function () {
+                  this.parentNode.innerHTML =
+                    `<iframe src="https://www.youtube.com/embed/${esc(vid)}?autoplay=1&rel=0&playsinline=1" ` +
+                    `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                  pvTrack('film_play', pvProducer(p, { surface: 'shared_profile' }));
+                });
+                if (cf.note) { $('film-note').textContent = cf.note; show('film-note', true); }
+                show('film-section', true);
+              }
+            }
+
             const photos = ((pr && pr.photos) || []).filter(ph => ph && ph.src);
             if (!photos.length) return;
             if (pr.photos_title) $('farm-title').textContent = pr.photos_title;
-            const base = '../' + encodeURIComponent(p.profile_slug) + '/';
             $('farm-gal').innerHTML = photos.map(ph => {
               const pos = ph.position ? ` style="object-position:${esc(ph.position)}"` : '';
               return `<figure><img src="${esc(base + ph.src)}" alt="${esc(ph.caption || p.name)}" loading="lazy"${pos} /></figure>`;

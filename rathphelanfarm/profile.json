@@ -14,6 +14,13 @@
   "film_intro": "Filmed by Provenance on the farm.",
   "film": {},
 
+  "connect_film": {
+    "title": "What is in the freezer",
+    "url": "https://www.youtube.com/embed/FZGj8z6EU7s",
+    "aspect": "9/16",
+    "note": "Filmed on the farm."
+  },
+
   "series_label": "The visit, in parts",
   "series": [
     { "title": "Part 1: Farmyard and Machines", "url": "https://www.youtube.com/embed/HXHORb7qqHU", "poster": "part-1.jpg", "aspect": "16/9" },
