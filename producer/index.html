@@ -297,8 +297,28 @@
       font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
       font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-light);
     }
+    .avail-gallery.extra { margin-top: 12px; }
+    .extra-note { margin-top: 28px; font-size: 0.95rem; line-height: 1.55; color: var(--cream-soft); }
     @media (max-width: 520px) {
       .avail-gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
+
+    /* Around the farm. The same arrangement the Highlighted pages use, a
+       wide shot, a tall one beside it and the rest in threes, so the two
+       kinds of page show the same photographs the same way. Captions are
+       carried as alt text only, as they are there. */
+    .farm-gal { display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; }
+    .farm-gal figure { margin: 0; border: 1px solid var(--hair); background: var(--surface); overflow: hidden; }
+    .farm-gal img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
+    .farm-gal figure:first-child { grid-column: span 8; }
+    .farm-gal figure:first-child img { aspect-ratio: 3/2; }
+    .farm-gal figure:nth-child(2) { grid-column: span 4; }
+    .farm-gal figure:nth-child(2) img { aspect-ratio: 3/4; height: 100%; }
+    .farm-gal figure:nth-child(n+3) { grid-column: span 3; }
+    @media (max-width: 720px) {
+      .farm-gal { grid-template-columns: repeat(2, 1fr); }
+      .farm-gal figure, .farm-gal figure:first-child, .farm-gal figure:nth-child(2), .farm-gal figure:nth-child(n+3) { grid-column: span 1; }
+      .farm-gal img, .farm-gal figure:first-child img, .farm-gal figure:nth-child(2) img { aspect-ratio: 3/4; height: auto; }
     }
     .avail { list-style: none; margin: 0; }
     .avail li { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--hair); }
@@ -483,8 +503,22 @@
              down the side of a list reads as decoration; the same pictures
              gathered together read as the farm's produce. -->
         <div class="avail-gallery hidden" id="avail-gallery"></div>
+        <!-- Shots that belong to the list rather than to one line of it,
+             under a single line of their own. -->
+        <p class="extra-note hidden" id="extra-note"></p>
+        <div class="avail-gallery extra hidden" id="extra-gallery"></div>
         <p class="avail-source hidden" id="connect-source"></p>
         <div class="connect-cta" id="connect-cta"></div>
+      </section>
+
+      <!-- Around the farm. The photographs from the farm's own Highlighted
+           page, brought across so the Connect profile shows the place and
+           not only the produce. They exist only where a visit was made and
+           a bespoke page built, so this section is empty for everyone else
+           and a free record can never put a gallery on a free page. -->
+      <section id="farm-section" class="hidden">
+        <div class="sec-head"><h2 id="farm-title">Around the farm</h2><span class="rule"></span></div>
+        <div class="farm-gal" id="farm-gal"></div>
       </section>
 
       <section id="words-section" class="hidden">
@@ -538,7 +572,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=12"></script>
+  <script src="../connect.js?v=13"></script>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -782,6 +816,14 @@
             `<figcaption>${esc(s.name)}</figcaption></figure>`).join('');
           show('avail-gallery', true);
         }
+        // Photographs for the whole list rather than for one item, with one
+        // line over them instead of a caption on each.
+        if (cs.gallery) {
+          if (cs.gallery.note) { $('extra-note').textContent = cs.gallery.note; show('extra-note', true); }
+          $('extra-gallery').innerHTML = cs.gallery.photos.map(src =>
+            `<figure><img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy" /></figure>`).join('');
+          show('extra-gallery', true);
+        }
         if (cs.source) { $('connect-source').textContent = cs.source; show('connect-source', true); }
         // Connect is the button. Order came off both surfaces on 2026-10-29
         // and came back here only, under the Connect button as a line of
@@ -860,6 +902,31 @@
         $('own-page').href = own;
         $('own-page').textContent = 'The full ' + esc(p.name) + ' profile';
         show('own-page-wrap', true);
+      }
+
+      /* Around the farm, fetched from the farm's own profile.json. It is a
+         second request, so it is fired after the page is drawn rather than
+         held in front of it: a farm with no photographs, or a fetch that
+         fails, leaves the page exactly as it was.
+
+         Gated on tier as well as on the file existing, because a photo
+         gallery is a Highlighted benefit and the rule is that it has to
+         hold in the page code and not only in the data. */
+      if (p.tier === 'featured' && p.profile_slug && p.profile_live) {
+        fetch('../' + encodeURIComponent(p.profile_slug) + '/profile.json?v=' + Date.now(), { cache: 'no-store' })
+          .then(r => r.ok ? r.json() : null)
+          .then(pr => {
+            const photos = ((pr && pr.photos) || []).filter(ph => ph && ph.src);
+            if (!photos.length) return;
+            if (pr.photos_title) $('farm-title').textContent = pr.photos_title;
+            const base = '../' + encodeURIComponent(p.profile_slug) + '/';
+            $('farm-gal').innerHTML = photos.map(ph => {
+              const pos = ph.position ? ` style="object-position:${esc(ph.position)}"` : '';
+              return `<figure><img src="${esc(base + ph.src)}" alt="${esc(ph.caption || p.name)}" loading="lazy"${pos} /></figure>`;
+            }).join('');
+            show('farm-section', true);
+          })
+          .catch(() => {});
       }
 
       $('map-line').innerHTML = esc(p.name) + ' is a<br>' + tier.short + ' producer on<br>The Provenance Map';

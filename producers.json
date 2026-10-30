@@ -2970,19 +2970,16 @@
             "name": "10kg Beef Box - Freezer Filler Box",
             "note": "The biggest of the three, with steaks alongside short ribs and the slow-cooking cuts.",
             "photo": "/produce/rathphelan-farm/freezer-filler-box.jpg"
-          },
-          {
-            "name": "Quarter, half or whole heifer",
-            "note": "Grass fed for as much of the year as the weather allows. Through the winter, silage made on the farm, with whole crop peas, barley and kale grown there too. Cut, bagged and labelled to order for the freezer.",
-            "options": ["Quarter", "Half", "Whole"],
-            "photo": "/produce/rathphelan-farm/freezer-2.jpg",
-            "photos": [
-              { "src": "/produce/rathphelan-farm/freezer-2.jpg", "label": "Quarter" },
-              { "src": "/produce/rathphelan-farm/freezer-3.jpg", "label": "Half" },
-              { "src": "/produce/rathphelan-farm/freezer-1.jpg", "label": "Whole" }
-            ]
           }
         ],
+        "gallery": {
+          "note": "Quarter, half and whole animals are available too, cut, bagged and labelled to order for the freezer.",
+          "photos": [
+            "/produce/rathphelan-farm/freezer-2.jpg",
+            "/produce/rathphelan-farm/freezer-3.jpg",
+            "/produce/rathphelan-farm/freezer-1.jpg"
+          ]
+        },
         "plus": {}
       },
       "farmers_market": false,

@@ -265,6 +265,13 @@ function connectState(producer) {
        joins one with `group: "<name>"`. A farm with no groups renders as one
        plain list, which is most of them. */
     groups: (c.groups || []).filter(function (g) { return g && g.name; }),
+    /* Photographs that belong to the whole list rather than to one item,
+       under one line of their own. Rathphelan's three freezer shots are a
+       quarter, a half and a whole animal: captioning each one separately
+       said less than one line saying all three are available, and the
+       animals are not a product on the list any more. { note, photos[] },
+       and the photos are plain paths because nothing captions them. */
+    gallery: (c.gallery && c.gallery.photos && c.gallery.photos.length) ? c.gallery : null,
     channel: connectChannel(producer, c),
     /* The second button. Connect is a conversation; Order is wherever the
        farm actually takes money, which is their own shop, never ours. */
