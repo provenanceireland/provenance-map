@@ -756,12 +756,19 @@
       let shareToastTimer;
       $('share-btn').addEventListener('click', async () => {
         pvTrack('share', pvProducer(p, { surface: 'shared_profile' }));
-        // The line has to be true for the farm being shared. Only a farm on
-        // Connect has a list of what it has right now; every other profile
-        // gets the plain line, so a shared link never promises produce that
-        // is not on the page.
+        /* The line has to be true for the farm being shared. This page
+           serves every producer, not only the ones on Connect, so only a
+           farm that is actually on Connect gets named as being on it;
+           everyone else gets the map. A shared link never promises
+           something the page it lands on does not have.
+
+           Written to sound like the person sending it rather than like the
+           system, because WhatsApp pastes this straight above the link and
+           then draws its own preview card from the page. The card carries
+           the name, the produce and the place, so repeating them here would
+           say everything twice. */
         const shareText = cs
-          ? 'What ' + p.name + ' has right now, on the Provenance Map.'
+          ? p.name + ' sell direct. Found them on Provenance Connect.'
           : p.name + ' on the Provenance Map.';
         if (navigator.share) {
           try { await navigator.share({ title: p.name + ' - Provenance', text: shareText, url: shareUrl }); } catch (err) {}

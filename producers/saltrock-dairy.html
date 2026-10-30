@@ -480,7 +480,7 @@
     const SHARE = {
       slug: 'saltrock-dairy',
       name: 'Saltrock Dairy Farm',
-      text: 'Saltrock Dairy Farm is a verified Irish dairy producer in Wexford. Found on the Provenance Map.',
+      text: 'Saltrock Dairy Farm, an Irish dairy producer in Wexford. Found on the Provenance Map.',
       url: 'https://provenancemap.ie/producers/saltrock-dairy.html'
     };
     let shareToastTimer = null;
@@ -491,7 +491,7 @@
       if (typeof gtag === 'function') gtag('event', 'share', { producer: SHARE.slug, surface: 'founder_page' });
       if (navigator.share) {
         try {
-          await navigator.share({ title: SHARE.name + ' — Provenance Map', text: SHARE.text, url: SHARE.url });
+          await navigator.share({ title: SHARE.name + ' on the Provenance Map', text: SHARE.text, url: SHARE.url });
         } catch (err) { /* user cancelled the share sheet */ }
       } else {
         try {

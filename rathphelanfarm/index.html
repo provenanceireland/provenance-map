@@ -752,7 +752,7 @@
       const name = $('name').textContent;
       pvTrack('share', { producer: PRODUCER_ID, producer_name: name, surface: 'featured_profile' });
       if (navigator.share) {
-        try { await navigator.share({ title: name + ' - Provenance', text: name + ' is a Provenance Highlighted farm.', url: PAGE_URL }); } catch (err) {}
+        try { await navigator.share({ title: name + ' - Provenance', text: name + '. The farm, the people and the ground, on the Provenance Map.', url: PAGE_URL }); } catch (err) {}
       } else {
         try {
           await navigator.clipboard.writeText(PAGE_URL);

@@ -4594,8 +4594,12 @@
       const url     = slug
         ? 'https://provenancemap.ie/share/' + slug + '.html'
         : 'https://provenancemap.ie/';
-      const verified = (pin.dataset.tierName || 'discovered') !== 'discovered';
-      const text = `${name} is ${verified ? 'a highlighted' : 'an'} Irish ${product} producer in ${county}. Found on the Provenance Map.`;
+      /* No tier in the line. It used to read "is a highlighted Irish beef
+         producer" for anything that was not Discovered, which put a paid
+         tier on every Verified farm shared, in someone else's WhatsApp.
+         A share says who they are and where; the tier is the map's own
+         language and means nothing to the person receiving it. */
+      const text = `${name}, an Irish ${product} producer in ${county}. Found on the Provenance Map.`;
 
       // One event name, the producer in a parameter. It used to be one event
       // name per producer, which walks into GA4's 500-name ceiling.
@@ -4603,7 +4607,7 @@
 
       if (navigator.share) {
         try {
-          await navigator.share({ title: `${name} — Provenance Map`, text, url });
+          await navigator.share({ title: `${name} on the Provenance Map`, text, url });
         } catch (err) { /* user cancelled the share sheet — not an error */ }
       } else {
         try {
