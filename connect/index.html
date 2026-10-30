@@ -69,6 +69,11 @@
     .col { max-width: 720px; margin: 0 auto; padding: 0 24px; }
 
     .label { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--green); }
+    /* The kicker over the headline takes the brand green, the map's own
+       accent, rather than the darker profile-page green the rest of this
+       page uses. It is the one place the page says its own name. Scoped to
+       the hero so the "How it works" label further down is unchanged. */
+    .hero .label { color: #4A8A55; }
 
     .site { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 24px; border-bottom: 1px solid var(--hair); max-width: 1040px; margin: 0 auto; }
     .logo { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; letter-spacing: 0.14em; color: var(--green); }
