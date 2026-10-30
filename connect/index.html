@@ -88,7 +88,7 @@
     /* The list is a directory, not a stack of small profiles: a visitor
        scrolls it once and picks a farm. Everything a farm has to say about
        what they have, how they sell it and what it looks like is behind
-       See the farm. */
+       See what they have. */
     /* Search and the produce filter. Sticky, so on a phone you never scroll
        back to the top to change what you are looking at, which is the single
        thing that makes a long directory feel heavy. */
@@ -145,12 +145,12 @@
     .row { padding: 20px 0 18px; border-bottom: 1px solid var(--hair); scroll-margin-top: 130px; }
     /* minmax(0, 1fr), not 1fr: a plain 1fr refuses to shrink below its
        content, so a farm carrying two marks (Moyletra is Verified AND
-       Collection) pushed the buttons until "See the farm" wrapped to a
+       Collection) pushed the buttons until "See what they have" wrapped to a
        second line and that one row sat differently to every other. The text
        column yields now; the buttons keep their width. */
     .row-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center; }
     /* Connect and Order do the same job - they get you to the farm - so they
-       look alike. See the farm is a different job and looks different.
+       look alike. "See what they have" is a different job and looks different.
        nowrap: three buttons on one line, on every row, always. */
     .row-actions { display: flex; flex-wrap: nowrap; gap: 9px; align-items: center; justify-content: flex-end; }
     /* The picture and the words travel together, and the buttons stay in the
@@ -210,7 +210,7 @@
     }
     .connect:hover { background: var(--green-head); border-color: var(--green-light); }
     .connect svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    /* See the farm: not a way to reach the producer, so not dressed as one.
+    /* See what they have: not a way to reach the producer, so not dressed as one.
        Bordered, no fill, and it sits after the two green buttons. */
     .connect.quiet {
       background: none; border-color: rgba(201,198,189,0.32); color: var(--cream-soft);
@@ -230,7 +230,7 @@
       .row-thumb { width: 60px; height: 60px; }
       /* Two columns, matching the two buttons. It said three until
          2026-10-29, left over from when Order was here, so every row had an
-         empty third of the screen beside See the farm. */
+         empty third of the screen beside "See what they have". */
       .row-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; justify-content: stretch; }
       .connect { justify-content: center; padding: 11px 4px; font-size: 0.58rem; letter-spacing: 0.08em; gap: 5px; }
       .connect svg { width: 13px; height: 13px; }
@@ -280,7 +280,7 @@
 
     <div class="how">
       <p class="label" style="margin-bottom: 14px">How it works</p>
-      <p><strong>Discover what's available.</strong> Each producer keeps their own list of what they currently have. Press <strong>See the farm</strong> for their profile, where the latest list sits alongside the date they sent it.</p>
+      <p><strong>Discover what's available.</strong> Each producer keeps their own list of what they currently have. Press <strong>See what they have</strong> for their profile, where the latest list sits alongside the date they sent it.</p>
       <p><strong>Connect directly.</strong> Press <strong>Connect</strong> to message the producer. You are talking to the person who grew or reared it, not to us.</p>
       <p><strong>Buy from the producer.</strong> Tell them what you want and organise collection or delivery between you. Provenance takes no part in the sale and receives no commission. Some farms also sell through their own online shop, and the link to it is on their profile.</p>
       <p>Buying in bulk, or after something that is not on the list? A quarter, a half, a whole animal, a standing order? Message the producer and talk it through.</p>
@@ -322,7 +322,7 @@
       return out.join('');
     }
 
-    // "See the farm" always goes to the shared profile page, even for a farm
+    // "See what they have" always goes to the shared profile page, even for a farm
     // that has a bespoke one of its own. Every farm on Connect should land a
     // visitor on the same kind of page; the richer filmed page is reached
     // from the map card instead.
@@ -409,7 +409,7 @@
           const pills = connectMarks(p) +
                         (p.collection ? `<span class="pill pill-collection">Provenance Collection</span>` : '');
           const url = profileUrl(p);
-          // Two buttons. Connect is the conversation, See the farm is a
+          // Two buttons. Connect is the conversation, "See what they have" is a
           // different job and is dressed differently. Order came off this
           // page on 2026-10-29 and lives on the profile as a line of text:
           // beside Connect it handed the buyer to a checkout and ended
@@ -421,7 +421,7 @@
             : `<span class="connect pending" aria-disabled="true" title="Not open yet">${CONNECT_ICON}Connect</span>`;
           // The row says who they are, where they are, what they sell and
           // what they hold on Connect. Their terms, their intro, their full
-          // list and their produce photographs are all behind See the farm.
+          // list and their produce photographs are all behind "See what they have".
           // The farm's own card image, the same file their map card uses.
           // Settled 2026-10-29: whatever a producer gave Provenance for their
           // map pin is what Connect shows too, logo or photograph, because it
@@ -448,7 +448,7 @@
               </div>
               <div class="row-actions">
                 ${connectBtn}
-                <a class="connect quiet" href="${esc(url)}">See the farm</a>
+                <a class="connect quiet" href="${esc(url)}">See what they have</a>
               </div>
             </div>
           </div>`;

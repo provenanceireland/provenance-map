@@ -33,7 +33,7 @@ Swapping analytics tool is one function, not thirty call sites.
 | `order_click` | **The Order button is pressed** — off to the farm's own shop | producer set, `surface` |
 | `connect_layer_click` | A Connect button that is navigation, not a chat: the map card and the profile hero | producer set, `surface` |
 | `profile_click` | The Highlighted Profile button on a card | producer set, `surface` |
-| `see_farm_click` | "See the farm" on `/connect/` | producer set, `surface` |
+| `see_farm_click` | "See what they have" on `/connect/` | producer set, `surface` |
 | `share` | A producer is shared | producer set, `surface` |
 | `qr_scan` | A page opened from a QR sticker (`?src=qr`) | `producer`, `surface` |
 | `availability_saved` | A producer saves their list in the editor | `producer`, `items`, `published` |
