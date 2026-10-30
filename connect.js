@@ -274,6 +274,12 @@ function connectState(producer) {
 
 function connectOrder(producer, c) {
   c = c || {};
+  /* "order": false turns the shop route off for a farm that wants every
+     order to come through the conversation instead. It is a separate key
+     from order_url on purpose: blanking the url would only fall through to
+     the record's website, and throwing the url away would lose the address
+     for when it is wanted again. */
+  if (c.order === false) return null;
   var url = c.order_url || producer.website || '';
   if (!url) return null;
   return { url: url, label: c.order_label || 'Order' };

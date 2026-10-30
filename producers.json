@@ -2953,32 +2953,10 @@
         "channel": { "type": "whatsapp", "value": "083 434 8763" },
         "updated": "2026-10-30",
         "intro": "Beef reared on their own farm at Castletown, sold by the box or by the animal. Every bit of the feed is grown on the place, bar some nuts bought in locally for vitamins.",
-        "terms": "Boxes and whole animals: collection, or delivery for €12. Single cuts: collection only.",
+        "terms": "Delivery for €12, or collection from the farm. Boxes and quarter, half or whole animals available.",
+        "order": false,
         "order_url": "https://www.rathphelanfarm.ie/pages/shop",
-        "groups": [
-          {
-            "name": "Boxes and whole animals",
-            "match": "listed",
-            "note": "Order these from their shop, or message the farm."
-          },
-          {
-            "name": "Individual cuts",
-            "match": "profile_only",
-            "note": "Collection from the farm only. Single cuts are not available to order for delivery."
-          }
-        ],
         "available": [
-          {
-            "name": "Quarter, half or whole heifer",
-            "note": "Grass fed for as much of the year as the weather allows. Through the winter, silage made on the farm, with whole crop peas, barley and kale grown there too. Cut, bagged and labelled to order for the freezer.",
-            "options": ["Quarter", "Half", "Whole"],
-            "photo": "/produce/rathphelan-farm/freezer-1.jpg",
-            "photos": [
-              "/produce/rathphelan-farm/freezer-1.jpg",
-              "/produce/rathphelan-farm/freezer-2.jpg",
-              "/produce/rathphelan-farm/freezer-3.jpg"
-            ]
-          },
           {
             "name": "5kg Beef Box - Locavore Box",
             "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts.",
@@ -2994,21 +2972,17 @@
             "note": "The biggest of the three, with steaks alongside short ribs and the slow-cooking cuts.",
             "photo": "/produce/rathphelan-farm/freezer-filler-box.jpg"
           },
-          { "name": "T-bone steak", "note": "Striploin one side of the bone, fillet the other.", "profile_only": true, "photo": "/produce/rathphelan-farm/t-bone-steak.jpg" },
-          { "name": "Bone-in rib eye steak", "note": "Rib eye left on the bone.", "profile_only": true, "photo": "/produce/rathphelan-farm/bone-in-rib-eye.jpg" },
-          { "name": "Sirloin steak", "note": "Off the loin, cut thick.", "profile_only": true, "photo": "/produce/rathphelan-farm/sirloin-steak.jpg" },
-          { "name": "Striploin steak", "note": "The steak most people mean by steak.", "profile_only": true, "photo": "/produce/rathphelan-farm/striploin-steak.jpg" },
-          { "name": "Fillet steak", "note": "The tenderest thing on the animal.", "profile_only": true, "photo": "/produce/rathphelan-farm/fillet-steak.jpg" },
-          { "name": "Round steak", "note": "Off the hind quarter, lean and cut thin.", "profile_only": true, "photo": "/produce/rathphelan-farm/round-steak.jpg" },
-          { "name": "Chuck steak", "note": "Off the shoulder. Good in a pan, better braised.", "profile_only": true, "photo": "/produce/rathphelan-farm/chuck-steak.jpg" },
-          { "name": "Housekeeper's cut", "note": "A butcher's cut, rarely on a supermarket shelf.", "profile_only": true, "photo": "/produce/rathphelan-farm/housekeepers-cut.jpg" },
-          { "name": "Steak burgers", "note": "Made up from the steak mince, two to a pack.", "profile_only": true, "photo": "/produce/rathphelan-farm/steak-burgers.jpg" },
-          { "name": "Steak mince", "note": "Minced from steak.", "profile_only": true, "photo": "/produce/rathphelan-farm/steak-mince.jpg" },
-          { "name": "Rib roast", "note": "A roasting joint off the rib.", "profile_only": true, "photo": "/produce/rathphelan-farm/rib-roast.jpg" },
-          { "name": "Round roast", "note": "A lean roasting joint off the hind quarter.", "profile_only": true, "photo": "/produce/rathphelan-farm/round-roast.jpg" },
-          { "name": "Brisket", "note": "Off the breast, rolled and tied. A long slow cook.", "profile_only": true, "photo": "/produce/rathphelan-farm/brisket.jpg" },
-          { "name": "Beef short ribs", "note": "Rib on the bone. Braise them.", "profile_only": true, "photo": "/produce/rathphelan-farm/short-ribs.jpg" },
-          { "name": "Beef stew", "note": "Cut and bagged for the pot.", "profile_only": true, "photo": "/produce/rathphelan-farm/beef-stew.jpg" }
+          {
+            "name": "Quarter, half or whole heifer",
+            "note": "Grass fed for as much of the year as the weather allows. Through the winter, silage made on the farm, with whole crop peas, barley and kale grown there too. Cut, bagged and labelled to order for the freezer.",
+            "options": ["Quarter", "Half", "Whole"],
+            "photo": "/produce/rathphelan-farm/freezer-2.jpg",
+            "photos": [
+              { "src": "/produce/rathphelan-farm/freezer-2.jpg", "label": "Quarter" },
+              { "src": "/produce/rathphelan-farm/freezer-3.jpg", "label": "Half" },
+              { "src": "/produce/rathphelan-farm/freezer-1.jpg", "label": "Whole" }
+            ]
+          }
         ],
         "plus": {}
       },

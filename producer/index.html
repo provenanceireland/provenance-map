@@ -532,7 +532,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=11"></script>
+  <script src="../connect.js?v=12"></script>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -754,14 +754,21 @@
         // photos: false, because they are gathered into the gallery below
         // rather than sitting as a thumbnail against each line.
         $('avail').innerHTML = connectGroupedHTML(cs.items, cs.groups, esc, { photos: false });
-        /* An item may carry one `photo` or a `photos` array, because a cut
-           can be worth showing twice: the meat on a plate and the farm's own
-           labelled pack are different arguments. Both forms flatten into the
-           one gallery and every shot is captioned with its cut. */
+        /* An item may carry one `photo` or a `photos` array, because a thing
+           can be worth showing more than once. A photos entry is either a
+           path, captioned with the item's name, or { src, label } when the
+           shot is of one of the item's own options: Rathphelan's three
+           freezer photographs are a quarter, a half and a whole animal, and
+           captioning all three "Quarter, half or whole heifer" would waste
+           what the pictures actually say. Both forms flatten into one
+           gallery. */
         const shots = [];
         cs.items.forEach(a => {
           const list = a.photos && a.photos.length ? a.photos : (a.photo ? [a.photo] : []);
-          list.forEach(src => shots.push({ src: src, name: a.name }));
+          list.forEach(ph => {
+            const src = (ph && ph.src) ? ph.src : ph;
+            if (src) shots.push({ src: src, name: (ph && ph.label) ? ph.label : a.name });
+          });
         });
         if (shots.length) {
           $('avail-gallery').innerHTML = shots.map(s =>
