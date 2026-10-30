@@ -309,21 +309,9 @@
        came for the list. A Short is 9/16, and `aspect` on the data lets a
        widescreen film keep its own shape instead. */
     .film-wrap {
-      position: relative; width: 100%; max-width: 560px; margin: 0 auto;
+      position: relative; width: 100%; max-width: 420px; margin: 0 auto;
       aspect-ratio: 9/16; overflow: hidden;
       background: var(--surface); border: 1px solid var(--hair); border-radius: 3px;
-    }
-    /* Edge to edge on a phone. The column carries a 24px gutter at every
-       width, which left the film sitting inside a frame inside a frame; it
-       cancels the gutter here so the video runs to both edges and reads as
-       part of the page rather than as an object dropped into it. The side
-       border and the radius go with it, since neither survives being cut
-       off at the screen edge. */
-    @media (max-width: 620px) {
-      .film-wrap {
-        max-width: none; width: calc(100% + 48px); margin-left: -24px; margin-right: -24px;
-        border-left: 0; border-right: 0; border-radius: 0;
-      }
     }
     .film-wrap img { width: 100%; height: 100%; object-fit: cover; }
     .film-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
