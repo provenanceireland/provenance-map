@@ -72,17 +72,9 @@
     .price .size { font-family: Inter, Helvetica, Arial, sans-serif; font-size: 0.85rem; color: var(--muted); margin-left: 8px; }
     .price[hidden] { display: none; }
     .note { margin-top: 10px; font-size: 0.88rem; color: var(--muted); }
-    /* the pre-sale saving: stated in full ink at the heaviest weight the page loads,
+    /* the bundle saving: stated in full ink at the heaviest weight the page loads,
        so it reads apart from the 300 body without reaching for a second colour */
     .note.lead { font-size: 1rem; font-weight: 600; color: var(--ink); }
-
-    /* the same offer at the very top, where it cannot be scrolled past */
-    .offer { display: block; background: var(--ink); color: var(--parchment); text-decoration: none; }
-    .offer:hover { background: #1A281E; }
-    .offer span {
-      display: block; max-width: 600px; margin: 0 auto; padding: 13px 24px;
-      font-weight: 600; font-size: 0.8rem; line-height: 1.45; text-align: center;
-    }
 
     .btn {
       display: block; width: 100%; text-align: center; margin-top: 18px;
@@ -109,14 +101,11 @@
     @media (max-width: 430px) {
       .wrap { padding: 0 18px; }
       .product, .both { padding: 26px 20px; margin: 22px 0; }
-      .offer span { padding: 12px 18px; }
     }
-    @media print { .btn, .offer { display: none; } }
+    @media print { .btn { display: none; } }
   </style>
 </head>
 <body>
-
-<a class="offer" href="#both"><span>Pre-sale offer: Ordering them together works out cheaper than buying them separately.</span></a>
 
 <div class="wrap">
 
@@ -152,7 +141,7 @@
     <p class="kick prod">Both products</p>
     <h2>The Collection bundle</h2>
     <p>The beef tallow and the Ling heather honey, in one order.</p>
-    <p class="note lead">Ordering them together works out cheaper than buying them separately. That is the pre-sale offer.</p>
+    <p class="note lead">Ordering them together works out cheaper than buying them separately.</p>
     <p class="price" id="price-both" hidden></p>
     <span class="btn soon" id="btn-both">Opens soon</span>
   </section>
