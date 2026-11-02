@@ -131,15 +131,6 @@
       .chips::-webkit-scrollbar { display: none; }
     }
 
-    /* County headings. Nine counties for ten farms today, so most groups
-       hold one farm; it earns its keep as the list grows. */
-    .grp { display: flex; align-items: center; gap: 14px; padding: 28px 0 8px; }
-    .grp-name {
-      flex: none; font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
-      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green);
-    }
-    .grp-rule { flex: 1; height: 1px; background: var(--hair); }
-
     .list { display: flex; flex-direction: column; margin-bottom: 64px; }
     .no-hits { color: var(--muted); padding: 40px 0; }
     /* Each row is an anchor, so a profile's Connect button lands on that
@@ -377,23 +368,13 @@
           `<button type="button" class="chip" data-type="" aria-pressed="true">All</button>` +
           types.map(t => `<button type="button" class="chip" data-type="${esc(t)}" aria-pressed="false">${esc(capitalise(t))}</button>`).join('');
 
-        /* ── county order ─────────────────────────────────────────────────
-           The counties holding the pinned farms come first, in the pinned
-           order, so Rathphelan still opens the page; everything else follows
-           alphabetically. That keeps the order the user set while letting
-           the list group, rather than making them choose between the two. */
-        const countyOrder = [];
-        members.forEach(({ p }) => {
-          const c = p.county || 'Elsewhere';
-          if (countyOrder.indexOf(c) === -1) countyOrder.push(c);
-        });
-        const pinnedCounties = [];
-        FIRST.forEach(id => {
-          const m = members.find(x => x.p.id === id);
-          if (m) { const c = m.p.county || 'Elsewhere'; if (pinnedCounties.indexOf(c) === -1) pinnedCounties.push(c); }
-        });
-        const restCounties = countyOrder.filter(c => pinnedCounties.indexOf(c) === -1).sort((a, b) => a.localeCompare(b));
-        const counties = pinnedCounties.concat(restCounties);
+        /* County headings were here from 2026-10-30 to 2026-11-02 and are
+           gone. With twelve farms they came to eleven headings, ten of them
+           introducing a single farm, which on a phone was about a third of
+           the scroll spent on headings rather than on producers. Nothing is
+           lost: the search box already reads county, so somebody in Laois
+           types Laois. Worth revisiting somewhere past thirty farms, when a
+           county holds three or four and a heading earns its space. */
 
         // State. Both are client side; nothing is fetched when they change.
         let query = '';
@@ -465,14 +446,7 @@
            path rather than a diffing one that can drift. */
         function render() {
           const shown = members.filter(matches);
-          let html = '';
-          counties.forEach(c => {
-            const inCounty = shown.filter(m => (m.p.county || 'Elsewhere') === c);
-            if (!inCounty.length) return;
-            html += `<div class="grp"><span class="grp-name">${esc(c === 'Elsewhere' ? c : 'Co. ' + c)}</span><span class="grp-rule"></span></div>`;
-            html += inCounty.map(rowHTML).join('');
-          });
-          $('list').innerHTML = html;
+          $('list').innerHTML = shown.map(rowHTML).join('');
           $('no-hits').classList.toggle('hidden', shown.length > 0);
           $('count').textContent = (shown.length === 1 ? '1 farm' : shown.length + ' farms') +
             (shown.length === members.length ? ' listing' : ' of ' + members.length);
