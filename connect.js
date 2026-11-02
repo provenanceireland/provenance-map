@@ -423,7 +423,11 @@ function connectListHTML(items, escFn, opt) {
      where there is room for them. Not rendered rather than hidden, so nothing
      is downloaded to be thrown away. */
   var withPhotos = !(opt && opt.photos === false);
-  return items.map(function (a) {
+  /* Items past this index are marked is-extra and hidden by the stylesheet
+     until the list is opened. The marking happens here and the hiding in
+     CSS, so a page that does not opt in renders every item as before. */
+  var after = (opt && opt.collapseAfter) || 0;
+  return items.map(function (a, i) {
     var opts = (a.options || []).filter(Boolean);
     var photo = (withPhotos && a.photo) ? '<span class="a-photo"><img src="' + e(a.photo) + '" alt="' + e(a.name) + '" loading="lazy" /></span>' : '';
     /* `sold_out` is a yes or no, never a number, so it does not reopen the
@@ -441,7 +445,10 @@ function connectListHTML(items, escFn, opt) {
        it, because a farm that forgets to zero a number should not keep
        advertising stock. */
     var qty = (!a.sold_out && a.qty) ? '<span class="a-qty">' + e(a.qty) + ' available</span>' : '';
-    return '<li' + (a.sold_out ? ' class="is-out"' : '') + '>' + photo + '<span class="a-txt">' +
+    var cls = [];
+    if (a.sold_out) cls.push('is-out');
+    if (after && i >= after) cls.push('is-extra');
+    return '<li' + (cls.length ? ' class="' + cls.join(' ') + '"' : '') + '>' + photo + '<span class="a-txt">' +
       '<span class="a-name">' + e(a.name) + '</span>' + out + qty +
       (a.note ? '<span class="a-note">' + e(a.note) + '</span>' : '') +
       (opts.length ? '<span class="a-opts">' + opts.map(function (o) { return '<span>' + e(o) + '</span>'; }).join('') + '</span>' : '') +
@@ -461,7 +468,7 @@ function connectGroupedHTML(items, groups, escFn, opt) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
     });
   };
-  if (!groups || !groups.length) return '<ul class="avail">' + connectListHTML(items, e, opt) + '</ul>';
+  if (!groups || !groups.length) return connectListWrap(items, e, opt);
   var html = '', used = {};
   groups.forEach(function (g) {
     /* A group takes its items either by naming them (`group` on the item) or
@@ -479,11 +486,29 @@ function connectGroupedHTML(items, groups, escFn, opt) {
     html += '<div class="avail-group">' +
       '<p class="avail-group-name">' + e(g.name) + '</p>' +
       (g.note ? '<p class="avail-group-note">' + e(g.note) + '</p>' : '') +
-      '<ul class="avail">' + connectListHTML(mine, e, opt) + '</ul></div>';
+      connectListWrap(mine, e, opt) + '</div>';
   });
   var rest = items.filter(function (a) { return !used[a.name]; });
-  if (rest.length) html += '<ul class="avail">' + connectListHTML(rest, e, opt) + '</ul>';
+  if (rest.length) html += connectListWrap(rest, e, opt);
   return html;
+}
+
+/* Long lists open rather than run on. Lisnahay carries 33 items, New Leaf
+   24 and Moyletra 23, which came to roughly four phone screens of produce
+   before the Connect button appeared. People are on that page to reach the
+   farm, not to read a butcher's counter, so a list over `collapseAfter`
+   shows that many and offers the rest behind a press.
+
+   One rule for every farm, so it needs no data work per producer and keeps
+   working as new ones join. A page that passes no `collapseAfter` gets the
+   full list exactly as before, and the button is only written when there is
+   actually something hidden behind it. */
+function connectListWrap(items, e, opt) {
+  var after = (opt && opt.collapseAfter) || 0;
+  var hidden = after > 0 && items.length > after;
+  return '<ul class="avail' + (hidden ? ' is-collapsed' : '') + '">' +
+    connectListHTML(items, e, opt) + '</ul>' +
+    (hidden ? '<button type="button" class="avail-more">Show all ' + items.length + '</button>' : '');
 }
 
 var CONNECT_ICON = '<svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12z"/></svg>';
