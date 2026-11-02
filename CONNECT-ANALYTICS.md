@@ -37,6 +37,20 @@ Swapping analytics tool is one function, not thirty call sites.
 | `share` | A producer is shared | producer set, `surface` |
 | `qr_scan` | A page opened from a QR sticker (`?src=qr`) | `producer`, `surface` |
 | `availability_saved` | A producer saves their list in the editor | `producer`, `items`, `published` |
+| `follow` | The weekly email sign-up is opened. Gated to `connect_tier` 1 and above, so Rathphelan Farm only today | producer set, `surface` |
+| `film_play` | A film frame is pressed on a profile, loading the player | producer set, `surface` |
+| `collection_click` | A doorway to `/collection/` is used | `surface`: `menu`, `fab`, `banner` or `card_button` |
+| `collection_order_click` | An order button on `/collection/` is pressed | `product`: `tallow`, `honey` or `both` |
+| `install_prompt_click` | The install bar's button is pressed | `platform`: `ios`, `prompt` or `signpost` |
+| `install_choice` | The browser's own install dialogue is answered | the outcome |
+| `install_dismissed` | The install bar is closed, starting the 45 day snooze | |
+| `install_done` | The app is actually installed | |
+
+> Added to this table on 2026-11-02. All nine were firing and undocumented:
+> `follow` and `film_play` since the Connect profile gained them in October,
+> the Collection pair since `/collection/` was built, and the install set
+> since the invitation bar. `unfollow` was removed when Follow stopped being
+> a toggle and is not in the code.
 
 **The producer set** on every producer event: `producer` (the id),
 `producer_name`, `tier`, `county`.
