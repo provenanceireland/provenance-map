@@ -607,7 +607,7 @@
 
     <div class="col">
       <section id="nearby-section" class="hidden" style="border-top: none">
-        <div class="sec-head"><h2>Nearby on the map</h2><span class="rule"></span></div>
+        <div class="sec-head"><h2 id="nearby-head">Nearby on the map</h2><span class="rule"></span></div>
       </section>
     </div>
     <div class="wide"><div class="rel hidden" id="nearby"></div></div>
@@ -976,9 +976,24 @@
       if (p.date_added) rows.push(['Added', esc(p.date_added)]);
       $('record').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
 
-      // ── nearby ──
+      /* ── nearby ──────────────────────────────────────────────────────────
+         On a farm that is on Connect, the nearest three are picked from the
+         other farms on Connect rather than from all 128. Before this, the
+         only onward path from a Connect profile led to whichever producer
+         happened to sit closest on the map, which is almost always a
+         listing with no Connect button, no list and nothing to do: a dead
+         end dressed as a next step. Every card now lands somewhere a
+         visitor can actually buy.
+
+         With twelve farms across eleven counties, nearest often means a
+         county or two away, which is why the heading says so plainly rather
+         than claiming they are close. Every other profile keeps the map's
+         own nearest three, because that is what those pages are. */
+      const onConnect = !!cs;
+      const pool = onConnect ? all.filter(q => connectState(q)) : all;
+      if (onConnect) $('nearby-head').textContent = 'Nearby on Connect';
       const here = mapPt(p);
-      const near = all.filter(q => q.id !== p.id && q.lat && q.lng)
+      const near = pool.filter(q => q.id !== p.id && q.lat && q.lng)
         .map(q => { const r = mapPt(q); return { q, d: Math.hypot(r.x - here.x, r.y - here.y) }; })
         .sort((a, b) => a.d - b.d).slice(0, 3);
       if (near.length) {
