@@ -234,7 +234,10 @@
 
     .empty { color: var(--muted); padding: 40px 0; }
     .how { border-top: 1px solid var(--hair-strong); padding: 40px 0 60px; color: var(--cream-soft); }
-    .how p + p { margin-top: 1em; }
+    .how p + p { margin-top: 0.5em; }
+    /* The sign-up line is a different thought to the three steps, so it
+       sits off on its own rather than as a fourth step. */
+    .how p.how-list { margin-top: 1.6em; }
 
     footer { padding: 34px 24px 64px; text-align: center; }
     footer .f-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--green); letter-spacing: 0.14em; margin-bottom: 10px; }
@@ -276,11 +279,17 @@
 
     <div class="how">
       <p class="label" style="margin-bottom: 14px">How it works</p>
-      <p><strong>Discover what's available.</strong> Each producer keeps their own list of what they currently have. Press <strong>See the farm</strong> for their profile, where the latest list sits alongside the date they sent it.</p>
-      <p><strong>Connect directly.</strong> Press <strong>Connect</strong> to message the producer. You are talking to the person who grew or reared it, not to us.</p>
-      <p><strong>Buy from the producer.</strong> Tell them what you want and organise collection or delivery between you. Provenance takes no part in the sale and receives no commission. Some farms also sell through their own online shop, and the link to it is on their profile.</p>
-      <p>Buying in bulk, or after something that is not on the list? A quarter, a half, a whole animal, a standing order? Message the producer and talk it through.</p>
-      <p>Farming in Ireland and want to be on this? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
+      <!-- Three lines, not five paragraphs. It used to run to 150 words at
+           the foot of the page, which meant the no-commission commitment,
+           the most persuasive thing there is to say about Connect, sat in
+           the third paragraph of five where nobody reached it. The bulk
+           buying paragraph went entirely: every farm's own page already
+           says what it sells by the animal, so it was answering a question
+           in the wrong place. -->
+      <p><strong>Discover.</strong> Each farm keeps its own list of what it has.</p>
+      <p><strong>Connect.</strong> You message the producer, not us.</p>
+      <p><strong>Buy.</strong> The order is between you and the farm. We take no part in it and no commission.</p>
+      <p class="how-list">Farming in Ireland? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
     </div>
   </div>
 
