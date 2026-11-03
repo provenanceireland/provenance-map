@@ -1804,6 +1804,22 @@
 
        If it ever needs adjusting, move the alpha, not the scale. Widening it
        is what made it wrong twice. */
+    /* The scale is per tier, because one value cannot serve three dot sizes.
+       box-sizing is border-box, so a dot's width includes its 1px border and
+       the ::before is 100% of the padding box: the border eats proportionally
+       more of a small dot than a large one. At a single scale of 2.2 the
+       gradient's peak landed 0.07px outside Verified's border (right), 0.41px
+       INSIDE Discovered's (hidden, leaving only the tail of the falloff to
+       render as a thin ring at a fractional pixel, which read as a lopsided
+       glow) and 1.51px outside Highlighted's (a halo rather than a rim).
+
+       These three put the peak about 0.1 to 0.3px beyond each dot's own outer
+       edge, on mobile and on desktop, so every tier gets the same rim.
+       If a dot size changes, recompute: peak = 0.311 x contentWidth x scale,
+       and content width is the dot width minus its border. */
+    .pin.is-new .pin-dot            { --ng: 2.2; }
+    .pin.t-discovered.is-new .pin-dot { --ng: 2.71; }
+    .pin.t-featured.is-new .pin-dot   { --ng: 1.65; }
     .pin.is-new .pin-dot::before {
       content: '';
       position: absolute;
@@ -1815,17 +1831,18 @@
         rgba(232,222,200,0.40) 44%,
         rgba(232,222,200,0.20) 62%,
         rgba(232,222,200,0) 100%);
-      transform: translate(-50%, -50%) scale(2.2);
+      transform: translate(-50%, -50%) scale(var(--ng));
       animation: pin-new-glow 4.2s ease-in-out infinite;
       pointer-events: none;
     }
-    /* A small breath, not a swell. The travelling ripple belongs to Connect. */
+    /* A small breath, not a swell. The travelling ripple belongs to Connect.
+       Proportional to --ng so every tier breathes by the same fraction. */
     @keyframes pin-new-glow {
-      0%, 100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0.85; }
-      50%      { transform: translate(-50%, -50%) scale(2.35); opacity: 1; }
+      0%, 100% { transform: translate(-50%, -50%) scale(calc(var(--ng) * 0.955)); opacity: 0.85; }
+      50%      { transform: translate(-50%, -50%) scale(calc(var(--ng) * 1.068)); opacity: 1; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(2.2); opacity: 0.95; }
+      .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(var(--ng)); opacity: 0.95; }
     }
     /* The answer to the question that made them hover. A rippling pin asks
        "why is that one moving"; this says what it means, in the same pale
