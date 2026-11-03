@@ -199,7 +199,19 @@ bug to work around.
    **Existing** → edit only the changed fields in place.
 4. Apply the gating rules above (tier, practice_confirmed, logo, IG/website).
 5. **Validate** the JSON (`ConvertFrom-Json` in PowerShell) — confirm count and
-   the changed producer's values.
+   the changed producer's values. Then run the `date_added` check, which is the
+   one mistake that fails silently (the key is already on every record, so
+   leaving it null is not an error, the producer just goes on the map having
+   never been new):
+
+   ```
+   powershell -NoProfile -ExecutionPolicy Bypass -File check-new-producers.ps1
+   ```
+
+   It exits 0 when nothing is missing, and prints who is glowing as New this
+   week. **Do not commit on a non-zero exit** — go back and set the date. It
+   compares against the committed copy, so it only sees a record while it is
+   still uncommitted: run it before the commit, not after.
 6. **Bump** `service-worker.js` cache `provenance-vNNN` → `NNN+1`.
 7. **Commit + push** (`producers.json`, `service-worker.js`, any new image), then
    confirm the GitHub Pages deploy went live (poll the live service-worker for the

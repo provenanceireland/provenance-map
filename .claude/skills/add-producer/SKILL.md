@@ -136,9 +136,23 @@ path relative to root, e.g. `"galteehoney.png"`.
 
 `git add` the image file(s) along with `producers.json` in Step 7.
 
-## Step 5 — Bump the service-worker cache
+## Step 5 — Check the date, then bump the service-worker cache
 
-Open `service-worker.js` and increment the version by one:
+First run the `date_added` check. It is the one mistake here that fails
+silently: the key sits on every record already, so leaving it null is not a
+JSON error and not a broken page, the producer just goes on the map having
+never been new, and nobody notices until the week is gone.
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File check-new-producers.ps1
+```
+
+It exits 0 when nothing is missing and prints who is glowing as New this week.
+**Do not commit on a non-zero exit** — go back and set the date. It compares
+against the committed copy, so it only sees a record while that record is still
+uncommitted: run it before the commit, not after.
+
+Then open `service-worker.js` and increment the version by one:
 `const CACHE = 'provenance-vNNN';` → `vNNN+1`. **This is not optional** — mobile
 users keep serving the old cached app until the version changes, so a skipped
 bump means the new pin silently doesn't appear for them.
