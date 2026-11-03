@@ -1778,37 +1778,32 @@
       .pin .pin-dot.answer { animation: none; }
     }
 
-    /* ── NEW THIS WEEK ── a pin listed in the last seven days carries a soft
-       cream halo, so the map visibly grows. Driven by date_added on the
-       record: no date means no halo, which is why every new listing needs one.
+    /* ── NEW THIS WEEK ── a pin listed in the last seven days carries a small
+       cream glow off the edge of its border, so the map visibly grows. Driven
+       by date_added on the record: no date means no glow, which is why every
+       new listing needs one.
 
-       A glow and not a ring, since 2026-11-03. It used to draw a 1px circle
-       that expanded outward, and transform scales a border along with
-       everything else, so at the fractional pixel position a pin normally
-       sits at, the browser antialiased that circle thicker on one side than
-       the other. A lopsided ring around a dot does not read as "recently
-       added", it reads as something broken on the map.
+       Soft, and tight to the pin. It replaced a 1px ring on 2026-11-03,
+       because transform scales a border along with everything else and at the
+       fractional pixel a pin normally sits at the browser antialiased that
+       ring thicker on one side than the other, which read as a fault on the
+       map rather than as a new producer.
 
-       It has to sit OUTSIDE the pin's own glow, which is the whole reason the
-       first two attempts were invisible rather than subtle. A Verified dot is
-       8.78px with a `0 0 6px 2px` green shadow at 0.73 alpha, so its glow
-       already reaches about 12.4px from centre. The halo was scaled 2.55,
-       which is 11.2px: entirely inside that green wash, at a tenth of its
-       opacity. Nothing could have shown through it at any alpha worth calling
-       gentle.
+       Keep it at the border. Two attempts the same day spread it wide and
+       faint instead, on the theory that it had to clear the tier's own green
+       glow to be seen, and the second of those reached 20px. That is a
+       different thing entirely: it reads as a hazy blob around the pin, not
+       as a pin that is new. A thin band of cream sitting right off the white
+       border is what is wanted, and it earns its visibility from being
+       briefly opaque in that band rather than from reach.
 
-       So the halo is scaled past the tier glow instead, and shaped as an
-       annulus: transparent at the centre, rising to its peak around 58% (just
-       beyond where the green ends) and fading all the way out to the gradient
-       edge, so there is no stop short of it that could read as a boundary. The visible
-       band therefore lands on the near-black map rather than on the pin's own
-       light, which is what lets it stay faint and still read.
+       So: transparent until 30% of the gradient, which is where the border's
+       outer edge falls, up to 0.40 just past it, then away to nothing by the
+       gradient's edge so no stop can read as a boundary. Scaled 2.2, the
+       visible band runs from about 4.4px to 8px off centre on a Verified dot.
 
-       Keep it soft. It is gentle by being thin, wide and edgeless, never by
-       being dimmed into nothing, and the fix for "I cannot see it" is to move
-       it further out or widen the band, not to put a border back on it. It
-       breathes slowly in place rather than firing outward and vanishing,
-       because the quick travelling ripple belongs to Connect. */
+       If it ever needs adjusting, move the alpha, not the scale. Widening it
+       is what made it wrong twice. */
     .pin.is-new .pin-dot::before {
       content: '';
       position: absolute;
@@ -1816,21 +1811,21 @@
       width: 100%; height: 100%;
       border-radius: 50%;
       background: radial-gradient(circle,
-        rgba(232,222,200,0.05) 0%,
-        rgba(232,222,200,0.08) 44%,
-        rgba(232,222,200,0.13) 58%,
-        rgba(232,222,200,0.07) 76%,
+        rgba(232,222,200,0) 30%,
+        rgba(232,222,200,0.40) 44%,
+        rgba(232,222,200,0.20) 62%,
         rgba(232,222,200,0) 100%);
-      transform: translate(-50%, -50%) scale(4.2);
+      transform: translate(-50%, -50%) scale(2.2);
       animation: pin-new-glow 4.2s ease-in-out infinite;
       pointer-events: none;
     }
+    /* A small breath, not a swell. The travelling ripple belongs to Connect. */
     @keyframes pin-new-glow {
-      0%, 100% { transform: translate(-50%, -50%) scale(3.9); opacity: 0.8; }
-      50%      { transform: translate(-50%, -50%) scale(4.5); opacity: 1; }
+      0%, 100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0.85; }
+      50%      { transform: translate(-50%, -50%) scale(2.35); opacity: 1; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(4.2); opacity: 0.9; }
+      .pin.is-new .pin-dot::before { animation: none; transform: translate(-50%, -50%) scale(2.2); opacity: 0.95; }
     }
     /* The answer to the question that made them hover. A rippling pin asks
        "why is that one moving"; this says what it means, in the same pale
