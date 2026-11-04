@@ -325,6 +325,19 @@
     }
     .film-face:hover::after { transform: scale(1.08); }
     .film-note { margin-top: 14px; text-align: center; font-size: 0.88rem; color: var(--faint); }
+    /* The visit, in parts. Three across, the same arrangement the
+       Highlighted pages use. The frames drop their centred 420px cap in
+       here, because inside a grid cell the cell is already the width. */
+    .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .series-grid figure { margin: 0; }
+    .series-grid .film-wrap { max-width: none; margin: 0; }
+    .series-grid figcaption {
+      margin-top: 10px; font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.02rem; color: var(--green-light);
+    }
+    @media (max-width: 720px) {
+      .series-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    }
 
     /* Around the farm. The same arrangement the Highlighted pages use, a
        wide shot, a tall one beside it and the rest in threes, so the two
@@ -569,6 +582,15 @@
         <div class="sec-head"><h2 id="film-title">The farm</h2><span class="rule"></span></div>
         <div class="film" id="film"></div>
         <p class="film-note hidden" id="film-note"></p>
+      </section>
+
+      <!-- The filmed visit, in parts. Lifted from the farm's own
+           Highlighted page so the two cannot show different footage. It
+           sits under the short because the short is what they have now and
+           this is the day we spent there. -->
+      <section id="series-section" class="hidden">
+        <div class="sec-head"><h2 id="series-title">The visit</h2><span class="rule"></span></div>
+        <div class="series-grid" id="series-grid"></div>
       </section>
 
       <!-- Around the farm. The photographs from the farm's own Highlighted
@@ -1034,32 +1056,54 @@
                rather than the `film` the Highlighted page reads, so putting
                a video on one page does not silently put it on the other.
                Nothing is requested from YouTube until the frame is pressed. */
+            /* One frame builder for both the short and the visit parts, so
+               the two cannot drift. `aspect` decides the shape, and the
+               iframe's width and height attributes follow it: an iframe
+               with neither is 300 by 150 at the moment it is created, and
+               the player can measure itself at that size before the
+               stylesheet resizes it, which pins it to the bottom of
+               YouTube's quality ladder for the whole play. */
+            const filmFrame = f => {
+              const vid = (String(f.url || '').match(/embed\/([A-Za-z0-9_-]+)/) || [])[1] || '';
+              if (!vid) return '';
+              const shape = f.aspect ? ` style="aspect-ratio:${esc(f.aspect)}"` : '';
+              const poster = f.poster ? `<img src="${esc(base + f.poster)}" alt="${esc(f.title || p.name)}" loading="lazy" />` : '';
+              return `<div class="film-wrap" data-vid="${esc(vid)}" data-aspect="${esc(f.aspect || '9/16')}"${shape}>${poster}` +
+                `<button class="film-face" type="button" aria-label="Play ${esc(f.title || 'the film')}"></button></div>`;
+            };
+            const armFilms = root => root.querySelectorAll('.film-wrap[data-vid]').forEach(w => {
+              w.querySelector('.film-face').addEventListener('click', () => {
+                const tall = (w.dataset.aspect || '9/16').indexOf('9/16') === 0;
+                w.innerHTML =
+                  `<iframe width="${tall ? 1080 : 1920}" height="${tall ? 1920 : 1080}" ` +
+                  `src="https://www.youtube.com/embed/${esc(w.dataset.vid)}?autoplay=1&rel=0&playsinline=1" ` +
+                  `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                pvTrack('film_play', pvProducer(p, { surface: 'shared_profile' }));
+              });
+            });
+
             const cf = (pr && pr.connect_film) || null;
             if (cf && cf.url) {
-              const vid = (cf.url.match(/embed\/([A-Za-z0-9_-]+)/) || [])[1] || '';
-              if (vid) {
+              const frame = filmFrame(cf);
+              if (frame) {
                 if (cf.title) $('film-title').textContent = cf.title;
-                const shape = cf.aspect ? ` style="aspect-ratio:${esc(cf.aspect)}"` : '';
-                const poster = cf.poster ? `<img src="${esc(base + cf.poster)}" alt="${esc(cf.title || p.name)}" loading="lazy" />` : '';
-                $('film').innerHTML =
-                  `<div class="film-wrap"${shape}>${poster}` +
-                  `<button class="film-face" type="button" aria-label="Play ${esc(cf.title || 'the film')}"></button></div>`;
-                $('film').querySelector('.film-face').addEventListener('click', function () {
-                  this.parentNode.innerHTML =
-                    /* width and height attributes as well as the CSS. An
-                       iframe with neither defaults to 300 by 150 at the
-                       moment it is created, and the player can measure
-                       itself at that size before the stylesheet resizes it,
-                       which pins it to the bottom of YouTube's quality
-                       ladder for the whole play. The CSS still decides what
-                       is actually drawn. */
-                    `<iframe width="1080" height="1920" src="https://www.youtube.com/embed/${esc(vid)}?autoplay=1&rel=0&playsinline=1" ` +
-                    `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                  pvTrack('film_play', pvProducer(p, { surface: 'shared_profile' }));
-                });
+                $('film').innerHTML = frame;
+                armFilms($('film'));
                 if (cf.note) { $('film-note').textContent = cf.note; show('film-note', true); }
                 show('film-section', true);
               }
+            }
+
+            /* The filmed visit, brought across from the Highlighted page.
+               Same data, same order, same posters, so a farm cannot end up
+               with one set of footage here and another there. */
+            const series = ((pr && pr.series) || []).filter(s => s && s.url);
+            if (series.length) {
+              if (pr.series_label) $('series-title').textContent = pr.series_label;
+              $('series-grid').innerHTML = series.map(s =>
+                `<figure>${filmFrame(s)}${s.title ? `<figcaption>${esc(s.title)}</figcaption>` : ''}</figure>`).join('');
+              armFilms($('series-grid'));
+              show('series-section', true);
             }
 
             const photos = ((pr && pr.photos) || []).filter(ph => ph && ph.src);
