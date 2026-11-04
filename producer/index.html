@@ -1096,8 +1096,16 @@
 
             /* The filmed visit, brought across from the Highlighted page.
                Same data, same order, same posters, so a farm cannot end up
-               with one set of footage here and another there. */
-            const series = ((pr && pr.series) || []).filter(s => s && s.url);
+               with one set of footage here and another there.
+
+               Gated on `visited` (2026-11-04). All three Highlighted farms
+               carry a series in their profile.json, but a Highlighted visit
+               and a Connect visit are not the same thing: the first is the
+               filmed day that earned the gold page, the second is footage
+               made for this page. `visited` is the record's mark for the
+               second, and today that is Rathphelan alone. Set it on another
+               farm and their parts appear here with no code change. */
+            const series = (pr && p.visited ? (pr.series || []) : []).filter(s => s && s.url);
             if (series.length) {
               if (pr.series_label) $('series-title').textContent = pr.series_label;
               $('series-grid').innerHTML = series.map(s =>
