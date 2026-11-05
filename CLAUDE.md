@@ -247,11 +247,14 @@ off is the Connect button in a Highlighted page's Where to buy, which is not a
 Connect surface, and that was accepted rather than threading a surface
 argument through for the sake of one button. It says "your farm" and not the
 farm's name on purpose, so there is one string to change rather than a
-template to get wrong. **Four dead copies of the old text sit in `whatsappLink`
-functions** in `producer/index.html` and the three bespoke Highlighted pages:
-that function is defined on all four pages and called on none of them, and it
-also predates the UK number fix. Change the live one in `connect.js`, and do
-not be misled into editing the dead four.
+template to get wrong. **There is now exactly one copy of it.** Four dead
+`whatsappLink` functions carried the old text, in `producer/index.html` and the
+three bespoke Highlighted pages: defined on all four pages, called on none of
+them, and predating the UK number fix as well, so each of them would still have
+turned a Northern Ireland number into a Republic one that does not exist. They
+were deleted on 2026-11-05 and the old text is now nowhere in the repo.
+`connectWhatsapp` is the only builder, reached through `connectChannel`, so the
+message is changed in one place.
 
 **The two kinds of profile are separate products, and each page is one of them
 (2026-10-29).** A **Highlighted page** at `/<slug>/` is the story of a visit:

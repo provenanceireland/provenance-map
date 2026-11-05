@@ -677,17 +677,6 @@
 
     const ID = new URLSearchParams(location.search).get('id') || '';
 
-    // Irish numbers are written as dialled (087...) and normalised to 353 for wa.me.
-    function whatsappLink(number, name) {
-      if (!number) return '';
-      let digits = String(number).replace(/[^0-9+]/g, '');
-      if (digits.startsWith('+')) digits = digits.slice(1);
-      if (digits.startsWith('00')) digits = digits.slice(2);
-      if (digits.startsWith('0')) digits = '353' + digits.slice(1);
-      if (!/^\d{9,15}$/.test(digits)) return '';
-      return 'https://wa.me/' + digits + '?text=' + encodeURIComponent('Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.');
-    }
-
     // The map's own projection, so "nearby" means near on the artwork rather
     // than near as the crow flies. refX is 82 in landscape, 85 in portrait.
     const isLandscape = () => window.innerWidth > window.innerHeight;
