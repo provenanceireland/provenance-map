@@ -90,6 +90,26 @@
     .hero p { max-width: 560px; color: var(--cream-soft); }
     .count { font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-top: 22px; }
 
+    /* The community sign-up, at the head of the page. The farmer invitation
+       sits at the foot where it always has; this one is for the people the
+       page is actually written for. Bordered rather than filled, because the
+       filled buttons on this page reach a farm, and this one does not: it
+       should not outrank Connect on a row below it. The label promises
+       nothing beyond the action, since what the form offers is set in the
+       form and not here, and a page should not make a commitment on another
+       page's behalf. */
+    .hero-join {
+      display: inline-flex; align-items: center; gap: 9px;
+      margin-top: 22px; padding: 10px 16px;
+      border: 1px solid var(--hair-strong); border-radius: 3px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif; font-weight: 500;
+      font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green-light);
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .hero-join:hover { border-color: var(--green-light); color: var(--cream); }
+    .hero-join svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
     /* The list is a directory, not a stack of small profiles: a visitor
        scrolls it once and picks a farm. Everything a farm has to say about
        what they have, how they sell it and what it looks like is behind
@@ -260,6 +280,10 @@
            different words, which pushed the first farm off a phone screen. -->
       <p>Discover your food, connect directly, buy from the source.</p>
       <p class="count" id="count"></p>
+      <a class="hero-join" href="https://connectinterest.zite.so" target="_blank" rel="noopener">
+        Join the Connect community
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </a>
     </div>
 
     <div class="filter-bar hidden" id="filter-bar">
@@ -289,7 +313,7 @@
       <p><strong>Discover.</strong> Each farm keeps its own list of what it has.</p>
       <p><strong>Connect.</strong> You message the producer, not us.</p>
       <p><strong>Buy.</strong> The order is between you and the farm. We take no part in it and no commission.</p>
-      <p class="how-list">Farming in Ireland? <a href="https://provenancemap.fillout.com/provenancemapverified" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
+      <p class="how-list">Farming in Ireland? <a href="https://joinprovenancemap.zite.so" target="_blank" rel="noopener" style="color: var(--green-light)">List your farm</a> and ask about Connect.</p>
     </div>
   </div>
 
