@@ -253,7 +253,13 @@
     }
 
     .empty { color: var(--muted); padding: 40px 0; }
-    .how { border-top: 1px solid var(--hair-strong); padding: 40px 0 60px; color: var(--cream-soft); }
+    /* The weekly email sign-up, under the farms. It carries the hairline
+       that used to open How it works, so the page still reads as list,
+       then rule, then the quiet matter at the foot. */
+    .weekly { border-top: 1px solid var(--hair-strong); padding: 38px 0 0; }
+    .weekly-line { max-width: 46ch; color: var(--cream-soft); margin-bottom: 20px; }
+    .weekly-btn { display: inline-flex; }
+    .how { padding: 40px 0 60px; color: var(--cream-soft); }
     .how p + p { margin-top: 0.5em; }
     /* The sign-up line is a different thought to the three steps, so it
        sits off on its own rather than as a fourth step. */
@@ -300,6 +306,17 @@
     <div class="list" id="list"></div>
     <p class="no-hits hidden" id="no-hits">No farms match that. Try a different word, or clear the filters.</p>
     <p class="empty hidden" id="empty">No farms are listing yet.</p>
+
+    <!-- The weekly email. Follow used to exist only on a farm's own
+         profile, behind a press most visitors never make, and it meant
+         that one farm's list. It means the week on Connect now, so it
+         belongs where the week is: under the farms, on the page everybody
+         lands on. -->
+    <div class="weekly">
+      <p class="label" style="margin-bottom: 12px">The weekly email</p>
+      <p class="weekly-line">One email a week with what these farms have. Nothing else, and you can unsubscribe from any of them.</p>
+      <a class="connect weekly-btn" id="weekly-btn" href="https://connectinterest.zite.so?source=connect" target="_blank" rel="noopener">Get the weekly email</a>
+    </div>
 
     <div class="how">
       <p class="label" style="margin-bottom: 14px">How it works</p>

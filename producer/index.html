@@ -883,7 +883,13 @@
           'producer=' + encodeURIComponent(p.id) + '&farm=' + encodeURIComponent(p.name);
         f.addEventListener('click', () =>
           pvTrack('follow', pvProducer(p, { surface: 'shared_profile' })));
-        $('follow-note').textContent = 'Get ' + p.name + '’s list by email each week.';
+        /* One email a week covering every farm on Connect, not this farm
+           alone (2026-11-05). The button promised "<farm>'s list by email
+           each week", which meant twelve separate sends once twelve farms
+           were on it, which is the shape of promise that quietly stops
+           being kept. One email goes out; this farm is in it. */
+        $('follow-note').textContent =
+          'One email a week with what ' + p.name + ' and every other farm on Connect has.';
         show('follow-btn', true);
         show('follow-note', true);
       }
