@@ -72,7 +72,10 @@ The note keys have changed over time — accept both the current and older names
 | `Attributes` | `attributes` | Comma- or line-separated tags → `attributes` array (e.g. `["Grass Fed","Free Range"]`). They render as small pills directly under the practice line. |
 | `Eircode` | (nothing, by default) | use it to sanity-check the town and county. It becomes a `directions` link **only when the user asks** — see the Directions rule below |
 | `county` | `county` | one of the 32 counties |
-| `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng` |
+| `town` | `location` | with the county: `"Bailieborough, Co. Cavan"`. County alone when it is blank |
+| `source` | (gate) | `form` or `research`. **Decides the tier.** See the rules below |
+| `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng`. **You work this out**, it is not on the form |
+| `directions` | `directions` | `yes` only when the **producer** said yes on their own form. See the Directions rule |
 | `tier` | `tier` | `Discovered`→`discovered`, `Verified`→`verified`, `Highlighted`→`featured` (paid, never by sync) (see gating below) |
 | `practice` | `practice` | see the **practice gating** rule |
 | `practice_confirmed` | (gate) | see below |
@@ -104,10 +107,11 @@ not an unfinished one.
 | `connect: true` | `connect.active: true` | The gate. Nothing below is written without it |
 | `connect_channel_type` + `connect_channel` | `connect.channel: { type, value }` | `type` is `whatsapp` \| `phone` \| `website` \| `email`. **See the consent rule** |
 | `connect_updated` | `connect.updated` | The real submission date, never today's date unless that is when they sent it |
-| Section 4, online ordering link | `connect.order_url` | Optional. Renders as a line of text on the profile, never a button, never on `/connect/` |
-| Section 4, the delivery and collection answers | `connect.terms` | **One sentence for the whole list**, not a line per item |
-| The `## Connect` section's intro | `connect.intro` | One or two sentences in their own words |
-| Section 3, the products table | `connect.available[]` | One item per row: `name` from Product name, `note` from the description column. Seasonal goes in the `note` |
+| `order_url` | `connect.order_url` | Optional. Renders as a line of text on the profile, never a button, never on `/connect/` |
+| **How they sell** | `connect.terms` | **One sentence for the whole list**, not a line per item |
+| **In their own words** | `connect.intro` | One or two sentences in their terms. Not `Description`, which is the map line |
+| **What they sell**, the table | `connect.available[]` | One item per row: `name` from Product, `note` from the detail column. Seasonal goes in the `note` |
+| **Anything else** | — | Sales record. Never published |
 | `connect_tier` | `connect_tier` (top level, **not** inside `connect`) | Blank for a free listing. Never set it yourself: it is a paid tier |
 | `visited` | `visited` (top level) | Only true when a Connect visit was actually made |
 
@@ -189,9 +193,26 @@ bug to work around.
 
 ## The rules that are easy to get wrong
 
-- **Tier depends on the command and completeness.**
-  - **"Add producer"** — if every meaningful field is filled in (name, product, county, Location, a real Description, a photo, and practice with `practice_confirmed: true`), list as **Verified** on first add. If any of those is blank/missing, list as **Discovered**. (`instagram`, `website`, `Email`, `Attributes`, `Eircode` are optional and don't count toward completeness.)
-  - **"Upgrade producer"** → always sets `tier: verified`. This is the explicit verification command for existing Discovered producers.
+- **Tier depends on `source` first, then completeness. The note's `tier` key is
+  blank on purpose: you decide it, the user does not fill it in.**
+  - **`source: research`** → **Discovered**, however complete the note is, and
+    **drop `practice` and `Attributes`** (write `"practice": "unspecified"` and
+    `"attributes": []`). A pill is a claim Provenance stands over and only the
+    producer earns it. Researched facts go in `Description`, which everyone
+    understands is secondhand.
+  - **`source: form`** and every meaningful field filled in (name, product,
+    county, Location, a real Description, a photo, practice) → **Verified**.
+    (`instagram`, `website`, `Email`, `Attributes`, `Eircode`, `Phone` are
+    optional and do not count toward completeness.)
+  - **`source: form`** with gaps → **Discovered**. Say in your report which
+    fields were missing, so the user can fill them and re-sync.
+  - **`source` blank** → treat as `research` and say so. Never assume a
+    submission.
+  - **"Upgrade producer"** → sets `tier: verified`, but still only when
+    `source: form`. The command is not itself evidence the producer submitted
+    anything.
+  - `practice_confirmed` follows `source`: true for `form`, false for
+    `research`. The user leaves it blank.
 - **Tier gating (what the free tiers may show).** Discovered and Verified are both
   free and show only: name, county/town, product, tier badge, description, the
   single **logo**, and — for Verified — a confirmed practice pill. They must NOT
@@ -294,23 +315,31 @@ bug to work around.
 
 ## Directions (opt-in, never the default)
 
-**Do not add a directions link unless the user asks for it.** An Eircode on the
-note is not a request for one. Leave the `directions` field off the record, say
-in your report that you held it and that the Eircode is on file, and add it
-later if they say so.
+**An Eircode on the note is never a request for one.** Two things, and only
+these two, turn directions on:
+
+1. **`directions: yes` on a note whose `source` is `form`.** The Zite app asks
+   the producer "Include directions to your farm?" in their own words, so a yes
+   there is the producer's own decision and is enough. Added 2026-11-06, when
+   the form started asking.
+2. **The user asking**, as before.
+
+**A `source: research` note never gets directions**, whatever the field says,
+because nobody asked the farmer. Leave it off, say in your report that you held
+it and that the Eircode is on file.
 
 This was the default for Verified until September 2026 and was flipped after the
 user removed it from six producers in a row. The reason is that most of these
 Eircodes are a family home, not a shop. A Directions button invites a stranger
 to drive to a farmer's house, and only the producer can decide they want that.
-The map's job is to say who they are and what they make, not where to find them
-uninvited. A farm shop, a stall or a pick-up point is a different case, and it
-still waits for the user to say so.
+**That reason is why a producer's own yes now satisfies it**: the question is
+being put to the person it affects. The map's job is still to say who they are
+and what they make, not where to find them uninvited.
 
 Still use the Eircode to sanity-check the town and county. That never touches
 the card.
 
-When the user does ask, build a Google Maps link
+When either of those two things is true, build a Google Maps link
 `https://maps.google.com/?q=<EIRCODE>` (spaces → `+`) and set it as the
 **`directions`** field in producers.json. **The field is `directions`, not
 `map_link`.** `index.html` reads `p.directions` to render the Directions
