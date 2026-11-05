@@ -31,11 +31,21 @@ turns those notes into live map changes. It handles two cases:
 Vault: `C:\Users\darra\Documents\Provenance Map Obsidian\Provenance Map`
 (granted to Claude via `.claude/settings.local.json` → `permissions.additionalDirectories`).
 
-Producer notes are under **`Provenance Map listings/`**, usually in a county
-subfolder (`Provenance Map listings/Tipperary/Happy Roots.md`), sometimes at the
-top level. Read notes with PowerShell (`Get-Content -LiteralPath ... -Raw`) so
-you don't depend on the directory grant having reloaded. Skip any file whose name
-starts with `_` (templates) or is a README / "Verify form questions" note.
+Producer notes are under **`1 Map/Provenance Map listings/`**, in a county
+subfolder (`1 Map/Provenance Map listings/Tipperary/Happy Roots.md`). The vault
+was reorganised on 2026-11-05 and the top-level folders are now numbered, so
+that path used to be `Producers/Provenance Map listings/`. **Match on the
+`Provenance Map listings` folder name rather than the full path**, so a future
+tidy of its parent cannot break this skill. Read notes with PowerShell
+(`Get-Content -LiteralPath ... -Raw`) so you don't depend on the directory grant
+having reloaded. Skip any file whose name starts with `_` (templates) or is a
+README / "Verify form questions" note.
+
+**One note per producer** (set 2026-11-05). A farm's map listing and its Connect
+listing live in the same note. There is no second note in a Connect folder, and
+the intake template is `2 Connect/Templates/_TEMPLATE Producer intake.md`. The
+`connect_*` keys and `visited` and `visit_interest` in a note's front matter are
+the user's own and are **not** synced to `producers.json`; leave them alone.
 
 If the user names one producer ("sync Happy Roots"), find and read just that
 note. If they say "sync any updated producers", read all notes and act on the

@@ -190,7 +190,7 @@ coordinates, town, left-off Instagram). Offer to add a photo if none was given.
 
 Producing from an Obsidian note (or syncing/verifying an existing producer) is
 handled by the dedicated **`sync-producers`** skill — it knows the vault layout
-(`Provenance Map listings/<County>/<Producer>.md`), the note front-matter keys,
+(`1 Map/Provenance Map listings/<County>/<Producer>.md`), the note front-matter keys,
 and the tier/practice/photo gating. Use this `add-producer` skill for details
 pasted directly into chat; use `sync-producers` for anything driven by a vault
 note or an `obsidian://` link.
