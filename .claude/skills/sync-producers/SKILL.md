@@ -43,11 +43,17 @@ README / "Verify form questions" note.
 
 **Two descriptions, never one copied twice (set 2026-11-05).** `map_description`
 is the short line on the pin, capped at 300 characters on the form. The
-**Connect description** section in the note body is the fuller one for the top
-of their Connect page, with no limit. They are written for different places and
-different jobs. If a producer sent only one, it is the map line and
-`connect.intro` stays empty. The 171 notes written before this use
-`Description` for the map line; read that as `map_description`.
+**Connect description** is the fuller one for the top of their Connect page,
+with no limit. They are written for different places and different jobs. If a
+producer sent only one, it is the map line and `connect.intro` stays empty.
+
+**Accept every spelling of both, in front matter or in the body.** The map line
+may be `map_description`, `Verified Description` or the legacy `Description`
+(the 171 notes written before this), or the note body. The Connect one may be a
+`Connect Description` property or a **Connect description** body section.
+Glenview Farm came in on the property spellings, so both are live in the vault:
+**read all of them rather than only the template key, because a missed
+description fails silently and the producer goes on the map with no line.**
 
 **One note per producer** (set 2026-11-05). A farm's map listing and its Connect
 listing live in the same note. There is no second note in a Connect folder, and
@@ -76,7 +82,7 @@ The note keys have changed over time — accept both the current and older names
 |----------|----------------|-------|
 | `name` | `name` + `id` | `id` = kebab-case of name (`happy-roots`) |
 | `product` (or `produce`) | `product` + `product_type` | `product` is the display line; infer `product_type` slugs (dairy, beef, lamb, honey, vegetables, fruit, drinks, eggs, cheese, produce, …). First slug drives the pin category. |
-| `map_description` (or legacy `Description`, or the note body) | `description` | The short one, for the map pin. Use the producer's text **verbatim** — never reword or re-voice it. Only if blank, research online and generate one (see rule). |
+| `map_description` (or `Verified Description`, legacy `Description`, or the note body) | `description` | The short one, for the map pin. Use the producer's text **verbatim** — never reword or re-voice it. Only if blank, research online and generate one (see rule). |
 | `Attributes` | `attributes` | Comma- or line-separated tags → `attributes` array (e.g. `["Grass Fed","Free Range"]`). They render as small pills directly under the practice line. |
 | `Eircode` | (nothing, by default) | use it to sanity-check the town and county. It becomes a `directions` link **only when the user asks** — see the Directions rule below |
 | `county` | `county` | one of the 32 counties |
@@ -117,7 +123,7 @@ not an unfinished one.
 | `connect_updated` | `connect.updated` | The real submission date, never today's date unless that is when they sent it |
 | `order_url` | `connect.order_url` | Optional. Renders as a line of text on the profile, never a button, never on `/connect/` |
 | **How they sell** | `connect.terms` | **One sentence for the whole list**, not a line per item |
-| **Connect description** | `connect.intro` | The fuller one, for the top of their Connect page. **Never a copy of `map_description`**: if the producer sent only one description, it is the map line and `intro` stays empty |
+| **Connect description** (property or body section) | `connect.intro` | The fuller one, for the top of their Connect page. **Never a copy of `map_description`**: if the producer sent only one description, it is the map line and `intro` stays empty |
 | **What they sell**, the table | `connect.available[]` | One item per row: `name` from Product, `note` from the detail column. Seasonal goes in the `note` |
 | **Anything else** | — | Sales record. Never published |
 | `connect_tier` | `connect_tier` (top level, **not** inside `connect`) | Blank for a free listing. Never set it yourself: it is a paid tier |
