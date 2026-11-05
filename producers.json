@@ -4148,6 +4148,46 @@
       "farmers_market": false,
       "farm_shop": false,
       "date_added": "2026-11-03"
+    },
+    {
+      "id": "glenview-farm",
+      "practice": "conventional",
+      "name": "Glenview Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.5014,
+      "lng": -9.3703,
+      "county": "Kerry",
+      "location": "Moyvane, Co. Kerry",
+      "product": "Whole milk, pasteurised, non-homogenised",
+      "product_type": ["dairy"],
+      "description": "I bottle fresh, pasteurised milk directly on the farm. By avoiding homogenisation, I preserve the milk’s natural creaminess and structure, just as nature intended. The cream rises to the top, delivering a rich, full flavour and taste. Every bottle is fully traceable and handled with care from cow to customer, ensuring a wholesome, authentic product that reflects our commitment to quality.",
+      "photo_url": "glenview.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Non-Homogenised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-05",
+      "connect": {
+        "active": true,
+        "updated": "2026-11-05",
+        "intro": "I’ve spent my career working in retail, in Food service and safety. Here I gained first-hand insight into customer expectations and the growing demand for high-quality, locally sourced food. I noticed a clear gap in the market in Kerry and Limerick for truly fresh, minimally processed milk the kind that tastes the way milk used to taste. That’s what inspired me to establish my business.",
+        "terms": "Delivery, and stocked in shops and cafes across Kerry and Limerick. No collection from the farm.",
+        "available": [
+          { "name": "Whole Milk pasteurised non-homogenised", "note": "Bottled on the farm. 1 litre and 2 litre." },
+          { "name": "Strawberry Milk", "note": "1 litre." },
+          { "name": "Chocolate Milk", "note": "1 litre." }
+        ],
+        "plus": {}
+      }
     }
   ]
 }

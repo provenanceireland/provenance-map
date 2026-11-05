@@ -41,7 +41,7 @@ tidy of its parent cannot break this skill. Read notes with PowerShell
 having reloaded. Skip any file whose name starts with `_` (templates) or is a
 README / "Verify form questions" note.
 
-**Two descriptions, never one copied twice (set 2026-11-06).** `map_description`
+**Two descriptions, never one copied twice (set 2026-11-05).** `map_description`
 is the short line on the pin, capped at 300 characters on the form. The
 **Connect description** section in the note body is the fuller one for the top
 of their Connect page, with no limit. They are written for different places and
@@ -99,7 +99,7 @@ or, for an update, leave existing values untouched unless the note changes them.
 
 ## The Connect block, from the same note
 
-**One note puts a producer on the map and on Connect (set 2026-11-06).** The
+**One note puts a producer on the map and on Connect (set 2026-11-05).** The
 intake note carries both, so the sync writes both: the map record from the
 fields above, and the `connect` block from the keys and sections below. Do not
 make the user write a Connect block by hand afterwards, and never ask them for
@@ -328,7 +328,7 @@ these two, turn directions on:
 
 1. **`directions: yes` on a note whose `source` is `form`.** The Zite app asks
    the producer "Include directions to your farm?" in their own words, so a yes
-   there is the producer's own decision and is enough. Added 2026-11-06, when
+   there is the producer's own decision and is enough. Added 2026-11-05, when
    the form started asking.
 2. **The user asking**, as before.
 
