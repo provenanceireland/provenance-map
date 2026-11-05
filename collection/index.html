@@ -54,7 +54,15 @@
     .kick.prod { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.18em; }
     .muted { color: var(--muted); }
 
-    .top { padding: 22px 0; border-bottom: 1px solid var(--hair-soft); }
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--hair-soft); }
+    .share {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      background: none; border: 1px solid var(--hair); color: var(--ink); padding: 9px 13px;
+      font-family: Inter, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 0.64rem;
+      letter-spacing: 0.2em; text-transform: uppercase; -webkit-tap-highlight-color: transparent;
+    }
+    .share:hover { border-color: var(--ink); }
+    .share svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1rem; letter-spacing: 0.16em; text-decoration: none; }
 
     .hero { padding: 54px 0 40px; border-bottom: 1px solid var(--hair); }
@@ -114,7 +122,13 @@
 
 <div class="wrap">
 
-  <header class="top"><a class="brand" href="/">PROVENANCE</a></header>
+  <header class="top">
+    <a class="brand" href="/">PROVENANCE</a>
+    <button type="button" class="share" id="share-btn" aria-label="Share this page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      <span id="share-label">Share</span>
+    </button>
+  </header>
 
   <section class="hero">
     <h1>The Provenance Collection</h1>
@@ -205,6 +219,26 @@
         a.className = 'btn'; a.id = btn.id; a.href = p.link; a.rel = 'noopener';
         a.textContent = C.labels[id];
         btn.parentNode.replaceChild(a, btn);
+      }
+    });
+  })();
+
+  // Share: the phone's own share sheet where there is one, otherwise the link
+  // is copied and the button says so for a moment.
+  (function () {
+    var btn = document.getElementById('share-btn'), label = document.getElementById('share-label'), timer;
+    if (!btn) return;
+    btn.addEventListener('click', async function () {
+      var url = 'https://provenancemap.ie/collection/?utm_source=share&utm_medium=social&utm_campaign=collection_share';
+      if (typeof pvTrack === 'function') pvTrack('share', { surface: 'collection_page' });
+      if (navigator.share) {
+        try { await navigator.share({ title: 'The Provenance Collection', text: 'Limited-edition Irish products, with the story behind them.', url: url }); } catch (err) {}
+      } else {
+        try {
+          await navigator.clipboard.writeText(url);
+          label.textContent = 'Link copied';
+          clearTimeout(timer); timer = setTimeout(function () { label.textContent = 'Share'; }, 2150);
+        } catch (err) {}
       }
     });
   })();
