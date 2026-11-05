@@ -2,7 +2,7 @@
   "producers": [
     {
       "id": "saltrock-dairy",
-      "practice": "unspecified",
+      "practice": "conventional",
       "name": "Saltrock Dairy Farm",
       "tier": "verified",
       "pin_classes": "",
@@ -12,7 +12,7 @@
       "lng": -6.254866,
       "county": "Wexford",
       "location": "Gorey, Co. Wexford",
-      "product": "Non-homogenised Pasteurised Milk",
+      "product": "Milk, flavoured milk, strained yoghurt, cultured butter, kefir and buttermilk",
       "product_type": ["dairy"],
       "description": "A 70-acre coastal farm on Tara Hill in North Wexford. Catherine and Paul Kinsella produce non-homogenised pasteurised milk, farmhouse butter, yoghurt and kefir from grass-fed Holstein Cross cows, sold direct in reusable glass bottles from their self-service farm unit.",
       "photo_url": "saltrock.jpg",
@@ -20,13 +20,28 @@
       "social_instagram": null,
       "website": null,
       "directions": "https://maps.google.com/?q=Y25+RC62",
-      "attributes": [],
+      "attributes": ["Grass Fed", "Non-Homogenised"],
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": true,
-      "date_added": null
+      "date_added": null,
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "087 655 7806" },
+        "updated": "2026-11-05",
+        "terms": "Self-service farm shop at the yard, open 9 to 9 seven days with everything available. A mobile trailer brings milk, butter and yoghurt to sites around the area through the week. Gorey Farmers Market every Saturday with the full range, and St Olaf's Market Friday 8 to 12, where milk is by order only.",
+        "available": [
+          { "name": "Non-homogenised milk", "note": "Self-service at the farm shop, in reusable glass bottles." },
+          { "name": "Flavoured milk", "note": "Self-service at the farm shop." },
+          { "name": "Cultured butter", "note": "180g and 1kg." },
+          { "name": "Strained yoghurt", "note": "300g pots." },
+          { "name": "Kefir", "note": "1 litre." },
+          { "name": "Buttermilk", "note": "1 litre bottle, or a 10 litre bucket." }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "ballyowen-farm",
