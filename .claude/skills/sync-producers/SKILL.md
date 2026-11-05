@@ -87,7 +87,7 @@ The note keys have changed over time — accept both the current and older names
 | `Eircode` | (nothing, by default) | use it to sanity-check the town and county. It becomes a `directions` link **only when the user asks** — see the Directions rule below |
 | `county` | `county` | one of the 32 counties |
 | `town` | `location` | with the county: `"Bailieborough, Co. Cavan"`. County alone when it is blank |
-| `source` | (gate) | `form` or `research`. **Decides the tier.** See the rules below |
+| `sent_by_them` (older notes: `source`) | (gate) | A yes/no. **Decides the tier.** See the rules below |
 | `Location` | `lat`, `lng` | single string `"52.9971, -8.2733"` → split into `lat`, `lng`. **You work this out**, it is not on the form |
 | `directions` | `directions` | `yes` only when the **producer** said yes on their own form. See the Directions rule |
 | `tier` | `tier` | `Discovered`→`discovered`, `Verified`→`verified`, `Highlighted`→`featured` (paid, never by sync) (see gating below) |
@@ -119,9 +119,7 @@ not an unfinished one.
 | Note | producers.json | Notes |
 |------|----------------|-------|
 | `connect: true` | `connect.active: true` | The gate. Nothing below is written without it |
-| `connect_channel_type` + `connect_channel` | `connect.channel: { type, value }` | `type` is `whatsapp` \| `phone` \| `website` \| `email`. **See the consent rule** |
-| `connect_updated` | `connect.updated` | The real submission date, never today's date unless that is when they sent it |
-| `order_url` | `connect.order_url` | Optional. Renders as a line of text on the profile, never a button, never on `/connect/` |
+| `Phone` (or `Email` / `website`) | `connect.channel: { type, value }` | **There is no `connect_channel` any more** (dropped 2026-11-05: it asked for the same number twice). Take the number from `Phone`, and a Republic or UK mobile means `type: whatsapp` unless *Anything else* says otherwise. An `email` or `website` channel is written only when the note says to use one. **See the consent rule** |
 | **How they sell** | `connect.terms` | **One sentence for the whole list**, not a line per item |
 | **Connect description** (property or body section) | `connect.intro` | The fuller one, for the top of their Connect page. **Never a copy of `map_description`**: if the producer sent only one description, it is the map line and `intro` stays empty |
 | **What they sell**, the table | `connect.available[]` | One item per row: `name` from Product, `note` from the detail column. Seasonal goes in the `note` |
@@ -130,11 +128,17 @@ not an unfinished one.
 | `visited` | `visited` (top level) | Only true when a Connect visit was actually made |
 
 **Three things never reach `producers.json`.** `visit_interest` and anything
-under *Help us build Connect* are the sales record and are not published.
-`connect_consent` is a gate, not a field.
+under *Anything else* are the sales record and are not published.
+`publish_number` is a gate, not a field.
 
-**The consent rule, and it is absolute.** `connect_consent` must be yes before
-a channel is written. No consent means **no `channel` key at all**, which
+**`connect_updated` is not on the template and you set it** (changed
+2026-11-05). Use the date the producer actually sent their list. A note synced
+the day it came in is dated today, which is the usual case; **never leave it
+blank**, because the listing then renders as "Last listed" with no date.
+`connect_tier` and `visited` are likewise yours to write and are not asked for.
+
+**The consent rule, and it is absolute.** `publish_number` (older notes:
+`connect_consent`) must be yes before a channel is written. No consent means **no `channel` key at all**, which
 renders as a greyed, inert Connect button rather than a live one. Never publish
 a number a producer did not agree to publish.
 
@@ -148,9 +152,11 @@ number written `07...` becomes a Republic number that does not exist.
 report. Do not add a `photo` to an item or a price to a `note` on a free
 listing.
 
-**`source` is for a list that did not come from the farm.** A note filled from
-the Zite form came from the farm, so leave `source` empty. Only set it when you
-built the list from a website or a shop, and then say so in the line.
+**`connect.source` is for a list that did not come from the farm**, and is a
+different thing from the note's `sent_by_them`: one is a line that renders on
+the page, the other is the tier gate. A list taken off the Zite form came from
+the farm, so leave `connect.source` empty. Only set it when you built the list
+from a website or a shop, and then say so in the line.
 
 **Attributes vocabulary (fixed multi-select in the note).** Use these exact
 labels, verbatim, when writing the `attributes` array — don't paraphrase or
@@ -207,26 +213,40 @@ bug to work around.
 
 ## The rules that are easy to get wrong
 
-- **Tier depends on `source` first, then completeness. The note's `tier` key is
-  blank on purpose: you decide it, the user does not fill it in.**
-  - **`source: research`** → **Discovered**, however complete the note is, and
-    **drop `practice` and `Attributes`** (write `"practice": "unspecified"` and
-    `"attributes": []`). A pill is a claim Provenance stands over and only the
-    producer earns it. Researched facts go in `Description`, which everyone
-    understands is secondhand.
-  - **`source: form`** and every meaningful field filled in (name, product,
-    county, Location, a real Description, a photo, practice) → **Verified**.
-    (`instagram`, `website`, `Email`, `Attributes`, `Eircode`, `Phone` are
-    optional and do not count toward completeness.)
-  - **`source: form`** with gaps → **Discovered**. Say in your report which
-    fields were missing, so the user can fill them and re-sync.
-  - **`source` blank** → treat as `research` and say so. Never assume a
-    submission.
-  - **"Upgrade producer"** → sets `tier: verified`, but still only when
-    `source: form`. The command is not itself evidence the producer submitted
-    anything.
-  - `practice_confirmed` follows `source`: true for `form`, false for
-    `research`. The user leaves it blank.
+- **Tier depends on `sent_by_them` first, then completeness. The note has no
+  `tier` key: you decide it and write it, the user never fills it in.**
+
+  `sent_by_them` replaced `source` on 2026-11-05, because a yes/no is one
+  thing to answer and a two word vocabulary was one thing to remember. **Read
+  either**: `sent_by_them: yes` is the old `source: form`, and `no` is
+  `source: research`. The 172 notes written before the change still say
+  `source`.
+  - **`sent_by_them: no`** (or `source: research`) → **Discovered**, however
+    complete the note is, and **drop `practice` and `Attributes`** (write
+    `"practice": "unspecified"` and `"attributes": []`). A pill is a claim
+    Provenance stands over and only the producer earns it. Researched facts go
+    in `map_description`, which everyone understands is secondhand.
+  - **`sent_by_them: yes`** (or `source: form`) and every meaningful field
+    filled in (name, product, county, a real `map_description`, a photo,
+    practice) → **Verified**. `Location` is yours to work out and never counts
+    against them. `instagram`, `website`, `Email`, `Attributes`, `Eircode`,
+    `Phone` and `contact` are optional and do not count toward completeness.
+  - **`sent_by_them: yes`** with real gaps → **Discovered**. Name the missing
+    fields in your report, briefly, so they can be filled and re-synced.
+  - **Blank** → treat as not sent by them and say so in one line. Never assume
+    a submission.
+  - **"Upgrade producer"** → sets `tier: verified`, but still only on a yes.
+    The command is not itself evidence the producer submitted anything.
+  - `practice_confirmed` follows it: true on a yes, false on a no. It is not
+    on the template.
+
+  **Report what was missing in one line, not a table.** Only name a field the
+  user could actually have filled in: never one you write yourself
+  (`Location`, `tier`, `Listed`, `connect_tier`, `connect_updated`,
+  `practice_confirmed`, `visited`), and never one that is already answered
+  elsewhere on the note. Reporting your own blanks back as gaps is what made
+  the Glenview Farm sync read as though half the note was missing when almost
+  none of it was.
 - **Tier gating (what the free tiers may show).** Discovered and Verified are both
   free and show only: name, county/town, product, tier badge, description, the
   single **logo**, and — for Verified — a confirmed practice pill. They must NOT
@@ -332,13 +352,13 @@ bug to work around.
 **An Eircode on the note is never a request for one.** Two things, and only
 these two, turn directions on:
 
-1. **`directions: yes` on a note whose `source` is `form`.** The Zite app asks
+1. **`directions: yes` on a note the producer sent themselves.** The Zite app asks
    the producer "Include directions to your farm?" in their own words, so a yes
    there is the producer's own decision and is enough. Added 2026-11-05, when
    the form started asking.
 2. **The user asking**, as before.
 
-**A `source: research` note never gets directions**, whatever the field says,
+**A note the producer did not send never gets directions**, whatever the field says,
 because nobody asked the farmer. Leave it off, say in your report that you held
 it and that the Eircode is on file.
 
