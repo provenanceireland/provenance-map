@@ -195,6 +195,13 @@ and the tier/practice/photo gating. Use this `add-producer` skill for details
 pasted directly into chat; use `sync-producers` for anything driven by a vault
 note or an `obsidian://` link.
 
+**One note puts a producer on the map and on Connect.** A vault note carrying
+`connect: true` also gets its `connect` block written from the same note, so
+the producer lands on `/connect/` in the same pass. `sync-producers` owns that
+mapping. If details are pasted into chat here and they include Connect answers,
+write the `connect` block too rather than leaving the producer map only, and
+check the consent gate before writing a channel.
+
 ## Quick reference
 
 - Pin colours & tier spec: `CLAUDE.md` → "Pin Colours"

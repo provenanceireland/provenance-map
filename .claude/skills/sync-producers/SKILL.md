@@ -43,9 +43,13 @@ README / "Verify form questions" note.
 
 **One note per producer** (set 2026-11-05). A farm's map listing and its Connect
 listing live in the same note. There is no second note in a Connect folder, and
-the intake template is `2 Connect/Templates/_TEMPLATE Producer intake.md`. The
-`connect_*` keys and `visited` and `visit_interest` in a note's front matter are
-the user's own and are **not** synced to `producers.json`; leave them alone.
+the intake template is `2 Connect/Templates/_TEMPLATE Producer intake.md`.
+
+**That one note drives both listings.** Syncing a producer writes their map
+record **and**, when the note carries `connect: true`, their `connect` block, so
+one command puts them on the map and on `/connect/`. See *The Connect block,
+from the same note* below. Only `visit_interest` and the *Help us build Connect*
+answers stay in the vault: they are the sales record and are never published.
 
 If the user names one producer ("sync Happy Roots"), find and read just that
 note. If they say "sync any updated producers", read all notes and act on the
@@ -81,6 +85,54 @@ The note keys have changed over time — accept both the current and older names
 Set `date_added` to today as `YYYY-MM-DD` on every **new** listing (the map rings the pin as New this week for seven days from it; leave it alone on an upgrade). Keep every other producers.json field at its template default (`badge`, `badge2`,
 `map_link`, `attributes: []`, `seal_active: false`, `where_to_buy: []`, etc.),
 or, for an update, leave existing values untouched unless the note changes them.
+
+## The Connect block, from the same note
+
+**One note puts a producer on the map and on Connect (set 2026-11-06).** The
+intake note carries both, so the sync writes both: the map record from the
+fields above, and the `connect` block from the keys and sections below. Do not
+make the user write a Connect block by hand afterwards, and never ask them for
+a second note.
+
+**The gate is `connect: true` in the front matter.** Anything else, including a
+blank, means this producer is map only: write no `connect` block at all, and
+leave an existing one untouched. A Verified-only submission is a complete note,
+not an unfinished one.
+
+| Note | producers.json | Notes |
+|------|----------------|-------|
+| `connect: true` | `connect.active: true` | The gate. Nothing below is written without it |
+| `connect_channel_type` + `connect_channel` | `connect.channel: { type, value }` | `type` is `whatsapp` \| `phone` \| `website` \| `email`. **See the consent rule** |
+| `connect_updated` | `connect.updated` | The real submission date, never today's date unless that is when they sent it |
+| Section 4, online ordering link | `connect.order_url` | Optional. Renders as a line of text on the profile, never a button, never on `/connect/` |
+| Section 4, the delivery and collection answers | `connect.terms` | **One sentence for the whole list**, not a line per item |
+| The `## Connect` section's intro | `connect.intro` | One or two sentences in their own words |
+| Section 3, the products table | `connect.available[]` | One item per row: `name` from Product name, `note` from the description column. Seasonal goes in the `note` |
+| `connect_tier` | `connect_tier` (top level, **not** inside `connect`) | Blank for a free listing. Never set it yourself: it is a paid tier |
+| `visited` | `visited` (top level) | Only true when a Connect visit was actually made |
+
+**Three things never reach `producers.json`.** `visit_interest` and anything
+under *Help us build Connect* are the sales record and are not published.
+`connect_consent` is a gate, not a field.
+
+**The consent rule, and it is absolute.** `connect_consent` must be yes before
+a channel is written. No consent means **no `channel` key at all**, which
+renders as a greyed, inert Connect button rather than a live one. Never publish
+a number a producer did not agree to publish.
+
+**Numbers go in as dialled for the Republic (`087 123 4567`) and in
+international form for the six counties (`+44 7xxx xxxxxx`).** `connectWhatsapp`
+reads a ten digit number as Irish and an eleven digit one as UK, so a Derry
+number written `07...` becomes a Republic number that does not exist.
+
+**Free listings carry no prices and no produce photographs** (CLAUDE.md,
+2026-11-04). If a submission has them anyway, leave them out and say so in your
+report. Do not add a `photo` to an item or a price to a `note` on a free
+listing.
+
+**`source` is for a list that did not come from the farm.** A note filled from
+the Zite form came from the farm, so leave `source` empty. Only set it when you
+built the list from a website or a shop, and then say so in the line.
 
 **Attributes vocabulary (fixed multi-select in the note).** Use these exact
 labels, verbatim, when writing the `attributes` array — don't paraphrase or
@@ -208,7 +260,11 @@ bug to work around.
 3. **New** → append a full record (template field order; match existing entries).
    **Existing** → edit only the changed fields in place.
 4. Apply the gating rules above (tier, practice_confirmed, logo, IG/website).
-5. **Validate** the JSON (`ConvertFrom-Json` in PowerShell) — confirm count and
+5. **Write the `connect` block** when the note has `connect: true`, per *The
+   Connect block, from the same note*. Check the consent gate before writing a
+   channel. Skip this entirely when the key is absent or false: that producer
+   is map only, and an existing block stays as it is.
+6. **Validate** the JSON (`ConvertFrom-Json` in PowerShell) — confirm count and
    the changed producer's values. Then run the `date_added` check, which is the
    one mistake that fails silently (the key is already on every record, so
    leaving it null is not an error, the producer just goes on the map having
@@ -222,16 +278,19 @@ bug to work around.
    week. **Do not commit on a non-zero exit** — go back and set the date. It
    compares against the committed copy, so it only sees a record while it is
    still uncommitted: run it before the commit, not after.
-6. **Bump** `service-worker.js` cache `provenance-vNNN` → `NNN+1`.
-7. **Commit + push** (`producers.json`, `service-worker.js`, any new image), then
+7. **Bump** `service-worker.js` cache `provenance-vNNN` → `NNN+1`. If you also
+   touched `connect.js`, bump its `?v=N` on every page that loads it.
+8. **Commit + push** (`producers.json`, `service-worker.js`, any new image), then
    confirm the GitHub Pages deploy went live (poll the live service-worker for the
    new version).
-8. **Write back** to the Obsidian note — always, on every successful add or
+9. **Write back** to the Obsidian note — always, on every successful add or
    update: set `Listed: Yes` so the user's tracking stays accurate. Preserve the
    rest of the note (front matter order and body) and its UTF-8 encoding.
-9. **Report**: what was added/changed, restate any drafted description for the
-   user to edit, and flag anything left off by rule (Instagram/website/where-to-buy
-   held for Featured; practice held because `practice_confirmed` was false).
+10. **Report**: what was added/changed, restate any drafted description for the
+    user to edit, and flag anything left off by rule (Instagram/website/where-to-buy
+    held for Featured; practice held because `practice_confirmed` was false).
+    **Say explicitly whether they went on Connect as well as the map**, and if
+    not, why: no `connect: true`, or no consent so the channel was held.
 
 ## Directions (opt-in, never the default)
 
