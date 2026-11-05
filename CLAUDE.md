@@ -534,7 +534,13 @@ Playfair headlines, Inter body, deep green and cream on dark brown, concentric r
 
 ## Producers
 
-`producers.json` is the source of truth for who is listed on the map. The Obsidian vault (`Provenance Map listings/<County>/<Producer>.md`) is the source of truth for producer detail. Never rely on a producer list written into this file.
+`producers.json` is the source of truth for who is listed on the map. The Obsidian vault (`1 Map/Provenance Map listings/<County>/<Producer>.md`) is the source of truth for producer detail. Never rely on a producer list written into this file.
+
+**One note per producer, and the vault is numbered (set 2026-11-05).** A farm's map listing and its Connect listing are the same farm, so they live in the same note: there is no second note in a Connect folder. The intake template is `2 Connect/Templates/_TEMPLATE Producer intake.md` and it follows the Zite app's questions in order, covering the map listing and the Connect listing together. A Verified-only producer answers the first two sections and stops, which is a complete note rather than an unfinished one.
+
+The vault's top-level folders are numbered so they sort by priority rather than alphabetically: `1 Map`, `2 Connect`, `3 Collection`, `4 Content`, `5 Reference`, with `_Inbox` and `_archive` beneath. `Start here.md` at the root explains it. **Do not rename `Provenance Map listings`**: the `add-producer` and `sync-producers` skills find notes by that folder name, and renaming it breaks syncing.
+
+Front matter keys `connect`, `connect_tier`, `connect_channel_type`, `connect_channel`, `connect_consent`, `connect_updated`, `visited` and `visit_interest` are the user's own and are **not** synced to `producers.json`. They are what the vault is searched on, with no plugin: `["connect: true"]` for the Connect farms, `["visit_interest: yes"]` for everyone worth ringing about a visit. **`visit_interest` sits at the top of the note** although it is the last question on the form, because it is the answer that decides who gets a call.
 
 **A producer is listed only for what they produce themselves.** The pin covers the food they grow, raise or make on their own ground, never what they buy in, butcher or resell. If a farm sells four meats but rears two, the listing carries the two. This applies to the description as well: a clause advertising something they source elsewhere gets cut, even from a verified producer's own words, because the alternative is the map making a claim it cannot stand over. A farmer who butchers their own animals is still a producer (Staffords Butchers rear their own Angus and are listed for beef); a butcher who buys in is not.
 
