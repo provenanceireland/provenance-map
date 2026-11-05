@@ -120,7 +120,7 @@ not an unfinished one.
 |------|----------------|-------|
 | `connect: true` | `connect.active: true` | The gate. Nothing below is written without it |
 | `Phone` (or `Email` / `website`) | `connect.channel: { type, value }` | **There is no `connect_channel` any more** (dropped 2026-11-05: it asked for the same number twice). Take the number from `Phone`, and a Republic or UK mobile means `type: whatsapp` unless *Anything else* says otherwise. An `email` or `website` channel is written only when the note says to use one. **See the consent rule** |
-| **How they sell** | `connect.terms` | **One sentence for the whole list**, not a line per item |
+| **How they sell**, the tick boxes + the detail line | `connect.terms` | **One sentence for the whole list**, not a line per item. The ticks say what applies (delivery, collection, market, stocked in shops, their own shop, order ahead) and the line under them has the detail. Write them into one plain sentence in the farm's own terms, the way Glenview's reads: "Delivery, and stocked in shops and cafes across Kerry and Limerick. No collection from the farm." **A tick nobody ticked is worth saying when it matters**, as that last clause does |
 | **Connect description** (property or body section) | `connect.intro` | The fuller one, for the top of their Connect page. **Never a copy of `map_description`**: if the producer sent only one description, it is the map line and `intro` stays empty |
 | **What they sell**, the table | `connect.available[]` | One item per row: `name` from Product, `note` from the detail column. Seasonal goes in the `note` |
 | **Anything else** | — | Sales record. Never published |
