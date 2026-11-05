@@ -160,7 +160,7 @@ function connectWhatsapp(number, name) {
   }
   if (!/^\d{9,15}$/.test(d)) return '';
   return 'https://wa.me/' + d + '?text=' + encodeURIComponent(
-    'Hi, I found your farm on the Provenance Map and would love to learn more about what you have available.');
+    "Hi, I found your farm on Provenance Connect. I'd like to buy direct from you.");
 }
 
 function connectDays(updated) {
