@@ -963,8 +963,14 @@
         show('connect-section', true);
       }
 
-      // ── their own words ──
-      if (p.description) {
+      /* ── their own words ──
+         Held back when it is word for word the Connect intro already shown at
+         the top of the page. A farm that sent one description rather than two
+         should read once, not have the same sentence quoted back at itself
+         further down. */
+      const introSame = cs && cs.intro &&
+        cs.intro.trim().toLowerCase() === String(p.description || '').trim().toLowerCase();
+      if (p.description && !introSame) {
         $('words').textContent = p.description;
         $('words-cite').textContent = p.name;
         show('words-section', true);

@@ -32,6 +32,7 @@
         "channel": { "type": "whatsapp", "value": "087 655 7806" },
         "order_url": "https://saltrockdairy.ie/",
         "updated": "2026-11-05",
+        "intro": "Small family run dairy farm on North Wexford coast producing a range of artisan dairy products aiming for full circularity and supporting the short food supply chain",
         "terms": "Self-service farm shop at the yard, open 9 to 9 seven days with everything available. A mobile trailer brings milk, butter and yoghurt to sites around the area through the week. Gorey Farmers Market every Saturday with the full range, and St Olaf's Market Friday 8 to 12, where milk is by order only.",
         "available": [
           { "name": "Non-homogenised milk", "note": "Self-service at the farm shop, in reusable glass bottles." },
