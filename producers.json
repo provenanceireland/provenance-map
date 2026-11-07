@@ -4208,6 +4208,33 @@
         ],
         "plus": {}
       }
+    },
+    {
+      "id": "four-leaf-farm",
+      "practice": "regenerative",
+      "name": "Four Leaf Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.431448,
+      "lng": -5.843201,
+      "county": "Down",
+      "location": "Co. Down",
+      "product": "Pasture raised eggs",
+      "product_type": ["eggs"],
+      "description": "We're a husband-and-wife team and first-generation farmers who started Four Leaf Farm with a simple goal: to produce great eggs while giving our hens the best life possible. Based in County Down, we raise our hens on pasture, regularly moving their mobile houses onto fresh ground so they can spend their days roaming, scratching and foraging as nature intended.",
+      "photo_url": "fourleaf.jpg",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": ["Pasture raised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-07"
     }
   ]
 }
