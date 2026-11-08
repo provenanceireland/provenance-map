@@ -22,3 +22,6 @@ Thumbs.db
 desktop.ini
 *.bak
 *.tmp
+
+# Pin-positioning screenshots: working files, not part of the site
+Map Screenshot/
