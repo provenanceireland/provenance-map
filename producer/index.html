@@ -127,6 +127,13 @@
     }
     .mark-inner.on-white { background: #FFFFFF; border-color: rgba(255,255,255,0.18); }
     .mark-inner img { max-width: min(222px, 100%); max-height: 300px; width: auto; height: auto; }
+    /* A producer's own photograph for this page sits in the same slot as the
+       logo but is given room: the 222px cap and the 18px of padding are there
+       to stop a logo swimming in its box, and both make a photograph small for
+       no reason. Still contained rather than cropped, so nothing is cut off
+       whatever shape they send. */
+    .mark-inner.is-photo { padding: 0; background: transparent; }
+    .mark-inner.is-photo img { max-width: min(620px, 100%); max-height: 420px; display: block; }
 
     /* ── the tier line, the same statement the map card makes ── */
     .tier-line { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
@@ -716,13 +723,25 @@
       $('back').href = '../?producer=' + encodeURIComponent(p.id);
       $('see-map').href = '../?producer=' + encodeURIComponent(p.id);
 
-      // ── the single image ──
-      // Gated to Verified and above (set 2026-11-08). A Discovered producer's
-      // page is a written profile: the record may still carry a photo_url, and
-      // it renders the moment they verify. Same rule as the map card.
-      if (p.photo_url && (p.tier || 'discovered') !== 'discovered') {
-        $('mark').innerHTML = `<div class="mark-inner${p.photo_bg === 'white' ? ' on-white' : ''}">
-          <img src="../${esc(p.photo_url)}" alt="${esc(p.name)}" /></div>`;
+      /* ── the single image ──
+         Gated to Verified and above (set 2026-11-08). A Discovered producer's
+         page is a written profile: the record may still carry a photo_url, and
+         it renders the moment they verify. Same rule as the map card.
+
+         `connect_photo` takes this slot when the record has one (2026-11-08).
+         A producer may give one photograph of their own for this page, and it
+         stands in place of the logo here rather than beside it: the logo is
+         what the map card carries, and this page is where someone decides
+         whether to buy. A farm with no logo can point both fields at the same
+         file. It is rendered larger and without the white ground, because
+         those exist for a logo sitting in a box, not for a photograph. */
+      const markPhoto = p.connect_photo || null;
+      const markSrc = markPhoto || p.photo_url;
+      if (markSrc && (p.tier || 'discovered') !== 'discovered') {
+        const markClass = markPhoto ? ' is-photo'
+                        : (p.photo_bg === 'white' ? ' on-white' : '');
+        $('mark').innerHTML = `<div class="mark-inner${markClass}">
+          <img src="../${esc(markSrc)}" alt="${esc(p.name)}" /></div>`;
         show('mark', true);
       }
 
