@@ -44,8 +44,22 @@ README / "Verify form questions" note.
 **Two descriptions, never one copied twice (set 2026-11-05).** `map_description`
 is the short line on the pin, capped at 300 characters on the form. The
 **Connect description** is the fuller one for the top of their Connect page,
-with no limit. They are written for different places and different jobs. If a
-producer sent only one, it is the map line and `connect.intro` stays empty.
+with no limit. They are written for different places and different jobs.
+
+**A Connect farm never has an empty intro (changed 2026-11-08, reversing the
+line that used to sit here).** If a producer sent only one description, it is
+the map line **and** it fills the Connect intro, trimmed rather than copied:
+cut the sentences about how they sell, since the terms line sits directly
+underneath and already says it, and keep who they are and what they make.
+Castlescreen Organic Farm and Summerville Wagyu were the first two done this
+way, and both lost a sentence of shop hours and delivery that the terms line
+was already carrying.
+
+The slot sits between the attributes and Connect, so leaving it empty takes
+the farm's own words off the top of their own page, which is the opposite of
+the point. **Duplication is handled in the page, not by leaving the slot
+blank**: `/producer/` holds back the quoted description further down whenever
+every sentence of the intro also appears in it, so a curated intro reads once.
 
 **Accept every spelling of both, in front matter or in the body.** The map line
 may be `map_description`, `Verified Description` or the legacy `Description`
@@ -121,7 +135,7 @@ not an unfinished one.
 | `connect: true` | `connect.active: true` | The gate. Nothing below is written without it |
 | `Phone` (or `Email` / `website`) | `connect.channel: { type, value }` | **There is no `connect_channel` any more** (dropped 2026-11-05: it asked for the same number twice). Take the number from `Phone`, and a Republic or UK mobile means `type: whatsapp` unless *Anything else* says otherwise. An `email` or `website` channel is written only when the note says to use one. **See the consent rule** |
 | **How they sell**, the tick boxes + the detail line | `connect.terms` | **One sentence for the whole list**, not a line per item. The ticks say what applies (delivery, collection, market, stocked in shops, their own shop, order ahead) and the line under them has the detail. Write them into one plain sentence in the farm's own terms, the way Glenview's reads: "Delivery, and stocked in shops and cafes across Kerry and Limerick. No collection from the farm." **A tick nobody ticked is worth saying when it matters**, as that last clause does |
-| **Connect description** (property or body section) | `connect.intro` | The fuller one, for the top of their Connect page. **Never a copy of `map_description`**: if the producer sent only one description, it is the map line and `intro` stays empty |
+| **Connect description** (property or body section) | `connect.intro` | The fuller one, for the top of their Connect page. **Never left empty**: a producer who sent only one description gets their `map_description` curated into this slot, with the selling detail cut, since the terms line underneath already carries it |
 | **What they sell**, the table | `connect.available[]` | One item per row: `name` from Product, `note` from the detail column. Seasonal goes in the `note` |
 | **Anything else** | — | Sales record. Never published |
 | `connect_tier` | `connect_tier` (top level, **not** inside `connect`) | Blank for a free listing. Never set it yourself: it is a paid tier |

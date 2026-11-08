@@ -967,12 +967,27 @@
       }
 
       /* ── their own words ──
-         Held back when it is word for word the Connect intro already shown at
-         the top of the page. A farm that sent one description rather than two
-         should read once, not have the same sentence quoted back at itself
-         further down. */
-      const introSame = cs && cs.intro &&
-        cs.intro.trim().toLowerCase() === String(p.description || '').trim().toLowerCase();
+         Held back when the Connect intro at the top of the page is already
+         saying it. A farm that sent one description rather than two should
+         read once, not have the same sentence quoted back at itself further
+         down.
+
+         Sentence by sentence rather than string equality, because a farm with
+         no Connect description of its own gets its map line curated into that
+         slot, and curating means dropping the sentences about how they sell:
+         the terms line sits directly underneath and already says it. What is
+         left is a subset of the description but not a substring of it, so an
+         equality test missed it and both rendered. If every sentence of the
+         intro also appears in the description, the intro came out of the
+         description and the quote below is a repeat. */
+      const sentences = s => String(s || '').toLowerCase()
+        .replace(/[^a-z0-9 .]/g, '').split('.')
+        .map(t => t.replace(/\s+/g, ' ').trim()).filter(t => t.length > 12);
+      const introSame = (() => {
+        if (!cs || !cs.intro || !p.description) return false;
+        const a = sentences(cs.intro), b = sentences(p.description);
+        return a.length > 0 && a.every(s => b.indexOf(s) !== -1);
+      })();
       if (p.description && !introSame) {
         $('words').textContent = p.description;
         $('words-cite').textContent = p.name;

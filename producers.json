@@ -4299,6 +4299,7 @@
         "channel": { "type": "whatsapp", "value": "+44 7719 807853" },
         "order_url": "https://www.castlescreenfarm.co.uk",
         "updated": "2026-11-04",
+        "intro": "We are a certified organic farm with The Soil Association. All butchery is done on farm giving us full control of our products. All products are gluten and MSG free.",
         "terms": "Farm shop open daily 10am to 7pm, with everything available. Order online through their own website, or text or call to order. Delivery by courier Monday to Thursday, none at weekends. They also sell at a local farmers market.",
         "available": [
           { "name": "Organic Dexter beef", "note": "Butchered on the farm." },
@@ -4385,6 +4386,7 @@
         "channel": { "type": "whatsapp", "value": "087 655 7413" },
         "order_url": "https://summervillewagyu.ie",
         "updated": "2026-11-04",
+        "intro": "We are a 3rd generation family farm in West Clare rearing grass-fed Irish Wagyu.",
         "terms": "Nationwide delivery by courier, ordered through their own website. Ring ahead for collection from the farm.",
         "groups": [
           { "name": "Boxes", "note": "Made up off their own cattle." },
