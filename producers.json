@@ -1,6 +1,32 @@
 {
   "producers": [
     {
+      "id": "oak-forest-mills",
+      "practice": "unspecified",
+      "name": "Oak Forest Mills",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.349737,
+      "lng": -7.330277,
+      "county": "Kilkenny",
+      "location": "Piltown, Co. Kilkenny",
+      "product": "Stone-Milled Organic Flour",
+      "product_type": ["flour"],
+      "description": "Oak Forest Mills is in the old creamery building at Piltown, Co. Kilkenny, set up by Emma Clutterbuck and Pat Foley. They grow organic spelt, einkorn, emmer and wheat on their own ground and stone-mill it into flour on two Austrian stone mills, and they mill grain for other organic tillage farmers as well.",
+      "photo_url": null,
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-08"
+    },    {
       "id": "wexford-blackcurrants",
       "practice": "unspecified",
       "name": "Wexford Blackcurrants",
