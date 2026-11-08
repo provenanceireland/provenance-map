@@ -1,6 +1,32 @@
 {
   "producers": [
     {
+      "id": "ballymaloe-farm",
+      "practice": "unspecified",
+      "name": "Ballymaloe Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 51.860689,
+      "lng": -8.032253,
+      "county": "Cork",
+      "location": "Shanagarry, Co. Cork",
+      "product": "Vegetables & Herbs",
+      "product_type": ["vegetables"],
+      "description": "A certified organic farm of about 100 acres at Shanagarry in east Cork, with gardens and glasshouses growing herbs and vegetables. Toby Allen runs it, and the produce goes to the Ballymaloe Cookery School kitchen.",
+      "photo_url": null,
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-08"
+    },    {
       "id": "achill-lamb",
       "practice": "unspecified",
       "name": "Achill Lamb",
