@@ -1,6 +1,32 @@
 {
   "producers": [
     {
+      "id": "achill-lamb",
+      "practice": "unspecified",
+      "name": "Achill Lamb",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.975948,
+      "lng": -10.081411,
+      "county": "Mayo",
+      "location": "Keel, Achill Island, Co. Mayo",
+      "product": "Lamb",
+      "product_type": ["lamb"],
+      "description": "The Calvey family have reared Mayo Blackface Mountain sheep on Achill Island since 1962, grazing the island commonage. They butcher the lamb themselves on the island, and some of the flock is certified organic.",
+      "photo_url": null,
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-08"
+    },    {
       "id": "saltrock-dairy",
       "practice": "conventional",
       "name": "Saltrock Dairy Farm",
