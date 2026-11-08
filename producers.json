@@ -1,6 +1,32 @@
 {
   "producers": [
     {
+      "id": "iona-fruit-farm",
+      "practice": "unspecified",
+      "name": "Iona Fruit Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.524008,
+      "lng": -6.315152,
+      "county": "Dublin",
+      "location": "Oldtown, Co. Dublin",
+      "product": "Rhubarb, Baby Vegetables & Beetroot",
+      "product_type": ["vegetables", "fruit"],
+      "description": "Iona Fruit Farm is the Donnelly family's farm at Oldtown, Co. Dublin, also trading as John Donnelly & Sons. They grow Irish rhubarb, baby vegetables and beetroot, and they have pulled back from apples to concentrate on that. Donnacha Donnelly's father still works the farm at eighty-seven.",
+      "photo_url": null,
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-08"
+    },    {
       "id": "oak-forest-mills",
       "practice": "unspecified",
       "name": "Oak Forest Mills",
