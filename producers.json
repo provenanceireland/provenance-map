@@ -1,6 +1,32 @@
 {
   "producers": [
     {
+      "id": "dingle-farm",
+      "practice": "unspecified",
+      "name": "Dingle Farm",
+      "tier": "discovered",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.190574,
+      "lng": -10.374790,
+      "county": "Kerry",
+      "location": "Ballydavid, Dingle, Co. Kerry",
+      "product": "Cow & Goat Cheese",
+      "product_type": ["cheese", "dairy"],
+      "description": "Mai and Tomás O'Bruic make soft and semi hard cheeses at Baile Ghainín Beag near Ballydavid on the Dingle peninsula. The milk comes from their own Friesian herd and Saanen goats.",
+      "photo_url": null,
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "attributes": [],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-08"
+    },    {
       "id": "ballymaloe-farm",
       "practice": "unspecified",
       "name": "Ballymaloe Farm",
