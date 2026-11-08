@@ -554,6 +554,35 @@
     #card::-webkit-scrollbar-thumb { background: #2E2F2B; border-radius: 4px; }
     #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
+    /* A Discovered card is sized to its content, not to the sheet.
+       Every other tier still fills from 74px down to the foot of the screen.
+
+       #card is pinned top and bottom, so its height is the gap between them
+       whatever is inside it. That was right while every tier carried an
+       image: the card was always roughly full. Since 2026-11-08 a Discovered
+       listing carries no image and is usually a name, a place, three lines of
+       description and a produce tag, which left around 400px of empty ground
+       under the last line on a phone. Anchoring to the bottom alone and
+       letting the height be auto closes that up, and max-height keeps the cap
+       exactly where the old top edge was, so a long description still scrolls
+       rather than running off the top.
+
+       dvh rather than %, because a percentage here resolves against whichever
+       box turns out to be the containing block, and this needs to be the
+       viewport on both. */
+    #card.discovered-card {
+      top: auto;
+      height: auto;
+      max-height: calc(100dvh - env(safe-area-inset-top, 20px) - 74px);
+    }
+    /* The gap at the foot. The body's usual bottom padding is 18px on a phone
+       and 96px on desktop, both measured for a card that reached the bottom
+       of the screen anyway. This one stops where its content stops, so it
+       carries its own: enough to clear the back strip and still read as a
+       margin rather than as a crop. */
+    #card.discovered-card .card-body {
+      padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 78px);
+    }
 
     .card-top {
       position: relative;
@@ -3597,6 +3626,8 @@
       const isMarket = pin.classList.contains('market');
       card.classList.toggle('market-card', isMarket);
       card.classList.toggle('featured-card', !isMarket && tierName === 'featured');
+      // Sized to its content rather than the full sheet height. See the CSS.
+      card.classList.toggle('discovered-card', !isMarket && tierName === 'discovered');
       // The card is built from pin datasets, but Connect and availability
       // both need the whole record, so it is looked up once, up here.
       const rec = PRODUCER_BY_ID[pin.dataset.id];
