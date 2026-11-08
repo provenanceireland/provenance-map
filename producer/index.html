@@ -717,7 +717,10 @@
       $('see-map').href = '../?producer=' + encodeURIComponent(p.id);
 
       // ── the single image ──
-      if (p.photo_url) {
+      // Gated to Verified and above (set 2026-11-08). A Discovered producer's
+      // page is a written profile: the record may still carry a photo_url, and
+      // it renders the moment they verify. Same rule as the map card.
+      if (p.photo_url && (p.tier || 'discovered') !== 'discovered') {
         $('mark').innerHTML = `<div class="mark-inner${p.photo_bg === 'white' ? ' on-white' : ''}">
           <img src="../${esc(p.photo_url)}" alt="${esc(p.name)}" /></div>`;
         show('mark', true);

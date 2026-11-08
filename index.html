@@ -3719,7 +3719,12 @@
       // the logo instead of painting the whole 2.5:1 strip white.
       photoWrap.classList.toggle('on-white', pin.dataset.photoBg === 'white');
       const photoStrip = document.getElementById('card-photo-strip');
-      const heroLogo = pin.dataset.photo || '';
+      // The card image begins at Verified (set 2026-11-08). A Discovered listing
+      // is a written profile: no image, and no empty placeholder either. The
+      // record keeps its photo_url, so the image returns on its own if the
+      // producer later verifies.
+      const cardHasImage = (pin.dataset.tierName || 'discovered') !== 'discovered';
+      const heroLogo = cardHasImage ? (pin.dataset.photo || '') : '';
       const galleryPhotos = pin.dataset.photos
         ? pin.dataset.photos.split(',').map(s => s.trim()).filter(Boolean)
         : [];
@@ -3743,7 +3748,7 @@
           : '';
         photoWrap.innerHTML = `<img src="${leadPhoto}" alt="${pin.dataset.name}" />${countBadge}`;
         if (galleryHeader) photoWrap.querySelector('img').addEventListener('click', () => openLightbox(0));
-      } else if (isMarket) {
+      } else if (isMarket || !cardHasImage) {
         photoWrap.style.display = 'none';
       } else {
         photoWrap.style.display = '';

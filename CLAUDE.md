@@ -580,9 +580,9 @@ Front matter keys `connect`, `connect_tier`, `publish_number`, `connect_updated`
 - Product type
 - Verification tier badge (and, for Verified, the confirmed practice pill — **organic** in dark green with a leaf icon, **regenerative** in gold with a sprout icon, and/or **Korean Natural Farming** in teal `#4A8A8A` with a fermenting crock icon; a producer can hold more than one, shown side by side. Only these three render; any other practice value shows no pill)
 - Short description
-- A single image (`photo_url`): ideally the producer's **logo**, but one representative photo is fine too — never a multi-image gallery
 
 **Verified only** additionally shows:
+- A single image (`photo_url`): ideally the producer's **logo**, but one representative photo is fine too — never a multi-image gallery
 - The confirmed practice pill (organic, regenerative and/or Korean Natural Farming)
 - **Attribute pills** (`attributes` array: Grass Fed, Free range, Pasture raised, Chemical Free, Native / rare breed, Heritage breed, Pedigree breed, Native Irish Honey Bee, Heritage variety, Raw / unpasteurised, Non-Homogenised, Plastic Free)
 
@@ -595,7 +595,11 @@ Front matter keys `connect`, `connect_tier`, `publish_number`, `connect_updated`
 - Where-to-buy
 - Filmed farm-visit video
 
-The rule: **one image on every card (logo preferred, a single photo is fine); the multi-image gallery, Instagram, website, and where-to-buy begin at Highlighted.**
+The rule: **the single card image begins at Verified (logo preferred, a single photo is fine); the multi-image gallery, Instagram, website, and where-to-buy begin at Highlighted.**
+
+**A Discovered listing is a written profile and carries no image at all (set 2026-11-08).** It used to be the one thing every tier shared, and the rule beneath it was that no producer goes on the map without a photo. That rule is gone. It was holding listings off the map for want of a logo the producer had never sent, which is backwards: a Discovered listing is researched rather than confirmed, so what it has to offer is the writing, and the image is the first thing the producer gives when they verify. Chasing a photo for a farm that has not spoken to Provenance was work spent in the wrong place.
+
+**It is gated in the page code, not by emptying the data.** `photo_url` stays on all 66 Discovered records that had one, and neither the map card nor `/producer/` renders it while the tier is `discovered`: `cardHasImage` in `index.html` and the tier test on the single image in `producer/index.html`. So an image appears by itself the moment a producer verifies, with no data to restore. **Do not strip `photo_url` from a Discovered record**, and do not reintroduce the empty-image placeholder for them: the photo area is hidden outright, the way it already was for a farmers market, because an empty frame on a card is worse than no frame.
 
 ### Provenance Seal Story Page
 

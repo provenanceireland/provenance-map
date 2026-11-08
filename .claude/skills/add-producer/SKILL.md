@@ -113,15 +113,21 @@ Field notes:
   existing one; only invent a new slug if nothing fits.
 - **`social_instagram` / `website`** — `null` for discovered/free (Step 1). For
   Verified+, set the handle (no `@`, no URL — just `saltrockfarm`) / full URL.
-- **`photo_url`** — see Step 4. `null` if no photo yet (card shows a placeholder).
+- **`photo_url`** — see Step 4. Always `null` for Discovered. `null` too if a Verified+ producer has no logo yet.
 
 ## Step 4 — Wire the photo
 
-**The rule: every producer's single card image (`photo_url`) is their LOGO.**
-Farm/produce photography (the `photos` gallery) is a paid Featured-tier benefit
-— never attach farm images to a Discovered or Verified listing, even if the
-user supplies them. If only farm photos are available and no logo, set
-`photo_url: null` (placeholder shows) and note it to the user.
+**A Discovered listing carries no image (set 2026-11-08).** Set
+`photo_url: null`, do not go looking for a logo, and do not ask the user for
+one. A Discovered card is a written profile and the photo area is hidden
+outright, so there is no placeholder to fill. The image is the first thing a
+producer gives when they verify.
+
+**From Verified up, the rule is: the single card image (`photo_url`) is their
+LOGO.** Farm/produce photography (the `photos` gallery) is a paid
+Highlighted-tier benefit — never attach farm images to a Verified listing, even
+if the user supplies them. If only farm photos are available and no logo, set
+`photo_url: null` and note it to the user.
 
 The image file lives in the **repo root** (or a subfolder); `photo_url` is its
 path relative to root, e.g. `"galteehoney.png"`.

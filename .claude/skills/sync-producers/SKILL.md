@@ -301,11 +301,16 @@ bug to work around.
   is not.
 - The image file must be in the **map repo** (root or subfolder). If the note's
   `photo` names a file that isn't in the repo yet, tell the user to drop it in.
-- **Never list a producer with no image.** Every producer on the map has one, and
-  a card with a blank image looks broken next to the rest. If the note has no
-  `photo`, do not add the record: say which producers are held back and what image
-  is needed, and let the user supply it first. This applies to bulk adds too —
-  check images for the whole batch *before* writing any of them, not after.
+- **A Discovered listing needs no image, and never shows one (set 2026-11-08).**
+  The old rule was that no producer goes on the map without a photo. It is gone:
+  it held listings back for want of a logo the producer had never sent. A
+  Discovered record is a written profile, so **add it with `photo_url: null` and
+  do not ask the user for a photo.** If the note happens to name one, keep it on
+  the record anyway: nothing renders it while the tier is `discovered`, and it
+  appears on its own when they verify.
+- **A Verified or Highlighted listing does need an image**, because that is where
+  the card image begins. If an upgrade has no `photo`, say so and hold the
+  upgrade rather than promoting a farm to a tier whose card has a blank frame.
 
 ## Steps
 
