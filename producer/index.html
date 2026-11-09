@@ -254,6 +254,19 @@
       color: var(--green); margin-bottom: 20px;
     }
     .connect-when.stale { color: var(--faint); }
+    /* A list updated inside the last week says so louder than one updated
+       three weeks ago, because that is the whole promise of a Tier 1 farm:
+       the counts beside the boxes are only worth reading if the date behind
+       them is recent. Lighter green than the heading green so it lifts off
+       the page, and a small filled dot in front of it, which is the same
+       thing the map does with a Connect pin: a dot means live. It falls back
+       to the plain line after seven days by itself. */
+    .connect-when.is-fresh { color: #5A8C64; font-weight: 600; }
+    .connect-when.is-fresh::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: #5A8C64; margin-right: 8px;
+      vertical-align: 0.1em;
+    }
     /* The hero photograph. 3:2 to match the Highlighted pages, cropped to
        fill, so a portrait farm photo loses its top and bottom rather than
        distorting. `hero_focus` on the record moves the crop when the middle
@@ -913,6 +926,11 @@
         if (cs.terms) { $('connect-terms').textContent = cs.terms; show('connect-terms', true); }
         $('connect-when').textContent = cs.when;
         $('connect-when').classList.toggle('stale', !cs.fresh);
+        // Louder for the first week. cs.days is null when the farm never gave
+        // a date, which is not the same as "updated today" and must not read
+        // as fresh.
+        $('connect-when').classList.toggle('is-fresh',
+          cs.days !== null && cs.days <= 7);
         // photos: false, because they are gathered into the gallery below
         // rather than sitting as a thumbnail against each line.
         $('avail').innerHTML = connectGroupedHTML(cs.items, cs.groups, esc, { photos: false, collapseAfter: 8 });

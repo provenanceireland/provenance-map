@@ -3281,26 +3281,26 @@
       "connect": {
         "active": true,
         "channel": { "type": "whatsapp", "value": "083 434 8763" },
-        "updated": "2026-10-30",
+        "updated": "2026-11-09",
         "intro": "Beef reared on their own farm at Castletown, sold by the box or by the animal. Every bit of the feed is grown on the place, bar some nuts bought in locally for vitamins.",
         "terms": "Delivery for €12, or collection from the farm. Boxes and quarter, half or whole animals available.",
         "order_url": "https://www.rathphelanfarm.ie/pages/shop",
         "available": [
           {
             "name": "5kg Beef Box - Locavore Box",
-            "qty": 8,
+            "qty": 4,
             "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts. €90.",
             "photo": "/produce/rathphelan-farm/locavore-box.jpg"
           },
           {
             "name": "8kg Beef Box - Family Box",
-            "qty": 8,
+            "qty": 4,
             "note": "The same idea with more in it, and a wider range of cuts. €140.",
             "photo": "/produce/rathphelan-farm/family-box.jpg"
           },
           {
             "name": "10kg Beef Box - Freezer Filler Box",
-            "qty": 4,
+            "qty": 1,
             "note": "The biggest of the three. More of everything, and the widest range of cuts. €175.",
             "photo": "/produce/rathphelan-farm/freezer-filler-box.jpg"
           }
