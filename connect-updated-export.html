@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Connect updated &mdash; Building Provenance carousel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#101110;color:#E8DEC8;font-family:Inter,Helvetica,Arial,sans-serif}
+  .page{max-width:1240px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:2rem;margin:0 0 8px}
+  p.lede{color:#9A968B;max-width:70ch;line-height:1.6;font-size:.9rem;margin:0 0 28px}
+  .cols{display:grid;grid-template-columns:360px 1fr;gap:32px;align-items:start}
+  @media(max-width:900px){.cols{grid-template-columns:1fr}}
+  .card{border:1px solid rgba(232,222,200,.16);padding:16px;margin-bottom:14px}
+  .card h2{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:1.05rem;margin:0 0 12px;color:#CFC6B2}
+  label.f{display:block;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#8F897B;margin:10px 0 4px}
+  input,textarea{width:100%;box-sizing:border-box;background:#1A1B18;border:1px solid rgba(232,222,200,.18);color:#E8DEC8;
+    font-family:Inter,sans-serif;font-size:13px;padding:8px;border-radius:4px}
+  textarea{min-height:64px;resize:vertical;line-height:1.5}
+  .btn{width:100%;background:#35663F;color:#E8DEC8;border:none;border-radius:6px;padding:12px;font-family:Inter,sans-serif;
+    font-size:12px;font-weight:500;cursor:pointer;letter-spacing:1.5px;text-transform:uppercase;margin-top:8px}
+  .btn:disabled{opacity:.5;cursor:default}
+  #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .wrap canvas{width:100%;height:auto;display:block;box-shadow:0 20px 50px -28px #000}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+  .lbl{font-size:11px;color:#8F897B;letter-spacing:1px}
+  .foot button{background:transparent;border:1px solid rgba(232,222,200,.3);color:#E8DEC8;font-family:Inter,sans-serif;
+    font-size:10px;letter-spacing:1.4px;text-transform:uppercase;padding:7px 12px;cursor:pointer;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Connect updated</h1>
+  <p class="lede">Three plates, 1080 by 1350, Building Provenance style: flat charcoal, Playfair throughout, the header row
+  the only Inter. Personal channel, so it is written in the first person. Edit anything on the left and the plates redraw.</p>
+
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>1 &middot; Connect is updated</h2>
+        <label class="f">Kicker</label><input id="k1" type="text">
+        <label class="f">Heading</label><textarea id="h1"></textarea>
+        <label class="f">Supporting line</label><textarea id="s1"></textarea>
+      </div>
+      <div class="card">
+        <h2>2 &middot; The email went out</h2>
+        <label class="f">Kicker</label><input id="k2" type="text">
+        <label class="f">Heading</label><textarea id="h2"></textarea>
+        <label class="f">Supporting line</label><textarea id="s2"></textarea>
+      </div>
+      <div class="card">
+        <h2>3 &middot; Join</h2>
+        <label class="f">Kicker</label><input id="k3" type="text">
+        <label class="f">Heading</label><textarea id="h3"></textarea>
+        <label class="f">Supporting line</label><textarea id="s3"></textarea>
+      </div>
+      <button class="btn" id="dlall">Download all three &middot; one zip</button>
+      <button class="btn" id="dlsep" style="background:transparent;border:1px solid rgba(232,222,200,.3)">Save as 3 separate PNGs</button>
+    </div>
+    <div id="grid"></div>
+  </div>
+</div>
+
+<script>
+const W=1080,H=1350,L=110,R=970,TW=R-L;
+/* Colours straight off CLAUDE.md section 5. The kicker dot is the brand green
+   rather than the Discovered dark green: this post is about Connect, not about
+   a researched listing, and the dot is the same thing the map uses to mean a
+   farm you can reach. */
+const C={bg:'#1A1B18',cream:'#E8DEC8',sub:'#CFC6B2',label:'#35663F',kick:'#45704E',
+  hair:'rgba(232,222,200,0.14)',rule:'rgba(232,222,200,0.22)',
+  pin:'#4A8A55',ring:'rgba(232,222,200,0.75)',glow:'rgba(74,138,85,0.55)'};
+const $=id=>document.getElementById(id);
+
+const DEFAULTS={
+  k1:'Provenance Connect', h1:'This week\'s beef is\nup on Connect.',
+  s1:'Rathphelan Farm counted what is actually in the freezer and sent it over. Nine boxes left between the three sizes.',
+  k2:'The community list', h2:'And it went out\nby email.',
+  s2:'Everyone who signed up got it this morning. What the farms have, once a week, and nothing else.',
+  k3:'Join', h3:'Want next week\'s?',
+  s3:'Link in my bio. It is free, it is one email, and you can leave any time you like.'
+};
+Object.keys(DEFAULTS).forEach(id=>{$(id).value=DEFAULTS[id];});
+
+function track(ctx,px){if('letterSpacing' in ctx)ctx.letterSpacing=px+'px';}
+function wrap(ctx,text,maxW){
+  const out=[];
+  String(text).split('\n').forEach(par=>{
+    const words=par.split(/\s+/).filter(Boolean);let line='';
+    words.forEach(w=>{const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){out.push(line);line=w;}else line=t;});
+    out.push(line);
+  });
+  return out;
+}
+function playfair(size,italic){return `${italic?'italic ':''}400 ${size}px "Playfair Display", Georgia, serif`;}
+function inter(size){return `500 ${size}px Inter, Helvetica, Arial, sans-serif`;}
+
+function frame(ctx,i,n){
+  ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=C.hair;ctx.fillRect(L,96,TW,1);ctx.fillRect(L,H-198,TW,1);
+  ctx.font=inter(22);ctx.fillStyle=C.label;ctx.textBaseline='alphabetic';
+  track(ctx,22*0.24);ctx.textAlign='left';ctx.fillText('BUILDING PROVENANCE',L,159);
+  track(ctx,22*0.1);ctx.textAlign='right';ctx.fillText(`${i} / ${n}`,R+2,159);
+  ctx.textAlign='left';track(ctx,0);
+}
+function measure(ctx,blocks){
+  let h=0;
+  blocks.forEach(b=>{
+    if(b.t==='kick')b.h=28;
+    if(b.t==='gap')b.h=b.v;
+    if(b.t==='rule')b.h=1+46*2;
+    if(b.t==='head'||b.t==='para'){
+      let size=b.size;ctx.font=playfair(size);
+      if(b.fit){while(size>56&&String(b.text).split('\n').some(l=>ctx.measureText(l).width>TW)){size-=2;ctx.font=playfair(size);}}
+      b.size=size;b.lines=wrap(ctx,b.text,TW);b.lh=size*(b.t==='head'?1.06:1.4);b.h=b.lines.length*b.lh;
+    }
+    h+=b.h;
+  });
+  return h;
+}
+function draw(ctx,blocks,top){
+  let y=top;
+  blocks.forEach(b=>{
+    if(b.t==='kick'){
+      const cy=y+14;
+      ctx.save();ctx.shadowColor=C.glow;ctx.shadowBlur=14;ctx.fillStyle=C.pin;
+      ctx.beginPath();ctx.arc(L+11,cy,11,0,Math.PI*2);ctx.fill();ctx.restore();
+      ctx.strokeStyle=C.ring;ctx.lineWidth=3;ctx.beginPath();ctx.arc(L+11,cy,9.5,0,Math.PI*2);ctx.stroke();
+      if(b.text){ctx.font=inter(22);ctx.fillStyle=C.kick;track(ctx,22*0.24);ctx.textBaseline='middle';
+        ctx.fillText(b.text.toUpperCase(),L+44,cy+1);ctx.textBaseline='alphabetic';track(ctx,0);}
+    }
+    if(b.t==='rule'){ctx.fillStyle=C.rule;ctx.fillRect(L,y+46,130,1);}
+    if(b.t==='head'||b.t==='para'){
+      ctx.font=playfair(b.size);ctx.fillStyle=b.t==='head'?C.cream:C.sub;
+      b.lines.forEach((ln,k)=>ctx.fillText(ln,L,y+k*b.lh+b.size*0.86));
+    }
+    y+=b.h;
+  });
+}
+function plate(blocks,i,n){
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;
+  const ctx=cv.getContext('2d');frame(ctx,i,n);
+  const h=measure(ctx,blocks);draw(ctx,blocks,(H-h)/2);
+  return cv;
+}
+function specs(){
+  const n=3;
+  return [
+    {file:'01-updated',fn:()=>plate([{t:'kick',text:$('k1').value},{t:'gap',v:40},
+      {t:'head',text:$('h1').value,size:104,fit:true},{t:'rule'},{t:'para',text:$('s1').value,size:44}],1,n)},
+    {file:'02-email',fn:()=>plate([{t:'kick',text:$('k2').value},{t:'gap',v:40},
+      {t:'head',text:$('h2').value,size:104,fit:true},{t:'rule'},{t:'para',text:$('s2').value,size:44}],2,n)},
+    {file:'03-join',fn:()=>plate([{t:'kick',text:$('k3').value},{t:'gap',v:40},
+      {t:'head',text:$('h3').value,size:112,fit:true},{t:'rule'},{t:'para',text:$('s3').value,size:44}],3,n)}
+  ];
+}
+function dl(canvas,name){canvas.toBlob(b=>saveBlob(b,name),'image/png');}
+function saveBlob(b,name){const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);}
+function renderAll(){
+  const g=$('grid');g.innerHTML='';
+  specs().forEach(s=>{
+    const cv=s.fn();const w=document.createElement('div');w.className='wrap';w.appendChild(cv);
+    const f=document.createElement('div');f.className='foot';
+    f.innerHTML=`<span class="lbl">${s.file}</span>`;
+    const b=document.createElement('button');b.textContent='Save';b.onclick=()=>dl(s.fn(),`connect-updated-${s.file}.png`);
+    f.appendChild(b);w.appendChild(f);g.appendChild(w);
+  });
+}
+let T=null;function schedule(){clearTimeout(T);T=setTimeout(renderAll,120);}
+Object.keys(DEFAULTS).forEach(id=>$(id).addEventListener('input',schedule));
+
+const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+function crc32(d){let c=0xFFFFFFFF;for(let i=0;i<d.length;i++)c=CRC[(c^d[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function makeZip(files){
+  const enc=new TextEncoder(),chunks=[],central=[];let offset=0;
+  const now=new Date(),dosTime=(now.getHours()<<11)|(now.getMinutes()<<5)|(now.getSeconds()>>1),
+        dosDate=((now.getFullYear()-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+  for(const f of files){
+    const name=enc.encode(f.name),crc=crc32(f.data),size=f.data.length;
+    const lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(8,0,true);
+    lh.setUint16(10,dosTime,true);lh.setUint16(12,dosDate,true);lh.setUint32(14,crc,true);
+    lh.setUint32(18,size,true);lh.setUint32(22,size,true);
+    lh.setUint16(26,name.length,true);lh.setUint16(28,0,true);
+    chunks.push(new Uint8Array(lh.buffer),name,f.data);
+    const ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);
+    ch.setUint16(12,dosTime,true);ch.setUint16(14,dosDate,true);ch.setUint32(16,crc,true);
+    ch.setUint32(20,size,true);ch.setUint32(24,size,true);
+    ch.setUint16(28,name.length,true);ch.setUint32(42,offset,true);
+    central.push(new Uint8Array(ch.buffer),name);offset+=30+name.length+size;
+  }
+  let cd=0;for(const c of central)cd+=c.length;
+  const end=new DataView(new ArrayBuffer(22));
+  end.setUint32(0,0x06054b50,true);end.setUint16(8,files.length,true);end.setUint16(10,files.length,true);
+  end.setUint32(12,cd,true);end.setUint32(16,offset,true);
+  return new Blob([...chunks,...central,new Uint8Array(end.buffer)],{type:'application/zip'});
+}
+$('dlall').addEventListener('click',async()=>{
+  const btn=$('dlall'),label=btn.textContent;btn.disabled=true;btn.textContent='Preparing…';
+  try{const files=[];
+    for(const s of specs()){const b=await new Promise(r=>s.fn().toBlob(r,'image/png'));
+      files.push({name:`connect-updated-${s.file}.png`,data:new Uint8Array(await b.arrayBuffer())});}
+    saveBlob(makeZip(files),'connect-updated-carousel.zip');}
+  finally{btn.disabled=false;btn.textContent=label;}
+});
+$('dlsep').addEventListener('click',()=>specs().forEach((s,i)=>setTimeout(()=>dl(s.fn(),`connect-updated-${s.file}.png`),i*400)));
+
+(async function init(){
+  try{await Promise.all([document.fonts.load('400 112px "Playfair Display"'),document.fonts.load('500 22px Inter')]);
+    await document.fonts.ready;}catch(e){}
+  renderAll();
+})();
+document.fonts&&document.fonts.addEventListener&&document.fonts.addEventListener('loadingdone',schedule);
+</script>
+</body>
+</html>
