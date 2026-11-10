@@ -286,6 +286,13 @@
     .connect-intro {
       margin-top: 20px; max-width: 580px;
       font-size: 1.04rem; line-height: 1.6; color: var(--cream-soft);
+      /* pre-line so a producer who writes in paragraphs reads in paragraphs.
+         The intro is set with textContent, which is right (their words are
+         never parsed as markup), but it meant a blank line between paragraphs
+         collapsed and five of them ran together as one block. Every intro
+         written before this is a single paragraph with no newline in it, so
+         this changes nothing for them. */
+      white-space: pre-line;
     }
     .connect-terms { margin-bottom: 24px; padding-left: 16px; border-left: 2px solid var(--green); color: var(--cream); }
     .avail-source { margin-top: 14px; font-size: 0.86rem; color: var(--faint); }
