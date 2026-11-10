@@ -681,7 +681,7 @@
     <p class="f-url">provenancemap.ie</p>
   </footer>
 
-  <script src="../connect.js?v=16"></script>
+  <script src="../connect.js?v=17"></script>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -1029,6 +1029,15 @@
         .map(t => t.replace(/\s+/g, ' ').trim()).filter(t => t.length > 12);
       const introSame = (() => {
         if (!cs || !cs.intro || !p.description) return false;
+        // "full_intro": true on the connect block is the manual version of
+        // the same judgement, for a farm whose Connect description is new
+        // writing rather than a copy, but covers everything the map line
+        // covers and more. Slemish Fungi is the first: seven paragraphs at
+        // the top, and the 314 character map line read as a summary of what
+        // the reader had just finished. No length rule separates that case
+        // cleanly, since the next longest intro has almost the same ratio to
+        // its description, so it is set per farm rather than guessed at.
+        if (cs.full_intro) return true;
         const a = sentences(cs.intro), b = sentences(p.description);
         return a.length > 0 && a.every(s => b.indexOf(s) !== -1);
       })();

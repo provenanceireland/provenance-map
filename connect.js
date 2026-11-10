@@ -206,6 +206,7 @@ function connectFor(producer) {
       order_url: (base && base.order_url) || '',
       updated: live.updated,
       intro: (base && base.intro) || '',
+      full_intro: !!(base && base.full_intro),
       /* Record-level config, not part of the weekly list: a producer types
          names and notes into a box, they do not re-type their delivery terms
          or their group headings every week. Same reasoning as the options and
@@ -248,6 +249,9 @@ function connectState(producer) {
     when: connectWhen(days, c.updated),
     heading: fresh ? 'Available now' : 'Last listed',
     intro: c.intro || '',
+    /* Set when the intro tells the whole story, so the shorter map
+       description is not quoted again further down the profile. */
+    full_intro: !!c.full_intro,
     /* How collection and delivery work at this farm, said once. It used to
        hang off every item, which meant reading "collection only" fifteen
        times down a list of cuts. Per-item `fulfilment` survives for the
