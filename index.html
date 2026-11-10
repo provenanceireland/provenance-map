@@ -554,6 +554,44 @@
     #card::-webkit-scrollbar-thumb { background: #2E2F2B; border-radius: 4px; }
     #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
+
+    /* ── PAINT COST ON A PHONE (2026-11-10) ───────────────────────────────
+       The map reached 148 pins, 20 of them running a Connect ripple and 16 a
+       new-this-week glow, and the pins started to flicker and the zoom to
+       judder on a real phone. None of it is a data problem: producers.json is
+       about 150 records. It is all paint.
+
+       Two things here, and a third in initPins (NEW_GLOW_MAX).
+
+       1. Nothing on a pin animates while the map is being zoomed. The flag is
+          set in applyMapZoom and cleared when the transition is done.
+          Paused, not stopped: the animation keeps its position and carries on
+          from where it was, so nothing jumps when the map settles. */
+    body.is-zooming .pin-ripple,
+    body.is-zooming .pin.is-new .pin-dot::before,
+    body.is-zooming .pin-pulse { animation-play-state: paused; }
+
+    /*  2. No backdrop blur on a touchscreen. backdrop-filter makes the
+          browser re-read and re-blur whatever is behind the element on every
+          frame, and during a zoom what is behind it is the map layer with all
+          148 pins on it. Five or six of these sit over the map at once.
+
+          It costs almost nothing to look at, which is why this is worth
+          doing: every one of these already has a background between 0.88 and
+          1.0 alpha, so the blur was only ever visible through a sliver. The
+          alphas go to 0.96 here to close that sliver. Desktop keeps the blur,
+          where there is the headroom for it. */
+    @media (pointer: coarse) {
+      #map-legend, #connect-fab, #collection-fab, #filter-toggle,
+      #near-me-btn, #zoom-out, #near-me-toast, #install-bar, #filter-panel {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+      #map-legend, #filter-toggle, #near-me-btn, #zoom-out, #near-me-toast {
+        background: rgba(34,35,32,0.96);
+      }
+      #connect-fab { background: rgba(47,92,58,0.97); }
+    }
     /* A Discovered card is sized to its content, not to the sheet.
        Every other tier still fills from 74px down to the foot of the screen.
 
@@ -3253,16 +3291,33 @@
       return div;
     }
 
+    /* At most this many pins glow as New this week at once. The seven day
+       window still decides who is eligible; this decides how many of them
+       get the glow, newest first. Sixteen were lit at the same time on
+       2026-11-10, which is sixteen running animations on top of the twenty
+       Connect ripples, and a phone shows that as flicker during a zoom. Six
+       also reads better: a map with sixteen glowing pins is not saying "these
+       are new", it is just twinkling. */
+    const NEW_GLOW_MAX = 6;
+
     function initPins() {
+      const NEW_MS = 7 * 24 * 60 * 60 * 1000;
+      const fresh = [];
       document.querySelectorAll('.pin').forEach(pin => {
         const tier = parseInt(pin.dataset.tier || '0');
         if (tier > 0) pin.classList.add('tier-' + tier);
-        // New for seven days from date_added on the record.
+        // Eligible for seven days from date_added on the record.
         if (pin.dataset.listed) {
           const listed = new Date(pin.dataset.listed);
-          if (!isNaN(listed) && Date.now() - listed.getTime() < 7 * 24 * 60 * 60 * 1000) pin.classList.add('is-new');
+          if (!isNaN(listed) && Date.now() - listed.getTime() < NEW_MS) {
+            fresh.push({ pin: pin, t: listed.getTime() });
+          }
         }
       });
+      // Newest first, then the cap. Ties keep their document order, which is
+      // producers.json order, so the choice is at least stable between loads.
+      fresh.sort((a, b) => b.t - a.t);
+      fresh.slice(0, NEW_GLOW_MAX).forEach(f => f.pin.classList.add('is-new'));
       positionPins();
       arrivePins();
     }
@@ -3525,7 +3580,21 @@
     }
     window.addEventListener('resize', placeZoomOut);
 
+    /* Held while the map is mid-zoom, and cleared once the 0.65s transition
+       is done. Everything that animates on a pin stops for the duration: on
+       2026-11-10 that was twenty Connect ripples and sixteen new-this-week
+       glows, thirty six elements each asking the compositor for work on the
+       same frames the map is being scaled on. Nobody is looking at a ripple
+       while the map is moving under their thumb. */
+    let zoomSettle = null;
+    function markZooming() {
+      document.body.classList.add('is-zooming');
+      clearTimeout(zoomSettle);
+      zoomSettle = setTimeout(() => document.body.classList.remove('is-zooming'), 750);
+    }
+
     function applyMapZoom() {
+      markZooming();
       const wrap = document.getElementById('map-wrap');
       wrap.style.transformOrigin = '0 0';
       /* Always an explicit transform, never '' — clearing the inline style
