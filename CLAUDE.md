@@ -570,6 +570,10 @@ Front matter keys `connect`, `connect_tier`, `publish_number`, `connect_updated`
 
 **A producer is listed only for what they produce themselves.** The pin covers the food they grow, raise or make on their own ground, never what they buy in, butcher or resell. If a farm sells four meats but rears two, the listing carries the two. This applies to the description as well: a clause advertising something they source elsewhere gets cut, even from a verified producer's own words, because the alternative is the map making a claim it cannot stand over. A farmer who butchers their own animals is still a producer (Staffords Butchers rear their own Angus and are listed for beef); a butcher who buys in is not.
 
+**Where they sell comes out of the map description (set 2026-11-10).** The second cut to a producer's own words, alongside the one above. A map description says **who they are and what they produce**; the markets they stand at, the shops that stock them, the pick-up points and the opening hours all come out, even when the producer wrote them. That detail is not wrong, it is in the wrong place: a buyer deciding whether to go to a farm reads it on Connect, where `terms` exists for exactly this and where it can be kept current. A market day written into a map description is a promise the record cannot keep when the market moves.
+
+So the verbatim rule now has two exceptions and no more: **cut what they do not produce themselves, and cut where they sell.** Everything else stays in their words, including grammar and spelling. Applied on 2026-11-10 to Open Hearth Farm, whose pick-up points and Killavullen market line moved into their Connect `terms`, and to Bird & Blossom Farm, who have no Connect listing, so theirs came off entirely. **A farm with no Connect listing loses the detail rather than keeping it on the card**: that is the cost, and it was accepted, because the alternative is the map carrying stale opening hours it has no way to update.
+
 ## Data Models
 
 ### Producer Profile — what shows at each tier
