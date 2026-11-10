@@ -180,7 +180,7 @@
           { "name": "Lion's Mane" },
           { "name": "King Oyster" },
           { "name": "Blue Oyster" },
-          { "name": "Chestnut", "note": "Pholiota adiposa, a rare gourmet variety rather than the common brown cap sold in supermarkets." }
+          { "name": "Chestnut" }
         ],
         "plus": {}
       }
