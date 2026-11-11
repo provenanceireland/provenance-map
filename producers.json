@@ -4771,6 +4771,49 @@
         ],
         "plus": {}
       }
+    },
+    {
+      "id": "avoca-organics",
+      "practice": "organic",
+      "name": "Avoca Organics",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 52.8572265,
+      "lng": -6.2130259,
+      "county": "Wicklow",
+      "location": "Avoca, Co. Wicklow",
+      "product": "Organic potatoes and vegetables",
+      "product_type": ["vegetables"],
+      "description": "Family farm outside Avoca, co.Wicklow. We're growing organic potatoes and vegetables. Farm is fully organic certified and family run for decades.",
+      "photo_url": "avoca.png",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "directions": "https://maps.google.com/?q=Y14+NH90",
+      "attributes": ["Chemical Free"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": true,
+      "date_added": "2026-11-11",
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "085 841 6664" },
+        "updated": "2026-11-11",
+        "intro": "At Avoca Organics we're proudly sharing our love for organic food and lifestyle.\nWe've always have been growing our own potatoes and veg and our family farm has been fully organic, cemical free for many years, but have now decided to share our love with others by offering them at our honesty box at the farm gate too! This is our first year of doing this on a bigger scale and it's been a great learning curve!\nWe hope you love it too!",
+        "terms": "Collection from the honesty box at the farm gate, open every day. No delivery, and no need to order ahead.",
+        "available": [
+          { "name": "Potatoes, 2.5kg" },
+          { "name": "Potatoes, 5kg" },
+          { "name": "Savoy winter cabbage" },
+          { "name": "Red kuri pumpkin" },
+          { "name": "Kale" }
+        ],
+        "plus": {}
+      }
     }
   ]
 }
