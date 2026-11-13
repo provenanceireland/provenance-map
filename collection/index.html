@@ -100,14 +100,13 @@
     .both .btn { margin-top: 20px; }
 
     /* the two reading sections: no panel, a rule above and a wider gap instead */
-    .seal { padding: 38px 0 34px; border-top: 1px solid var(--hair); }
-    .seal h2, .both h2 { font-size: 1.85rem; margin: 8px 0 14px; }
+    .seal, .about { padding: 38px 0 34px; border-top: 1px solid var(--hair); }
+    .seal h2, .about h2, .both h2 { font-size: 1.85rem; margin: 8px 0 14px; }
     /* the Seal now sits straight under the hero, which already carries the rule */
     .hero + .seal { border-top: 0; padding-top: 30px; }
     /* the tag on a product that is only here for a while */
     .limited { display: inline-block; margin: 0 0 14px; padding: 6px 11px; background: var(--ink); color: var(--parchment); font-family: Inter, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1.3; }
 
-    .ship { margin: 6px 0 28px; text-align: center; font-size: 0.95rem; color: var(--muted); }
     .foot { padding: 40px 0 54px; text-align: center; border-top: 1px solid var(--hair); }
     .foot .line { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; line-height: 1.4; }
     .foot a { display: inline-block; margin-top: 16px; font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; }
@@ -178,7 +177,12 @@
     <span class="btn soon" id="btn-both">Opens soon</span>
   </section>
 
-  <p class="ship">Orders are expected to dispatch within two weeks of ordering.</p>
+  <section class="about">
+    <p class="kick">About the Collection</p>
+    <h2>Where each story starts</h2>
+    <p>Every release is made with an Irish producer we have visited. We walk their land and learn their history, traditions and craft.</p>
+    <p>From there we bring their story to life through a digital experience that connects you more closely to the origins of what they produce. It replaces the traditional food label, which tells you little more than the ingredients.</p>
+  </section>
 
   <footer class="foot">
     <p class="line">Know the land.<br>Know the people.<br>Know the Provenance.</p>
