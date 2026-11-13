@@ -74,6 +74,8 @@
 
     /* the three purchasable sections are panels; everything else stays open page */
     .product, .both { background: var(--panel); border: 1px solid var(--hair); padding: 30px 26px; margin: 28px 0; }
+    /* the product photograph runs edge to edge across the top of its panel */
+    .shot { display: block; width: calc(100% + 52px); max-width: none; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 58%; margin: -30px -26px 26px; background: var(--hair-soft); }
     .product h2 { font-size: 2.05rem; margin: 8px 0 6px; }
     .by { color: var(--muted); font-size: 0.95rem; }
     .product p.desc { margin-top: 18px; }
@@ -114,6 +116,7 @@
     @media (max-width: 430px) {
       .wrap { padding: 0 18px; }
       .product, .both { padding: 26px 20px; margin: 22px 0; }
+      .shot { width: calc(100% + 40px); margin: -26px -20px 22px; }
     }
     @media print { .btn { display: none; } }
   </style>
@@ -145,6 +148,7 @@
   </section>
 
   <section class="product" id="honey">
+    <img class="shot" src="honey.jpg" width="1000" height="1250" alt="A jar of Galtee Honey Farm raw heather honey, limited edition, on a stone wall in autumn light" loading="lazy">
     <p class="limited">Limited batch release</p>
     <p class="kick prod">Ling Heather Honey</p>
     <h2>Galtee Honey Farm</h2>
@@ -155,6 +159,7 @@
   </section>
 
   <section class="product" id="tallow">
+    <img class="shot" src="tallow.jpg" width="1000" height="1250" alt="A jar of Moyletra Moileds Irish Moiled beef tallow, with its QR code, on a stone wall in autumn light" loading="lazy">
     <p class="kick prod">Beef Tallow</p>
     <h2>Moyletra Moileds</h2>
     <p class="by">Moyletra Kill, north coast of Ireland</p>
@@ -164,6 +169,7 @@
   </section>
 
   <section class="both" id="both">
+    <img class="shot" src="both.jpg" width="1000" height="1250" alt="The jar of Irish Moiled beef tallow and the jar of Galtee raw heather honey, side by side" loading="lazy">
     <p class="kick prod">Both products</p>
     <h2>The Collection bundle</h2>
     <p>The beef tallow and the Ling heather honey, in one order.</p>
