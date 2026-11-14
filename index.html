@@ -562,6 +562,12 @@
        specificity (0,2,1 against 0,1,0), so openCard toggling that class on
        the card button cannot bring this one back. */
     body.no-collection-links [data-collection-link] { display: none !important; }
+    /* The card's plain-text Collection mark, off with everything else
+       (2026-11-14). The pin treatment above is gated the other way round,
+       with body:not(...) on the rule itself, so a Collection pin simply
+       falls back to its own tier's dot rather than needing every Verified
+       value written out again here. */
+    body.no-collection-links .tier-mark-collection { display: none !important; }
 
     /* ── PAINT COST ON A PHONE (2026-11-10) ───────────────────────────────
        The map reached 148 pins, 20 of them running a Connect ripple and 16 a
@@ -2006,7 +2012,7 @@
        and its Verified green dot at Verified size; what marks it out is a
        thin bright silver ring in place of the white one, and a soft silver
        glow in place of the green. Set "collection": true on the record. */
-    .pin.collection .pin-dot {
+    body:not(.no-collection-links) .pin.collection .pin-dot {
       width: 8.78px !important; height: 8.78px !important;
       background: #59A666 !important;
       border: none !important;
@@ -2017,13 +2023,13 @@
       position: relative;
     }
     @media (max-width: 768px) {
-      .pin.collection .pin-dot { width: 7.80px !important; height: 7.80px !important; }
+      body:not(.no-collection-links) .pin.collection .pin-dot { width: 7.80px !important; height: 7.80px !important; }
     }
 
     /* Launch week: the two Collection pins glow brighter while the first
        release is open. The script adds body.collection-live until the date set
        in COLLECTION_LIVE_UNTIL, then the pins settle back to the ring above. */
-    body.collection-live .pin.collection .pin-dot {
+    body.collection-live:not(.no-collection-links) .pin.collection .pin-dot {
       box-shadow:
         0 0 0 1.5px #F3EEDD,
         0 0 9px 3px rgba(243,238,221,0.78),
