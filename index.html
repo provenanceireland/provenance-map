@@ -3719,12 +3719,19 @@
       if (isMarket) {
         badgeHTML = `<span class="tier-mark tier-mark-market">Farmers Market</span>`;
       } else {
-        // The tier states itself, in its own colour. Founders get a button at
-        // the foot of the card instead, so this line stays a single statement.
+        // The tier states itself, in its own colour.
         const pill = TIER_PILL_MAP[tierName] || TIER_PILL_MAP['discovered'];
         badgeHTML = `<span class="${pill.cls}">${pill.label}</span>`;
-        // A Collection member carries a second, silver mark beside the tier,
-        // divided by a hairline rather than boxed off on its own.
+        /* A Founder carries a second mark beside the tier, divided by a
+           vertical hairline rather than boxed off on its own. It was a gold
+           button at the foot of the card until 2026-11-14; the user asked for
+           the badge and not the button, so the button is off and this is how
+           a Founder reads now. .tier-mark-founder was already in the
+           stylesheet, in the green #7DB088 the button used, and had never
+           been emitted by anything. */
+        if (pin.dataset.badge2) badgeHTML += `<span class="tier-mark tier-mark-founder">${escHtml(pin.dataset.badge2)}</span>`;
+        // A Collection member carries one too. Hidden since 2026-11-14 by
+        // no-collection-links, but still built, so the flag can restore it.
         if (pin.dataset.collection === 'true') badgeHTML += `<span class="tier-mark tier-mark-collection">Provenance Collection</span>`;
       }
       // The hairline runs from the last mark to the edge of the card.
@@ -3992,14 +3999,15 @@
         sealEl.classList.remove('hidden');
       } else { sealEl.classList.add('hidden'); }
 
-      // ── Founder button ── sits at the foot of the card and opens the full
-      // profile page. Only Founders have both badge2 and a profile page.
-      const founderEl = document.getElementById('card-founder');
-      if (pin.dataset.badge2 && pin.dataset.profile) {
-        founderEl.href = pin.dataset.profile;
-        founderEl.textContent = pin.dataset.badge2;
-        founderEl.classList.remove('hidden');
-      } else { founderEl.classList.add('hidden'); }
+      /* ── Founder button ── off since 2026-11-14. A Founder now reads as a
+         mark beside the tier, built above, because the user asked for the
+         badge and not the button. The element and its CSS stay, so putting
+         the old condition back is the whole of bringing it in:
+             if (pin.dataset.badge2 && pin.dataset.profile) { ... }
+         map_link stays on all three records regardless. It is not only what
+         fed this button: profileUrl() routes the menu and any stale link to
+         their built page with it, so emptying it would strand the page. */
+      document.getElementById('card-founder').classList.add('hidden');
 
       // ── Action icons (instagram, website, directions) ──
       const iconsEl = document.getElementById('card-action-icons');
