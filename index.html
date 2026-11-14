@@ -557,6 +557,11 @@
     #card::-webkit-scrollbar-thumb { background: #2E2F2B; border-radius: 4px; }
     #card::-webkit-scrollbar-thumb:hover { background: #2a2c2a; }
     #card.open { transform: translateY(0); }
+    /* The Collection doorways, off together. Set by COLLECTION_LINKS_ON in
+       the script. Beats .hidden, which also carries !important, on
+       specificity (0,2,1 against 0,1,0), so openCard toggling that class on
+       the card button cannot bring this one back. */
+    body.no-collection-links [data-collection-link] { display: none !important; }
 
     /* ── PAINT COST ON A PHONE (2026-11-10) ───────────────────────────────
        The map reached 148 pins, 20 of them running a Connect ripple and 16 a
@@ -4614,6 +4619,28 @@
       const a = e.target.closest && e.target.closest('[data-collection-link]');
       if (a && typeof pvTrack === 'function') pvTrack('collection_click', { surface: a.dataset.collectionLink });
     });
+
+    /* Every doorway from the map to /collection/, off together (2026-11-14,
+       at the user's request). Set to true to bring all four back.
+
+       There are four and it is easy to miss one: the menu link, the corner
+       button, the launch strip, and Access the Collection on a Collection
+       member's card. One flag rather than four edits, because the strip
+       already showed how that goes wrong, it had its own switch and the
+       other three stayed up.
+
+       A class on <body> rather than removing the nodes. openCard looks up
+       #card-collection on every open and calls classList.toggle on it, so
+       removing it throws and no card opens at all. A class also survives
+       that toggle, which an inline style would not.
+
+       Nothing is deleted: markup, CSS and the click tracking all stay, so
+       this is one line to reverse. /collection/ itself is untouched and
+       still reachable by its URL, which is how the pre-sale email gets
+       there. The parchment ring on a Collection pin and the plain-text
+       "Provenance Collection" mark on the card are not links and both stay. */
+    const COLLECTION_LINKS_ON = false;
+    if (!COLLECTION_LINKS_ON) document.body.classList.add('no-collection-links');
 
     // The launch strip. Set to false to take it down for everyone; a visitor
     // who closes it does not see it again. Storage can be blocked, so both
