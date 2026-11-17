@@ -91,6 +91,21 @@ Discovered and Verified never pulsed; their `.pin-pulse` element is `display: no
 
 **`date_added` is what drives it, and a null there fails silently.** The key is on all 128 records, so leaving it null is not an error: the producer simply goes on the map having never been new, and nobody notices until the week is gone. It happened to Giron's Farm, Carraig Abhainn Farm and Carncash Farm. **`check-new-producers.ps1` is now the guard** and both the `add-producer` and `sync-producers` skills run it before committing; it diffs `producers.json` against the committed copy and exits non-zero if an id that was not there before has no date. Giron's Farm was backfilled to 2026-11-03; the other two were added earlier in October, so their week had already passed and dating them now would be a lie. The 96 listings from before the field existed stay null on purpose.
 
+
+### The map bleeds off the screen (set 2026-11-17)
+
+**The artwork is square and a phone is not, which is the whole of the problem.** `ireland-map.png.png` is 1024x1024 and a phone viewport is about 390x844, so `object-fit: contain` draws it at 390x390 and leaves **227px of flat charcoal above and 227px below**. Measured: the island used **46% of the screen height**, with a hard horizontal seam top and bottom. On a wide screen the square nearly fits, which is why this only ever looked wrong on a phone.
+
+**`#map-bleed` fills those bands with the map's own sea and cloud.** A 32x32 copy of the artwork, upscaled with `object-fit: cover`, at `opacity: 0.85` behind everything.
+
+- **It is outside `#map-wrap` and behind it, and that is not incidental.** It never transforms with the zoom, so it is rastered once and never again, and it cannot reach `getMapDims()`, which is what `positionPins()` measures. **No pin can move because of anything in this layer**, which was the condition the user set. Proved rather than asserted: all 149 pin rects captured before and after match to three decimal places.
+- **32px, and the downscale is the blur.** No `filter`, no `will-change`. A runtime blur on a full-screen image is the kind of thing that made the map blank on zoom-out in November, and promoting a full-screen layer is the other. 989 bytes.
+- **Dimmed in the file, not with CSS opacity.** The top of the artwork is bright cloud and the wordmark sits over it. A black fill at alpha 110 baked into the tile drops luminance while keeping the hue.
+- **Masked** with a vertical gradient, transparent until 10%, solid from 25% to 78%, transparent at the foot. The solid span covers both seams; the fades stop the bleed presenting its own shape at the screen edges, which is the thing it exists to remove. The late start keeps the header on dark ground.
+
+**Three passes to get there, and the two rejected ones are instructive.** At 64px the upscale still showed legible cloud and coastline, which read as a blurry picture behind the map rather than as air. Unmasked, it put a hard shape at the top and bottom of the screen. Undimmed, it took the contrast out from under the wordmark. `map-bleed-check.png` in the repo root is the before and after at phone size.
+
+**The island still only fills 46%.** This softens the letterbox, it does not remove it. The real fix is a portrait crop or repaint of the artwork, which moves every pin and means re-fitting the projection and revisiting the 59 desktop overrides. **Not to be started without the user asking.**
 ### The card states things, it does not badge them
 
 Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, Collection, confirmed attributes, produce, venue — and they read as chrome rather than as content. They are all text now, no borders and no backgrounds:
