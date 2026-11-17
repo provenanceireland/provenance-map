@@ -93,23 +93,23 @@ Discovered and Verified never pulsed; their `.pin-pulse` element is `display: no
 
 
 
-### The map bleeds off the screen (set 2026-11-17, rebuilt the same week)
 
-**The artwork is square and a phone is not, which is the whole of the problem.** `ireland-map.png.png` is 1024x1024 and a phone viewport is about 390x844, so `object-fit: contain` draws it at 390x390 and leaves **227px of flat charcoal above and 227px below**. Measured: the island uses **46% of the screen height**, with a hard horizontal seam top and bottom. On a wide screen the square nearly fits, which is why this only ever looked wrong on a phone.
+### The dark bands stay dark (reverted 2026-11-17)
 
-**Two divs of flat colour, `#bleed-top` and `#bleed-bottom`, fade out from the seam.** The colours are the measured averages of the artwork's own edges: `#B5C4B9` across its top 40 rows, `#54646A` across its bottom 40. Top fades up over 132px at 0.42 alpha, bottom fades down over 168px at 0.55.
+**The map is back to how it was before the bleed work, at the user's request.** The artwork is square (1024x1024) and a phone is about 1:2.16, so `object-fit: contain` draws the island at 390x390 and leaves **227px of flat charcoal above and 227px below**, using 46% of the screen height. **That is the intended state again.** Both attempts to fill those bands are gone and nothing references them.
 
-**Flat colour, never a blurred copy of the artwork.** The first build was a 32px copy upscaled, and the user's verdict was that it looked like **camouflage**: a scaled-down copy keeps the artwork's light cloud and dark sea as patches, and low-contrast patches is the definition of camouflage. Going smaller (24, 16, 12px) and dimming less were both tried and all of them kept the patches, because the patches are the image. **Do not reach for a blurred copy of the artwork again.** An averaged colour has nothing in it to read as a shape.
+**What was tried, so it is not tried again the same way:**
 
-**Anchored with `calc((100dvh - 100vw) / 2)`.** In portrait the artwork is width-constrained, so its height is `100vw` and the seam sits exactly there. That means the fade meets the artwork at any phone size with no magic number. **Portrait only** (`max-aspect-ratio: 1/1`): in landscape the artwork is height-constrained and the dead bands are at the sides, so there is no horizontal seam for these to meet.
+- **A blurred copy of the artwork** (32px, upscaled, dimmed, masked). The user's verdict was that it looked like **camouflage**, and that is exactly what it was: a scaled-down copy keeps the artwork's light cloud and dark sea as patches, and low-contrast patches is the definition of camouflage. Smaller tiles and less dimming were tried at 24, 16 and 12px; every one kept the patches, because the patches **are** the image.
+- **Flat colour fades** from the artwork's measured edge averages (`#B5C4B9` top, `#54646A` bottom), anchored at the seam with `calc((100dvh - 100vw) / 2)`. This removed the camouflage completely, and was still reverted. **The bands being dark is not a defect to be fixed.**
 
-**Both are fixed, outside `#map-wrap` and behind it at `z-index: 0`.** They never transform with the zoom and cannot reach `getMapDims()`, which is what `positionPins()` measures, so **no pin can move because of them**, which was the condition the user set. Checked against a 149-pin baseline: every pin identical. The only two differences in that diff were a producer added by other work and `an-garrai-glas` upgraded Discovered to Verified, whose dot grew 2.60px so its rect origin moved 1.30px on both axes while its `lat`/`lng` never changed. **That tells you how to read a pin diff**: a uniform shift of half a dot-size step on both axes is a tier change, not a move.
+**Do not fill the dark bands again without the user asking for it specifically.** Two different approaches were built, shown and rejected in one week.
 
-**The fade stops well before the header**, so the wordmark keeps dark ground under it. An earlier pass took the contrast out from under it and had to be dimmed back.
+**The portrait crop is also closed.** Mocked up on 2026-11-17 and rejected on the numbers: the painted Ireland is **1.08:1, essentially square**, so width binds rather than the sea margin, and deleting every pixel of ocean and cloud takes it from 46% to **50%**. It also jams the island against the frame and pushes southern pins outside the crop. `portrait-crop-mock.png` in the repo root is that comparison. A real fix means repainting the artwork at Ireland's true proportions, which moves every pin.
 
-**`assets/map-bleed.jpg` is left over from the blurred-copy build and nothing references it.** Safe to delete; kept only because it is 989 bytes and harmless.
+**`assets/map-bleed.jpg` is a leftover and nothing references it.** 989 bytes, safe to delete.
 
-**The island still only fills 46%.** This softens the letterbox, it does not remove it, and a tight portrait crop was mocked up on 2026-11-17 and rejected: the painted Ireland is **1.08:1, essentially square**, so width binds rather than the sea margin, and deleting every pixel of ocean and cloud takes it from 46% to **50%**. It also jams the island against the frame and pushes southern pins outside the crop. `portrait-crop-mock.png` in the repo root is that comparison. **A real fix means repainting the artwork at Ireland's true proportions, which moves every pin. Not to be started without the user asking.**
+**On checking a pin diff.** Every one of these passes was verified against a captured baseline of all pin rects. Worth remembering from it: `an-garrai-glas` once appeared to shift **1.305px on both axes**, which is half of 2.60px, which is exactly the Discovered to Verified dot size step. It had been upgraded; its `lat` and `lng` never changed. **A uniform shift of half a dot-size step on both axes is a tier change, not a move.**
 ### The card states things, it does not badge them
 
 Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, Collection, confirmed attributes, produce, venue — and they read as chrome rather than as content. They are all text now, no borders and no backgrounds:
