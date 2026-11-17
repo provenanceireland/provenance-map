@@ -74,37 +74,33 @@
     }
 
     /* ── MAP ── */
-    /* See the note on #map-bleed in the markup. Sits at z-index 0, under
-       #map-wrap at 1, over the body's #060807.
+    /* See the note on the two bleed divs in the markup.
 
-       scale(1.12) because object-fit: cover on a square source still leaves
-       the very top and bottom rows at the screen edge, and a touch of
-       overscan keeps the softest part of the image off the edge.
-
-       No filter and no will-change, deliberately: the blur is baked into the
-       64px file, and promoting a full-screen image is what made the map blank
-       on zoom-out in November. */
-    #map-bleed {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.12);
-      opacity: 0.85;
-      pointer-events: none;
-      user-select: none;
-      /* Strongest where the artwork's hard edge falls, fading to nothing at
-         the screen edges. The header sits in the top 14%, so the fade only reaches full just above the
-         upper seam, which keeps the wordmark on dark ground. On a 390x844
-         phone the two seams land at about 27%
-         and 73%, so the solid span covers both and the fade reads as vignette
-         rather than as a second picture sitting behind the first. Without
-         this the bleed presented its own shape at the top and bottom of the
-         screen, which is the thing it was meant to remove. */
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 10%, #000 25%, #000 78%, transparent 100%);
-              mask-image: linear-gradient(to bottom, transparent 0%, transparent 10%, #000 25%, #000 78%, transparent 100%);
+       The artwork is square and width-constrained in portrait, so its height
+       is 100vw and the seam sits at (100dvh - 100vw)/2 from the top. Anchoring
+       to that calc means the fade meets the artwork exactly, at any phone
+       size, without a magic number. Portrait only: in landscape the artwork is
+       height-constrained and the dead bands are at the sides instead, so there
+       is no horizontal seam for these to meet. */
+    @media (max-aspect-ratio: 1/1) {
+      #bleed-top, #bleed-bottom {
+        position: fixed;
+        left: 0; right: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      /* Strongest where it touches the artwork, gone well before the header,
+         so the wordmark keeps dark ground under it. */
+      #bleed-top {
+        height: 132px;
+        top: calc((100dvh - 100vw) / 2 - 132px);
+        background: linear-gradient(to top, rgba(181,196,185,0.42), rgba(181,196,185,0));
+      }
+      #bleed-bottom {
+        height: 168px;
+        top: calc((100dvh + 100vw) / 2);
+        background: linear-gradient(to bottom, rgba(84,100,106,0.55), rgba(84,100,106,0));
+      }
     }
     #map-wrap {
       position: fixed;
@@ -2689,20 +2685,22 @@
 </head>
 <body>
 
-  <!-- The map's own sea and cloud, carried out into the dark bands above and
-       below it. The artwork is square (1024x1024) and a phone is roughly
-       1:2.16, so contain-fitting it leaves the island using about 46% of the
-       screen with a hard seam top and bottom. This fills the rest with the
-       artwork's own colours rather than flat charcoal.
+  <!-- The map's edge, carried a little way into the dark bands above and below
+       it. The artwork is square and a phone is about 1:2.16, so contain-fitting
+       leaves the island using 46% of the screen with a hard seam top and bottom.
 
-       It is OUTSIDE #map-wrap and behind it, which matters twice. It never
-       transforms with the zoom, so it is rastered once and never again, and
-       it cannot affect getMapDims(), which is what positionPins() measures.
-       No pin can move because of anything in here.
+       Flat colour, not a blurred copy of the artwork. A scaled-down copy keeps
+       the artwork's light cloud and dark sea as patches, and low-contrast
+       patches read as camouflage, which is exactly what it looked like. These
+       are the measured averages of the artwork's own edges, #B5C4B9 across the
+       top 40 rows and #54646A across the bottom 40, so there is nothing in
+       them to read as a shape.
 
-       64x64 and upscaled: the downscale did the blurring, so the browser
-       never runs a filter. 2.2KB. -->
-  <img id="map-bleed" src="assets/map-bleed.jpg" alt="" aria-hidden="true" />
+       Both are fixed, outside #map-wrap and behind it. They never transform
+       with the zoom and cannot reach getMapDims(), which is what positionPins
+       measures, so no pin can move because of them. -->
+  <div id="bleed-top" aria-hidden="true"></div>
+  <div id="bleed-bottom" aria-hidden="true"></div>
   <div id="map-wrap">
     <img id="map-img" src="ireland-map.png.png" alt="Map of Ireland" />
     <canvas id="near-me-canvas"></canvas>
