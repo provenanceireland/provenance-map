@@ -121,6 +121,8 @@ Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, 
 
 The Connect listing page follows the same rule. Anything new that wants to label a producer gets a line of type, not a pill.
 
+**"Confirmed by <farm>" sits above the Share row, not at the foot of the card (moved 2026-11-19).** It renders for Verified and Highlighted only, and it used to be the card's last line, under Share and under the button block. `#card` is the scroller and its content runs about 769px, so the line landed 660px down the screen while the Back strip stays pinned to the card's bottom edge. **On any viewport under about 755px the line sat beneath the strip or off the card entirely**, and most phones in a browser are shorter than that, so the one line saying who stood over this farm was the one line nobody saw without scrolling for it. Above Share it lands at 566px and clears the strip from about 648px of viewport, which covers every phone the map realistically meets. The Share row, bounded by its own two hairlines, is the last thing on the card instead. **The 96px bottom padding on `.card-body` is not what fixes this and must stay**: it is inside the scrolling content, so it only does its job once you have already scrolled to the bottom.
+
 ### The Connect tiers (set 2026-10-29)
 
 **Being on Connect is free, and free is not a tier.** A free listing carries the farmer, where they are, and what they produce. It is never updated. Everything above it is paid.

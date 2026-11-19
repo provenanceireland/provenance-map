@@ -647,12 +647,12 @@
        the hand holding the phone.
 
        It rides a solid footer strip rather than floating free. Floating, it
-       landed exactly on "Confirmed by <farm>", which is the last line of the
-       card and therefore the line the scroll comes to rest on. A translucent
-       pill over the one line that says who stood over this farm is the worst
-       place it could have been. The strip is opaque and the body is padded to
-       clear it, so content scrolls cleanly behind and nothing is ever left
-       half-covered.
+       landed exactly on the line the scroll comes to rest on, which was then
+       "Confirmed by <farm>", a translucent pill over the one line that says
+       who stood over this farm. The confirmed line has since moved up, above
+       the Share row, but the reasoning holds for whatever is last: the strip
+       is opaque and the body is padded to clear it, so content scrolls cleanly
+       behind and nothing is ever left half-covered.
 
        position: fixed anchors to the card rather than the window because
        #card carries a transform, which makes it the containing block. */
@@ -920,8 +920,6 @@
     }
 
     /* Body */
-    /* The bottom padding clears the footer strip, so "Confirmed by <farm>"
-       finishes above the Back to map button rather than under it. */
     /* The bottom padding clears the whole footer — the strip itself, the fade
        above it, and a gap — so the last line of any card finishes above the
        Back to map button whatever the tier. The strip is about 60px plus the
@@ -3043,6 +3041,14 @@
       <div class="card-actions card-lead-actions hidden" id="card-lead-actions">
         <a id="card-collection" class="card-action-btn card-action-collection hidden" href="collection/" data-collection-link="card_button">Access the Collection</a>
       </div>
+      <!-- "Confirmed by <farm>" closes the content, above the Share row.
+           It used to be the card's last line, under Share and the buttons, which
+           put it 660px down the screen. The Back strip is pinned to the card
+           bottom, so on any viewport under about 755px the line sat beneath the
+           strip or off the card, and most phones in a browser are shorter than
+           that. Nobody saw the one line that says who stood over this farm
+           without scrolling for it. -->
+      <p class="card-confirmed hidden" id="card-confirmed"></p>
       <div class="card-action-icons" id="card-action-icons"></div>
       <div id="card-venue-tags" class="card-venue-tags hidden"></div>
 
@@ -3064,10 +3070,9 @@
         <!-- Navigation to the Connect layer, not a chat, so no message icon
              and no new tab. The WhatsApp button lives on /connect/. -->
         <a id="card-connect" class="card-action-btn card-action-connect hidden" href="#">Connect</a>
-        <!-- Where to buy sits under Connect, above the confirmed line -->
+        <!-- Where to buy sits under Connect, at the foot of the card -->
         <div id="card-where-to-buy" class="card-where-buy hidden"></div>
       </div>
-      <p class="card-confirmed hidden" id="card-confirmed"></p>
     </div>
   </div>
 
