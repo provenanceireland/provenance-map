@@ -4952,19 +4952,15 @@
         "updated": "2026-11-16",
         "intro": "Olly's Farm is an award-winning honey producer and nature-friendly smallholding nestled in the beautiful Glenasmole Valley in the Dublin Mountains. Established in 2012, our 8.5-acre farm is home to a traditional apple orchard, Dexter cattle, free-range poultry and an abundance of wildlife.\n\nWe manage honeybee colonies across 21 apiary locations throughout Dublin and Wicklow, producing raw, single-origin Irish honey that reflects the unique flowers and landscapes of each area. From Powerscourt Estate Blossom Honey to Foxrock Blossom and our own Glenasmole Blossom Honey, each harvest tells the story of its origins. Our range includes blossom, naturally creamy soft-set and our award-winning Dublin Mountains heather honey.\n\nAll our honey comes exclusively from our own bees. We never buy in honey from other beekeepers or suppliers to supplement our harvests. Every jar is raw, unheated and unpasteurised, with each harvest carefully kept separate to preserve its unique origin, flavour and character.\n\nWe also grow and harvest apples from our own farm orchard to produce delicious single-origin apple juice.\n\nOur smallholding is home to 100% grass-fed Dexter cattle, with limited quantities of our own farm-reared beef occasionally available. We also keep a small flock of free-range hens and ducks, providing fresh eggs for sale when available.\n\nAs a Farming for Nature Ambassador and one of the early members of ReFarm Ireland, I believe that farming and nature should thrive together. From planting native trees and creating wildlife habitats to avoiding synthetic agricultural sprays and fertilisers, everything we do is guided by our commitment to biodiversity and regenerative farming practices.\n\nWe love sharing the farm with visitors and offer guided farm tours throughout the year, along with hands-on beekeeping experiences during the beekeeping season. These experiences give visitors the opportunity to discover how we produce our food, care for our bees and manage the farm alongside nature.",
         "terms": "We offer nationwide delivery through our online shop, along with collection directly from our farm in Glenasmole, Dublin Mountains.\n\nOur farm shop is normally open Mondays and Thursdays, 9am to 1pm, or outside these hours by appointment. As we're a working farm and may be out tending our bees or making deliveries, please call ahead before visiting.\n\nHoney and apple juice are generally available during opening hours. Dexter beef and fresh hen or duck eggs are available occasionally, subject to availability. Please contact us in advance for these products. Farm tours and beekeeping experiences are available by advance booking.",
-        "groups": [
-          { "name": "Honey", "note": "Raw, unheated and unpasteurised. Each harvest kept separate." },
-          { "name": "From the farm" }
-        ],
         "available": [
-          { "name": "Blossom Honey", "group": "Honey", "note": "Single origin, including Powerscourt Estate, Foxrock and Glenasmole." },
-          { "name": "Soft-Set Honey", "group": "Honey", "note": "Naturally creamy." },
-          { "name": "Dublin Mountains Heather Honey", "group": "Honey", "note": "Their award-winning honey." },
-          { "name": "Bee Pollen", "group": "Honey" },
-          { "name": "Single-Origin Apple Juice", "group": "From the farm", "note": "From apples grown in their own farm orchard." },
-          { "name": "Grass-Fed Dexter Beef", "group": "From the farm", "note": "100% grass-fed, from their own cattle. Limited quantities, occasionally available." },
-          { "name": "Free-Range Hen Eggs", "group": "From the farm", "note": "From their own small flock, when available." },
-          { "name": "Duck Eggs", "group": "From the farm", "note": "From their own small flock, when available." }
+          { "name": "Blossom Honey", "note": "Raw and unpasteurised. Single origin, including Powerscourt Estate, Foxrock and Glenasmole." },
+          { "name": "Soft-Set Honey", "note": "Raw and unpasteurised. Naturally creamy." },
+          { "name": "Dublin Mountains Heather Honey", "note": "Raw and unpasteurised. Their award-winning honey." },
+          { "name": "Bee Pollen", "note": "From their own hives." },
+          { "name": "Single-Origin Apple Juice", "note": "From apples grown in their own farm orchard." },
+          { "name": "Grass-Fed Dexter Beef", "note": "100% grass-fed, from their own cattle. Limited quantities, occasionally available." },
+          { "name": "Free-Range Hen Eggs", "note": "From their own small flock, when available." },
+          { "name": "Duck Eggs", "note": "From their own small flock, when available." }
         ],
         "plus": {}
       }
