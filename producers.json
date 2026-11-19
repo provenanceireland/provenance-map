@@ -4906,12 +4906,13 @@
         "active": true,
         "channel": { "type": "whatsapp", "value": "+44 7548 327445" },
         "updated": "2026-11-15",
-        "intro": "",
+        "intro": "Our self service honesty farm shop stocks our own farm fresh milk from our vending machine, eggs and preserves made without additives or preservatives. We also proudly support 20 local producers, with a focus on whole, minimally processed foods. Our aim is simple, reconnecting people with their food and the farmers who produce it.",
         "terms": "Self service shop, 7am until 10pm every day. Only call between 10am and 6pm Monday to Friday.",
         "available": [
           { "name": "Milk", "note": "Whole, low temp and non homogenised." },
           { "name": "Ex dairy beef", "note": "Ex dairy cows finished on grass." },
-          { "name": "Eggs", "note": "Outdoor." }
+          { "name": "Eggs", "note": "Outdoor." },
+          { "name": "Preserves", "note": "Their own jams and chutneys, made without additives or preservatives." }
         ],
         "plus": {}
       }
