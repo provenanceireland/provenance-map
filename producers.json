@@ -1,4 +1,4 @@
-{
+﻿{
   "producers": [
     {
       "id": "belted-galloway-organic-beef",
@@ -8,8 +8,10 @@
       "pin_classes": "",
       "badge": null,
       "badge2": null,
-      "lat": 51.547823,
-      "lng": -9.266211,
+      "lat": 51.103564,
+      "lng": -9.182905,
+      "lat_desktop": 51.338223,
+      "lng_desktop": -9.113373,
       "county": "Cork",
       "location": "Skibbereen, Co. Cork",
       "product": "Organic Belted Galloway Beef",
@@ -317,7 +319,7 @@
       "location": "Ballydavid, Dingle, Co. Kerry",
       "product": "Dairy",
       "product_type": ["dairy"],
-      "description": "Mai and Tomás O'Bruic make soft and semi hard cheeses at Baile Ghainín Beag near Ballydavid on the Dingle peninsula. The milk comes from their own Friesian herd.",
+      "description": "Mai and TomÃ¡s O'Bruic make soft and semi hard cheeses at Baile GhainÃ­n Beag near Ballydavid on the Dingle peninsula. The milk comes from their own Friesian herd.",
       "photo_url": null,
       "map_link": null,
       "social_instagram": null,
@@ -541,7 +543,7 @@
     {
       "id": "an-garrai-glas",
       "practice": "organic",
-      "name": "An Garraí Glas",
+      "name": "An GarraÃ­ Glas",
       "tier": "verified",
       "pin_classes": "",
       "badge": null,
@@ -705,7 +707,7 @@
       "location": "Bailieborough, Co. Cavan",
       "product": "Vegetables, Eggs, Beef & Pork",
       "product_type": ["vegetables", "eggs", "beef", "pork", "poultry"],
-      "description": "We are a small scale, family run regenerative farm based in Cavan. We produce Chemical Free Market Garden Vegetables, Pasture-Raised Eggs and Meat Chickens, Grass Fed & Finished Beef and Pasture & Forest Raised Pork. At SeanNua Farm we produce food that heals the body, mind & soul; food that makes you healthy, makes you feel good and allows you to have a clean conscience! We work with nature to heal our land and nurture our ecosystem, and nature in return provides us with an incredible bounty of amazing nutrient dense food you simply can’t buy in the supermarkets.",
+      "description": "We are a small scale, family run regenerative farm based in Cavan. We produce Chemical Free Market Garden Vegetables, Pasture-Raised Eggs and Meat Chickens, Grass Fed & Finished Beef and Pasture & Forest Raised Pork. At SeanNua Farm we produce food that heals the body, mind & soul; food that makes you healthy, makes you feel good and allows you to have a clean conscience! We work with nature to heal our land and nurture our ecosystem, and nature in return provides us with an incredible bounty of amazing nutrient dense food you simply canâ€™t buy in the supermarkets.",
       "photo_url": "seannuafarm.jpg",
       "map_link": null,
       "social_instagram": null,
@@ -794,7 +796,7 @@
         "order_url": "",
         "updated": "2026-10-11",
         "intro": "Free range pork and bacon off pigs that roam the native woods on the side of the Ox Mountains all year round. Everything is vac packed and frozen, ready to go straight into the freezer.",
-        "terms": "€100 collected from the farm, or €100 plus delivery.",
+        "terms": "â‚¬100 collected from the farm, or â‚¬100 plus delivery.",
         "groups": [
           { "name": "The box" },
           { "name": "What tends to be in a box", "note": "Not an order list. These are the cuts that come off their own pigs and make the boxes up." }
@@ -1054,7 +1056,7 @@
       "location": "Co. Kildare",
       "product": "Milk & Eggs",
       "product_type": ["dairy", "eggs"],
-      "description": "Graze Dairy is a family micro dairy. We sell our own milk, eggs, home made gelato, and coffee at our cabin shop at the farm gate. Our ‘no miles’ milk is sold in reusable glass bottles and are proud of our low processing and no waste approach.",
+      "description": "Graze Dairy is a family micro dairy. We sell our own milk, eggs, home made gelato, and coffee at our cabin shop at the farm gate. Our â€˜no milesâ€™ milk is sold in reusable glass bottles and are proud of our low processing and no waste approach.",
       "photo_url": "grazedairy.jpg",
       "map_link": null,
       "social_instagram": null,
@@ -1162,7 +1164,7 @@
       "location": "Co. Galway",
       "product": "Seasonal Vegetables",
       "product_type": ["vegetables"],
-      "description": "A certified organic vegetable farm near Ballinasloe, run by Pat and Sinéad Clarke. Grows a wide range of seasonal vegetables and salads for farmers markets, veg box delivery, and local retailers across Connacht.",
+      "description": "A certified organic vegetable farm near Ballinasloe, run by Pat and SinÃ©ad Clarke. Grows a wide range of seasonal vegetables and salads for farmers markets, veg box delivery, and local retailers across Connacht.",
       "photo_url": "beechlawn.jpg",
       "map_link": null,
       "social_instagram": null,
@@ -1216,7 +1218,7 @@
       "location": "Co. Laois",
       "product": "Milk",
       "product_type": ["dairy"],
-      "description": "Founded by Micheál and Cora, Moo Cow sells fresh milk from their own grass-fed cows, gently pasteurised on site and dispensed through self-service vending machines in reusable glass bottles. Farm to bottle, no middleman.",
+      "description": "Founded by MicheÃ¡l and Cora, Moo Cow sells fresh milk from their own grass-fed cows, gently pasteurised on site and dispensed through self-service vending machines in reusable glass bottles. Farm to bottle, no middleman.",
       "photo_url": "moocow.jpg",
       "map_link": null,
       "social_instagram": null,
@@ -1438,7 +1440,7 @@
       "location": "Co. Waterford",
       "product": "Pork & Bacon",
       "product_type": ["pork"],
-      "description": "We are Siobhán and Ross. Since 2012 we have raised heritage breed pigs on certified organic pasture near Lismore. We farm on the principle that the soil, the animal and the person eating it are all part of the same system, and that each one deserves to be treated as such.",
+      "description": "We are SiobhÃ¡n and Ross. Since 2012 we have raised heritage breed pigs on certified organic pasture near Lismore. We farm on the principle that the soil, the animal and the person eating it are all part of the same system, and that each one deserves to be treated as such.",
       "photo_url": "Newbard.png",
       "map_link": "producers/newbard-organic-farm.html",
       "social_instagram": null,
@@ -1760,7 +1762,7 @@
         "channel": { "type": "whatsapp", "value": "+44 7775 810253" },
         "updated": "2026-09-30",
         "intro": "Pedigree Irish Moiled beef from David and Sandra Scott's farm at Garvagh, slow grown on pasture. Boxes, a monthly subscription and the full range of cuts, all off their own certified Irish Moiled cattle.",
-        "terms": "Doorstep delivery across Northern Ireland, £6 on orders over £30. Free collection from The Beef Barn at the farm, open daily 8am to 10pm. Belfast collection through Indie Füde on selected dates. Order by Tuesday for Thursday delivery.",
+        "terms": "Doorstep delivery across Northern Ireland, Â£6 on orders over Â£30. Free collection from The Beef Barn at the farm, open daily 8am to 10pm. Belfast collection through Indie FÃ¼de on selected dates. Order by Tuesday for Thursday delivery.",
         "groups": [
           {
             "name": "Monthly subscription",
@@ -1811,7 +1813,7 @@
           { "name": "Butcher's mince", "note": "Coarse minced beef.", "profile_only": true, "photo": "/produce/moyletra-moileds/butchers-mince.jpg" },
           { "name": "Beef pieces", "note": "Diced beef for stews.", "profile_only": true, "photo": "/produce/moyletra-moileds/beef-pieces.jpg" },
           {
-            "name": "Bóshaille® Cured Irish Moiled Beef",
+            "name": "BÃ³shailleÂ® Cured Irish Moiled Beef",
             "note": "Their own trademark and their own cattle, cured in small batches for them by Curly Pigs in Co. Fermanagh.",
             "profile_only": true,
             "photo": "/produce/moyletra-moileds/boshaille.jpg"
@@ -1897,7 +1899,7 @@
       "location": "Co. Waterford",
       "product": "Raw Irish Honey",
       "product_type": ["honey"],
-      "description": "A family-run beekeeping business in Dungarvan, founded by the Reilly family in 2020. Hives are moved seasonally to follow different blooms — blackberry, lime, chestnut, and clover — and the honey is 100% raw Irish blossom honey.",
+      "description": "A family-run beekeeping business in Dungarvan, founded by the Reilly family in 2020. Hives are moved seasonally to follow different blooms â€” blackberry, lime, chestnut, and clover â€” and the honey is 100% raw Irish blossom honey.",
       "photo_url": "dungarvanhoney.jpg",
       "map_link": null,
       "social_instagram": null,
@@ -1942,14 +1944,14 @@
         "order_url": "https://white-grass-farm.myshopify.com/",
         "updated": "2026-10-27",
         "intro": "Former professional rugby player, turned Farmer! White Grass Farm is a family-run beef farm located in Ferbane, Co. Offaly. We believe in farming naturally, with a low-input, (chemical free) low-stocking approach that puts animal welfare, sustainability and quality at the heart of everything we do. Our cattle are raised with care, producing premium Irish beef that we sell directly to customers, bringing honest, traceable, farm-fresh beef from our fields to your table.",
-        "terms": "Order in advance. Collection from the farm at Gallen, Ferbane, or delivery for €5.",
+        "terms": "Order in advance. Collection from the farm at Gallen, Ferbane, or delivery for â‚¬5.",
         "groups": [
           { "name": "The box" },
           { "name": "The cuts", "note": "Not an order list. These are the cuts they produce, and what goes into a box varies." }
         ],
         "available": [
           { "name": "Beef box", "group": "The box",
-            "note": "A mixture of cuts and joints off their own cattle. €160.",
+            "note": "A mixture of cuts and joints off their own cattle. â‚¬160.",
             "photo": "/produce/white-grass-farm/beef-box.jpg" },
           { "name": "T-bone steak", "group": "The cuts", "profile_only": true,
             "note": "Striploin one side of the bone, fillet the other.",
@@ -2101,12 +2103,12 @@
         "intro": "Husband and wife, environmental and marine scientist, biological and organic agri scientist, pharmacist and KNF practisioners. We use these skills to produce food without chemicals and re-establish microbes into the soil to bring hope to the future of agriculture. We produce grass fed dexter beef, pasture raised eggs and have a market garden and education centre.",
         "terms": "Collection from the farm at Fanad. Order in advance, and call before you come.",
         "available": [
-          { "name": "Dexter beef", "note": "A box of 10kg, mixed cuts. €200. Autumn and winter.",
+          { "name": "Dexter beef", "note": "A box of 10kg, mixed cuts. â‚¬200. Autumn and winter.",
             "photo": "/produce/mulroy-meadow-farm/dexter-beef.jpg" },
-          { "name": "Seasonal vegetables", "note": "Tomatoes, cucumbers, beans, salad and kale. €2.50 to €3.50. All year.",
+          { "name": "Seasonal vegetables", "note": "Tomatoes, cucumbers, beans, salad and kale. â‚¬2.50 to â‚¬3.50. All year.",
             "photos": ["/produce/mulroy-meadow-farm/market-garden.jpg",
                        "/produce/mulroy-meadow-farm/pollinators.jpg"] },
-          { "name": "Pasture raised eggs", "note": "Ten eggs, €5.50. All year." }
+          { "name": "Pasture raised eggs", "note": "Ten eggs, â‚¬5.50. All year." }
         ],
         "plus": {}
       }
@@ -2154,7 +2156,7 @@
       "location": "Ballickmoyler, Co. Laois",
       "product": "Organic Beef & Lamb",
       "product_type": ["beef", "lamb"],
-      "description": "Coolanowle Organic Meats is a family-run certified organic farm in County Laois, where we have been farming organically for 25 years, caring for our animals and land to recognised organic standards. We produce our own certified organic beef and lamb, with traceability and quality at the heart of everything we do. We sell directly through our online shop offering nationwide delivery, as well as via farmers’ markets and prearranged order collections from our farm, connecting customers with genuine certified organic meat from Irish family farms.",
+      "description": "Coolanowle Organic Meats is a family-run certified organic farm in County Laois, where we have been farming organically for 25 years, caring for our animals and land to recognised organic standards. We produce our own certified organic beef and lamb, with traceability and quality at the heart of everything we do. We sell directly through our online shop offering nationwide delivery, as well as via farmersâ€™ markets and prearranged order collections from our farm, connecting customers with genuine certified organic meat from Irish family farms.",
       "photo_url": "coolanowle.jpg",
       "photo_bg": "white",
       "map_link": null,
@@ -2264,7 +2266,7 @@
       "lat": 51.964820,
       "lng": -9.646488,
       "county": "Kerry",
-      "location": "Dún Chaoin, Co. Kerry",
+      "location": "DÃºn Chaoin, Co. Kerry",
       "product": "Solar Evaporated Sea Salt",
       "product_type": ["salt"],
       "description": "Dingle Sea Salt is a small-batch producer of pure, natural sea salt, sustainably crafted on the Dingle Peninsula using the natural energy of the sun and wind. We work slowly and by hand, from harvesting and evaporation through to finishing and packing, with a focus on exceptional quality, minimal environmental impact and a strong sense of place.",
@@ -2356,7 +2358,7 @@
       "location": "Hook Head, Co. Wexford",
       "product": "Oysters",
       "product_type": ["shellfish"],
-      "description": "Over 400 years ago, oysters were first relayed in these very waters on the Hook Head peninsula, beginning a tradition that our family is proud to carry on in the exact same place today. Our oysters are sustainably grown in the clean Atlantic waters of the Wexford coast, nurtured naturally by the tides with no chemicals or additives, just the sea, time and generations of care. This remarkable heritage, combined with our family’s commitment to responsible aquaculture, produces oysters of exceptional quality, freshness and flavour, that compete on the world stage while preserving these waters and their tradition for generations to come.",
+      "description": "Over 400 years ago, oysters were first relayed in these very waters on the Hook Head peninsula, beginning a tradition that our family is proud to carry on in the exact same place today. Our oysters are sustainably grown in the clean Atlantic waters of the Wexford coast, nurtured naturally by the tides with no chemicals or additives, just the sea, time and generations of care. This remarkable heritage, combined with our familyâ€™s commitment to responsible aquaculture, produces oysters of exceptional quality, freshness and flavour, that compete on the world stage while preserving these waters and their tradition for generations to come.",
       "photo_url": "hookheadoysters.jpg",
       "directions": "https://maps.google.com/?q=Y34+DX79",
       "map_link": null,
@@ -2546,7 +2548,7 @@
     {
       "id": "ballyconnery-bo",
       "practice": "unspecified",
-      "name": "Ballyconnery Bó",
+      "name": "Ballyconnery BÃ³",
       "tier": "discovered",
       "pin_classes": "",
       "badge": null,
@@ -2667,7 +2669,7 @@
       "location": "Muckross, Killarney, Co. Kerry",
       "product": "Skyr Yoghurt & Ice Cream",
       "product_type": ["dairy"],
-      "description": "A family dairy farm in Muckross, Killarney, making ice cream and Icelandic-style skyr from their own cows' milk. Pasteurised and churned on site, from cow to cone, and sold from their farm creamery and café.",
+      "description": "A family dairy farm in Muckross, Killarney, making ice cream and Icelandic-style skyr from their own cows' milk. Pasteurised and churned on site, from cow to cone, and sold from their farm creamery and cafÃ©.",
       "photo_url": "muckross.jpg",
       "photo_bg": "white",
       "map_link": null,
@@ -3194,7 +3196,7 @@
     {
       "id": "sile-farm-and-nursery",
       "practice": "regenerative",
-      "name": "Síle Farm and Nursery",
+      "name": "SÃ­le Farm and Nursery",
       "tier": "verified",
       "pin_classes": "",
       "badge": null,
@@ -3222,7 +3224,7 @@
     {
       "id": "glasrai-organic-farm",
       "practice": "regenerative,organic",
-      "name": "Glasraí Organic Farm",
+      "name": "GlasraÃ­ Organic Farm",
       "tier": "verified",
       "pin_classes": "",
       "badge": null,
@@ -3393,30 +3395,30 @@
         "channel": { "type": "whatsapp", "value": "083 434 8763" },
         "updated": "2026-11-17",
         "intro": "Beef off 160 acres at Castletown in Laois, bought by Liam\u0027s great grandmother in the early 1900s and farmed by every generation since. A third of it is tillage, a third silage, a third grazing, so nearly everything the cattle eat is grown on the same ground. The one thing bought in is a nut from the mill down the road, for vitamins, and the farm sells its grain back to that same mill.",
-        "terms": "Delivery for €12, or collection from the farm. Boxes and quarter, half or whole animals available.",
+        "terms": "Delivery for â‚¬12, or collection from the farm. Boxes and quarter, half or whole animals available.",
         "order_url": "https://www.rathphelanfarm.ie/pages/shop",
         "available": [
           {
             "name": "5kg Beef Box - Locavore Box",
             "qty": 4,
-            "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts. €90.",
+            "note": "The smaller box, filled with steaks and mince rather than the slow-cooking cuts. â‚¬90.",
             "photo": "/produce/rathphelan-farm/locavore-box.jpg"
           },
           {
             "name": "8kg Beef Box - Family Box",
             "qty": 3,
-            "note": "The same idea with more in it, and a wider range of cuts. €140.",
+            "note": "The same idea with more in it, and a wider range of cuts. â‚¬140.",
             "photo": "/produce/rathphelan-farm/family-box.jpg"
           },
           {
             "name": "10kg Beef Box - Freezer Filler Box",
             "qty": 1,
-            "note": "The biggest of the three. More of everything, and the widest range of cuts. €175.",
+            "note": "The biggest of the three. More of everything, and the widest range of cuts. â‚¬175.",
             "photo": "/produce/rathphelan-farm/freezer-filler-box.jpg"
           }
         ],
         "gallery": {
-          "note": "Quarter, half and whole animals are available too, cut, bagged and labelled to order for the freezer, from €1,000.",
+          "note": "Quarter, half and whole animals are available too, cut, bagged and labelled to order for the freezer, from â‚¬1,000.",
           "photos": [
             "/produce/rathphelan-farm/freezer-2.jpg",
             "/produce/rathphelan-farm/freezer-3.jpg",
@@ -3677,18 +3679,33 @@
       "map_link": null,
       "social_instagram": null,
       "website": null,
-      "attributes": ["Free range"],
+      "attributes": ["Free range", "Pasture raised", "Chemical Free"],
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": "2026-09-21"
+      "date_added": "2026-09-21",
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "086 414 2879" },
+        "updated": "2026-11-11",
+        "intro": "Creag Ard Farm are now taking orders on our Certified Organic, Free Range, Oven Ready Christmas Turkeys.\n\nWe have both Bronze & White options available with a full range of sizes (10-24lbs) & a variety of cuts to suit every Christmas Table; Whole Turkey, Boned & Rolled, Turkey Crowns.\n\nGet Christmas sorted early this year and enjoy a delicious, Farm to Table Turkey from Creag Ard Farm.",
+        "terms": "We Deliver your Oven-Ready Turkey direct to your door with orders going out from December 21st, covering the majority of counties across Ulster & Leinster.\n\nCollection is also available from our farm in the Cooley Mountains, Co. Louth. To place an order, or if you have any queries, please give us a call any time.",
+        "available": [
+          {
+            "name": "Organic Free Range Oven Ready Turkey",
+            "note": "Bronze and white, 10 to 24lbs. Ordered ahead for Christmas.",
+            "options": ["Whole", "Boned & rolled", "Crown"]
+          }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "garrai-mara",
       "practice": "unspecified",
-      "name": "Garraí Mara",
+      "name": "GarraÃ­ Mara",
       "tier": "discovered",
       "pin_classes": "",
       "badge": null,
@@ -3778,7 +3795,7 @@
         "updated": "2026-10-02",
         "source": "Listed from their own shop at lisnahayfarmmeats.com.",
         "intro": "Fourth generation farmers outside Ballygally on the Antrim coast. Grass fed beef and lamb, slow matured and butchered locally, sold by the cut, in bundles, or as a quarter or half animal for the freezer.",
-        "terms": "Free local delivery on orders over £40. Beef boxes are collected from the farm or delivered locally. Bulk beef runs four to five weeks from ordering, with a deposit up front and the balance settled on collection once the animal is weighed.",
+        "terms": "Free local delivery on orders over Â£40. Beef boxes are collected from the farm or delivered locally. Bulk beef runs four to five weeks from ordering, with a deposit up front and the balance settled on collection once the animal is weighed.",
         "groups": [
           {
             "name": "Bulk beef and bundles",
@@ -3860,7 +3877,7 @@
       "location": "Letterkenny, Co. Donegal",
       "product": "Dexter Beef",
       "product_type": ["beef"],
-      "description": "We’re Patrick and Kevin Harley, and on our farm here in Letterkenny we rear pedigree Dexter cattle on a traditional grass-based system. Our cattle spend as much of the year as possible outdoors, grazing our fields on a natural mix of grasses. Our beef is sold through Donegal Dexter, a farmer to customer collective that helps us keep the supply chain short and sell our beef directly to customers.",
+      "description": "Weâ€™re Patrick and Kevin Harley, and on our farm here in Letterkenny we rear pedigree Dexter cattle on a traditional grass-based system. Our cattle spend as much of the year as possible outdoors, grazing our fields on a natural mix of grasses. Our beef is sold through Donegal Dexter, a farmer to customer collective that helps us keep the supply chain short and sell our beef directly to customers.",
       "photo_url": "donegaldexter.jpg",
       "map_link": null,
       "social_instagram": null,
@@ -4136,18 +4153,18 @@
         "order_url": "",
         "updated": "2026-10-17",
         "intro": "Heritage vegetables grown in the Causeway countryside, without artificial chemicals. This is their list for October and November.",
-        "terms": "Collection from BT51, or delivery for £4 within 15 miles. Further out on request.",
+        "terms": "Collection from BT51, or delivery for Â£4 within 15 miles. Further out on request.",
         "available": [
-          { "name": "Rainbow chard", "note": "£6 a kilo, 60p per 100g." },
-          { "name": "Kales", "note": "Red Russian and Cottagers. £6 a kilo, 60p per 100g." },
-          { "name": "Cavalo Nero", "note": "£6 a kilo, 60p per 100g." },
-          { "name": "Pumpkin, Red Kuri", "note": "Half a kilo to 3kg each. £5.50 a kilo." },
-          { "name": "Pumpkin, Jarrahdale or Crown Prince", "note": "5 to 8kg each. £5.50 a kilo." },
-          { "name": "Flat leaf parsley", "note": "£2 per 100g." },
-          { "name": "Chives", "note": "£2 per 100g." },
-          { "name": "Mixed salad leaves", "note": "£10 a kilo, £1 per 100g." },
-          { "name": "Mixed Orientals mustards", "note": "Mibuna, mizuna and wasabina. £10 a kilo, £1 per 100g." },
-          { "name": "Spring onions", "note": "£8.50 a kilo, 85p per 100g." }
+          { "name": "Rainbow chard", "note": "Â£6 a kilo, 60p per 100g." },
+          { "name": "Kales", "note": "Red Russian and Cottagers. Â£6 a kilo, 60p per 100g." },
+          { "name": "Cavalo Nero", "note": "Â£6 a kilo, 60p per 100g." },
+          { "name": "Pumpkin, Red Kuri", "note": "Half a kilo to 3kg each. Â£5.50 a kilo." },
+          { "name": "Pumpkin, Jarrahdale or Crown Prince", "note": "5 to 8kg each. Â£5.50 a kilo." },
+          { "name": "Flat leaf parsley", "note": "Â£2 per 100g." },
+          { "name": "Chives", "note": "Â£2 per 100g." },
+          { "name": "Mixed salad leaves", "note": "Â£10 a kilo, Â£1 per 100g." },
+          { "name": "Mixed Orientals mustards", "note": "Mibuna, mizuna and wasabina. Â£10 a kilo, Â£1 per 100g." },
+          { "name": "Spring onions", "note": "Â£8.50 a kilo, 85p per 100g." }
         ],
         "plus": {}
       }
@@ -4197,7 +4214,7 @@
       "location": "Co. Donegal",
       "product": "Organic vegetables",
       "product_type": ["vegetables"],
-      "description": "Shy By Nature is an organic market garden in South Donegal, growing seasonal vegetables with and for our community. Our veg boxes travel from Letterkenny to Donegal Town, Killybegs and Dungloe, and we also supply local cafés, restaurants and shops. “For life and wildlife” is our guiding principle.",
+      "description": "Shy By Nature is an organic market garden in South Donegal, growing seasonal vegetables with and for our community. Our veg boxes travel from Letterkenny to Donegal Town, Killybegs and Dungloe, and we also supply local cafÃ©s, restaurants and shops. â€œFor life and wildlifeâ€ is our guiding principle.",
       "photo_url": "shybynature.jpg",
       "photo_bg": "white",
       "directions": "https://maps.google.com/?q=F94+YV91",
@@ -4453,13 +4470,25 @@
       "map_link": null,
       "social_instagram": null,
       "website": null,
-      "attributes": ["Chemical Free"],
+      "attributes": ["Chemical Free", "Plastic Free"],
       "seal_active": false,
       "seal_url": null,
       "where_to_buy": [],
       "farmers_market": false,
       "farm_shop": false,
-      "date_added": "2026-10-27"
+      "date_added": "2026-10-27",
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "083 839 8465" },
+        "updated": "2026-11-19",
+        "intro": "We are a certified organic market garden rooted in local, sustainable and regenerative growing practices. Everything we produce is chemical-free, with a strong focus on building healthy soil and resilient ecosystems from the ground up.\n\nOur farm is a living system, from worms and compost that feed the soil, to seedlings and plants grown with care, to our hemp and CBD cultivated in harmony with nature. By working with natural cycles rather than against them, we grow nutritious produce and plants that reflect the health of the land they come from.\n\nCommunity is at the heart of what we do. We believe in local food, transparency, and sharing knowledge that supports a more sustainable future. Whether through fresh produce, plants, or soil-building solutions, our aim is to nourish both people and place.",
+        "terms": "We have drop off points in Newcastle, Cappoquin, Dungarvan and Youghal. Days and times to be confirmed in the new year. Best to leave a message on WhatsApp.",
+        "available": [
+          { "name": "CBD Oil" },
+          { "name": "Mixed Salad" }
+        ],
+        "plus": {}
+      }
     },
     {
       "id": "highbank-orchards",
@@ -4590,7 +4619,7 @@
       "location": "Moyvane, Co. Kerry",
       "product": "Whole milk, pasteurised, non-homogenised",
       "product_type": ["dairy"],
-      "description": "I bottle fresh, pasteurised milk directly on the farm. By avoiding homogenisation, I preserve the milk’s natural creaminess and structure, just as nature intended. The cream rises to the top, delivering a rich, full flavour and taste. Every bottle is fully traceable and handled with care from cow to customer, ensuring a wholesome, authentic product that reflects our commitment to quality.",
+      "description": "I bottle fresh, pasteurised milk directly on the farm. By avoiding homogenisation, I preserve the milkâ€™s natural creaminess and structure, just as nature intended. The cream rises to the top, delivering a rich, full flavour and taste. Every bottle is fully traceable and handled with care from cow to customer, ensuring a wholesome, authentic product that reflects our commitment to quality.",
       "photo_url": "glenview.jpg",
       "photo_bg": "white",
       "map_link": null,
@@ -4607,7 +4636,7 @@
         "active": true,
         "channel": { "type": "whatsapp", "value": "086 376 1122" },
         "updated": "2026-11-05",
-        "intro": "I’ve spent my career working in retail, in Food service and safety. Here I gained first-hand insight into customer expectations and the growing demand for high-quality, locally sourced food. I noticed a clear gap in the market in Kerry and Limerick for truly fresh, minimally processed milk the kind that tastes the way milk used to taste. That’s what inspired me to establish my business.",
+        "intro": "Iâ€™ve spent my career working in retail, in Food service and safety. Here I gained first-hand insight into customer expectations and the growing demand for high-quality, locally sourced food. I noticed a clear gap in the market in Kerry and Limerick for truly fresh, minimally processed milk the kind that tastes the way milk used to taste. Thatâ€™s what inspired me to establish my business.",
         "terms": "Stocked in shops and cafes across Kerry and Limerick. No delivery and no collection from the farm.",
         "available": [
           { "name": "Whole Milk pasteurised non-homogenised", "note": "Bottled on the farm. 1 litre and 2 litre." },
@@ -4841,6 +4870,101 @@
           { "name": "Savoy winter cabbage" },
           { "name": "Red kuri pumpkin" },
           { "name": "Kale" }
+        ],
+        "plus": {}
+      }
+    },
+    {
+      "id": "fisherwick-farm",
+      "practice": "conventional",
+      "name": "Fisherwick Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 54.741495,
+      "lng": -6.042984,
+      "county": "Antrim",
+      "location": "Doagh, Co. Antrim",
+      "product": "Milk, Beef & Eggs",
+      "product_type": ["dairy", "beef", "eggs"],
+      "description": "Family farm in Doagh village. We pasteurise our own milk, make our own range of jams and chutneys, keep a range of our own ex dairy beef and free range eggs.",
+      "photo_url": "fisherwick-farm.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "directions": "https://maps.google.com/?q=BT39+0PQ",
+      "attributes": ["Grass Fed", "Free range", "Chemical Free", "Non-Homogenised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-19",
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "+44 7548 327445" },
+        "updated": "2026-11-15",
+        "intro": "",
+        "terms": "Self service shop, 7am until 10pm every day. Only call between 10am and 6pm Monday to Friday.",
+        "available": [
+          { "name": "Milk", "note": "Whole, low temp and non homogenised." },
+          { "name": "Ex dairy beef", "note": "Ex dairy cows finished on grass." },
+          { "name": "Eggs", "note": "Outdoor." }
+        ],
+        "plus": {}
+      }
+    },
+    {
+      "id": "ollys-farm",
+      "practice": "regenerative",
+      "name": "Olly's Farm",
+      "tier": "verified",
+      "pin_classes": "",
+      "badge": null,
+      "badge2": null,
+      "lat": 53.2389356,
+      "lng": -6.3619805,
+      "county": "Dublin",
+      "location": "Glenasmole, Co. Dublin",
+      "product": "Raw Honey & Apple Juice",
+      "product_type": ["honey", "drinks"],
+      "description": "Nestled in the Dublin Mountains, Olly's Farm produces award-winning raw Irish honey from our own bees, including blossom, soft-set and heather. We also grow apples in our farm orchard, producing delicious single-origin apple juice. A Farming for Nature Ambassador and early ReFarm Ireland member.",
+      "photo_url": "ollysfarm.png",
+      "connect_photo": "ollys-farm-connect.jpg",
+      "photo_bg": "white",
+      "map_link": null,
+      "social_instagram": null,
+      "website": null,
+      "directions": "https://maps.google.com/?q=D24+WY81",
+      "attributes": ["Grass Fed", "Free range", "Chemical Free", "Native / rare breed", "Heritage breed", "Native Irish Honey Bee", "Raw / unpasteurised"],
+      "seal_active": false,
+      "seal_url": null,
+      "where_to_buy": [],
+      "farmers_market": false,
+      "farm_shop": false,
+      "date_added": "2026-11-19",
+      "connect": {
+        "active": true,
+        "channel": { "type": "whatsapp", "value": "087 774 7169" },
+        "order_url": "https://www.ollysfarm.ie/shop",
+        "updated": "2026-11-16",
+        "intro": "Olly's Farm is an award-winning honey producer and nature-friendly smallholding nestled in the beautiful Glenasmole Valley in the Dublin Mountains. Established in 2012, our 8.5-acre farm is home to a traditional apple orchard, Dexter cattle, free-range poultry and an abundance of wildlife.\n\nWe manage honeybee colonies across 21 apiary locations throughout Dublin and Wicklow, producing raw, single-origin Irish honey that reflects the unique flowers and landscapes of each area. From Powerscourt Estate Blossom Honey to Foxrock Blossom and our own Glenasmole Blossom Honey, each harvest tells the story of its origins. Our range includes blossom, naturally creamy soft-set and our award-winning Dublin Mountains heather honey.\n\nAll our honey comes exclusively from our own bees. We never buy in honey from other beekeepers or suppliers to supplement our harvests. Every jar is raw, unheated and unpasteurised, with each harvest carefully kept separate to preserve its unique origin, flavour and character.\n\nWe also grow and harvest apples from our own farm orchard to produce delicious single-origin apple juice.\n\nOur smallholding is home to 100% grass-fed Dexter cattle, with limited quantities of our own farm-reared beef occasionally available. We also keep a small flock of free-range hens and ducks, providing fresh eggs for sale when available.\n\nAs a Farming for Nature Ambassador and one of the early members of ReFarm Ireland, I believe that farming and nature should thrive together. From planting native trees and creating wildlife habitats to avoiding synthetic agricultural sprays and fertilisers, everything we do is guided by our commitment to biodiversity and regenerative farming practices.\n\nWe love sharing the farm with visitors and offer guided farm tours throughout the year, along with hands-on beekeeping experiences during the beekeeping season. These experiences give visitors the opportunity to discover how we produce our food, care for our bees and manage the farm alongside nature.",
+        "terms": "We offer nationwide delivery through our online shop, along with collection directly from our farm in Glenasmole, Dublin Mountains.\n\nOur farm shop is normally open Mondays and Thursdays, 9am to 1pm, or outside these hours by appointment. As we're a working farm and may be out tending our bees or making deliveries, please call ahead before visiting.\n\nHoney and apple juice are generally available during opening hours. Dexter beef and fresh hen or duck eggs are available occasionally, subject to availability. Please contact us in advance for these products. Farm tours and beekeeping experiences are available by advance booking.",
+        "groups": [
+          { "name": "Honey", "note": "Raw, unheated and unpasteurised. Each harvest kept separate." },
+          { "name": "From the farm" }
+        ],
+        "available": [
+          { "name": "Blossom Honey", "group": "Honey", "note": "Single origin, including Powerscourt Estate, Foxrock and Glenasmole." },
+          { "name": "Soft-Set Honey", "group": "Honey", "note": "Naturally creamy." },
+          { "name": "Dublin Mountains Heather Honey", "group": "Honey", "note": "Their award-winning honey." },
+          { "name": "Bee Pollen", "group": "Honey" },
+          { "name": "Single-Origin Apple Juice", "group": "From the farm", "note": "From apples grown in their own farm orchard." },
+          { "name": "Grass-Fed Dexter Beef", "group": "From the farm", "note": "100% grass-fed, from their own cattle. Limited quantities, occasionally available." },
+          { "name": "Free-Range Hen Eggs", "group": "From the farm", "note": "From their own small flock, when available." },
+          { "name": "Duck Eggs", "group": "From the farm", "note": "From their own small flock, when available." }
         ],
         "plus": {}
       }
