@@ -1480,13 +1480,21 @@
     .card-action-connect:hover { background: #559A61; border-color: #559A61; }
     .card-action-connect svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* "Confirmed by <farm>" — verified trust line at the very bottom */
+    /* "Confirmed by <farm>", the verified trust line. It closes the content,
+       above the Share row.
+
+       The bottom margin is doing real work and is not decoration. The Share
+       row carries its own border-top and only a 2px margin, so without this
+       the hairline sat right under the confirmed text and the line read as a
+       heading for the Share block rather than as the close of the farm's
+       details. 24px here against the row's 2px gives the daylight. */
     .card-confirmed {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       margin-top: 12px;
+      margin-bottom: 24px;
       font-size: 0.56rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
