@@ -7,14 +7,86 @@
     "profile": "/producer/?id=galtee-honey-farm"
   },
   "kicker": "Provenance Collection",
-  "descriptor": "Ling heather honey from Galtee Honey Farm.",
-  "og_description": "The story behind a jar of Galtee Honey Farm ling heather honey, recorded by Provenance with the producer.",
+  "descriptor": "Raw heather honey from the native Irish honeybees of Galtee Honey Farm.",
+  "og_description": "The story behind a jar of Galtee Honey Farm ling heather honey: the family, the valley, the native Irish honeybee and the last crop of the year.",
   "intro": [
     "This is the story behind the product in your hand, recorded by Provenance together with the producer.",
-    "The full story is being written and will appear on this page. It is a story and nothing more. This page makes no claim of batch verification, laboratory testing or certification."
+    "It is a story and nothing more. This page makes no claim of batch verification, laboratory testing or certification."
   ],
-  "sections": [],
-  "sources": [],
+  "sections": [
+    {
+      "id": "farm",
+      "kicker": "The farm",
+      "heading": "One family, one bee",
+      "blocks": [
+        { "type": "p", "text": "Micheál Mac Giolla Coda set up Galtee Honey Farm in 1970, while he was head forester of Glengarra Wood. His daughter Aoife took it over in 2013 and is head beekeeper on the farm now." },
+        { "type": "p", "text": "They have only ever kept the native Irish honeybee." },
+        { "type": "statement", "label": "Farm statement", "text": "Beekeeping in the family goes back further. A grandfather, born in 1870, kept his bees in straw skeps: a swarm was shaken from a tree into the skep and carried home, and the bees built their comb down inside it. Later beekeepers moved on to keeping bees in butter boxes." },
+        { "type": "statement", "label": "Farm statement", "text": "The farm keeps 16 to 18 apiaries across the valley, with about eight to ten hives in any one place and two or three miles between them, so that each has its own ground to forage." }
+      ],
+      "source": "Source: Galtee Honey Farm. The apiaries and the family history are the farm's own statements, recorded on a visit to the farm."
+    },
+    {
+      "id": "bee",
+      "kicker": "The bee",
+      "heading": "The native Irish honeybee",
+      "blocks": [
+        { "type": "p", "text": "Apis mellifera mellifera, the dark European honeybee, is the native Irish honeybee. It is darker and stockier than the bees in most hives abroad.", "cite": "Hassett et al., Journal of Apicultural Research, 2018" },
+        { "type": "p", "text": "A 2018 study tested 412 bees from 24 counties and found them 97.8 percent pure dark bee.", "cite": "Hassett et al., Journal of Apicultural Research, 2018" },
+        { "type": "statement", "label": "Farm statement", "text": "The first samples tested in that research came from Galtee Honey Farm's bees." },
+        { "type": "p", "text": "In 1991 Micheál and a handful of local beekeepers formed the Galtee Bee Breeding Group, to breed and protect the native bee. The groups that followed it around the country united in 2012 as the Native Irish Honey Bee Society, which Micheál and Aoife helped to found." },
+        { "type": "statement", "label": "Farm statement", "text": "The society has well over a thousand members now, across all 32 counties." }
+      ],
+      "source": "Sources: Hassett et al., Journal of Apicultural Research, 2018; Galtee Honey Farm; Native Irish Honey Bee Society."
+    },
+    {
+      "id": "valley",
+      "kicker": "The ground",
+      "heading": "A valley that became a sanctuary",
+      "blocks": [
+        { "type": "p", "text": "The farm sits at the entrance to Glengarra Wood, in the valley between the Galtee Mountains and the Knockmealdowns." },
+        { "type": "statement", "label": "Farm statement", "text": "The two mountain ranges close the valley off, from Mitchelstown to Cahir, and act as a natural barrier that keeps non-native bees out. The valley was the first conservation area for the native Irish honeybee in Ireland. Nothing in law protects it. It is an agreement among the local beekeepers, who all keep the native bee." },
+        { "type": "statement", "label": "Farm statement", "text": "Glengarra Wood covers about 1,400 acres. Most of it is spruce now, but beside the farm there is native oak and holly woodland, and a yew wood. The bees range up to three miles, and mainly fly down into the hedgerows and trees of the valley." }
+      ],
+      "source": "Source: Galtee Honey Farm, recorded on a visit to the farm. The conservation area and the woodland are the farm's own account."
+    },
+    {
+      "id": "honey",
+      "kicker": "The honey",
+      "heading": "The last crop of the year",
+      "blocks": [
+        { "type": "p", "text": "Ling heather flowers in August and September, after the summer flow of hawthorn, clover and blackberry is done. The honey is dark brown and sets to a jelly.", "cite": "Lehane, Irish Food History: A Companion, pp. 177 to 178" },
+        { "type": "statement", "label": "Farm statement", "text": "The farm is at the foot of the mountains, and the bees travel to the heather for this honey. It does not come every year. Land reclamation has turned heather to grass in places, so the bees have further to go for it than they once did." },
+        { "type": "statement", "label": "Farm statement", "text": "To extract it, the wax cappings are cut from each comb, the combs are spun, and the honey runs through a sump that takes out the wax. It is stored in buckets, warmed gently to loosen it, kept under 40°C, and filled into jars." }
+      ],
+      "source": "Sources: Lehane, in Irish Food History: A Companion; Galtee Honey Farm. How it is gathered and extracted is the farm's own account."
+    },
+    {
+      "id": "kitchen",
+      "kicker": "In the kitchen",
+      "heading": "Using it",
+      "blocks": [
+        { "type": "p", "text": "Heather honey is thick and sets to a jelly in the jar." , "cite": "Lehane, Irish Food History: A Companion, pp. 177 to 178" },
+        { "type": "statement", "label": "Farm statement", "text": "Honey keeps for a long time and does not need to be kept cold." },
+        { "type": "p", "text": "No shelf life has been set for this release, so none is given here. For questions about use or storage, ask the farm." }
+      ]
+    },
+    {
+      "id": "history",
+      "kicker": "The history",
+      "heading": "Bees had their own laws here",
+      "blocks": [
+        { "type": "p", "text": "Old Irish law gave bees a tract of their own, the Bechbretha, the bee judgements, written in the seventh century. It dealt with who owned a swarm and its honey. The language already had the words mil for honey and mid for mead.", "cite": "Lehane, Irish Food History: A Companion, pp. 167, 170 and 175" },
+        { "type": "p", "text": "Because heather honey sets to a jelly, for most of its history it was eaten straight from the comb. Early willow and late heather were called Ireland's champagne honeys.", "cite": "Lehane, Irish Food History: A Companion, pp. 177 to 178" }
+      ]
+    }
+  ],
+  "sources": [
+    "Irish Food History: A Companion: Lehane, pp. 167, 170, 175 and 177 to 178.",
+    "Hassett et al., Journal of Apicultural Research, 2018.",
+    "Native Irish Honey Bee Society.",
+    "Galtee Honey Farm, recorded on a visit to the farm. The apiaries, the family history, the conservation area, the woodland and how the honey is gathered and extracted are the farm's own statements."
+  ],
   "collection": {
     "heading": "The Provenance Collection",
     "text": [
