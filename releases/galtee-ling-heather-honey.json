@@ -63,16 +63,6 @@
       "source": "Sources: Lehane, in Irish Food History: A Companion; Galtee Honey Farm. How it is gathered and extracted is the farm's own account."
     },
     {
-      "id": "kitchen",
-      "kicker": "In the kitchen",
-      "heading": "Using it",
-      "blocks": [
-        { "type": "p", "text": "Heather honey is thick and sets to a jelly in the jar." , "cite": "Lehane, Irish Food History: A Companion, pp. 177 to 178" },
-        { "type": "p", "text": "Honey keeps for a long time and does not need to be kept cold." },
-        { "type": "p", "text": "No shelf life has been set for this release, so none is given here. For questions about use or storage, ask the farm." }
-      ]
-    },
-    {
       "id": "history",
       "kicker": "The history",
       "heading": "Bees had their own laws here",
