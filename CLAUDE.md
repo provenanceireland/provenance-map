@@ -710,6 +710,8 @@ What a Seal page carries:
 
 **Design language:** Collection charcoal, not the profile page language. See the Design System below.
 
+**One exception, at the user's request (2026-11-23): the Galtee honey page takes the Farm Direct cream-paper look.** `"theme": "farm-direct"` in a release file layers it over the base stylesheet in `generate-seal-pages.ps1`: cream `#F6EEDE` ground, near-black `#1A1B18` Playfair Display 600 headings, the wordmark gold `#B49E63` for the wordmark, the hero rule and the statement edge, and a deeper gold `#8A7540` for small capitals, because the wordmark gold is too pale to read at that size on cream. A release with no `theme` builds exactly as before, so the tallow page stays Collection charcoal.
+
 ## Tools
 
 | File | Purpose | Notes |

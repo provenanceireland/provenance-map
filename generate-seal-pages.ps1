@@ -62,7 +62,28 @@ ul.sources li{font-size:.9rem;line-height:1.5;color:var(--source);padding:6px 0;
 $head_fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Inter:wght@500&family=Source+Serif+4:opsz,wght@8..60,300&display=swap" rel="stylesheet">'
 
 
-function Page([string]$title, [string]$desc, [string]$canonical, [bool]$index, [string]$body) {
+# The Farm Direct cream-paper look, for a release that sets "theme": "farm-direct".
+# Layered over the base stylesheet, so a release without a theme builds exactly
+# as it always did. Gold #B49E63 is the wordmark's; small type takes a deeper
+# gold, because the wordmark gold is too pale to read at kicker size on cream.
+$fdFonts = '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@600&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">'
+$fdCss = @'
+:root{--cream:#1A1B18;--body:#2A2B27;--muted:#6B6657;--source:#7A745F;--kicker:#8A7540;--line:#1A1B18;--h1:rgba(26,27,24,.26);--h2:rgba(26,27,24,.12)}
+html{background:#F6EEDE}
+body{background:#F6EEDE;font-weight:400}
+h1,h2,.hero .producer{font-weight:600}
+.kick,.tag{font-weight:600}
+.mark{color:#B49E63;font-weight:600;letter-spacing:.2em}
+.hero{border-bottom-color:#B49E63}
+.statement{border-left:2px solid #B49E63}
+figure img,figure iframe{background:#EDE4D0}
+.btn{border-color:#1A1B18}
+.btn:hover{background:#1A1B18;color:#F6EEDE}
+'@
+
+function Page([string]$title, [string]$desc, [string]$canonical, [bool]$index, [string]$body, [string]$theme = '') {
+  $themeColor = '#1C1D1A'; $extraFonts = ''; $extraCss = ''
+  if ($theme -eq 'farm-direct') { $themeColor = '#F6EEDE'; $extraFonts = $fdFonts; $extraCss = $fdCss }
   $robots = if ($index) { 'index, follow' } else { 'noindex, nofollow' }
   $og = ''
   if ($canonical) {
@@ -87,10 +108,10 @@ function Page([string]$title, [string]$desc, [string]$canonical, [bool]$index, [
 <title>$(E $title)</title>
 <meta name="description" content="$(E $desc)">
 <meta name="robots" content="$robots">
-<meta name="theme-color" content="#1C1D1A">
+<meta name="theme-color" content="$themeColor">
 $og
-$head_fonts
-<style>$css</style>
+$head_fonts$extraFonts
+<style>$css$extraCss</style>
 </head>
 <body>
 <div class="wrap">
@@ -176,7 +197,9 @@ foreach ($f in $releases) {
   $canon = "$origin/seal/$slug/"
   $index = $false
   if ($r.PSObject.Properties.Name -contains 'index') { $index = [bool]$r.index }
-  $html = Page $title $r.og_description $canon $index $b
+  $theme = ''
+  if ($r.PSObject.Properties.Name -contains 'theme') { $theme = [string]$r.theme }
+  $html = Page $title $r.og_description $canon $index $b $theme
 
   foreach ($w in $banned) {
     if ($html.IndexOf($w, [StringComparison]::OrdinalIgnoreCase) -ge 0) { throw "${slug}: banned term '$w' found in page." }
