@@ -191,7 +191,8 @@ foreach ($f in $releases) {
   $b += '<section id="collection"><p class="kick">The Collection</p><h2>' + (E $c.heading) + '</h2>'
   foreach ($p in @($c.text)) { $b += '<p>' + (E $p) + '</p>' }
   $b += '<div class="links"><a class="btn" href="' + (E $r.producer.profile) + '">' + (E $c.profile_label) + '</a>'
-  $b += '<a class="btn" href="/collection/">' + (E $c.next_label) + '</a></div></section>'
+  if ($c.next_label) { $b += '<a class="btn" href="/collection/">' + (E $c.next_label) + '</a>' }
+  $b += '</div></section>'
 
   $title = "$($r.product), $($r.producer.name) | Provenance"
   $canon = "$origin/seal/$slug/"
