@@ -16,6 +16,15 @@
   ],
   "sections": [
     {
+      "id": "film",
+      "kicker": "The film",
+      "heading": "At the hive",
+      "blocks": [],
+      "media": [
+        { "type": "video", "url": "https://www.youtube-nocookie.com/embed/qDYVKEmLfyo", "title": "Ling Heather Honey, Galtee Honey Farm" }
+      ]
+    },
+    {
       "id": "farm",
       "kicker": "The farm",
       "heading": "One family, one bee",
