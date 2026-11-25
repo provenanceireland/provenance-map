@@ -352,6 +352,22 @@ bug to work around.
    week. **Do not commit on a non-zero exit** — go back and set the date. It
    compares against the committed copy, so it only sees a record while it is
    still uncommitted: run it before the commit, not after.
+
+   Then check the encoding, before the same commit:
+
+   ```
+   powershell -NoProfile -ExecutionPolicy Bypass -File check-encoding.ps1
+   ```
+
+   **Never edit `producers.json` by loading it into PowerShell and writing it
+   back.** `Get-Content` without `-Encoding UTF8` reads it as Windows-1252, and
+   `Set-Content` / `Out-File` write those wrong characters back out as UTF-8,
+   so every fada in the file turns to mojibake and a BOM appears at the top.
+   This matters more here than anywhere: a sync writes Irish names and places.
+   Change only the bytes you mean to change, with `perl -0777 -i -pe` or
+   `sed -i` from the Bash tool. Reading in PowerShell is fine with
+   `-Encoding UTF8` as long as nothing is written back. **Do not commit on a
+   non-zero exit.**
 7. **Bump** `service-worker.js` cache `provenance-vNNN` → `NNN+1`. If you also
    touched `connect.js`, bump its `?v=N` on every page that loads it.
 8. **Commit + push** (`producers.json`, `service-worker.js`, any new image), then

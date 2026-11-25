@@ -158,6 +158,20 @@ It exits 0 when nothing is missing and prints who is glowing as New this week.
 against the committed copy, so it only sees a record while that record is still
 uncommitted: run it before the commit, not after.
 
+Then check the encoding, in the same breath and before the same commit:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File check-encoding.ps1
+```
+
+**Never edit `producers.json` by loading it into PowerShell and writing it
+back.** `Get-Content` without `-Encoding UTF8` reads it as Windows-1252, and
+`Set-Content` / `Out-File` write those wrong characters back out as UTF-8, so
+every fada in the file turns to mojibake and a BOM appears at the top. Change
+only the bytes you mean to change, with `perl -0777 -i -pe` or `sed -i` from
+the Bash tool. Reading the file in PowerShell is fine as long as you pass
+`-Encoding UTF8` and write nothing back. **Do not commit on a non-zero exit.**
+
 Then open `service-worker.js` and increment the version by one:
 `const CACHE = 'provenance-vNNN';` → `vNNN+1`. **This is not optional** — mobile
 users keep serving the old cached app until the version changes, so a skipped

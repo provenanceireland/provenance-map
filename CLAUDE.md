@@ -636,6 +636,53 @@ So the verbatim rule now has two exceptions and no more: **cut what they do not 
 
 **Both cuts are map-only (set 2026-11-19).** They protect what the *pin* claims, so neither reaches a Connect intro. **The map pin is a claim Provenance makes; a Connect intro is the farm's own voice describing its own shop.** A farm that also carries other people's produce says so on Connect, because the sentence names them as other producers and so misleads nobody, and because a shop stocking twenty local producers is exactly what a buyer on Connect wants to know. `terms` still carries where and how they sell. **Fisherwick Farm settled it on 2026-11-19**: "We also stock northern Ireland produce from a range of local suppliers" came off their map description that morning, and "We also proudly support 20 local producers, with a focus on whole, minimally processed foods" stayed in their Connect intro the same afternoon. Do not apply either cut to `connect.intro` again. Applied on 2026-11-10 to Open Hearth Farm, whose pick-up points and Killavullen market line moved into their Connect `terms`, and to Bird & Blossom Farm, who have no Connect listing, so theirs came off entirely. **A farm with no Connect listing loses the detail rather than keeping it on the card**: that is the cost, and it was accepted, because the alternative is the map carrying stale opening hours it has no way to update.
 
+
+### Never round-trip producers.json through PowerShell (2026-11-25)
+
+**`producers.json` is UTF-8 with no BOM and it must stay that way.** On
+2026-11-19, commit `4cb095a` loaded the whole file into PowerShell and wrote it
+back. `Get-Content` without `-Encoding UTF8` reads a BOM-less UTF-8 file as
+Windows-1252, so every multi-byte character became two or three wrong ones, and
+`Set-Content` then wrote those out as UTF-8 and added a BOM:
+
+| Was | Became | Seen on the card as |
+|---|---|---|
+| `Glasraí Organic Farm` | `GlasraÃ­ Organic Farm` | "GlasraA" |
+| `Tomás`, `Sinéad`, `Síle`, `Füde` | `TomÃ¡s`, `SinÃ©ad`, `SÃ­le`, `FÃ¼de` | |
+| `€100` | `â‚¬100` | |
+| `£6`, `Bóshaille®` | `Â£6`, `BÃ³shailleÂ®` | |
+
+The commit changed **228 lines when the edit needed 4**. It then rode along in
+six further commits and onto the live site, because the damage is invisible
+unless you happen to look at a record with a fada in it. The user found it by
+reading a producer's name on the map.
+
+**The rule: change only the bytes you mean to change.** Use `perl -0777 -i -pe`
+or `sed -i` from the Bash tool, which are byte-safe. Reading the file in
+PowerShell is fine *if* you pass `-Encoding UTF8` and write nothing back, which
+is what `generate-share-pages.ps1` already does correctly
+(`Get-Content -Raw -Encoding UTF8`, then `WriteAllText` with
+`UTF8Encoding($false)`). It is the write-back that does the damage. The same
+applies to any file carrying a producer's words, the Obsidian notes included.
+
+**`check-encoding.ps1` is the guard**, and the `add-producer` and
+`sync-producers` skills both run it before committing, beside
+`check-new-producers.ps1`. It reads raw bytes and never writes, so it cannot
+itself damage anything. It fails on a UTF-8 BOM, on the `C3 83` double-encode
+marker, on a `C2` plus C1-control sequence, and on anything that is not valid
+UTF-8. **Do not commit on a non-zero exit.**
+
+**To repair a file that is already damaged**, reverse the one round trip rather
+than hand-editing the names: decode the bytes as UTF-8, strip any BOM, then
+encode back to cp1252. That yields the original bytes exactly, because the
+corruption is a pure function. Two cautions learned doing it: it is **cp1252,
+not Latin-1** (`€` becoming `â‚¬` rather than `â‚¬` is the tell), and cp1252
+leaves five positions undefined (`0x81 0x8D 0x8F 0x90 0x9D`) which .NET passes
+through as C1 controls and most encoders then refuse, so the inverse needs an
+explicit table. Verify by diffing the repaired file against the last known-good
+commit: **the only differences should be genuine content changes, with no
+encoding differences in either direction.** Regenerate the share stubs
+afterwards, since they are built from this file and carry the damage onward.
 ## Data Models
 
 ### Producer Profile — what shows at each tier
