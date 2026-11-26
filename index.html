@@ -112,6 +112,15 @@
       display: block;
     }
 
+    /* The artwork as one texture on a touch screen (2026-11-26). Pinching
+       out from deep zoom left black squares across the painting for a second
+       or two. See placeArt() in the script: on a phone the painting is drawn
+       once into this canvas, and the <img> stays in the page, invisible,
+       because getMapDims() measures it. Desktop keeps the <img>. */
+    #map-art { position: absolute; z-index: 1; display: none; pointer-events: none; }
+    #map-wrap.art-canvas #map-art { display: block; }
+    #map-wrap.art-canvas #map-img { visibility: hidden; }
+
     #near-me-canvas {
       position: absolute;
       inset: 0;
@@ -2381,7 +2390,9 @@
        top-right icon and becomes a wide bar in the bottom-left corner, with
        Connect beside it and the Key chip on the right: one row under the
        thumb. Near Me is gone from the phone (its machinery stays dormant).
-       The refresh button takes the search icon's old place at the top. The
+       The menu and refresh buttons came down to the corners above that row
+       later the same day, so the top of the screen is the wordmark and the
+       producer counter, which fades once it has counted. The
        panel still drops from the top, which is right for typing: the box
        sits above the keyboard and the results under it. The whole row lifts
        over the install bar, as the counter always did. */
@@ -2418,16 +2429,45 @@
       }
       #legend-key { height: 34px; }
       body.legend-open #map-legend { bottom: calc(env(safe-area-inset-bottom, 16px) + 11px + 40px); }
-      #refresh-btn {
-        left: auto; right: 16px; bottom: auto;
-        top: calc(env(safe-area-inset-top, 20px) + 34px);
+      /* Menu and refresh at the thumb too (2026-11-26): the menu above the
+         search bar, refresh above the Key chip, centred on one line as they
+         were at the top. The menu sits under an open card like the rest of
+         the row, and only rises above everything (z 120, over the menu
+         overlay) while the menu is open; the drop back waits for the
+         overlay's 0.3s fade. Refresh steps aside while the legend is open,
+         because the legend opens into the same corner. */
+      #menu-btn {
+        top: auto; left: 16px;
+        bottom: calc(env(safe-area-inset-bottom, 16px) + 55px);
+        z-index: 26;
+        transition: opacity 0.2s, z-index 0s linear 0.3s;
       }
-      #discovery-counter { bottom: calc(env(safe-area-inset-bottom, 16px) + 56px); }
+      #menu-btn.open { z-index: 120; transition: opacity 0.2s, z-index 0s; }
+      #refresh-btn {
+        left: auto; right: 12px; top: auto;
+        bottom: calc(env(safe-area-inset-bottom, 16px) + 60px);
+      }
+      body.legend-open #refresh-btn { opacity: 0; pointer-events: none; }
+      body.pv-install-bar #menu-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 127px); }
+      body.pv-install-bar #refresh-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 132px); }
+      /* A scrolled menu list clears the menu button at its foot. */
+      #menu-overlay.browsing { padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 120px); }
+      /* The producer counter sits under the Provenance wordmark, just above
+         the map, counts up, then fades as before (2026-11-26). Every bottom
+         rule that could still reach it is named here so none of them can
+         stretch the box between a top and a bottom. */
+      #discovery-counter,
+      body.pv-install-bar #discovery-counter,
+      body.pv-bottom-banner #discovery-counter,
+      body.pv-install-bar.pv-bottom-banner #discovery-counter {
+        left: 50%; right: auto; bottom: auto;
+        top: calc(env(safe-area-inset-top, 20px) + 76px);
+        transform: translateX(-50%);
+      }
       body.pv-install-bar #search-pill,
       body.pv-install-bar #connect-fab,
       body.pv-install-bar #legend-key { bottom: calc(env(safe-area-inset-bottom, 16px) + 83px); }
       body.pv-install-bar.legend-open #map-legend { bottom: calc(env(safe-area-inset-bottom, 16px) + 83px + 40px); }
-      body.pv-install-bar #discovery-counter { bottom: calc(env(safe-area-inset-bottom, 16px) + 128px); }
       #filter-done {
         display: inline-block; margin-left: 14px;
         background: none; border: 0; padding: 4px 0;
@@ -2435,6 +2475,12 @@
         letter-spacing: 0.16em; text-transform: uppercase; color: #6BCB5E; cursor: pointer;
       }
       .filter-includes { margin-top: 7px; font-size: 0.62rem; color: rgba(207,198,178,0.62); }
+    }
+    /* From 601px the menu button is 34px rather than 44px, so refresh drops
+       to the same line to stay centred on it (a small tablet in portrait). */
+    @media (min-width: 601px) and (max-width: 768px) {
+      #refresh-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 55px); }
+      body.pv-install-bar #refresh-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 127px); }
     }
     #zoom-out.visible { opacity: 1; pointer-events: auto; }
     #zoom-out:hover { border-color: rgba(90,140,100,0.6); color: #5A8C64; }
@@ -2823,6 +2869,7 @@
       <source type="image/webp" srcset="ireland-map.webp" />
       <img id="map-img" src="ireland-map.png.png" alt="Map of Ireland" />
     </picture>
+    <canvas id="map-art" aria-hidden="true"></canvas>
     <canvas id="near-me-canvas"></canvas>
     <div id="pins"></div>
   </div>
@@ -3397,7 +3444,49 @@
       });
     }
 
-    function layoutMap() { positionPins(); settleMapZoom(); }
+    /* -- THE ARTWORK AS ONE TEXTURE, ON A TOUCH SCREEN (2026-11-26) --
+       Pinching out from deep zoom left black squares across the painting for
+       a second or two. The <img> is painted into the map's own layer, and
+       while the map moves that layer is held at the scale the gesture began
+       at: at 7x a screen-sized painting is a 7x raster, and on the way back
+       out the phone runs out of tile memory and shows the page background
+       where tiles should be.
+
+       A canvas is not tiled. It is one texture the size of its backing,
+       uploaded once, and the GPU scales it with the map at every zoom, so
+       there is nothing to rebuild on the way out and nothing to run out of.
+       The backing is 2048 square, drawn once from the 1024 artwork with
+       high-quality smoothing, so a deep zoom stays as smooth as the
+       browser's own resampling made it.
+
+       The canvas is placed from getMapDims(), the same numbers every pin is
+       placed from, so the painting and the pins cannot disagree. If anything
+       at all goes wrong drawing it, the <img> simply stays. Desktop keeps the
+       <img>. The touch test is inline rather than coarsePointer, which is
+       declared further down and is not yet live when the first layout runs
+       during parsing. */
+    const MAP_ART_SIZE = 2048;
+    function placeArt() {
+      const c = document.getElementById('map-art');
+      if (!c || !mapImg.naturalWidth) return;
+      if (!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) return;
+      if (!c.dataset.drawn) {
+        try {
+          c.width = MAP_ART_SIZE; c.height = MAP_ART_SIZE;
+          const ctx = c.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(mapImg, 0, 0, MAP_ART_SIZE, MAP_ART_SIZE);
+          c.dataset.drawn = '1';
+        } catch (e) { return; }
+        document.getElementById('map-wrap').classList.add('art-canvas');
+      }
+      const { rw, rh, ox, oy } = getMapDims();
+      c.style.left = ox + 'px'; c.style.top = oy + 'px';
+      c.style.width = rw + 'px'; c.style.height = rh + 'px';
+    }
+
+    function layoutMap() { positionPins(); placeArt(); settleMapZoom(); }
 
     function positionPins() {
       if (!mapImg.naturalWidth || !mapImg.naturalHeight) return;
@@ -3860,8 +3949,18 @@
       if (!chip || !legend) return;
       // On a phone the legend may be folded into the Key chip: sit above that.
       if (!legend.getBoundingClientRect().height) legend = document.getElementById('legend-key') || legend;
-      const r = legend.getBoundingClientRect();
+      let r = legend.getBoundingClientRect();
       if (!r.height) return;
+      /* On a phone the refresh button sits above the Key chip (2026-11-26),
+         so clear that too. Only when it is in the right-hand column and
+         showing: it steps aside while the legend is open, and on a desktop
+         it is bottom left, nowhere near the chip. */
+      const refresh = document.getElementById('refresh-btn');
+      if (refresh && !document.body.classList.contains('legend-open')) {
+        const rr = refresh.getBoundingClientRect();
+        const vw = document.documentElement.clientWidth || window.innerWidth;
+        if (rr.height && rr.left > vw / 2 && rr.top < r.top) r = rr;
+      }
       const vh = document.documentElement.clientHeight || window.innerHeight;
       chip.style.bottom = Math.round(vh - r.top + 12) + 'px';
     }
