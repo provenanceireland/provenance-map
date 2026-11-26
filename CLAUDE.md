@@ -34,6 +34,24 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 
 **Highlighted and the Seal are two separate layers, not a ladder.** Highlighted is about the *farm* (who the producer is, how they farm); the Seal is the story of a specific *packaged product*, reached by scanning the pack. Most Highlighted farms will never need a Seal, and a Seal can go to any producer with a qualifying product without a Highlighted relationship. **A Seal does involve a visit, but not the Highlighted visit**: a short introduction and a mapping of the product and the ground behind it, not a filmed day on the farm. Neither paid step is self-service: both are reached through a real conversation, never a public payment link.
 
+### Two fills, and the ring will say the rest (set 2026-11-26, evening)
+
+**This supersedes the fill colours in the section below, which lasted half a day.** The user's plan, in his words: every producer who has submitted their details keeps the light green pin that used to mean Verified; anyone who has not is a very light sage, "like an unexplored icon on a video game map: no one has visited it yet, it just has the name and the basic explanation"; and **how they differentiate from there is by ring colour**, which is the next piece of work.
+
+| Pin | Fill | Size | Border | Glow |
+|---|---|---|---|---|
+| Details submitted (`tier` verified or featured) | `#59A666` | 8.78px, 7.80px mobile | **none** | the original Verified glow, `0 0 6px 2px rgba(89,166,102,0.73)` |
+| Not yet in touch (`tier` discovered) | `#B4CBAA` | 5.85px, 5.20px mobile | **none** | none |
+| Visited by Provenance (`visited: true`) | as above | as above | 1px gold `#CDA043` | gold, plus the static halo |
+
+**Why six fills failed, so it is not tried again.** On a phone it read as a mess: organic and regenerative were two greens nobody could tell apart at 8px, with the paler one shouting louder; the two neutral classes went from drowning the map to being invisible when they were quietened; and the legend grew to 172x232px, 12% of the screen, sitting on the island. **One 8px dot cannot carry six classes by colour alone.** The old tier pins had worked because they used size and colour together for three.
+
+**No borders yet, deliberately.** The user asked for none until the ring colours are decided. **Do not add a border to either fill, or bring practice back as a fill, without the user asking.** The gold ring on a visited farm is the one exception and stays.
+
+**What survives from phase 1 and is still live:** `farmingMethod()`, the `fm-*` classes and `data-farming-method` on every pin, the practice filter chips in the panel (Organic alone still returns 10), the independent Visited filter, and `visited: true` on the three Highlighted farms. They paint nothing on the pin until the rings are settled, and they are what the rings will be built from. There is still no `farmingMethod` field in `producers.json`.
+
+**The legend is four rows and 164x109px**: Details submitted, Not yet in touch, Visited by Provenance, Buy direct. The two fill rows describe and do not filter. The self-declared disclaimer left the legend with the practice colours and **must come back the moment a ring shows a practice**; the filter panel still carries its own copy.
+
 ### The pin says how they farm, not what tier they are (set 2026-11-26)
 
 **Phase 1 of the farming classification system.** The pin interior is the producer's self-declared farming practice. Tier no longer colours or sizes a pin. **Tier is not deleted and still runs everything else**: the card mark, the "Confirmed by" line, the share stubs, what `/producer/` is allowed to show, the Connect listing and the menu. The section below on tier colours is the record of what tier used to paint, and is now history for the map only.

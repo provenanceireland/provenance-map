@@ -1153,6 +1153,7 @@
        always on, not a tooltip: the map shows a farming claim it has not
        checked, so the sentence saying so cannot be something you have to
        go looking for. */
+    .legend-static { cursor: default; }
     .legend-note {
       margin: 7px 2px 0;
       padding-top: 7px;
@@ -1621,89 +1622,49 @@
     }
 
     /* ── LIVING PIN SYSTEM ── */
-    /* -- FARMING CLASSIFICATION PINS (2026-11-26) --
-       The pin interior is what the producer says they farm, not how far up
-       our own ladder they are. One size and one border weight for every
-       class, so colour is the only variable and they read as one family.
+    /* -- TWO FILLS, AND THE RING WILL SAY THE REST (2026-11-26, evening) --
+       The fill says one thing only: has this producer spoken to us.
 
-       Practice is SELF-DECLARED. None of this is a Provenance verification,
-       which is why the legend carries that sentence in full.
+         Submitted their details  ->  the Verified green, #59A666, full size,
+                                      its original glow, no border.
+         Not yet in touch         ->  light sage, #B4CBAA, the small dot, no
+                                      border and no glow. An unexplored icon
+                                      on a game map: a name and a line of
+                                      description, nobody has been there yet.
 
-       Derived from the existing `practice` field rather than a second column
-       of the same fact, so a producer who declares tomorrow changes colour
-       with no migration and nothing to keep in sync. See farmingMethod().
+       Six fill colours by farming practice lasted half a day. On a phone it
+       read as a mess: two greens nobody could tell apart at 8px, two greys
+       that vanished, and a legend covering the corner of the island. Fill by
+       practice is gone. PRACTICE WILL COME BACK AS THE RING COLOUR, which is
+       the next piece of work and is why nothing here draws a border yet,
+       with one exception: a farm Provenance has visited keeps its gold ring.
 
-       Tier is not deleted. It still drives the card mark, the "Confirmed by"
-       line, the share stubs, what /producer/ may show and the Connect
-       listing. It simply no longer colours or sizes a pin, with the single
-       exception of Highlighted, which is the gold border below. */
-    /* The base IS Not established, and it is deliberately the quietest
-       thing on the map (2026-11-26). 97 of 153 pins carry no declared
-       practice, so at full ring and glow they drowned out the farms that
-       had actually told us something. Same fill colour, soft ring, no glow:
-       a declared practice earns the glow, an absent one does not. */
+       The fm-* classes and data-farming-method are still put on every pin by
+       renderPin, and the practice filter still works off them. They simply
+       paint nothing until the rings are decided. */
     .pin .pin-dot {
       width: 8.78px !important;
       height: 8.78px !important;
-      border: 1px solid #F4F2E9 !important;
-      background: #7E8B85 !important;
-      box-shadow: none !important;
+      background: #59A666 !important;
+      border: none !important;
+      box-shadow: 0 0 6px 2px rgba(89,166,102,0.73) !important;
     }
     .pin .pin-pulse { display: none; }
 
-    /* What used to be Discovered keeps the small dot it always had
-       (2026-11-26, the same day the one-size rule went in). 70 researched
-       listings at the full 8.78px crowded out the farms that had actually
-       spoken to us, and fading them instead made them invisible. Small with
-       a full ring is what worked before: present, legible, and plainly the
-       quieter kind of pin. Keyed on tier, not on the Not established class,
-       so a Verified farm that declared no practice stays full size. */
+    /* Not yet in touch. Keyed on tier, so it is exactly the producers who
+       have never submitted anything, and it flips to green by itself the day
+       one of them does. */
     .pin.t-discovered .pin-dot {
       width: 5.85px !important;
       height: 5.85px !important;
-    }
-
-    .pin.fm-organic .pin-dot {
-      background: #59A666 !important;
-      border-color: #FFFFFF !important;
-      box-shadow: 0 0 6px 2px rgba(89,166,102,0.62) !important;
-    }
-    .pin.fm-regenerative .pin-dot {
       background: #B4CBAA !important;
-      border-color: #F4F2E9 !important;
-      box-shadow: 0 0 6px 2px rgba(180,203,170,0.55) !important;
-    }
-    /* A clean vertical split, organic left and regenerative right, in the
-       same two colours those classes carry alone, so the split reads as
-       "both of those" rather than as a third invented colour. */
-    .pin.fm-both .pin-dot {
-      background: linear-gradient(90deg, #59A666 0 50%, #B4CBAA 50% 100%) !important;
-      border-color: #FFFFFF !important;
-      box-shadow: 0 0 6px 2px rgba(134,187,138,0.58) !important;
-    }
-    /* Declared conventional is not the same thing as not established, so it
-       does not share the Unknown grey. Warm, against that cool stone. */
-    .pin.fm-conventional .pin-dot {
-      background: #8A8275 !important;
       box-shadow: none !important;
     }
-    /* Korean Natural Farming keeps the teal the design system already gives
-       it on the card. Folding a natural farming practice into conventional
-       would be wrong; folding it into Unknown would erase a declaration. */
-    .pin.fm-knf .pin-dot {
-      background: #4A8A8A !important;
-      border-color: #F4F2E9 !important;
-      box-shadow: 0 0 6px 2px rgba(74,138,138,0.55) !important;
-    }
 
-    /* Highlighted is a border now, not a fill (2026-11-26). The farm's own
-       practice keeps the interior and the gold says Provenance has been
-       there. Same #CDA043 the old gold gradient was built around.
-
-       1px and not 1.5px: Chrome snaps border-width to whole device pixels,
-       so 1.5 renders as 1 at DPR 1 and 1.33 at DPR 3, which is a surprise
-       for no gain. Every class carries the same weight and the gold ring in
-       the shadow below does the thickening. */
+    /* Visited by Provenance keeps the gold ring, #CDA043. 1px and not 1.5px:
+       Chrome snaps border-width to whole device pixels, so 1.5 renders as 1
+       at DPR 1 and 1.33 at DPR 3. */
+    .pin.is-visited .pin-dot,
     .pin.t-featured .pin-dot {
       border: 1px solid #CDA043 !important;
       box-shadow:
@@ -1711,9 +1672,7 @@
         0 0 8px 2px rgba(201,154,56,0.45) !important;
     }
 
-    /* Visited by Provenance: a golden halo on the .pin-pulse element, held
-       still. That element used to carry the Highlighted halo and this is the
-       only thing it means now, so there is still just one halo on the map. */
+    /* The golden halo, on .pin-pulse, held still. One halo on the map. */
     .pin.is-visited .pin-pulse {
       display: block;
       width: 8.78px; height: 8.78px;
@@ -2800,50 +2759,30 @@
        the map returns. It drives the same filterState the filter panel does,
        so the two can never disagree and Clear all clears both. -->
   <div id="map-legend">
-    <button type="button" class="legend-item" data-legend-method="organic" aria-pressed="false">
+    <!-- Two fills and one ring, exactly what is on the map (2026-11-26).
+         The two fill rows describe and do not filter: the practice filter
+         lives in the panel until the ring colours are settled. -->
+    <div class="legend-item legend-static">
       <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid #FFFFFF;box-shadow:0 0 6px 2px rgba(89,166,102,0.62);"></span>
-      </span>
-      <span class="legend-text"><span>Organic</span></span>
-    </button>
-    <button type="button" class="legend-item" data-legend-method="regenerative" aria-pressed="false">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#B4CBAA;border:1px solid #F4F2E9;box-shadow:0 0 6px 2px rgba(180,203,170,0.55);"></span>
-      </span>
-      <span class="legend-text"><span>Regenerative</span></span>
-    </button>
-    <button type="button" class="legend-item" data-legend-method="both" aria-pressed="false">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:linear-gradient(90deg,#59A666 0 50%,#B4CBAA 50% 100%);border:1px solid #FFFFFF;box-shadow:0 0 6px 2px rgba(134,187,138,0.58);"></span>
-      </span>
-      <span class="legend-text"><span>Both</span></span>
-    </button>
-    <button type="button" class="legend-item" data-legend-method="conventional" aria-pressed="false">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#8A8275;border:1px solid #F4F2E9;"></span>
-      </span>
-      <span class="legend-text"><span>Conventional</span></span>
-    </button>
-    <button type="button" class="legend-item" data-legend-method="knf" aria-pressed="false">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#4A8A8A;border:1px solid #F4F2E9;box-shadow:0 0 6px 2px rgba(74,138,138,0.55);"></span>
-      </span>
-      <span class="legend-text"><span>Korean Natural Farming</span></span>
-    </button>
-    <button type="button" class="legend-item" data-legend-method="unknown" aria-pressed="false">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#7E8B85;border:1px solid #F4F2E9;"></span>
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:none;box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></span>
       </span>
       <span class="legend-text">
-        <span>Not established</span>
-        <span class="legend-desc">No practice on record</span>
+        <span>Details submitted</span>
+        <span class="legend-desc">The producer told us themselves</span>
       </span>
-    </button>
-    <!-- Visited is not a farming class. It ANDs with them, so Organic plus
-         Visited means visited organic farms. -->
+    </div>
+    <div class="legend-item legend-static">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:5.85px;height:5.85px;background:#B4CBAA;border:none;"></span>
+      </span>
+      <span class="legend-text">
+        <span>Not yet in touch</span>
+        <span class="legend-desc">Found and listed by Provenance</span>
+      </span>
+    </div>
     <button type="button" class="legend-item" data-legend-visited="1" aria-pressed="false">
       <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#7E8B85;border:1px solid #CDA043;box-shadow:0 0 0 1px rgba(201,154,56,0.30),0 0 9px 3px rgba(214,132,52,0.42);"></span>
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid #CDA043;box-shadow:0 0 0 1px rgba(201,154,56,0.30),0 0 9px 3px rgba(214,132,52,0.42);"></span>
       </span>
       <span class="legend-text">
         <span>Visited by Provenance</span>
@@ -2863,7 +2802,6 @@
         <span class="legend-desc">Message the farm and order from them</span>
       </span>
     </button>
-    <p class="legend-note">Farming practices are self-declared by producers and have not been independently verified by Provenance.</p>
   </div>
 
   <!-- DISCOVERY COUNTER -->
