@@ -551,6 +551,157 @@
     .m-dot-ver  { width: 8px;   height: 8px;   background: #59A666; box-shadow: 0 0 5px 1px rgba(89,166,102,0.45); }
     .m-dot-feat { width: 9px;   height: 9px;   background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%); box-shadow: 0 0 5px 1px rgba(201,154,56,0.45); }
 
+    /* ── THE PRODUCERS PAGE (2026-11-26) ── a search box, What they make or
+       County, and the list. Desktop and phone both; the sheet is phone only. */
+    #menu-sheet { display: contents; }
+    .ml-icon, .ml-desc, .ml-go { display: none; }
+    .mp-tools {
+      width: min(460px, 86vw);
+      display: flex; flex-direction: column; gap: 9px;
+      margin-bottom: 6px;
+    }
+    .mp-search {
+      display: flex; align-items: center; gap: 9px;
+      height: 40px; padding: 0 14px;
+      border-radius: 20px;
+      background: rgba(232,222,200,0.06);
+      border: 0.5px solid rgba(232,222,200,0.22);
+      color: #9A968B;
+      cursor: text;
+    }
+    .mp-search svg { width: 15px; height: 15px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    /* 16px, because iOS zooms the whole page into any box set smaller. */
+    .mp-search input {
+      flex: 1; min-width: 0; height: 100%;
+      background: none; border: 0; outline: none;
+      color: #E8DEC8; font-family: inherit; font-size: 16px;
+      -webkit-appearance: none; appearance: none;
+    }
+    .mp-search input::placeholder { color: rgba(207,198,178,0.5); }
+    .mp-search:focus-within { border-color: rgba(107,203,94,0.55); }
+    .mp-modes {
+      display: flex; gap: 3px; padding: 3px;
+      border-radius: 10px; background: rgba(232,222,200,0.06);
+    }
+    .mp-mode {
+      flex: 1; height: 30px; border: 0; border-radius: 8px;
+      background: none; color: #9A968B; cursor: pointer;
+      font-family: inherit; font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mp-mode.active { background: #2F5C3A; color: #E8DEC8; }
+    .mp-chips {
+      display: flex; gap: 6px;
+      overflow-x: auto; scrollbar-width: none;
+      margin: 0 -2px; padding: 1px 2px 3px;
+    }
+    .mp-chips::-webkit-scrollbar { display: none; }
+    .mp-chip {
+      flex: none; height: 29px; padding: 0 12px;
+      border-radius: 15px; border: 0.5px solid rgba(232,222,200,0.22);
+      background: none; color: #CFC6B2; cursor: pointer;
+      font-family: inherit; font-size: 0.74rem; white-space: nowrap;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mp-chip .n { margin-left: 5px; color: #7d786b; font-size: 0.66rem; }
+    .mp-chip.active { background: #E8DEC8; border-color: #E8DEC8; color: #1A1B18; }
+    .mp-chip.active .n { color: #5c574b; }
+    #menu-overlay.mode-county .mp-chips { display: none; }
+    .mp-hint { padding: 4px 2px 6px; font-size: 0.68rem; color: #8d8a80; }
+    .mp-none { padding: 18px 2px; font-size: 0.8rem; color: #8d8a80; }
+    /* A farm row: the name goes to the profile page, the pin shows it on
+       the map. The row carries the hairline so the pin sits inside it. */
+    .mf-row { display: flex; align-items: center; border-bottom: 0.5px solid rgba(69,112,78,0.15); }
+    .mf-row:last-child { border-bottom: none; }
+    .mf-row .menu-row { flex: 1; min-width: 0; border-bottom: none; }
+    .mf-map {
+      flex: none; width: 38px; height: 38px; margin-right: -6px;
+      display: flex; align-items: center; justify-content: center;
+      border: 0; border-radius: 50%; background: none;
+      color: #5A8C64; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mf-map svg, .mc-go { width: 17px; height: 17px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .mf-map:hover, .mf-map:active { background: rgba(90,140,100,0.16); color: #6BCB5E; }
+    .menu-row .mc-go { margin-left: 10px; color: #5A8C64; }
+
+    /* ── THE MENU AS A SHEET, ON A PHONE (2026-11-26) ──
+       It rises from the menu button in the bottom-left corner: anchored just
+       above it, growing out of that corner, with the button turning into the
+       close X underneath. The map stays visible and dimmed around it, and a
+       tap on the map closes it. Going into Producers slides sideways and the
+       sheet grows to fit; it scrolls inside itself, with the search box and
+       the chips held at the top. Desktop keeps the full-screen menu. */
+    @media (max-width: 768px) {
+      #menu-overlay { background: rgba(6,8,7,0.55); }
+      #menu-overlay.browsing { padding: 0; overflow: hidden; justify-content: center; }
+      #menu-sheet {
+        display: block;
+        position: absolute; left: 12px; right: 12px;
+        bottom: calc(env(safe-area-inset-bottom, 16px) + 109px);
+        max-height: calc(100% - env(safe-area-inset-top, 20px) - env(safe-area-inset-bottom, 16px) - 133px);
+        overflow-y: auto; overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        padding: 0 16px 10px;
+        background: #222320;
+        border: 0.5px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        box-shadow: 0 18px 44px rgba(0,0,0,0.55);
+        transform-origin: 24px 100%;
+        transform: translateY(14px) scale(0.94);
+        opacity: 0;
+        transition: transform 0.34s cubic-bezier(0.32,0.72,0,1), opacity 0.22s ease, height 0.32s cubic-bezier(0.32,0.72,0,1);
+      }
+      #menu-sheet::-webkit-scrollbar { display: none; }
+      #menu-overlay.open #menu-sheet { transform: none; opacity: 1; }
+      body.pv-install-bar #menu-sheet {
+        bottom: calc(env(safe-area-inset-bottom, 16px) + 181px);
+        max-height: calc(100% - env(safe-area-inset-top, 20px) - env(safe-area-inset-bottom, 16px) - 205px);
+      }
+      .menu-panel { align-items: stretch; padding-top: 16px; }
+      .menu-logo {
+        margin: 0 0 4px 2px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 0.56rem; font-weight: 600;
+        letter-spacing: 0.28em; text-transform: uppercase;
+        color: #45704E;
+      }
+      .menu-link {
+        display: flex; align-items: center; gap: 14px;
+        width: auto; padding: 12px 2px;
+        font-size: 22px; text-align: left;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .ml-icon { display: block; flex: none; width: 23px; height: 23px; stroke: #6E9E78; fill: none; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+      .ml-text { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+      .ml-title { line-height: 1.12; }
+      .ml-desc {
+        display: block;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 0.7rem; line-height: 1.3; letter-spacing: 0;
+        color: #8d8a80;
+      }
+      .ml-go { display: block; flex: none; width: 16px; height: 16px; stroke: #5A8C64; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .menu-link:active { background: rgba(232,222,200,0.04); }
+      .menu-tagline { position: static; margin: 8px 0 2px; text-align: center; font-size: 9px; }
+      .menu-back { align-self: flex-start; margin-bottom: 6px; padding: 2px 0; }
+      .menu-head { margin-bottom: 12px; font-size: 26px; text-align: left; }
+      .mp-tools {
+        width: auto;
+        position: sticky; top: 0; z-index: 2;
+        margin: 0 -16px 2px; padding: 8px 16px 8px;
+        background: #222320;
+      }
+      .menu-rows { width: auto; }
+      .menu-row { padding: 11px 2px; font-size: 19px; }
+      /* The sheet is lighter than the old full-screen ground, so the county
+         and the counts come up to stay readable on it. */
+      .menu-row .m-meta { color: #857f71; }
+    }
+
     /* ── CARD ── */
     #card {
       position: fixed;
@@ -2450,8 +2601,6 @@
       body.legend-open #refresh-btn { opacity: 0; pointer-events: none; }
       body.pv-install-bar #menu-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 127px); }
       body.pv-install-bar #refresh-btn { bottom: calc(env(safe-area-inset-bottom, 16px) + 132px); }
-      /* A scrolled menu list clears the menu button at its foot. */
-      #menu-overlay.browsing { padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 120px); }
       /* The producer counter sits under the Provenance wordmark, just above
          the map, counts up, then fades as before (2026-11-26). Every bottom
          rule that could still reach it is named here so none of them can
@@ -2890,15 +3039,36 @@
   <!-- Three panels deep: the root, the produce categories, and the producers
        in one category. A producer row goes to that producer's own profile
        page, never back to their card on the map. -->
+  <!-- On a phone the menu is a sheet that rises from the button (2026-11-26):
+       #menu-sheet is that sheet. On a desktop it is display: contents, so the
+       overlay lays the panels out exactly as it always did. The icons and the
+       one-line descriptions show on the phone sheet only. -->
   <div id="menu-overlay">
+   <div id="menu-sheet">
     <div class="menu-panel active" id="menu-root">
       <p class="menu-logo">Provenance</p>
       <!-- Provenance Seal section hidden for now — restore by uncommenting this line -->
       <!-- <a href="provenance-seal.html" class="menu-link">The Provenance Seal</a> -->
-      <a href="connect/" class="menu-link">Provenance Connect</a>
-      <a href="https://connectinterest.zite.so" target="_blank" rel="noopener" class="menu-link">Join the Connect Community</a>
-      <a href="collection/" class="menu-link" data-collection-link="menu">The Provenance Collection</a>
-      <button type="button" class="menu-link menu-into" data-open="menu-cats">Producers</button>
+      <a href="connect/" class="menu-link">
+        <svg class="ml-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.5 5.5 4.5h13l2 5"/><path d="M3.5 9.5c0 1.4 1.2 2.5 2.8 2.5s2.8-1.1 2.8-2.5c0 1.4 1.2 2.5 2.9 2.5s2.8-1.1 2.8-2.5c0 1.4 1.2 2.5 2.8 2.5s2.9-1.1 2.9-2.5"/><path d="M5.5 12v7.5h13V12"/><path d="M10 19.5v-4h4v4"/></svg>
+        <span class="ml-text"><span class="ml-title">Provenance Connect</span><span class="ml-desc">Message the farm and order from them</span></span>
+        <svg class="ml-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a href="https://connectinterest.zite.so" target="_blank" rel="noopener" class="menu-link">
+        <svg class="ml-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9.5" cy="8" r="3.5"/><path d="M3 20c0-3.6 2.9-6.5 6.5-6.5S16 16.4 16 20"/><path d="M18.5 8v6M15.5 11h6"/></svg>
+        <span class="ml-text"><span class="ml-title">Join the Connect Community</span><span class="ml-desc">Sign up if you want to buy direct</span></span>
+        <svg class="ml-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6"/></svg>
+      </a>
+      <a href="collection/" class="menu-link" data-collection-link="menu">
+        <svg class="ml-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3.5h8M9 3.5V6L7 8.5v11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-11L15 6V3.5"/><path d="M7 12.5h10"/></svg>
+        <span class="ml-text"><span class="ml-title">The Provenance Collection</span><span class="ml-desc">Limited releases made with farms on the map</span></span>
+        <svg class="ml-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <button type="button" class="menu-link menu-into" data-open="menu-cats">
+        <svg class="ml-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>
+        <span class="ml-text"><span class="ml-title">Producers</span><span class="ml-desc">Find a farm by name, what they make or county</span></span>
+        <svg class="ml-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
       <!-- About Provenance pulled 2026-09-24 while the page is rewritten.
            The page itself is untouched at /about.html; put this line back to
            restore it. -->
@@ -2908,22 +3078,37 @@
            free Connect listing in the one pass. The community sign-up above
            is a different audience and a different form: that one is for
            people who want to buy. -->
-      <a href="https://joinprovenancemap.zite.so" target="_blank" rel="noopener" class="menu-link">List Your Farm</a>
+      <a href="https://joinprovenancemap.zite.so" target="_blank" rel="noopener" class="menu-link">
+        <svg class="ml-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17"/><path d="M5 20.5V10l7-5.5 7 5.5v10.5"/><path d="M9.5 20.5v-6h5v6"/><path d="M10.5 10.5h3"/></svg>
+        <span class="ml-text"><span class="ml-title">List Your Farm</span><span class="ml-desc">For producers: put your farm on the map</span></span>
+        <svg class="ml-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6"/></svg>
+      </a>
     </div>
 
+    <!-- Producers (2026-11-26): one page to find a farm. A search box, What
+         they make (category chips over the farm list) or County (the
+         counties with their counts). A farm's name goes to its profile page,
+         as it always did; the pin beside it shows the farm on the map. A
+         county lights that county up on the map. -->
     <div class="menu-panel" id="menu-cats">
       <button type="button" class="menu-back" data-open="menu-root">Menu</button>
       <p class="menu-head">Producers</p>
+      <div class="mp-tools">
+        <label class="mp-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+          <input id="mp-search" type="search" placeholder="Search farms" autocomplete="off" enterkeyhint="search" aria-label="Search farms" />
+        </label>
+        <div class="mp-modes" role="tablist" aria-label="Browse producers by">
+          <button type="button" class="mp-mode active" data-mode="make" role="tab" aria-selected="true">What they make</button>
+          <button type="button" class="mp-mode" data-mode="county" role="tab" aria-selected="false">County</button>
+        </div>
+        <div class="mp-chips" id="mp-chips"></div>
+      </div>
       <div class="menu-rows" id="menu-cat-rows"></div>
     </div>
 
-    <div class="menu-panel" id="menu-list">
-      <button type="button" class="menu-back" data-open="menu-cats">Producers</button>
-      <p class="menu-head" id="menu-list-head"></p>
-      <div class="menu-rows" id="menu-list-rows"></div>
-    </div>
-
     <p class="menu-tagline">provenancemap.ie</p>
+   </div>
   </div>
 
 
@@ -5064,7 +5249,8 @@
       const open = document.getElementById('filter-panel').classList.contains('open');
       pill.setAttribute('aria-expanded', open ? 'true' : 'false');
       const q = (filterState.search || '').trim();
-      pill.querySelector('.sp-label').textContent = open ? 'Close search' : (q ? q : 'Search farms');
+      // A county lit from the menu names itself here too (2026-11-26).
+      pill.querySelector('.sp-label').textContent = open ? 'Close search' : (q || filterState.county || 'Search farms');
     }
     document.getElementById('search-pill')?.addEventListener('click', () => {
       const opening = !document.getElementById('filter-panel').classList.contains('open');
@@ -5266,8 +5452,21 @@
       btn.classList.toggle('open');
       const nowOpen = overlay.classList.toggle('open');
       // Always reopen at the root, never three panels deep from last time.
-      if (!nowOpen) menuPanel('menu-root');
+      // After the sheet has gone, so it does not change under the fade.
+      if (!nowOpen) {
+        document.getElementById('mp-search')?.blur();
+        setTimeout(() => { if (!overlay.classList.contains('open')) menuPanel('menu-root'); }, 320);
+      }
     }
+    function closeMenu() {
+      if (document.getElementById('menu-overlay').classList.contains('open')) toggleMenu();
+    }
+    // The phone sheet, rather than the desktop's full-screen menu.
+    const menuIsSheet = () => window.matchMedia('(max-width: 768px)').matches;
+    // A tap on the dimmed map around the sheet closes it.
+    document.getElementById('menu-overlay').addEventListener('click', e => {
+      if (e.target === e.currentTarget && menuIsSheet()) toggleMenu();
+    });
 
     /* ── THE PRODUCERS MENU ──────────────────────────────────────
        Root -> categories -> the farms in one category -> that farm's own
@@ -5288,11 +5487,36 @@
       return 'producer/?id=' + encodeURIComponent(p.id);
     }
 
+    /* On the phone sheet a move between panels slides, forward to the right
+       and back to the left, and the sheet grows or shrinks to the new panel
+       instead of jumping. Desktop swaps them, as it always did. */
+    const MENU_DEPTH = { 'menu-root': 0, 'menu-cats': 1 };
+    let menuHeightTimer = null;
     function menuPanel(id) {
-      document.querySelectorAll('.menu-panel').forEach(p => p.classList.toggle('active', p.id === id));
       const overlay = document.getElementById('menu-overlay');
+      const sheet = document.getElementById('menu-sheet');
+      const from = document.querySelector('.menu-panel.active');
+      const to = document.getElementById(id);
+      if (!to) return;
+      const animate = menuIsSheet() && overlay.classList.contains('open') && from && from !== to &&
+                      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const h0 = animate ? sheet.offsetHeight : 0;
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.toggle('active', p.id === id));
       overlay.classList.toggle('browsing', id !== 'menu-root');
       overlay.scrollTop = 0;
+      sheet.scrollTop = 0;
+      if (!animate) return;
+      const dir = (MENU_DEPTH[id] || 0) >= (MENU_DEPTH[from.id] || 0) ? 1 : -1;
+      if (to.animate) to.animate(
+        [{ opacity: 0, transform: `translateX(${dir * 28}px)` }, { opacity: 1, transform: 'none' }],
+        { duration: 300, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' });
+      sheet.style.height = 'auto';
+      const h1 = sheet.offsetHeight;
+      sheet.style.height = h0 + 'px';
+      void sheet.offsetHeight;
+      sheet.style.height = h1 + 'px';
+      clearTimeout(menuHeightTimer);
+      menuHeightTimer = setTimeout(() => { sheet.style.height = ''; }, 360);
     }
     document.querySelectorAll('#menu-overlay [data-open]').forEach(b =>
       b.addEventListener('click', () => menuPanel(b.dataset.open)));
@@ -5357,30 +5581,147 @@
       // A produce type with no chip of its own still earns a row here.
       Object.keys(counts).sort().forEach(t => { if (order.indexOf(t) === -1) order.push(t); });
 
-      const rows = [`<button type="button" class="menu-row" data-cat="*"><span class="m-name">All producers</span><span class="m-meta">${list.length}</span></button>`];
+      // The categories are chips over the farm list now (2026-11-26), with
+      // the same counts the category rows carried.
+      const chips = [`<button type="button" class="mp-chip active" data-cat="*">All<span class="n">${list.length}</span></button>`];
       order.forEach(t => {
         if (!counts[t]) return; // an empty category is hidden, the way an empty chip is
         const label = labels[t] || (t.charAt(0).toUpperCase() + t.slice(1));
-        rows.push(`<button type="button" class="menu-row" data-cat="${escHtml(t)}"><span class="m-name">${escHtml(label)}</span><span class="m-meta">${counts[t]}</span></button>`);
+        chips.push(`<button type="button" class="mp-chip" data-cat="${escHtml(t)}">${escHtml(label)}<span class="n">${counts[t]}</span></button>`);
       });
-
-      const el = document.getElementById('menu-cat-rows');
-      el.innerHTML = rows.join('');
-      el.querySelectorAll('[data-cat]').forEach(b =>
-        b.addEventListener('click', () => openCategory(b.dataset.cat, b.querySelector('.m-name').textContent)));
+      const el = document.getElementById('mp-chips');
+      el.innerHTML = chips.join('');
+      el.querySelectorAll('.mp-chip').forEach(b => b.addEventListener('click', () => {
+        mpCat = b.dataset.cat;
+        el.querySelectorAll('.mp-chip').forEach(c => c.classList.toggle('active', c === b));
+        renderProducersMenu();
+      }));
+      document.getElementById('mp-search').placeholder = `Search ${list.length} farms`;
+      renderProducersMenu();
     }
 
-    function openCategory(cat, label) {
-      const list = (cat === '*' ? MENU_PRODUCERS : MENU_PRODUCERS.filter(p => (p.product_type || []).indexOf(cat) !== -1))
-        .slice().sort((a, b) => String(a.name).localeCompare(String(b.name)));
-      document.getElementById('menu-list-head').textContent = label;
-      document.getElementById('menu-list-rows').innerHTML = list.map(p =>
-        `<a class="menu-row" href="${escHtml(profileUrl(p))}">
-           <span class="m-dot ${dotClassFor(p.tier, p.practice)}"></span>
-           <span class="m-name">${escHtml(p.name)}</span>
-           <span class="m-meta">${escHtml(p.county || '')}</span>
-         </a>`).join('');
-      menuPanel('menu-list');
+    /* ── THE PRODUCERS PAGE (2026-11-26) ─────────────────────────
+       Search box, What they make or County, and the list, all built from
+       producers.json so it can never disagree with the map. A search looks
+       through every farm, Discovered included, by name, place, county and
+       what they make. */
+    let mpMode = 'make', mpCat = '*';
+    const MP_PIN_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>';
+    function renderProducersMenu() {
+      const rowsEl = document.getElementById('menu-cat-rows');
+      const q = (document.getElementById('mp-search').value || '').trim().toLowerCase();
+      const byCounty = mpMode === 'county' && !q;
+      document.getElementById('menu-overlay').classList.toggle('mode-county', mpMode === 'county');
+
+      if (byCounty) {
+        const counts = {};
+        MENU_PRODUCERS.forEach(p => { if (p.county) counts[p.county] = (counts[p.county] || 0) + 1; });
+        rowsEl.innerHTML = '<p class="mp-hint">Tap a county to light it up on the map.</p>' +
+          Object.keys(counts).sort().map(c =>
+            `<button type="button" class="menu-row" data-county="${escHtml(c)}">
+               <span class="m-name">${escHtml(c)}</span>
+               <span class="m-meta">${counts[c]}</span>${MP_PIN_SVG.replace('<svg', '<svg class="mc-go"')}
+             </button>`).join('');
+        rowsEl.querySelectorAll('[data-county]').forEach(b =>
+          b.addEventListener('click', () => showCountyOnMap(b.dataset.county)));
+        return;
+      }
+
+      let list = MENU_PRODUCERS;
+      if (mpMode === 'make' && mpCat !== '*') list = list.filter(p => (p.product_type || []).indexOf(mpCat) !== -1);
+      if (q) list = list.filter(p => [p.name, p.location, p.county, p.product].concat(p.product_type || [])
+                                   .some(v => String(v || '').toLowerCase().includes(q)));
+      list = list.slice().sort((a, b) => String(a.name).localeCompare(String(b.name)));
+      rowsEl.innerHTML = list.length ? list.map(p =>
+        `<div class="mf-row">
+           <a class="menu-row" href="${escHtml(profileUrl(p))}">
+             <span class="m-dot ${dotClassFor(p.tier, p.practice)}"></span>
+             <span class="m-name">${escHtml(p.name)}</span>
+             <span class="m-meta">${escHtml(p.county || '')}</span>
+           </a>
+           <button type="button" class="mf-map" data-id="${escHtml(p.id)}" aria-label="Show ${escHtml(p.name)} on the map">${MP_PIN_SVG}</button>
+         </div>`).join('') : '<p class="mp-none">No farm matches that.</p>';
+      rowsEl.querySelectorAll('.mf-map').forEach(b =>
+        b.addEventListener('click', () => showProducerOnMap(b.dataset.id)));
+    }
+    document.getElementById('mp-search').addEventListener('input', renderProducersMenu);
+    document.getElementById('mp-search').addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); }
+    });
+    document.querySelectorAll('.mp-mode').forEach(b => b.addEventListener('click', () => {
+      mpMode = b.dataset.mode;
+      document.querySelectorAll('.mp-mode').forEach(m => {
+        m.classList.toggle('active', m === b);
+        m.setAttribute('aria-selected', m === b ? 'true' : 'false');
+      });
+      renderProducersMenu();
+    }));
+
+    /* Where the map should look, in its own untransformed pixels: a pin's
+       centre on screen, undone through the current zoom. */
+    function mapPointOf(pin) {
+      const dot = pin.querySelector('.pin-dot');
+      const r = dot && dot.getBoundingClientRect();
+      if (!r || !r.width) return null;
+      return [(r.left + r.width / 2 - mapZoom.tx) / mapZoom.s, (r.top + r.height / 2 - mapZoom.ty) / mapZoom.s];
+    }
+    // Only a phone flies the map: a desktop has no pan or pinch to get back.
+    const menuFlies = () => menuIsSheet() && coarsePointer && !nearMe.active;
+
+    /* Show on map: the menu closes, the map glides to the farm and its card
+       opens. A hidden Discovered farm is brought back to be shown, the same
+       way a search that matches it brings it back. */
+    function showProducerOnMap(id) {
+      const pin = document.querySelector(`.pin[data-id="${CSS.escape(id)}"]`);
+      if (!pin) return;
+      pvTrack('menu_browse', { action: 'show_on_map', producer: id });
+      closeMenu();
+      pin.classList.add('revealed');
+      pin.style.opacity = '';
+      const pt = menuFlies() && mapPointOf(pin);
+      if (!pt) { openCard(pin); return; }
+      const vw = document.documentElement.clientWidth || window.innerWidth;
+      const vh = document.documentElement.clientHeight || window.innerHeight;
+      const s = Math.max(mapZoom.s, Math.min(CLUSTER_MAX, mapBase().s * 2.6));
+      mapZoom.s = s;
+      mapZoom.tx = vw / 2 - pt[0] * s;
+      mapZoom.ty = vh * 0.36 - pt[1] * s;
+      applyMapZoom();
+      setTimeout(() => openCard(pin), 600);
+    }
+
+    /* A county: the menu closes and the county lights up, through the same
+       county filter the search panel has, so the search bar names it and
+       Clear all undoes it. Its Discovered farms come back with it, so the
+       count in the menu is what the map shows. On a phone the map then
+       glides to fit the county's farms between the wordmark and the
+       controls. */
+    function showCountyOnMap(county) {
+      pvTrack('menu_browse', { action: 'county', county });
+      closeMenu();
+      filterState.county = county;
+      const sel = document.getElementById('filter-county');
+      if (sel) sel.value = county;
+      applyFilters();
+      if (!menuFlies()) return;
+      const pts = [];
+      document.querySelectorAll('.pin').forEach(pin => {
+        if ((pin.dataset.county || '').toLowerCase() !== county.toLowerCase()) return;
+        const pt = mapPointOf(pin);
+        if (pt) pts.push(pt);
+      });
+      if (!pts.length) return;
+      const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const vw = document.documentElement.clientWidth || window.innerWidth;
+      const vh = document.documentElement.clientHeight || window.innerHeight;
+      const padX = 64, padTop = 130, padBottom = 170;
+      const availW = vw - 2 * padX, availH = vh - padTop - padBottom;
+      const s = Math.max(mapBase().s, Math.min(4.5, availW / Math.max(x1 - x0, 1), availH / Math.max(y1 - y0, 1)));
+      mapZoom.s = s;
+      mapZoom.tx = vw / 2 - (x0 + x1) / 2 * s;
+      mapZoom.ty = padTop + availH / 2 - (y0 + y1) / 2 * s;
+      applyMapZoom();
     }
 
     /* ── SHARE ─────────────────────────────────────────────────── */
