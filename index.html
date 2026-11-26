@@ -74,12 +74,18 @@
     }
 
     /* ── MAP ── */
+    /* --pk is the pin counter-scale (2026-11-26). Registered so it can
+       transition alongside the transform on a tap-to-zoom. */
+    @property --pk { syntax: '<number>'; inherits: true; initial-value: 1; }
     #map-wrap {
       position: fixed;
       inset: 0;
       z-index: 1;
       transform-origin: 0 0;
-      transition: transform 0.65s cubic-bezier(0.32, 0.72, 0, 1);
+      transition: transform 0.65s cubic-bezier(0.32, 0.72, 0, 1), --pk 0.65s cubic-bezier(0.32, 0.72, 0, 1);
+      /* The map takes every touch gesture itself: no page scroll, no page
+         pinch-zoom, no double-tap zoom over the artwork. */
+      touch-action: none;
       /* Promoted to its own layer only while it is actually moving
          (2026-11-10). It used to carry will-change and backface-visibility
          permanently, which holds the map as a rastered compositor layer at
@@ -163,7 +169,10 @@
     /* ── PINS — FREE ── */
     .pin {
       position: absolute;
-      transform: translate(-50%, -50%);
+      /* scale(--pk) keeps pins near their resting size as the map zooms
+         (2026-11-26). It scales about the pin's own centre, which the
+         translate puts on the coordinate, so no pin moves. */
+      transform: translate(-50%, -50%) scale(var(--pk, 1));
       -webkit-tap-highlight-color: transparent;
       pointer-events: none;
       display: flex;
@@ -3871,15 +3880,34 @@
       zoomSettle = setTimeout(() => document.body.classList.remove('is-zooming'), 750);
     }
 
+    /* The painting always fills its frame (2026-11-26). Along an axis where
+       the artwork is wider than the screen it may move but never show its
+       edge; along one where it is narrower it sits centred, exactly where
+       the resting view puts it. Desktop at rest already satisfies both. */
+    function clampMapZoom() {
+      const { vw, vh, rw, rh, ox, oy } = getMapDims();
+      const s = mapZoom.s, aw = rw * s, ah = rh * s;
+      mapZoom.tx = aw <= vw ? (vw - aw) / 2 - ox * s
+                            : Math.min(-ox * s, Math.max(vw - (ox + rw) * s, mapZoom.tx));
+      mapZoom.ty = ah <= vh ? (vh - ah) / 2 - oy * s
+                            : Math.min(-oy * s, Math.max(vh - (oy + rh) * s, mapZoom.ty));
+    }
+
     function applyMapZoom() {
       markZooming();
       const wrap = document.getElementById('map-wrap');
+      // Keep the painting filling its frame. Not while Near Me holds the map:
+      // it centres the visitor and owns the transform.
+      if (!nearMe.active) clampMapZoom();
       wrap.style.transformOrigin = '0 0';
       /* Always an explicit transform, never '' — clearing the inline style
          leaves the computed value as `none`, and animating a matrix to `none`
          is where the zoom-out jumped instead of gliding. Identity is a matrix
          like any other and interpolates cleanly. */
       wrap.style.transform = `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})`;
+      // Pins grow gently with the map rather than with it: about 2x at full
+      // zoom where they used to grow 5.6x, so a cluster actually separates.
+      wrap.style.setProperty('--pk', Math.min(1, Math.pow(mapBase().s / mapZoom.s, 0.75)).toFixed(4));
       /* The resting state is the phone baseline, not identity, so "is the map
          zoomed" is measured against that and not against 1. */
       const on = mapZoom.s > mapBase().s + 0.0001;
@@ -3923,6 +3951,91 @@
       const pin = pinNearestTo(e.clientX, e.clientY);
       if (pin) { e.stopPropagation(); tapPin(pin); }
     });
+
+    /* -- DRAG AND PINCH (touch only, 2026-11-26) --
+       One finger drags the map, two pinch it, through the same mapZoom state
+       the tap-to-zoom uses, so the Zoom out chip, the cluster tap and
+       resetMapZoom all keep working unchanged. During a gesture the CSS
+       transition is switched off so the map follows the finger exactly, and
+       it comes back afterwards for the tap-to-zoom glide. applyMapZoom clamps
+       every position so the painting always fills its frame. A drag or pinch
+       never opens a pin: the click it ends with is swallowed. Near Me is not
+       on the phone any more, so nothing else writes the transform here. */
+    if (coarsePointer) {
+      const gWrap = document.getElementById('map-wrap');
+      const PAN_SLOP = 8;          // px a finger moves before it is a drag, not a tap
+      let g = null;                // the gesture in progress
+      let gestured = false;        // a drag or pinch happened in this touch sequence
+
+      const live = () => { gWrap.style.transition = 'none'; gestured = true; hidePinLabel(); };
+      const pinchFrom = ts => {
+        const ax = ts[0].clientX, ay = ts[0].clientY, bx = ts[1].clientX, by = ts[1].clientY;
+        const mx = (ax + bx) / 2, my = (ay + by) / 2;
+        return { mode: 'pinch', d0: Math.hypot(ax - bx, ay - by) || 1, s0: mapZoom.s,
+                 px: (mx - mapZoom.tx) / mapZoom.s, py: (my - mapZoom.ty) / mapZoom.s };
+      };
+      const panFrom = t => ({ mode: 'pan', x0: t.clientX, y0: t.clientY, tx0: mapZoom.tx, ty0: mapZoom.ty });
+
+      gWrap.addEventListener('touchstart', e => {
+        const ts = e.touches;
+        if (ts.length === 1) {
+          gestured = false;        // a fresh touch: forget the last gesture
+          g = Object.assign(panFrom(ts[0]), { mode: 'maybe-pan' });
+        } else if (ts.length === 2) {
+          g = pinchFrom(ts);
+          live();
+        }
+      }, { passive: true });
+
+      gWrap.addEventListener('touchmove', e => {
+        if (!g) return;
+        const ts = e.touches;
+        if (g.mode === 'pinch' && ts.length >= 2) {
+          e.preventDefault();
+          const ax = ts[0].clientX, ay = ts[0].clientY, bx = ts[1].clientX, by = ts[1].clientY;
+          const mx = (ax + bx) / 2, my = (ay + by) / 2;
+          const s = Math.max(mapBase().s, Math.min(CLUSTER_MAX, g.s0 * Math.hypot(ax - bx, ay - by) / g.d0));
+          mapZoom.s = s;
+          mapZoom.tx = mx - g.px * s;   // the point under the fingers stays under them
+          mapZoom.ty = my - g.py * s;
+          applyMapZoom();
+        } else if (ts.length === 1 && g.mode !== 'pinch') {
+          const dx = ts[0].clientX - g.x0, dy = ts[0].clientY - g.y0;
+          if (g.mode === 'maybe-pan') {
+            if (Math.hypot(dx, dy) < PAN_SLOP) return;
+            g.mode = 'pan';
+            live();
+          }
+          e.preventDefault();
+          mapZoom.tx = g.tx0 + dx;
+          mapZoom.ty = g.ty0 + dy;
+          applyMapZoom();
+        }
+      }, { passive: false });
+
+      const gEnd = e => {
+        if (!g) return;
+        if (g.mode === 'pinch' && e.touches.length === 1) {
+          g = panFrom(e.touches[0]);   // one finger lifted: carry on dragging, no jump
+          return;
+        }
+        if (e.touches.length === 0) {
+          g = null;
+          requestAnimationFrame(() => { gWrap.style.transition = ''; });
+        }
+      };
+      gWrap.addEventListener('touchend', gEnd, { passive: true });
+      gWrap.addEventListener('touchcancel', gEnd, { passive: true });
+
+      // The click a drag or pinch ends with must not open a pin or zoom a cluster.
+      gWrap.addEventListener('click', e => {
+        if (gestured) { gestured = false; e.stopImmediatePropagation(); e.preventDefault(); }
+      }, true);
+
+      // iOS Safari zooms the whole page on a pinch unless its gesture events are stopped.
+      ['gesturestart', 'gesturechange'].forEach(t =>
+        document.addEventListener(t, e => { if (gWrap.contains(e.target)) e.preventDefault(); }, { passive: false }));
+    }
     // ─────────────────────────────────────────────────────────────
 
     const card    = document.getElementById('card');

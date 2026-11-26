@@ -203,7 +203,7 @@ Discovered and Verified never pulsed; their `.pin-pulse` element is `display: no
 | 1.35x | 1px | 159px |
 | 1.49x | clipped 20px | 131px |
 
-The coast reaches the edge at **1.35x** and is clipped past it. Every pin stays on screen up to **1.49x**, and beyond that a full-height fill (2.16x) pushes **27 producers off screen**, including Dingle and Achill in the west and the entire east coast with Dublin and Belfast. **Do not raise `MAP_BASE_SCALE` without building pan first.**
+The coast reaches the edge at **1.35x** and is clipped past it. Every pin stays on screen up to **1.49x**, and beyond that a full-height fill (2.16x) pushes **27 producers off screen**, including Dingle and Achill in the west and the entire east coast with Dublin and Belfast. **Pan now exists (drag and pinch, 2026-11-26), so raising `MAP_BASE_SCALE` is possible, but past 1.49x pins start off-screen at rest: decide it on a phone.**
 
 **It is the resting value of `mapZoom`, not a second transform layer**, and that matters twice:
 
@@ -239,6 +239,19 @@ The coast reaches the edge at **1.35x** and is clipped past it. Every pin stays 
 - **The whole row lifts over the install bar** (`body.pv-install-bar`), which fixed a bug: the Key chip had been sitting underneath the install bar for first-time visitors since it went in earlier the same day.
 
 **Testing touch layouts headlessly.** Rules gated on `(pointer: coarse)` never render in plain headless Chrome, which is why the Near Me button and the install-bar overlap were missing from earlier phone mocks. Launch Chrome with `--blink-settings=primaryPointerType=2,availablePointerTypes=2,primaryHoverType=1,availableHoverTypes=1` and `matchMedia('(pointer: coarse)')` is true, so the mock is what a phone shows.
+
+
+### Drag and pinch (set 2026-11-26)
+
+**On a touch screen, one finger drags the map and two pinch it.** The gestures live in one block, `if (coarsePointer) { ... }` after the map's tap handler, and write the same `mapZoom` state the tap-to-zoom uses, so the cluster tap, the Zoom out chip and `resetMapZoom` work unchanged. **Removing that block removes the feature cleanly.** Desktop is untouched: it rests at scale 1 with no offset, verified.
+
+- **The painting always fills its frame.** `clampMapZoom()`, called from `applyMapZoom` for every move (not while Near Me holds the map), lets the artwork move but never show its edge along an axis where it is wider than the screen, and centres it along one where it is narrower, which is exactly the resting position. Tap-to-zoom near the coast is clamped too, so it no longer shows charcoal beyond the painting.
+- **Pins grow gently, not with the map.** `--pk`, a registered custom property on `#map-wrap`, counter-scales every `.pin` about its own centre: `min(1, (base/s)^0.75)`. A Verified dot is 9.75px on screen at rest, 12.4px at 3.25x and **15px at 7x, where it used to be 55px**, so a cluster now genuinely separates when you zoom into it. It transitions alongside the transform for the tap-to-zoom glide. **Pin drift measured 0.0000%** at every zoom, because the scale is about the centre the translate puts on the coordinate.
+- **A drag never opens a pin.** Movement past 8px makes it a drag; the click that ends a drag or pinch is swallowed in the capture phase. A plain tap still opens a card. Lifting one finger mid-pinch carries on as a drag with no jump.
+- **The page itself never pans or zooms over the map**: `touch-action: none` on `#map-wrap`, `preventDefault` on gesture moves, and iOS `gesturestart`/`gesturechange` stopped inside the map.
+- **The CSS transition is off during a gesture** so the map follows the finger exactly, and comes back afterwards.
+
+**Not yet judged by hand.** Synthetic touches in headless Chrome prove the maths (edges, drift, sizes, taps), not the feel on a real thumb. **The resting view stays 1.25x**: with drag it could rest bigger, but past 1.49x Dublin and the east coast start off-screen, so that waits for the user to try it. `pinch-built.png` in `Map Screenshot` shows tap-zoom against pinch.
 
 ### The card states things, it does not badge them
 
