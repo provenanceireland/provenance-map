@@ -41,7 +41,7 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 | Pin | Fill | Size | Ring and glow | Count at launch |
 |---|---|---|---|---|
 | Not yet in touch (`tier: discovered`) | light grey `#ACB3AE` (was sage until the same night: too easily mistaken for submitted) | 5.85px, 5.20px mobile | none | 70 |
-| Details submitted, no organic or regenerative practice | sage `#B4CBAA` | 8.78px, 7.80px mobile | soft white | 28 |
+| Details submitted, no organic or regenerative practice | sage `#A9CB9A` (was `#B4CBAA`, made more sage at the user's request) | 8.78px, 7.80px mobile | soft white | 28 |
 | Organic | bright green `#6BCB5E` | full | soft white | 10 |
 | Regenerative | darker green `#3F8A4C` | full | soft white | 33 |
 | Organic and regenerative | 50/50 vertical split, organic left | full | soft white | 12 |
