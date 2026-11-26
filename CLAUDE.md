@@ -41,7 +41,7 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 | Pin | Fill | Size | Ring and glow | Count at launch |
 |---|---|---|---|---|
 | Not yet in touch (`tier: discovered`) | dark green `#285C36` (sage, then grey, the same night: the user wanted a darker green that does not blend into the map, and the white ring keeps it off the land) | 5.85px, 5.20px mobile | white ring `1px solid rgba(248,248,243,0.6)`, no glow (ring added 2026-11-26 at the user's request) | 70 |
-| Details submitted, no organic or regenerative practice | sage `#A9CB9A` (was `#B4CBAA`, made more sage at the user's request) | 8.78px, 7.80px mobile | soft white | 28 |
+| Farm confirmed (was "Details submitted" until 2026-11-26), no organic or regenerative practice | sage `#A9CB9A` (was `#B4CBAA`, made more sage at the user's request) | 8.78px, 7.80px mobile | soft white | 28 |
 | Organic | bright green `#6BCB5E` | full | soft white | 10 |
 | Regenerative | darker green `#3F8A4C` | full | soft white | 33 |
 | Organic and regenerative | 50/50 vertical split, organic left | full | soft white | 12 |
@@ -53,6 +53,8 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 How it behaves, all verified: `display: none` rather than opacity, so a hidden pin has no size and the tap and cluster-zoom hit-tests skip it with no extra code. **A filter that matches a hidden farm reveals it** (the `revealed` class), so searching for one by name never comes back invisible, and clearing the filter hides it again. **Clear all does not touch the switch**: it is a display setting, not a filter. Near Me counts and lists only pins on screen (`pinShown()`), and a hidden farm never takes one of the six new-pin glow slots. Not remembered between visits: every load starts hidden.
 
 **What the not-in-touch producers are called: Discovered (settled 2026-11-26).** The original tier name, `tier: discovered`, is the name a visitor sees again. "Not established" and "Not yet in touch" were both tried the same day and dropped.
+
+**"Farm confirmed" replaced "Details submitted" (2026-11-26).** The user found "Details submitted" read as form language, and as a miscellaneous leftover for producers he rates highly. The sage bucket is 28 producers in two groups: 10 for whom a farming practice does not apply (6 honey, 3 sea salt, 1 oysters) and 18 land farms with no organic or regenerative claim. Four of the ten ticked "conventional" only because the form offers no answer that fits a beekeeper or a salt harvester, and 5 of the 6 honey producers carry Native Irish bee. **Giving honey and sea their own fills (amber, sea blue) was proposed and declined for now**; only the label changed. **Still open: the Zite form needs a "we don't farm land" answer** so beekeepers stop being pushed into "conventional".
 
 **Visited is not on the pin any more** (the user's decision, 2026-11-26): no gold ring, no halo. It belongs on the card or profile, which is not built yet; for now the three visited farms are the three Highlighted ones, whose card mark already says so. `visited: true` stays on their records and the Visited filter chip still works.
 
