@@ -224,7 +224,21 @@ The coast reaches the edge at **1.35x** and is clipped past it. Every pin stays 
 
 **The artwork is WebP now: 213 KB instead of 2,018 KB**, `ireland-map.webp`, the same 1024x1024 image encoded at quality 0.92 in Chrome, inside a `<picture>` with the PNG as fallback. The map image was about 95% of the first load, so this is roughly a tenth of what a phone downloads. Compared at three times magnification on coast, surf and rivers, it is indistinguishable from the PNG; 0.86 (133 KB) was too, and 0.92 was chosen for margin on the painted texture. **It is not sharper**: there is no higher-resolution original anywhere on the machine, both `ireland-map.png` and `ireland-map.png.png` are the same 1024px file, and upscaling adds no detail. A crisp deep zoom needs the original artwork exported at 2048px or larger. Nothing reads the artwork's address, and `getMapDims()` works from ratios, so pins are unaffected; a 2048px export could drop straight in. `about.html` still loads the PNG.
 
-**Next, mock only:** drag and pinch, and the card as a half-height sheet.
+**Drag and pinch is being built (2026-11-26); the half-height card sheet was mocked and not taken forward.**
+
+
+### Search at the thumb (set 2026-11-26)
+
+**On a phone (`max-width: 768px`), search is a wide bar in the bottom-left corner**, not an icon at the top, because finding a farm is the main job. The bottom row is **Search farms, then Connect, then the Key chip**. Desktop is unchanged.
+
+- **Near Me is gone from the phone.** `#near-me-btn` is hidden; the machinery (geolocation, the 30km radius, the circle, the list panel) stays dormant, as it was before the button was switched on. It also frees the map transform for drag and pinch.
+- **The search icon (`#filter-toggle`) and Connect left the top.** The refresh button took the search icon's place, top right. It stays because it clears stale caches.
+- **The panel still drops from the top**, which is right for typing: the box sits above the keyboard and the results under it. The bar (`#search-pill`) opens it with the keyboard up and closes it again. **A Done button in the panel header** closes it too, because the keyboard can cover the bar. These, and tapping a result, are the only ways the panel closes, so **never hide the bar on a phone without giving the panel another way out**.
+- **The bar says what the map is filtered by.** It reads "Close search" while open, the current search while one is applied, and carries the filter count in a green badge. Clear all resets it.
+- **Results include Discovered farms**, and the panel says so under the box. A match reveals a hidden Discovered pin on the map. **Result and menu dots use the pin colours** through `dotClassFor()`; the menu's Producers list was still in the old tier colours, including the retired Highlighted gold.
+- **The whole row lifts over the install bar** (`body.pv-install-bar`), which fixed a bug: the Key chip had been sitting underneath the install bar for first-time visitors since it went in earlier the same day.
+
+**Testing touch layouts headlessly.** Rules gated on `(pointer: coarse)` never render in plain headless Chrome, which is why the Near Me button and the install-bar overlap were missing from earlier phone mocks. Launch Chrome with `--blink-settings=primaryPointerType=2,availablePointerTypes=2,primaryHoverType=1,availableHoverTypes=1` and `matchMedia('(pointer: coarse)')` is true, so the mock is what a phone shows.
 
 ### The card states things, it does not badge them
 
