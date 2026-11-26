@@ -110,6 +110,36 @@ Discovered and Verified never pulsed; their `.pin-pulse` element is `display: no
 **`assets/map-bleed.jpg` is a leftover and nothing references it.** 989 bytes, safe to delete.
 
 **On checking a pin diff.** Every one of these passes was verified against a captured baseline of all pin rects. Worth remembering from it: `an-garrai-glas` once appeared to shift **1.305px on both axes**, which is half of 2.60px, which is exactly the Discovered to Verified dot size step. It had been upgraded; its `lat` and `lng` never changed. **A uniform shift of half a dot-size step on both axes is a tier change, not a move.**
+
+### The resting zoom on a phone (set 2026-11-26)
+
+**The bands are smaller because the map is bigger, not because anything was painted into them.** `MAP_BASE_SCALE` in `index.html` is **1.25**, and on a portrait phone the map now rests at that scale instead of 1. The island goes from 390px to 487px wide and the bands from 227px to 178px. This is not the bleed work coming back: nothing is drawn in the bands, and the rule against filling them stands. The user asked for a bigger map specifically, on 2026-11-26.
+
+**No coordinate was touched and no pin moved.** `#pins` sits inside `#map-wrap` alongside the image, so a transform on the wrapper moves the island and the pins as one body. Measured across all 153 pins at 1.00x and 1.25x: **worst drift 0.00000%, 0.000px on screen.** `positionPins`, `getMapDims`, `latLngToPercent`, refX 85/82, the 15.217 and 20 scale factors, the `-20px` correction and the forty desktop overrides are all untouched.
+
+**Why 1.25 and not more.** Measured off the artwork: the painted island spans **73.8%** of the artwork width, and the pins span **67.1%**.
+
+| Scale | Coast to screen edge | Band |
+|---|---|---|
+| 1.00x | 51px | 227px |
+| **1.25x** | **15px** | **178px** |
+| 1.35x | 1px | 159px |
+| 1.49x | clipped 20px | 131px |
+
+The coast reaches the edge at **1.35x** and is clipped past it. Every pin stays on screen up to **1.49x**, and beyond that a full-height fill (2.16x) pushes **27 producers off screen**, including Dingle and Achill in the west and the entire east coast with Dublin and Belfast. **Do not raise `MAP_BASE_SCALE` without building pan first.**
+
+**It is the resting value of `mapZoom`, not a second transform layer**, and that matters twice:
+
+- **Near me** writes an absolute `tx`/`ty`/`s` worked out from untransformed pixels (`vw/2 - N*px`). Composing a base transform underneath it would silently put the user's location off centre. Because the base is just where `mapZoom` rests, Near me's maths is untouched and still correct.
+- **`CLUSTER_MAX` stays a true ceiling.** Zoom runs 1.25 to 2.75 to 6.05 to 7, rather than reaching 8.75, so the texture the phone has to rebuild on the way back out is no bigger than it was. The phone-blanking risk is unchanged.
+
+`resetMapZoom()` returns to the baseline rather than to 1, so the zoom-out chip and `exitNearMeMode` both land back on the resting view, and the chip's visibility is judged against the baseline rather than against 1. `layoutMap()` wraps `positionPins()` and re-settles the zoom on load and on resize; it defers a frame because the synchronous `mapImg.complete` branch runs while the script is still parsing and `mapZoom` is in its temporal dead zone.
+
+**Desktop is deliberately excluded**: `mapBase()` returns identity unless the viewport is portrait and 768px or narrower, since a landscape window has no bands to reclaim. Verified at 1280x800: scale exactly 1.0000.
+
+**Setting `MAP_BASE_SCALE` to 1 turns the whole thing off**, one number, no other edit.
+
+**The artwork is the limit on going further.** It is 1024px, so at 1.25x on a DPR-3 phone the browser draws about 1463 device pixels from it, and a full-screen 2.16x would ask for 2532. The AVIF conversion in the loading notes is what buys the headroom for any larger resting scale.
 ### The card states things, it does not badge them
 
 Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, Collection, confirmed attributes, produce, venue — and they read as chrome rather than as content. They are all text now, no borders and no backgrounds:

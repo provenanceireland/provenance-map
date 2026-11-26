@@ -3171,6 +3171,55 @@
       return { vw: bw, vh: bh, rw, rh, ox, oy };
     }
 
+    /* -- THE RESTING ZOOM ON A PHONE (2026-11-26) --
+       The artwork is square and a phone is about 1:2.16, so object-fit:
+       contain draws the island at 390x390 and leaves 227px of flat charcoal
+       above and below. This scales the whole map up at rest, so the island is
+       bigger and those bands shrink, WITHOUT touching a single coordinate.
+
+       It is safe because #pins sits inside #map-wrap alongside the image, so
+       a transform on the wrapper moves the island and the pins as one body.
+       Measured across all 153 pins at 1.00x and at 1.25x: zero drift, 0.000px
+       on screen. Nothing here touches positionPins, getMapDims,
+       latLngToPercent, refX, the scale factors, the -20px correction or the
+       forty desktop overrides.
+
+       1.25 leaves 15px of sea between the painted coast and the screen edge.
+       The coast reaches the edge at 1.35 and is clipped past it. Every pin
+       stays on screen up to 1.49, and beyond that Dingle, Achill and the
+       whole east coast including Dublin and Belfast fall off, so do not
+       raise this without building pan first.
+
+       It is the RESTING VALUE of mapZoom rather than a second transform
+       layer, which matters twice. Near me writes an absolute tx/ty/s worked
+       out from untransformed pixels, so composing a base underneath it would
+       silently put the user off centre. And CLUSTER_MAX stays a true ceiling:
+       zoom runs 1.25 -> 2.75 -> 6.05 -> 7 instead of reaching 8.75, so the
+       texture the phone rebuilds on the way back out is no bigger than today.
+
+       Set MAP_BASE_SCALE to 1 to turn the whole thing off. */
+    const MAP_BASE_SCALE = 1.25;
+    let mapBaseS = 1;
+
+    function mapBase() {
+      const { vw, vh, rw, rh, ox, oy } = getMapDims();
+      // Only where there are bands to reclaim: a portrait phone.
+      if (MAP_BASE_SCALE === 1 || vw > 768 || vh <= vw) return { s: 1, tx: 0, ty: 0 };
+      const s = MAP_BASE_SCALE;
+      return { s, tx: (vw - rw * s) / 2 - ox * s, ty: (vh - rh * s) / 2 - oy * s };
+    }
+
+    /* Deferred a frame so mapZoom is past its temporal dead zone whichever
+       init path got us here: the synchronous mapImg.complete branch runs
+       while the script is still being parsed. */
+    function settleMapZoom() {
+      requestAnimationFrame(() => {
+        if (Math.abs(mapZoom.s - mapBaseS) < 0.0001) resetMapZoom();
+      });
+    }
+
+    function layoutMap() { positionPins(); settleMapZoom(); }
+
     function positionPins() {
       if (!mapImg.naturalWidth || !mapImg.naturalHeight) return;
       const { rw, rh, ox, oy } = getMapDims();
@@ -3244,19 +3293,19 @@
       panel.textContent = lines.join('\n');
     }
 
-    mapImg.addEventListener('load', positionPins);
+    mapImg.addEventListener('load', layoutMap);
     if (mapImg.complete && mapImg.naturalWidth) {
-      positionPins();
+      layoutMap();
     } else if (mapImg.complete) {
       // naturalWidth not yet available — retry after decode
-      mapImg.decode().then(positionPins).catch(() => {
-        requestAnimationFrame(positionPins);
+      mapImg.decode().then(layoutMap).catch(() => {
+        requestAnimationFrame(layoutMap);
       });
     }
     window.addEventListener('resize', () => {
       // leave near-me first, so pins are measured against the untransformed map
       if (nearMe.active) exitNearMeMode();
-      positionPins();
+      layoutMap();
     });
 
     // ── DYNAMIC PIN RENDERING ─────────────────────────────────────
@@ -3626,10 +3675,10 @@
          leaves the computed value as `none`, and animating a matrix to `none`
          is where the zoom-out jumped instead of gliding. Identity is a matrix
          like any other and interpolates cleanly. */
-      wrap.style.transform = mapZoom.s > 1
-        ? `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})`
-        : 'translate(0px,0px) scale(1)';
-      const on = mapZoom.s > 1;
+      wrap.style.transform = `translate(${mapZoom.tx}px,${mapZoom.ty}px) scale(${mapZoom.s})`;
+      /* The resting state is the phone baseline, not identity, so "is the map
+         zoomed" is measured against that and not against 1. */
+      const on = mapZoom.s > mapBase().s + 0.0001;
       if (on) placeZoomOut();
       document.getElementById('zoom-out').classList.toggle('visible', on);
     }
@@ -3647,7 +3696,9 @@
     }
 
     function resetMapZoom() {
-      mapZoom.s = 1; mapZoom.tx = 0; mapZoom.ty = 0;
+      const b = mapBase();
+      mapBaseS = b.s;
+      mapZoom.s = b.s; mapZoom.tx = b.tx; mapZoom.ty = b.ty;
       applyMapZoom();
     }
     document.getElementById('zoom-out').addEventListener('click', e => {
