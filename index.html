@@ -1670,6 +1670,14 @@
       box-shadow: none !important;
     }
 
+    /* Not-yet-in-touch farms are hidden when the map loads (2026-11-26) and
+       come back from the legend row. A filter that matches one reveals it,
+       so a search for a farm by name never comes back invisible. display:
+       none and not opacity, so a hidden pin has no size and the tap and
+       cluster hit-tests skip it by themselves. */
+    body.hide-unexplored .pin.t-discovered:not(.revealed) { display: none; }
+    body.hide-unexplored [data-legend-unexplored] .legend-dot { opacity: 0.4; }
+
     /* Seal Lite — gold with gentle desynchronised pulse */
     .pin.t-seal-lite .pin-dot,
     .pin.t-seal-complete .pin-dot {
@@ -2764,10 +2772,12 @@
       <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#A9CB9A;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
       <span class="legend-text"><span>Details submitted</span></span>
     </div>
-    <div class="legend-item legend-static">
+    <!-- The show and hide switch for the unexplored farms, which are hidden
+         on load. Pressed means shown. -->
+    <button type="button" class="legend-item" data-legend-unexplored="1" aria-pressed="false">
       <span class="legend-dot-wrap"><span class="legend-dot" style="width:5.85px;height:5.85px;background:#ACB3AE;border:none;"></span></span>
-      <span class="legend-text"><span>Not yet in touch</span></span>
-    </div>
+      <span class="legend-text"><span>Not yet in touch</span><span class="legend-desc" id="legend-unexplored-desc">Hidden. Tap to show</span></span>
+    </button>
     <!-- Not a tier, so it is described by what it lets you do rather than by
          what the producer has earned, and its count is on screen because that
          number is the whole point of it. Hidden until a farm is on Connect. -->
@@ -3434,7 +3444,9 @@
         const tier = parseInt(pin.dataset.tier || '0');
         if (tier > 0) pin.classList.add('tier-' + tier);
         // Eligible for seven days from date_added on the record.
-        if (pin.dataset.listed) {
+        // A hidden unexplored farm never takes one of the NEW_GLOW_MAX slots.
+        if (pin.dataset.listed && !(pin.classList.contains('t-discovered') &&
+                                    document.body.classList.contains('hide-unexplored'))) {
           const listed = new Date(pin.dataset.listed);
           if (!isNaN(listed) && Date.now() - listed.getTime() < NEW_MS) {
             fresh.push({ pin: pin, t: listed.getTime() });
@@ -3446,6 +3458,7 @@
       fresh.sort((a, b) => b.t - a.t);
       fresh.slice(0, NEW_GLOW_MAX).forEach(f => f.pin.classList.add('is-new'));
       positionPins();
+      syncUnexploredUI();   // the hidden count needs the pins to exist
       arrivePins();
     }
 
@@ -4491,7 +4504,7 @@
       const matched = [];
 
       pins.forEach(pin => {
-        if (!hasFilters) { pin.style.opacity = ''; return; }
+        if (!hasFilters) { pin.style.opacity = ''; pin.classList.remove('revealed'); return; }
         const name = (pin.dataset.name || '').toLowerCase();
         const pinCounty = (pin.dataset.county || '').toLowerCase();
         const pinProduct = (pin.dataset.product || '').toLowerCase();
@@ -4533,6 +4546,7 @@
         }
 
         pin.style.opacity = match ? '' : '0.25';
+        pin.classList.toggle('revealed', match);   // a hidden farm that matches comes back
         if (match) matched.push(pin);
       });
 
@@ -4663,6 +4677,7 @@
       document.getElementById('filter-county').value = '';
       document.querySelectorAll('.filter-chip, .method-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.legend-item').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      syncUnexploredUI();   // a display switch, not a filter: Clear all leaves it alone
       applyFilters();
     }
 
@@ -4710,6 +4725,9 @@
       btn.addEventListener('click', () => {
         if (btn.dataset.legendConnect) {
           filterState.connect = !filterState.connect;
+        } else if (btn.dataset.legendUnexplored) {
+          document.body.classList.toggle('hide-unexplored');
+          syncUnexploredUI();
         } else if (btn.dataset.legendVisited) {
           filterState.visited = !filterState.visited;
         } else if (btn.dataset.legendMethod) {
@@ -4788,6 +4806,24 @@
        "Provenance Collection" mark on the card are not links and both stay. */
     const COLLECTION_LINKS_ON = false;
     if (!COLLECTION_LINKS_ON) document.body.classList.add('no-collection-links');
+
+    /* Not-yet-in-touch (Discovered) farms start hidden, so the map opens on
+       the producers who have told us themselves (2026-11-26). They stay in
+       producers.json, the menu and their profile pages, and the legend row
+       brings them back. Set to false to show them on load again. */
+    const HIDE_UNEXPLORED_ON_LOAD = true;
+    if (HIDE_UNEXPLORED_ON_LOAD) document.body.classList.add('hide-unexplored');
+
+    function syncUnexploredUI() {
+      const b = document.querySelector('[data-legend-unexplored]');
+      if (!b) return;
+      const hidden = document.body.classList.contains('hide-unexplored');
+      b.setAttribute('aria-pressed', hidden ? 'false' : 'true');
+      const n = document.querySelectorAll('.pin.t-discovered').length;
+      const d = document.getElementById('legend-unexplored-desc');
+      if (d) d.textContent = hidden ? (n ? n + ' hidden. Tap to show' : 'Hidden. Tap to show') : 'Tap to hide';
+    }
+    syncUnexploredUI();
 
     // The launch strip. Set to false to take it down for everyone; a visitor
     // who closes it does not see it again. Storage can be blocked, so both
@@ -5135,10 +5171,17 @@
       if (el) el.remove();
     }
 
+    // A pin hidden by display:none has no client rects.
+    function pinShown(pin) {
+      const d = pin.querySelector('.pin-dot');
+      return !!(d && d.getClientRects().length);
+    }
+
     function applyNearMeOpacity() {
       let count = 0;
       document.querySelectorAll('.pin').forEach(pin => {
         if (pin.id === 'user-location-dot') return;
+        if (!pinShown(pin)) return;   // hidden unexplored farms are not "near you"
         const pinLat = parseFloat(pin.dataset.lat);
         const pinLng = parseFloat(pin.dataset.lng);
         if (isNaN(pinLat) || isNaN(pinLng)) return;
