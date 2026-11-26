@@ -1622,64 +1622,50 @@
     }
 
     /* ── LIVING PIN SYSTEM ── */
-    /* -- TWO FILLS, AND THE RING WILL SAY THE REST (2026-11-26, evening) --
-       The fill says one thing only: has this producer spoken to us.
+    /* -- PIN FILLS: CONTACT, THEN PRACTICE (2026-11-26, night) --
+       Settled by the user after a day of trying other ways:
 
-         Submitted their details  ->  the Verified green, #59A666, full size,
-                                      its original glow, no border.
-         Not yet in touch         ->  light sage, #B4CBAA, the small dot, no
-                                      border and no glow. An unexplored icon
-                                      on a game map: a name and a line of
-                                      description, nobody has been there yet.
+         Not yet in touch (tier discovered)  small light sage, no ring, no
+                                             glow. The unexplored icon.
+         Details submitted, no organic or    full size sage, with the soft
+         regenerative practice declared      white ring and glow
+         Organic                             bright green, white ring, glow
+         Regenerative                        darker green, white ring, glow
+         Both                                a clean 50/50 vertical split,
+                                             organic left, regenerative right
 
-       Six fill colours by farming practice lasted half a day. On a phone it
-       read as a mess: two greens nobody could tell apart at 8px, two greys
-       that vanished, and a legend covering the corner of the island. Fill by
-       practice is gone. PRACTICE WILL COME BACK AS THE RING COLOUR, which is
-       the next piece of work and is why nothing here draws a border yet,
-       with one exception: a farm Provenance has visited keeps its gold ring.
+       The soft white ring and glow is what the old Verified pin wore, and it
+       is now what says "this producer has told us themselves": every
+       submitted pin carries it, whatever its practice. Conventional, Korean
+       Natural Farming and submitted-but-undeclared all sit on the sage.
 
-       The fm-* classes and data-farming-method are still put on every pin by
-       renderPin, and the practice filter still works off them. They simply
-       paint nothing until the rings are decided. */
+       Practice comes from farmingMethod() on the existing `practice` field;
+       there is still no separate field for it. Visited is not on the pin:
+       it lives on the card. */
     .pin .pin-dot {
       width: 8.78px !important;
       height: 8.78px !important;
-      background: #59A666 !important;
-      border: none !important;
-      box-shadow: 0 0 6px 2px rgba(89,166,102,0.73) !important;
+      background: #B4CBAA !important;
+      border: 1px solid rgba(248,248,243,0.6) !important;
+      box-shadow: 0 0 6px 2px rgba(248,248,243,0.32) !important;
     }
     .pin .pin-pulse { display: none; }
 
-    /* Not yet in touch. Keyed on tier, so it is exactly the producers who
-       have never submitted anything, and it flips to green by itself the day
-       one of them does. */
+    .pin.fm-organic .pin-dot      { background: #6BCB5E !important; }
+    .pin.fm-regenerative .pin-dot { background: #3F8A4C !important; }
+    .pin.fm-both .pin-dot {
+      background: linear-gradient(90deg, #6BCB5E 0 50%, #3F8A4C 50% 100%) !important;
+    }
+
+    /* Not yet in touch. Keyed on tier, so it flips to a full submitted pin
+       by itself the day the producer sends their details. Last in the block
+       so nothing above can paint over it. */
     .pin.t-discovered .pin-dot {
       width: 5.85px !important;
       height: 5.85px !important;
       background: #B4CBAA !important;
+      border: none !important;
       box-shadow: none !important;
-    }
-
-    /* Visited by Provenance keeps the gold ring, #CDA043. 1px and not 1.5px:
-       Chrome snaps border-width to whole device pixels, so 1.5 renders as 1
-       at DPR 1 and 1.33 at DPR 3. */
-    .pin.is-visited .pin-dot,
-    .pin.t-featured .pin-dot {
-      border: 1px solid #CDA043 !important;
-      box-shadow:
-        0 0 0 1px rgba(201,154,56,0.30),
-        0 0 8px 2px rgba(201,154,56,0.45) !important;
-    }
-
-    /* The golden halo, on .pin-pulse, held still. One halo on the map. */
-    .pin.is-visited .pin-pulse {
-      display: block;
-      width: 8.78px; height: 8.78px;
-      background: rgba(214,132,52,0.20);
-      transform: translate(-50%,-50%) scale(2.1);
-      opacity: 0.30;
-      animation: none;
     }
 
     /* Seal Lite — gold with gentle desynchronised pulse */
@@ -2033,7 +2019,6 @@
     @media (max-width: 768px) {
       .pin .pin-dot { width: 7.80px !important; height: 7.80px !important; }
       .pin.t-discovered .pin-dot { width: 5.20px !important; height: 5.20px !important; }
-      .pin.is-visited .pin-pulse { width: 7.80px; height: 7.80px; }
     }
 
     /* ── PROVENANCE COLLECTION ── a member of the Collection keeps its tier
@@ -2070,7 +2055,6 @@
       /* Except Highlighted's, which stopped moving for everyone on 2026-10-29.
          There is nothing left to calm, so hiding it here would only take the
          halo off the pin for these visitors and nobody else. */
-      .pin.is-visited .pin-pulse { opacity: 0.30 !important; }
       .pin.t-seal-lite .pin-dot,
       .pin.t-seal-complete .pin-dot {
         box-shadow: 0 0 10px 3px rgba(196,164,74,0.5);
@@ -2759,36 +2743,29 @@
        the map returns. It drives the same filterState the filter panel does,
        so the two can never disagree and Clear all clears both. -->
   <div id="map-legend">
-    <!-- Two fills and one ring, exactly what is on the map (2026-11-26).
-         The two fill rows describe and do not filter: the practice filter
-         lives in the panel until the ring colours are settled. -->
-    <div class="legend-item legend-static">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:none;box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></span>
-      </span>
-      <span class="legend-text">
-        <span>Details submitted</span>
-        <span class="legend-desc">The producer told us themselves</span>
-      </span>
-    </div>
-    <div class="legend-item legend-static">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:5.85px;height:5.85px;background:#B4CBAA;border:none;"></span>
-      </span>
-      <span class="legend-text">
-        <span>Not yet in touch</span>
-        <span class="legend-desc">Found and listed by Provenance</span>
-      </span>
-    </div>
-    <button type="button" class="legend-item" data-legend-visited="1" aria-pressed="false">
-      <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid #CDA043;box-shadow:0 0 0 1px rgba(201,154,56,0.30),0 0 9px 3px rgba(214,132,52,0.42);"></span>
-      </span>
-      <span class="legend-text">
-        <span>Visited by Provenance</span>
-        <span class="legend-desc">We have stood on this ground</span>
-      </span>
+    <!-- Exactly what is on the map (2026-11-26, night). The three practice
+         rows filter, like the legend always did; the two contact rows
+         describe and do not. -->
+    <button type="button" class="legend-item" data-legend-method="organic" aria-pressed="false">
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#6BCB5E;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-text"><span>Organic</span></span>
     </button>
+    <button type="button" class="legend-item" data-legend-method="regenerative" aria-pressed="false">
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#3F8A4C;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-text"><span>Regenerative</span></span>
+    </button>
+    <button type="button" class="legend-item" data-legend-method="both" aria-pressed="false">
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:linear-gradient(90deg,#6BCB5E 0 50%,#3F8A4C 50% 100%);border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-text"><span>Organic and regenerative</span></span>
+    </button>
+    <div class="legend-item legend-static">
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#B4CBAA;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-text"><span>Details submitted</span></span>
+    </div>
+    <div class="legend-item legend-static">
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:5.85px;height:5.85px;background:#B4CBAA;border:none;"></span></span>
+      <span class="legend-text"><span>Not yet in touch</span></span>
+    </div>
     <!-- Not a tier, so it is described by what it lets you do rather than by
          what the producer has earned, and its count is on screen because that
          number is the whole point of it. Hidden until a farm is on Connect. -->
@@ -2802,6 +2779,7 @@
         <span class="legend-desc">Message the farm and order from them</span>
       </span>
     </button>
+    <p class="legend-note">Farming practices are self-declared by producers and have not been independently verified by Provenance.</p>
   </div>
 
   <!-- DISCOVERY COUNTER -->

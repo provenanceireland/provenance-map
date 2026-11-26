@@ -34,6 +34,28 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 
 **Highlighted and the Seal are two separate layers, not a ladder.** Highlighted is about the *farm* (who the producer is, how they farm); the Seal is the story of a specific *packaged product*, reached by scanning the pack. Most Highlighted farms will never need a Seal, and a Seal can go to any producer with a qualifying product without a Highlighted relationship. **A Seal does involve a visit, but not the Highlighted visit**: a short introduction and a mapping of the product and the ground behind it, not a filmed day on the farm. Neither paid step is self-service: both are reached through a real conversation, never a public payment link.
 
+### Pin fills: contact, then practice (set 2026-11-26, night; supersedes the two sections below)
+
+**This is the settled scheme, chosen by the user after a day of trying others.** The fill first says whether the producer has spoken to us, then, if they have, what they farm:
+
+| Pin | Fill | Size | Ring and glow | Count at launch |
+|---|---|---|---|---|
+| Not yet in touch (`tier: discovered`) | light sage `#B4CBAA` | 5.85px, 5.20px mobile | none | 70 |
+| Details submitted, no organic or regenerative practice | sage `#B4CBAA` | 8.78px, 7.80px mobile | soft white | 28 |
+| Organic | bright green `#6BCB5E` | full | soft white | 10 |
+| Regenerative | darker green `#3F8A4C` | full | soft white | 33 |
+| Organic and regenerative | 50/50 vertical split, organic left | full | soft white | 12 |
+
+**The soft white ring and glow is the old Verified pin's**, `1px solid rgba(248,248,243,0.6)` with `0 0 6px 2px rgba(248,248,243,0.32)`, and it now means "this producer told us themselves", on every submitted pin whatever its practice. Conventional (19), Korean Natural Farming (1) and submitted-but-undeclared (8) all sit on the full-size sage. **KNF lost its own teal pin**; it is one producer.
+
+**What the not-in-touch producers are called.** `tier: discovered`, Discovered in the original tier names. In this scheme's legend they read "Not yet in touch". The user has not settled the visible name yet.
+
+**Visited is not on the pin any more** (the user's decision, 2026-11-26): no gold ring, no halo. It belongs on the card or profile, which is not built yet; for now the three visited farms are the three Highlighted ones, whose card mark already says so. `visited: true` stays on their records and the Visited filter chip still works.
+
+**Legend: six rows plus the disclaimer, 172x188px on a phone.** The three practice rows filter, as the legend always did; Details submitted and Not yet in touch describe only. **The self-declared disclaimer is back in the legend because practice is on the pin again.**
+
+**Practice still derives from `practice` through `farmingMethod()`.** There is no separate field and there should not be one.
+
 ### Two fills, and the ring will say the rest (set 2026-11-26, evening)
 
 **This supersedes the fill colours in the section below, which lasted half a day.** The user's plan, in his words: every producer who has submitted their details keeps the light green pin that used to mean Verified; anyone who has not is a very light sage, "like an unexplored icon on a video game map: no one has visited it yet, it just has the name and the basic explanation"; and **how they differentiate from there is by ring colour**, which is the next piece of work.
