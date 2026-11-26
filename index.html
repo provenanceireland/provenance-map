@@ -2063,6 +2063,10 @@
     @media (prefers-reduced-motion: reduce) {
       .pin-ripple { animation: none; }
     }
+    /* Buy direct off (BUY_DIRECT_ON in the script): no ripple, no key row.
+       display: none, so a hidden ripple does not animate either. */
+    body.no-buy-direct .pin-ripple,
+    body.no-buy-direct #legend-connect { display: none !important; }
 
     /* ── ARRIVAL ── on first load the pins settle onto the island in a sweep
        from the north-west, about a second end to end, each one fading in and
@@ -5421,6 +5425,13 @@
        brings them back. Set to false to show them on load again. */
     const HIDE_UNEXPLORED_ON_LOAD = true;
     if (HIDE_UNEXPLORED_ON_LOAD) document.body.classList.add('hide-unexplored');
+
+    /* Buy direct, off for now (2026-11-26, at the user's request): the
+       Connect ripple on a pin and the Buy direct row in the key. Nothing is
+       deleted; the ripples are still built and the row still counts, both
+       just hidden by the class. Set to true to bring them back together. */
+    const BUY_DIRECT_ON = false;
+    if (!BUY_DIRECT_ON) document.body.classList.add('no-buy-direct');
 
     function syncUnexploredUI() {
       const b = document.querySelector('[data-legend-unexplored]');
