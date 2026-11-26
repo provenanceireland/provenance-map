@@ -34,6 +34,37 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 
 **Highlighted and the Seal are two separate layers, not a ladder.** Highlighted is about the *farm* (who the producer is, how they farm); the Seal is the story of a specific *packaged product*, reached by scanning the pack. Most Highlighted farms will never need a Seal, and a Seal can go to any producer with a qualifying product without a Highlighted relationship. **A Seal does involve a visit, but not the Highlighted visit**: a short introduction and a mapping of the product and the ground behind it, not a filmed day on the farm. Neither paid step is self-service: both are reached through a real conversation, never a public payment link.
 
+### The pin says how they farm, not what tier they are (set 2026-11-26)
+
+**Phase 1 of the farming classification system.** The pin interior is the producer's self-declared farming practice. Tier no longer colours or sizes a pin. **Tier is not deleted and still runs everything else**: the card mark, the "Confirmed by" line, the share stubs, what `/producer/` is allowed to show, the Connect listing and the menu. The section below on tier colours is the record of what tier used to paint, and is now history for the map only.
+
+**There is no `farmingMethod` field, on purpose.** The classification derives from the existing `practice` field through `farmingMethod()` in `index.html`. `practice` is already the producer's own declaration, written only when they tick the box on the form, so a second column would be the same fact twice and the two would drift the first time somebody verified a farm. A producer who declares tomorrow changes colour with nothing to migrate. **Do not add a `farmingMethod` key to `producers.json`.**
+
+| Class | Fill | Border | From `practice` | Count at launch |
+|---|---|---|---|---|
+| Organic | `#59A666` | white | `organic` | 10 |
+| Regenerative | `#B4CBAA` | `#F4F2E9` | `regenerative` | 33 |
+| Both | 50/50 vertical split, `#59A666` then `#B4CBAA` | white | both values, either order | 12 |
+| Conventional | `#8A8275` | soft `#F4F2E9` | `conventional` | 19 |
+| Korean Natural Farming | `#4A8A8A` | `#F4F2E9` | `korean-natural-farming` | 1 |
+| Not established | `#7E8B85` | soft `#F4F2E9` | `unspecified` or empty | 78 |
+
+**Conventional is its own class and is not Unknown.** The producer told us; it simply is not one of the two. Collapsing it into Not established would say their practice is unrecorded when it is recorded. **KNF keeps the teal the design system already gives it on the card**, because filing a natural farming practice under conventional would be wrong and under Not established would erase a declaration. Both of these are additions to the four-way spec, agreed on 2026-11-26.
+
+**One size, one border weight, colour is the only variable.** 8.78px, 7.80px on mobile, for every class. The old per-tier sizes are gone, and so are the per-tier `--ng` compensations the new-pin glow needed.
+
+**The neutrals are deliberately the quietest thing on the map.** 97 of 153 pins carry no declared practice or a conventional one. Built to spec at full ring and glow they drowned out the farms that had actually told us something, and the map read as a scatter of pale dots rather than as green. Same fill colours, but **soft ring at 0.42 alpha and no glow**: a declared practice earns the glow, an absent one does not. `farming-classification.png` and `farming-classification-softened.png` in `Map Screenshot` are the before and after.
+
+**Highlighted is a gold border now, not a fill.** The farm's own practice keeps the interior and `#CDA043` says Provenance has been there. 1px, not 1.5px: Chrome snaps border-width to whole device pixels, so 1.5 renders as 1 at DPR 1 and 1.33 at DPR 3.
+
+**Visited is a golden halo and ANDs with the classes.** `"visited": true` on the record, rendered on the existing `.pin-pulse` element, which used to carry the Highlighted halo, so there is still only one halo on the map. Organic plus Visited means visited organic farms, not either. **Only the three Highlighted farms are marked** (Skehana Hill, Tara Hill Honey, Rathphelan Farm, set 2026-11-26); every other farm the founder has stood on needs marking by hand.
+
+**The legend carries the disclaimer and it is always on, never a tooltip:** "Farming practices are self-declared by producers and have not been independently verified by Provenance." The map shows a claim it has not checked, so the sentence saying so cannot be something you go looking for.
+
+**What this costs, and it was accepted.** The map no longer shows verification at all. A Discovered farm and a Verified farm that declared no practice both render Not established, which is 78 pins with no visible difference between researched and producer-confirmed. On 2026-10-01 exactly that situation was reversed for being wrong. It is a deliberate trade now: the pin answers "how do they farm" instead of "how sure are we", and the answer to the second question still lives on the card.
+
+**The four-way scheme does not fit a producer who is not a land farm.** Eight Verified producers declared no practice and most of them cannot: Donegal Sea Salt, Dingle Sea Salt, Hook Head Oysters, Staffords Butchers, Tom's Apiary, Galtee Honey Farm, Castlemine Farm, Sliabh Aughty Honey. "Not established" reads as an omission when the truth is that the question does not apply. Unsettled.
+
 ### Pin Colours
 
 - **Discovered Producers (tier: "discovered" / default):** Dark green — `#2A5A38`, 5.85px dot (5.20px on mobile), cream border (`1px solid rgba(232,222,200,0.75)`), faint green glow (`box-shadow: 0 0 4px 1px rgba(42,90,56,0.40)`). The default pin. No profile page, no badge. Card shows "Discovered Producer" pill in matching dark green (border `#2A5A38`, text `#4E8560`). Set `"tier": "discovered"` in producers.json (or omit tier field).

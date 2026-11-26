@@ -628,6 +628,7 @@
     },
     {
       "id": "skehana-hill",
+      "visited": true,
       "practice": "organic",
       "name": "Skehana Hill",
       "tier": "featured",
@@ -1676,6 +1677,7 @@
     },
     {
       "id": "tara-hill-honey",
+      "visited": true,
       "practice": "conventional",
       "name": "Tara Hill Honey",
       "tier": "featured",

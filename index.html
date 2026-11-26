@@ -1149,6 +1149,21 @@
       font-size: 0.53rem;
       color: rgba(80,72,56,0.78);
     }
+    /* The self-declared disclaimer. Deliberately quiet and deliberately
+       always on, not a tooltip: the map shows a farming claim it has not
+       checked, so the sentence saying so cannot be something you have to
+       go looking for. */
+    .legend-note {
+      margin: 7px 2px 0;
+      padding-top: 7px;
+      border-top: 1px solid rgba(80,72,56,0.18);
+      font-size: 0.5rem;
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: rgba(80,72,56,0.72);
+      max-width: 190px;
+    }
     .legend-dot-wrap {
       width: 12px; height: 12px;
       display: flex; align-items: center; justify-content: center;
@@ -1606,58 +1621,93 @@
     }
 
     /* ── LIVING PIN SYSTEM ── */
-    /* Discovered — static, brand cream, thin white border */
-    .pin.t-discovered .pin-dot {
-      width: 5.85px !important;
-      height: 5.85px !important;
-      background: #2A5A38;
-      border: 1px solid rgba(232,222,200,0.75) !important;
-      box-shadow: 0 0 4px 1px rgba(42,90,56,0.40);
-    }
-    .pin.t-discovered .pin-pulse { display: none; }
+    /* -- FARMING CLASSIFICATION PINS (2026-11-26) --
+       The pin interior is what the producer says they farm, not how far up
+       our own ladder they are. One size and one border weight for every
+       class, so colour is the only variable and they read as one family.
 
-    /* Verified — #59A666, 50% larger than Discovered, white border, static green glow */
-    .pin.t-verified .pin-dot {
+       Practice is SELF-DECLARED. None of this is a Provenance verification,
+       which is why the legend carries that sentence in full.
+
+       Derived from the existing `practice` field rather than a second column
+       of the same fact, so a producer who declares tomorrow changes colour
+       with no migration and nothing to keep in sync. See farmingMethod().
+
+       Tier is not deleted. It still drives the card mark, the "Confirmed by"
+       line, the share stubs, what /producer/ may show and the Connect
+       listing. It simply no longer colours or sizes a pin, with the single
+       exception of Highlighted, which is the gold border below. */
+    /* The base IS Not established, and it is deliberately the quietest
+       thing on the map (2026-11-26). 97 of 153 pins carry no declared
+       practice, so at full ring and glow they drowned out the farms that
+       had actually told us something. Same fill colour, soft ring, no glow:
+       a declared practice earns the glow, an absent one does not. */
+    .pin .pin-dot {
       width: 8.78px !important;
       height: 8.78px !important;
+      border: 1px solid rgba(244,242,233,0.42) !important;
+      background: #7E8B85 !important;
+      box-shadow: none !important;
+    }
+    .pin .pin-pulse { display: none; }
+
+    .pin.fm-organic .pin-dot {
       background: #59A666 !important;
-      border: 1px solid rgba(248,248,243,0.6) !important;
-      box-shadow: 0 0 6px 2px rgba(89,166,102,0.73) !important;
+      border-color: #FFFFFF !important;
+      box-shadow: 0 0 6px 2px rgba(89,166,102,0.62) !important;
     }
-    /* Verified is static — the pulse is a paid (Featured/Seal) signal */
-    .pin.t-verified .pin-pulse { display: none; }
+    .pin.fm-regenerative .pin-dot {
+      background: #B4CBAA !important;
+      border-color: #F4F2E9 !important;
+      box-shadow: 0 0 6px 2px rgba(180,203,170,0.55) !important;
+    }
+    /* A clean vertical split, organic left and regenerative right, in the
+       same two colours those classes carry alone, so the split reads as
+       "both of those" rather than as a third invented colour. */
+    .pin.fm-both .pin-dot {
+      background: linear-gradient(90deg, #59A666 0 50%, #B4CBAA 50% 100%) !important;
+      border-color: #FFFFFF !important;
+      box-shadow: 0 0 6px 2px rgba(134,187,138,0.58) !important;
+    }
+    /* Declared conventional is not the same thing as not established, so it
+       does not share the Unknown grey. Warm, against that cool stone. */
+    .pin.fm-conventional .pin-dot {
+      background: #8A8275 !important;
+      box-shadow: none !important;
+    }
+    /* Korean Natural Farming keeps the teal the design system already gives
+       it on the card. Folding a natural farming practice into conventional
+       would be wrong; folding it into Unknown would erase a declaration. */
+    .pin.fm-knf .pin-dot {
+      background: #4A8A8A !important;
+      border-color: #F4F2E9 !important;
+      box-shadow: 0 0 6px 2px rgba(74,138,138,0.55) !important;
+    }
 
-    /* Featured — premium gold, 3% larger than Verified, fine gold ring and a
-       soft two-stage golden glow. Static: the glow carries the signal. */
+    /* Highlighted is a border now, not a fill (2026-11-26). The farm's own
+       practice keeps the interior and the gold says Provenance has been
+       there. Same #CDA043 the old gold gradient was built around.
+
+       1px and not 1.5px: Chrome snaps border-width to whole device pixels,
+       so 1.5 renders as 1 at DPR 1 and 1.33 at DPR 3, which is a surprise
+       for no gain. Every class carries the same weight and the gold ring in
+       the shadow below does the thickening. */
     .pin.t-featured .pin-dot {
-      width: 9.22px !important;
-      height: 9.22px !important;
-      /* Lit from the upper left so the dot reads as a raised bead rather than
-         a flat disc. Deep amber gold core, brighter highlight, darker rim. */
-      background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%) !important;
-      border: none !important;
+      border: 1px solid #CDA043 !important;
       box-shadow:
-        inset 0 0 1.5px rgba(255,238,186,0.45),
-        0 0 0 1px rgba(201,154,56,0.55),
-        0 0 10px 3px rgba(201,154,56,0.58),
-        0 0 21px 7px rgba(201,154,56,0.27) !important;
+        0 0 0 1px rgba(201,154,56,0.30),
+        0 0 8px 2px rgba(201,154,56,0.45) !important;
     }
-    /* Highlighted no longer breathes (2026-10-29). It carried a slow orange
-       pulse from 2026-08-24, and CLAUDE.md called a pulsing pin the paid
-       signal. Movement now means one thing on this map and one thing only:
-       you can buy direct from this farm. Three different things moving, for
-       three unrelated reasons, was the confusion.
 
-       Nothing is lost telling Highlighted apart. It still has the gold
-       gradient, the largest dot and the strongest glow, none of which any
-       other tier has. A static halo stands in for the pulse so the pin keeps
-       its weight rather than simply losing a layer. */
-    .pin.t-featured .pin-pulse {
+    /* Visited by Provenance: a golden halo on the .pin-pulse element, held
+       still. That element used to carry the Highlighted halo and this is the
+       only thing it means now, so there is still just one halo on the map. */
+    .pin.is-visited .pin-pulse {
       display: block;
-      width: 9.22px; height: 9.22px;
+      width: 8.78px; height: 8.78px;
       background: rgba(214,132,52,0.20);
       transform: translate(-50%,-50%) scale(2.1);
-      opacity: 0.26;
+      opacity: 0.30;
       animation: none;
     }
 
@@ -1935,9 +1985,9 @@
        edge, on mobile and on desktop, so every tier gets the same rim.
        If a dot size changes, recompute: peak = 0.311 x contentWidth x scale,
        and content width is the dot width minus its border. */
-    .pin.is-new .pin-dot            { --ng: 2.2; }
-    .pin.t-discovered.is-new .pin-dot { --ng: 2.71; }
-    .pin.t-featured.is-new .pin-dot   { --ng: 1.65; }
+    /* One value now: every class is the same dot size, so the per-tier
+       compensations this used to need are gone (2026-11-26). */
+    .pin.is-new .pin-dot { --ng: 2.2; }
     .pin.is-new .pin-dot::before {
       content: '';
       position: absolute;
@@ -2008,10 +2058,8 @@
     }
 
     @media (max-width: 768px) {
-      .pin.t-discovered .pin-dot { width: 5.20px !important; height: 5.20px !important; }
-      .pin.t-verified .pin-dot { width: 7.80px !important; height: 7.80px !important; }
-      .pin.t-featured .pin-dot { width: 8.19px !important; height: 8.19px !important; }
-      .pin.t-featured .pin-pulse { width: 8.19px; height: 8.19px; }
+      .pin .pin-dot { width: 7.80px !important; height: 7.80px !important; }
+      .pin.is-visited .pin-pulse { width: 7.80px; height: 7.80px; }
     }
 
     /* ── PROVENANCE COLLECTION ── a member of the Collection keeps its tier
@@ -2048,7 +2096,7 @@
       /* Except Highlighted's, which stopped moving for everyone on 2026-10-29.
          There is nothing left to calm, so hiding it here would only take the
          halo off the pin for these visitors and nobody else. */
-      .pin.t-featured .pin-pulse { opacity: 0.26 !important; }
+      .pin.is-visited .pin-pulse { opacity: 0.30 !important; }
       .pin.t-seal-lite .pin-dot,
       .pin.t-seal-complete .pin-dot {
         box-shadow: 0 0 10px 3px rgba(196,164,74,0.5);
@@ -2429,6 +2477,12 @@
       white-space: nowrap;
     }
     .fr-none { padding: 13px 2px; color: #504838; font-size: 0.9rem; }
+    .filter-note {
+      margin: 8px 0 0;
+      font-size: 0.56rem;
+      line-height: 1.45;
+      color: rgba(80,72,56,0.72);
+    }
     .filter-label {
       font-size: 0.56rem;
       letter-spacing: 0.12em;
@@ -2517,7 +2571,7 @@
       border-color: rgba(69,112,78,0.5);
       color: #5A8C64;
     }
-    .filter-tiers { display: flex; flex-wrap: wrap; gap: 6px; }
+    .filter-methods { display: flex; flex-wrap: wrap; gap: 6px; }
 
     @media (min-width: 601px) {
       #filter-panel {
@@ -2731,31 +2785,54 @@
        the map returns. It drives the same filterState the filter panel does,
        so the two can never disagree and Clear all clears both. -->
   <div id="map-legend">
-    <button type="button" class="legend-item" data-legend-tier="discovered" aria-pressed="false">
+    <button type="button" class="legend-item" data-legend-method="organic" aria-pressed="false">
       <span class="legend-dot-wrap">
-        <span class="legend-dot" style="width:5.85px;height:5.85px;background:#2A5A38;border:1px solid rgba(232,222,200,0.75);box-shadow:0 0 4px 1px rgba(42,90,56,0.40);"></span>
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid #FFFFFF;box-shadow:0 0 6px 2px rgba(89,166,102,0.62);"></span>
+      </span>
+      <span class="legend-text"><span>Organic</span></span>
+    </button>
+    <button type="button" class="legend-item" data-legend-method="regenerative" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#B4CBAA;border:1px solid #F4F2E9;box-shadow:0 0 6px 2px rgba(180,203,170,0.55);"></span>
+      </span>
+      <span class="legend-text"><span>Regenerative</span></span>
+    </button>
+    <button type="button" class="legend-item" data-legend-method="both" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:linear-gradient(90deg,#59A666 0 50%,#B4CBAA 50% 100%);border:1px solid #FFFFFF;box-shadow:0 0 6px 2px rgba(134,187,138,0.58);"></span>
+      </span>
+      <span class="legend-text"><span>Both</span></span>
+    </button>
+    <button type="button" class="legend-item" data-legend-method="conventional" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#8A8275;border:1px solid rgba(244,242,233,0.42);"></span>
+      </span>
+      <span class="legend-text"><span>Conventional</span></span>
+    </button>
+    <button type="button" class="legend-item" data-legend-method="knf" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#4A8A8A;border:1px solid #F4F2E9;box-shadow:0 0 6px 2px rgba(74,138,138,0.55);"></span>
+      </span>
+      <span class="legend-text"><span>Korean Natural Farming</span></span>
+    </button>
+    <button type="button" class="legend-item" data-legend-method="unknown" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#7E8B85;border:1px solid rgba(244,242,233,0.42);"></span>
       </span>
       <span class="legend-text">
-        <span>Discovered producer</span>
-        <span class="legend-desc">Found and listed by Provenance</span>
+        <span>Not established</span>
+        <span class="legend-desc">No practice on record</span>
       </span>
     </button>
-    <button type="button" class="legend-item" data-legend-tier="verified" aria-pressed="false">
-      <span class="legend-dot-wrap legend-dot-verified">
-        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#59A666;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(89,166,102,0.73);"></span>
+    <!-- Visited is not a farming class. It ANDs with them, so Organic plus
+         Visited means visited organic farms. -->
+    <button type="button" class="legend-item" data-legend-visited="1" aria-pressed="false">
+      <span class="legend-dot-wrap">
+        <span class="legend-dot" style="width:8.78px;height:8.78px;background:#7E8B85;border:1px solid #CDA043;box-shadow:0 0 0 1px rgba(201,154,56,0.30),0 0 9px 3px rgba(214,132,52,0.42);"></span>
       </span>
       <span class="legend-text">
-        <span>Verified producer</span>
-        <span class="legend-desc">Details confirmed by the producer</span>
-      </span>
-    </button>
-    <button type="button" class="legend-item" data-legend-tier="featured" aria-pressed="false">
-      <span class="legend-dot-wrap legend-dot-featured">
-        <span class="legend-dot" style="width:9.22px;height:9.22px;background:radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%);border:none;box-shadow:inset 0 0 1.5px rgba(255,238,186,0.45), 0 0 0 1px rgba(201,154,56,0.55), 0 0 7px 2px rgba(69,112,78,0.45), 0 0 16px 6px rgba(201,154,56,0.20);"></span>
-      </span>
-      <span class="legend-text">
-        <span>Highlighted producer</span>
-        <span class="legend-desc">Visited and filmed by Provenance</span>
+        <span>Visited by Provenance</span>
+        <span class="legend-desc">We have stood on this ground</span>
       </span>
     </button>
     <!-- Not a tier, so it is described by what it lets you do rather than by
@@ -2771,6 +2848,7 @@
         <span class="legend-desc">Message the farm and order from them</span>
       </span>
     </button>
+    <p class="legend-note">Farming practices are self-declared by producers and have not been independently verified by Provenance.</p>
   </div>
 
   <!-- DISCOVERY COUNTER -->
@@ -2959,13 +3037,22 @@
     </div>
 
     <div class="filter-section">
-      <span class="filter-label">Tier</span>
-      <div class="filter-tiers">
-        <button class="tier-btn" data-tier="discovered">Discovered</button>
-        <button class="tier-btn" data-tier="verified">Verified</button>
-        <button class="tier-btn" data-tier="featured">Highlighted</button>
-        <button class="tier-btn" data-tier="seal-lite">Seal Lite</button>
-        <button class="tier-btn" data-tier="seal-complete">Seal Complete</button>
+      <span class="filter-label">Farming practice</span>
+      <div class="filter-methods">
+        <button class="filter-chip method-btn" data-method="organic">Organic</button>
+        <button class="filter-chip method-btn" data-method="regenerative">Regenerative</button>
+        <button class="filter-chip method-btn" data-method="both">Both</button>
+        <button class="filter-chip method-btn" data-method="conventional">Conventional</button>
+        <button class="filter-chip method-btn" data-method="knf">Korean Natural Farming</button>
+        <button class="filter-chip method-btn" data-method="unknown">Not established</button>
+      </div>
+      <p class="filter-note">Self-declared by producers, not independently verified by Provenance.</p>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Provenance</span>
+      <div class="filter-methods">
+        <button class="filter-chip visited-btn" data-visited="1">Visited by Provenance</button>
       </div>
     </div>
   </div>
@@ -3311,11 +3398,38 @@
     // ── DYNAMIC PIN RENDERING ─────────────────────────────────────
     const TIER_NUM = { discovered: 0, verified: 1, featured: 2, 'seal-lite': 3, 'seal-complete': 4 };
 
+    /* The four-way farming classification, derived from `practice` rather
+       than stored a second time (2026-11-26). `practice` is already the
+       producer's own declaration, written only when they tick the box on
+       the form, so deriving keeps one source of truth: a farm that declares
+       tomorrow changes colour with nothing to migrate and nothing to sync.
+
+       Organic and regenerative are tested before KNF so a farm holding both
+       a mainstream practice and KNF still reads as what most people are
+       filtering for. Conventional is its own class and NOT Unknown: the
+       producer told us, it simply is not one of the two. Unknown means not
+       established, which is every Discovered listing by rule. */
+    const FARMING_METHODS = ['organic', 'regenerative', 'both', 'conventional', 'knf', 'unknown'];
+
+    function farmingMethod(practice) {
+      const s = new Set(String(practice || '').toLowerCase()
+                          .split(',').map(v => v.trim()).filter(Boolean));
+      const o = s.has('organic'), r = s.has('regenerative');
+      if (o && r) return 'both';
+      if (o) return 'organic';
+      if (r) return 'regenerative';
+      if (s.has('korean-natural-farming')) return 'knf';
+      if (s.has('conventional')) return 'conventional';
+      return 'unknown';
+    }
+
     function renderPin(p) {
       const div = document.createElement('div');
       div.dataset.id = p.id;
       const tierNum = TIER_NUM[p.tier] || 0;
       const classes = ['pin', 't-' + (p.tier || 'discovered')];
+      classes.push('fm-' + farmingMethod(p.practice));
+      if (p.visited) classes.push('is-visited');
       if (p.pin_classes) classes.push(...p.pin_classes.trim().split(' ').filter(Boolean));
       if (p.available_now) classes.push('available-now');
       if (p.collection)  { classes.push('collection'); div.dataset.collection = 'true'; }   // a Provenance Collection member wears the Collection pin
@@ -3338,6 +3452,8 @@
       div.dataset.county = p.county || '';
       div.dataset.productTypes = (p.product_type || []).join(',');
       div.dataset.tierName = p.tier || 'discovered';
+      div.dataset.farmingMethod = farmingMethod(p.practice);
+      if (p.visited) div.dataset.visited = 'true';
       if (p.practice)    div.dataset.practice    = p.practice;
       if (p.product)     div.dataset.product     = p.product;
       if (p.photo_url)   div.dataset.photo       = p.photo_url;
@@ -4406,7 +4522,11 @@
       productTypes: new Set(),
       practices: new Set(),
       attributes: new Set(),
-      tiers: new Set(),
+      /* Farming classification, replacing the old tier filter (2026-11-26).
+         Visited is deliberately a separate boolean and ANDs with the rest,
+         so "Organic + Visited" means visited organic farms, not either. */
+      methods: new Set(),
+      visited: false,
       // A plain boolean, not a Set: there is one Connect, you are on it or
       // you are not.
       connect: false
@@ -4416,10 +4536,14 @@
        change both have to be redrawn from it rather than each tracking its
        own idea of what is active. */
     function syncFilterUI() {
-      document.querySelectorAll('.tier-btn').forEach(b =>
-        b.classList.toggle('active', filterState.tiers.has(b.dataset.tier)));
-      document.querySelectorAll('[data-legend-tier]').forEach(b =>
-        b.setAttribute('aria-pressed', filterState.tiers.has(b.dataset.legendTier) ? 'true' : 'false'));
+      document.querySelectorAll('.method-btn').forEach(b =>
+        b.classList.toggle('active', filterState.methods.has(b.dataset.method)));
+      document.querySelectorAll('[data-legend-method]').forEach(b =>
+        b.setAttribute('aria-pressed', filterState.methods.has(b.dataset.legendMethod) ? 'true' : 'false'));
+      document.querySelectorAll('.visited-btn, [data-legend-visited]').forEach(b => {
+        b.classList.toggle('active', filterState.visited);
+        b.setAttribute('aria-pressed', filterState.visited ? 'true' : 'false');
+      });
       const lc = document.getElementById('legend-connect');
       if (lc) lc.setAttribute('aria-pressed', filterState.connect ? 'true' : 'false');
     }
@@ -4428,9 +4552,9 @@
     function applyFilters() {
       if (nearMe.active) return; // near-me controls pin opacity while mode is on
       const pins = document.querySelectorAll('.pin');
-      const { search, county, productTypes, practices, attributes, tiers, connect } = filterState;
+      const { search, county, productTypes, practices, attributes, methods, visited, connect } = filterState;
       const hasFilters = search || county || productTypes.size || practices.size ||
-                         attributes.size || tiers.size || connect;
+                         attributes.size || methods.size || visited || connect;
       const matched = [];
 
       pins.forEach(pin => {
@@ -4465,8 +4589,11 @@
         if (match && attributes.size) {
           match = pinAttrs.some(a => attributes.has(a));
         }
-        if (match && tiers.size) {
-          match = tiers.has(tierName);
+        if (match && methods.size) {
+          match = methods.has(pin.dataset.farmingMethod || 'unknown');
+        }
+        if (match && visited) {
+          match = pin.dataset.visited === 'true';
         }
         if (match && connect) {
           match = pin.classList.contains('on-connect');
@@ -4570,9 +4697,10 @@
     }
 
     function updateFilterBadge() {
-      const { search, county, productTypes, practices, attributes, tiers, connect } = filterState;
+      const { search, county, productTypes, practices, attributes, methods, visited, connect } = filterState;
       const count = (search ? 1 : 0) + (county ? 1 : 0) + productTypes.size +
-                    practices.size + attributes.size + tiers.size + (connect ? 1 : 0);
+                    practices.size + attributes.size + methods.size +
+                    (visited ? 1 : 0) + (connect ? 1 : 0);
       const toggle = document.getElementById('filter-toggle');
       let badge = document.getElementById('filter-count');
       if (count > 0) {
@@ -4595,11 +4723,12 @@
       filterState.productTypes.clear();
       filterState.practices.clear();
       filterState.attributes.clear();
-      filterState.tiers.clear();
+      filterState.methods.clear();
+      filterState.visited = false;
       filterState.connect = false;
       document.getElementById('filter-search').value = '';
       document.getElementById('filter-county').value = '';
-      document.querySelectorAll('.filter-chip, .tier-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter-chip, .method-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.legend-item').forEach(b => b.setAttribute('aria-pressed', 'false'));
       applyFilters();
     }
@@ -4648,10 +4777,12 @@
       btn.addEventListener('click', () => {
         if (btn.dataset.legendConnect) {
           filterState.connect = !filterState.connect;
-        } else {
-          const tier = btn.dataset.legendTier;
-          if (filterState.tiers.has(tier)) filterState.tiers.delete(tier);
-          else                             filterState.tiers.add(tier);
+        } else if (btn.dataset.legendVisited) {
+          filterState.visited = !filterState.visited;
+        } else if (btn.dataset.legendMethod) {
+          const m = btn.dataset.legendMethod;
+          if (filterState.methods.has(m)) filterState.methods.delete(m);
+          else                            filterState.methods.add(m);
         }
         syncFilterUI();
         applyFilters();
@@ -4659,18 +4790,23 @@
       });
     });
 
-    document.querySelectorAll('.tier-btn').forEach(btn => {
+    document.querySelectorAll('.method-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const tier = btn.dataset.tier;
-        if (filterState.tiers.has(tier)) {
-          filterState.tiers.delete(tier);
-          btn.classList.remove('active');
-        } else {
-          filterState.tiers.add(tier);
-          btn.classList.add('active');
-        }
-        syncFilterUI();   // the legend shows the same tiers as the panel
+        const m = btn.dataset.method;
+        if (filterState.methods.has(m)) filterState.methods.delete(m);
+        else                            filterState.methods.add(m);
+        syncFilterUI();   // the legend shows the same classes as the panel
         applyFilters();
+        updateFilterBadge();
+      });
+    });
+
+    document.querySelectorAll('.visited-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterState.visited = !filterState.visited;
+        syncFilterUI();
+        applyFilters();
+        updateFilterBadge();
       });
     });
 
