@@ -40,7 +40,7 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 
 | Pin | Fill | Size | Ring and glow | Count at launch |
 |---|---|---|---|---|
-| Not yet in touch (`tier: discovered`) | light grey `#ACB3AE` (was sage until the same night: too easily mistaken for submitted) | 5.85px, 5.20px mobile | white ring `1px solid rgba(248,248,243,0.6)`, no glow (ring added 2026-11-26 at the user's request) | 70 |
+| Not yet in touch (`tier: discovered`) | dark green `#285C36` (sage, then grey, the same night: the user wanted a darker green that does not blend into the map, and the white ring keeps it off the land) | 5.85px, 5.20px mobile | white ring `1px solid rgba(248,248,243,0.6)`, no glow (ring added 2026-11-26 at the user's request) | 70 |
 | Details submitted, no organic or regenerative practice | sage `#A9CB9A` (was `#B4CBAA`, made more sage at the user's request) | 8.78px, 7.80px mobile | soft white | 28 |
 | Organic | bright green `#6BCB5E` | full | soft white | 10 |
 | Regenerative | darker green `#3F8A4C` | full | soft white | 33 |

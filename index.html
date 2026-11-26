@@ -1659,15 +1659,16 @@
 
     /* Discovered. Keyed on tier, so it flips to a full submitted pin
        by itself the day the producer sends their details. Last in the block
-       so nothing above can paint over it. Grey rather than sage
-       (#ACB3AE, same lightness, the colour drained out) so it is never
-       mistaken for the full-size sage of a producer who has submitted.
+       so nothing above can paint over it. Dark green #285C36 (was
+       grey #ACB3AE until the same night): darker than regenerative #3F8A4C
+       and a little more saturated than the painted land, so it neither
+       blends into the map nor reads as a submitted pin.
        It wears the same white ring as every other pin (added at the user's
        request, 2026-11-26) but not their glow, so it stays the quieter kind. */
     .pin.t-discovered .pin-dot {
       width: 5.85px !important;
       height: 5.85px !important;
-      background: #ACB3AE !important;
+      background: #285C36 !important;
       border: 1px solid rgba(248,248,243,0.6) !important;
       box-shadow: none !important;
     }
@@ -2777,7 +2778,7 @@
     <!-- The show and hide switch for the unexplored farms, which are hidden
          on load. Pressed means shown. -->
     <button type="button" class="legend-item" data-legend-unexplored="1" aria-pressed="false">
-      <span class="legend-dot-wrap"><span class="legend-dot" style="width:5.85px;height:5.85px;background:#ACB3AE;border:1px solid rgba(248,248,243,0.6);"></span></span>
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:5.85px;height:5.85px;background:#285C36;border:1px solid rgba(248,248,243,0.6);"></span></span>
       <span class="legend-text"><span>Discovered</span><span class="legend-desc" id="legend-unexplored-desc">Hidden. Tap to show</span></span>
     </button>
     <!-- Not a tier, so it is described by what it lets you do rather than by
