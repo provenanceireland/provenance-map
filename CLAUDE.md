@@ -217,6 +217,15 @@ The coast reaches the edge at **1.35x** and is clipped past it. Every pin stays 
 **Setting `MAP_BASE_SCALE` to 1 turns the whole thing off**, one number, no other edit.
 
 **The artwork is the limit on going further.** It is 1024px, so at 1.25x on a DPR-3 phone the browser draws about 1463 device pixels from it, and a full-screen 2.16x would ask for 2532. The AVIF conversion in the loading notes is what buys the headroom for any larger resting scale.
+
+### A quieter map on a phone, and a lighter artwork (set 2026-11-26)
+
+**The interface steps back once the map arrives (phone only, `max-width: 768px`; desktop untouched).** The legend folds into a **Key chip** in the bottom-right corner (`#legend-key`) and opens directly above it on a tap, the chip reading Close while it is open. **The chip carries a small green dot whenever anything on the legend is switched on** (a practice row, Visited, Buy direct, or Discovered shown), so a filtered map never looks unexplained while the legend is folded away. The producer counter counts up as before and fades 2.6 seconds after it finishes, on a plain timer rather than the last animation frame so a throttled tab still gets there. The Provenance wordmark fades 4.2 seconds after the pins arrive (`body.ui-settled`). Menu, search and Connect stay. **The refresh button stays on purpose**: it clears stale cached files, which is how a change shows on the user's phone straight after a push. `placeZoomOut()` sits the Zoom out chip above the Key chip when the legend is folded.
+
+**The artwork is WebP now: 213 KB instead of 2,018 KB**, `ireland-map.webp`, the same 1024x1024 image encoded at quality 0.92 in Chrome, inside a `<picture>` with the PNG as fallback. The map image was about 95% of the first load, so this is roughly a tenth of what a phone downloads. Compared at three times magnification on coast, surf and rivers, it is indistinguishable from the PNG; 0.86 (133 KB) was too, and 0.92 was chosen for margin on the painted texture. **It is not sharper**: there is no higher-resolution original anywhere on the machine, both `ireland-map.png` and `ireland-map.png.png` are the same 1024px file, and upscaling adds no detail. A crisp deep zoom needs the original artwork exported at 2048px or larger. Nothing reads the artwork's address, and `getMapDims()` works from ratios, so pins are unaffected; a 2048px export could drop straight in. `about.html` still loads the PNG.
+
+**Next, mock only:** drag and pinch, and the card as a half-height sheet.
+
 ### The card states things, it does not badge them
 
 Decided 2026-09-24. The card used to stack four rows of rounded pills — tier, Collection, confirmed attributes, produce, venue — and they read as chrome rather than as content. They are all text now, no borders and no backgrounds:
