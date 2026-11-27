@@ -271,6 +271,18 @@ The Connect listing page follows the same rule. Anything new that wants to label
 
 **"Confirmed by <farm>" sits above the Share row, not at the foot of the card (moved 2026-11-19).** It renders for Verified and Highlighted only, and it used to be the card's last line, under Share and under the button block. `#card` is the scroller and its content runs about 769px, so the line landed 660px down the screen while the Back strip stays pinned to the card's bottom edge. **On any viewport under about 755px the line sat beneath the strip or off the card entirely**, and most phones in a browser are shorter than that, so the one line saying who stood over this farm was the one line nobody saw without scrolling for it. Above Share it lands at 566px and clears the strip from about 648px of viewport, which covers every phone the map realistically meets. The Share row, bounded by its own two hairlines, is the last thing on the card instead. **The 96px bottom padding on `.card-body` is not what fixes this and must stay**: it is inside the scrolling content, so it only does its job once you have already scrolled to the bottom.
 
+### Connect becomes part of being on the map (decided 2026-11-27, not yet built)
+
+**Connect stops being a separate product you go to and becomes what every confirmed farm's card and profile does.** The map is the directory; the documentary is the main thing farms pay for. Settled by the user through six questions:
+
+- **Every confirmed farm that agrees to its number being shown gets Connect automatically**: a message button and its "what they have now" list on its card and profile. No separate Connect sign-up. Discovered farms get it when they confirm. Consent is the `publish_number` answer; never put a researched number on the map.
+- **Farms update their own details and list through a form, with no login.** The no-backend rule stands: submissions land in a database the user can see, and the map reads a published copy of it. Logins can come later if the volume calls for them.
+- **Keeping the list current stays paid** (Connect Tier 1). A free farm shows a fixed list that never changes, as before.
+- **Updates go live straight away**, dated, and the user pulls anything wrong afterwards. Nothing waits on approval.
+- **`/connect/` folds into the map.** Its link opens the map showing only farms you can message, and each farm's profile carries the rest: one place, nothing to keep in step between two pages.
+- **Follow is the visitors' first interactive feature**: leave an email, hear when the farm updates, no login. Only paying farms can be followed, since theirs are the lists that change, which gives a farm a reason to pay.
+- **A farm with a documentary gets a film mark and a Watch the film button on its card.** The pin stays clean, in line with Visited coming off the pin on 2026-11-26.
+
 ### The Connect tiers (set 2026-10-29)
 
 **Being on Connect is free, and free is not a tier.** A free listing carries the farmer, where they are, and what they produce. It is never updated. Everything above it is paid.
