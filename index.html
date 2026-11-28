@@ -1842,28 +1842,17 @@
        returns 'knf' for it, so the pin carries fm-knf with nothing to add. */
     .pin.fm-knf .pin-dot { background: #4DB5AD !important; }
 
-    /* Visited by Provenance: the golden glow is back (2026-11-27, at the
-       user's request): a 1px gold ring in place of the white one, a gold
-       glow in place of the white glow, and a faint halo held still on
-       .pin-pulse. All three are the Provenance brand gold, #C4A44A
-       (196,164,74), since later the same day: it was #CDA043 with an
-       orange halo, which read orange rather than gold.
-       The fill stays the farm's own practice. Only the farms with
-       visited: true carry it (Skehana Hill, Tara Hill Honey, Rathphelan). */
-    .pin.is-visited .pin-dot {
-      border: 1px solid #C4A44A !important;
-      box-shadow:
-        0 0 0 1px rgba(196,164,74,0.30),
-        0 0 8px 2px rgba(196,164,74,0.45) !important;
-    }
-    .pin.is-visited .pin-pulse {
-      display: block;
-      width: 8.78px; height: 8.78px;
-      background: rgba(196,164,74,0.20);
-      transform: translate(-50%, -50%) scale(2.1);
-      opacity: 0.30;
-      animation: none;
-    }
+    /* Visited is not on the pin (off again 2026-11-27, at the user's
+       request, the same day it came back). It was a 1px ring, glow and
+       still halo on .pin-pulse, in the brand gold #C4A44A:
+         .pin.is-visited .pin-dot { border: 1px solid #C4A44A;
+           box-shadow: 0 0 0 1px rgba(196,164,74,0.30),
+                       0 0 8px 2px rgba(196,164,74,0.45); }
+         .pin.is-visited .pin-pulse { display: block; width: 8.78px;
+           height: 8.78px; background: rgba(196,164,74,0.20);
+           transform: translate(-50%,-50%) scale(2.1); opacity: 0.30; }
+       The is-visited class and visited: true stay, and the Visited chip
+       in the filter panel still filters. */
 
     /* Discovered. Keyed on tier, so it flips to a full submitted pin
        by itself the day the producer sends their details. Last in the block
@@ -2244,7 +2233,6 @@
     @media (max-width: 768px) {
       .pin .pin-dot { width: 7.80px !important; height: 7.80px !important; }
       .pin.t-discovered .pin-dot { width: 5.20px !important; height: 5.20px !important; }
-      .pin.is-visited .pin-pulse { width: 7.80px; height: 7.80px; }
     }
 
     /* ── PROVENANCE COLLECTION ── a member of the Collection keeps its tier
@@ -2281,7 +2269,6 @@
       /* Except Highlighted's, which stopped moving for everyone on 2026-10-29.
          There is nothing left to calm, so hiding it here would only take the
          halo off the pin for these visitors and nobody else. */
-      .pin.is-visited .pin-pulse { opacity: 0.30 !important; }
       .pin.t-seal-lite .pin-dot,
       .pin.t-seal-complete .pin-dot {
         box-shadow: 0 0 10px 3px rgba(196,164,74,0.5);
@@ -3230,16 +3217,13 @@
       <span class="legend-dot-wrap"><span class="legend-dot" style="width:5.85px;height:5.85px;background:#285C36;border:1px solid rgba(248,248,243,0.6);"></span></span>
       <span class="legend-text"><span>Discovered</span></span>
     </button>
-    <!-- Visited by Provenance (2026-11-27): the gold ring the visited farms
-         wear, as a hollow ring in the brand gold #C4A44A with no glow. The
-         user wanted the middle to match the panel; it always did, but the
-         glow around the ring made it look darker. Hollow, so the gold is the
-         only thing it says, whatever the farm's own fill.
-         Pressed, it keeps just those farms lit, through the Visited filter. -->
-    <button type="button" class="legend-item" data-legend-visited="1" aria-pressed="false">
-      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:transparent;border:1px solid #C4A44A;"></span></span>
-      <span class="legend-text"><span>Visited by Provenance</span></span>
-    </button>
+    <!-- The Visited by Provenance row came off the key on 2026-11-27, at the
+         user's request, hours after it went on. The gold on the visited
+         farms' pins stays, and the Visited chip in the filter panel still
+         filters. To bring the row back, a button with
+         data-legend-visited="1" here is all it takes (the click handler and
+         syncFilterUI already read it): a hollow ring in the brand gold,
+         background:transparent;border:1px solid #C4A44A, no glow. -->
     <!-- Not a tier, so it is described by what it lets you do rather than by
          what the producer has earned, and its count is on screen because that
          number is the whole point of it. Hidden until a farm is on Connect. -->
