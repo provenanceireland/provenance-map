@@ -41,9 +41,9 @@ It is hidden while a producer card is open (`body.pv-card-open`), because the ba
 | Pin | Fill | Size | Ring and glow | Count at launch |
 |---|---|---|---|---|
 | Not yet in touch (`tier: discovered`) | dark green `#285C36` (sage, then grey, the same night: the user wanted a darker green that does not blend into the map, and the white ring keeps it off the land) | 5.85px, 5.20px mobile | white ring `1px solid rgba(248,248,243,0.6)`, no glow (ring added 2026-11-26 at the user's request) | 70 |
-| Farm confirmed (was "Details submitted" until 2026-11-26), no organic or regenerative practice | sage `#A9CB9A` (was `#B4CBAA`, made more sage at the user's request) | 8.78px, 7.80px mobile | soft white | 28 |
-| Organic | bright green `#6BCB5E` | full | soft white | 10 |
-| Regenerative | darker green `#3F8A4C` | full | soft white | 33 |
+| Farm confirmed (was "Details submitted" until 2026-11-26), no organic or regenerative practice | sage `#BAD6AE` (was `#B4CBAA`, then `#A9CB9A`; made slightly lighter on 2026-11-27 at the user's request) | 8.78px, 7.80px mobile | soft white | 28 |
+| Organic | bright green `#76E463` (was `#6BCB5E`; brightened 2026-11-27) | full | soft white | 10 |
+| Regenerative | green `#45A355` (was `#3F8A4C`; slightly brightened 2026-11-27) | full | soft white | 33 |
 | Organic and regenerative | 50/50 vertical split, organic left | full | soft white | 12 |
 
 **The soft white ring and glow is the old Verified pin's**, `1px solid rgba(248,248,243,0.6)` with `0 0 6px 2px rgba(248,248,243,0.32)`, and it now means "this producer told us themselves", on every submitted pin whatever its practice. Conventional (19), Korean Natural Farming (1) and submitted-but-undeclared (8) all sit on the full-size sage. **KNF lost its own teal pin**; it is one producer.
@@ -56,7 +56,9 @@ How it behaves, all verified: `display: none` rather than opacity, so a hidden p
 
 **"Farm confirmed" replaced "Details submitted" (2026-11-26).** The user found "Details submitted" read as form language, and as a miscellaneous leftover for producers he rates highly. The sage bucket is 28 producers in two groups: 10 for whom a farming practice does not apply (6 honey, 3 sea salt, 1 oysters) and 18 land farms with no organic or regenerative claim. Four of the ten ticked "conventional" only because the form offers no answer that fits a beekeeper or a salt harvester, and 5 of the 6 honey producers carry Native Irish bee. **Giving honey and sea their own fills (amber, sea blue) was proposed and declined for now**; only the label changed. **Still open: the Zite form needs a "we don't farm land" answer** so beekeepers stop being pushed into "conventional".
 
-**Visited is not on the pin any more** (the user's decision, 2026-11-26): no gold ring, no halo. It belongs on the card or profile, which is not built yet; for now the three visited farms are the three Highlighted ones, whose card mark already says so. `visited: true` stays on their records and the Visited filter chip still works.
+**Visited is back on the pin (2026-11-27, at the user's request; it was off for a day from 2026-11-26).** The golden glow is restored exactly as it was: a 1px gold ring `#CDA043` in place of the white one, a gold glow `0 0 0 1px rgba(201,154,56,0.30), 0 0 8px 2px rgba(201,154,56,0.45)` in place of the white glow, and the faint orange halo held still on `.pin-pulse` (scale 2.1, opacity 0.30, kept for reduced motion too). The fill stays the farm's own practice. It keys on `visited: true`, which today is Skehana Hill, Tara Hill Honey and Rathphelan Farm. The key has no Visited row yet.
+
+**A still halo for Connect farms was built and declined the same day (2026-11-27).** The user asked for a subtle glow on every Connect farm, no pulse, different from the visited gold; it was a radial band in the Connect green `#B4D2BA` on `.pin.on-connect:not(.is-visited)::after` (8.78px, scale 3.3, peak 0.55 at 52%), with visited farms keeping only the gold. Seen in `Map Screenshot/glow-before-after.png`, the user pushed everything else and left it off. **Do not add it back unasked.**
 
 **Legend: six rows plus the disclaimer, 172x188px on a phone.** The three practice rows filter, as the legend always did; Details submitted and Not yet in touch describe only. **The self-declared disclaimer is back in the legend because practice is on the pin again.**
 

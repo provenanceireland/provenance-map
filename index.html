@@ -546,10 +546,10 @@
     .menu-row .m-dot { flex: none; border-radius: 50%; }
     .m-dot-disc { width: 6px;   height: 6px;   background: #285C36; border: 1px solid rgba(248,248,243,0.6); }
     /* The pin colours, for the search results and the menu (2026-11-26). */
-    .m-dot-fm { width: 8px; height: 8px; background: #A9CB9A; border: 1px solid rgba(248,248,243,0.6); }
-    .m-dot-fm-organic { background: #6BCB5E; }
-    .m-dot-fm-regenerative { background: #3F8A4C; }
-    .m-dot-fm-both { background: linear-gradient(90deg, #6BCB5E 0 50%, #3F8A4C 50% 100%); }
+    .m-dot-fm { width: 8px; height: 8px; background: #BAD6AE; border: 1px solid rgba(248,248,243,0.6); }
+    .m-dot-fm-organic { background: #76E463; }
+    .m-dot-fm-regenerative { background: #45A355; }
+    .m-dot-fm-both { background: linear-gradient(90deg, #76E463 0 50%, #45A355 50% 100%); }
     .m-dot-ver  { width: 8px;   height: 8px;   background: #59A666; box-shadow: 0 0 5px 1px rgba(89,166,102,0.45); }
     .m-dot-feat { width: 9px;   height: 9px;   background: radial-gradient(circle at 34% 30%, #E8C670 0%, #CDA043 48%, #A97C28 100%); box-shadow: 0 0 5px 1px rgba(201,154,56,0.45); }
 
@@ -1818,25 +1818,49 @@
        Practice comes from farmingMethod() on the existing `practice` field;
        there is still no separate field for it. Visited is not on the pin:
        it lives on the card. */
+    /* Colours lifted on 2026-11-27, at the user's request, for a brighter map:
+       organic #6BCB5E -> #76E463, regenerative #3F8A4C -> #45A355 (slightly),
+       farm confirmed sage #A9CB9A -> #BAD6AE (slightly lighter). */
     .pin .pin-dot {
       width: 8.78px !important;
       height: 8.78px !important;
-      background: #A9CB9A !important;
+      background: #BAD6AE !important;
       border: 1px solid rgba(248,248,243,0.6) !important;
       box-shadow: 0 0 6px 2px rgba(248,248,243,0.32) !important;
     }
     .pin .pin-pulse { display: none; }
 
-    .pin.fm-organic .pin-dot      { background: #6BCB5E !important; }
-    .pin.fm-regenerative .pin-dot { background: #3F8A4C !important; }
+    .pin.fm-organic .pin-dot      { background: #76E463 !important; }
+    .pin.fm-regenerative .pin-dot { background: #45A355 !important; }
     .pin.fm-both .pin-dot {
-      background: linear-gradient(90deg, #6BCB5E 0 50%, #3F8A4C 50% 100%) !important;
+      background: linear-gradient(90deg, #76E463 0 50%, #45A355 50% 100%) !important;
+    }
+
+    /* Visited by Provenance: the golden glow is back (2026-11-27, at the
+       user's request), restored exactly as it was before 2026-11-26: a 1px
+       gold ring #CDA043 in place of the white one, a gold glow in place of
+       the white glow, and the faint orange halo held still on .pin-pulse.
+       The fill stays the farm's own practice. Only the farms with
+       visited: true carry it (Skehana Hill, Tara Hill Honey, Rathphelan). */
+    .pin.is-visited .pin-dot {
+      border: 1px solid #CDA043 !important;
+      box-shadow:
+        0 0 0 1px rgba(201,154,56,0.30),
+        0 0 8px 2px rgba(201,154,56,0.45) !important;
+    }
+    .pin.is-visited .pin-pulse {
+      display: block;
+      width: 8.78px; height: 8.78px;
+      background: rgba(214,132,52,0.20);
+      transform: translate(-50%, -50%) scale(2.1);
+      opacity: 0.30;
+      animation: none;
     }
 
     /* Discovered. Keyed on tier, so it flips to a full submitted pin
        by itself the day the producer sends their details. Last in the block
        so nothing above can paint over it. Dark green #285C36 (was
-       grey #ACB3AE until the same night): darker than regenerative #3F8A4C
+       grey #ACB3AE until the same night): darker than regenerative #45A355
        and a little more saturated than the painted land, so it neither
        blends into the map nor reads as a submitted pin.
        It wears the same white ring as every other pin (added at the user's
@@ -2212,6 +2236,7 @@
     @media (max-width: 768px) {
       .pin .pin-dot { width: 7.80px !important; height: 7.80px !important; }
       .pin.t-discovered .pin-dot { width: 5.20px !important; height: 5.20px !important; }
+      .pin.is-visited .pin-pulse { width: 7.80px; height: 7.80px; }
     }
 
     /* ── PROVENANCE COLLECTION ── a member of the Collection keeps its tier
@@ -2248,6 +2273,7 @@
       /* Except Highlighted's, which stopped moving for everyone on 2026-10-29.
          There is nothing left to calm, so hiding it here would only take the
          halo off the pin for these visitors and nobody else. */
+      .pin.is-visited .pin-pulse { opacity: 0.30 !important; }
       .pin.t-seal-lite .pin-dot,
       .pin.t-seal-complete .pin-dot {
         box-shadow: 0 0 10px 3px rgba(196,164,74,0.5);
@@ -3156,7 +3182,7 @@
        so the two can never disagree and Clear all clears both. -->
   <!-- Phone only: the legend folds into this chip. -->
   <button type="button" id="legend-key" aria-expanded="false" aria-controls="map-legend">
-    <span class="k-dots"><i style="background:#6BCB5E"></i><i style="background:#A9CB9A"></i><i style="background:#285C36"></i></span>
+    <span class="k-dots"><i style="background:#76E463"></i><i style="background:#BAD6AE"></i><i style="background:#285C36"></i></span>
     <span class="k-label">Key</span>
   </button>
   <div id="map-legend">
@@ -3164,19 +3190,19 @@
          rows filter, like the legend always did; the two contact rows
          describe and do not. -->
     <button type="button" class="legend-item" data-legend-method="organic" aria-pressed="false">
-      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#6BCB5E;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#76E463;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
       <span class="legend-text"><span>Organic</span></span>
     </button>
     <button type="button" class="legend-item" data-legend-method="regenerative" aria-pressed="false">
-      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#3F8A4C;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#45A355;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
       <span class="legend-text"><span>Regenerative</span></span>
     </button>
     <button type="button" class="legend-item" data-legend-method="both" aria-pressed="false">
-      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:linear-gradient(90deg,#6BCB5E 0 50%,#3F8A4C 50% 100%);border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:linear-gradient(90deg,#76E463 0 50%,#45A355 50% 100%);border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
       <span class="legend-text"><span>Organic and regenerative</span></span>
     </button>
     <div class="legend-item legend-static">
-      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#A9CB9A;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
+      <span class="legend-dot-wrap"><span class="legend-dot" style="width:8.78px;height:8.78px;background:#BAD6AE;border:1px solid rgba(248,248,243,0.6);box-shadow:0 0 6px 2px rgba(248,248,243,0.32);"></span></span>
       <span class="legend-text"><span>Farm confirmed</span></span>
     </div>
     <!-- The show and hide switch for the unexplored farms, which are hidden
