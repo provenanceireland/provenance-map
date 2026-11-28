@@ -65,6 +65,8 @@ How it behaves, all verified: `display: none` rather than opacity, so a hidden p
 
 **Practice still derives from `practice` through `farmingMethod()`.** There is no separate field and there should not be one.
 
+**Types not on the map, offered 2026-11-27 with no preference given:** Biodynamic, In conversion to organic, and agroecology or permaculture. None is a pin type or a form option yet. Any new type needs a Zite form option first, because a pin only ever shows what the farm ticked.
+
 **Buy direct is off for now (2026-11-26, at the user's request).** `BUY_DIRECT_ON = false` in `index.html`, beside `HIDE_UNEXPLORED_ON_LOAD`, puts `no-buy-direct` on `<body>`, which hides the Connect ripple on every pin and the Buy direct row in the key. **Nothing is deleted**: the 27 ripples are still built and the row still counts, so `true` brings both back in one line. The map's only remaining movement is the new-this-week aura. The pin guide plate (`pin-guide-export.html`) was redone without the Buy direct row; its entry is commented out in the plate's own list.
 
 ### Two fills, and the ring will say the rest (set 2026-11-26, evening)
